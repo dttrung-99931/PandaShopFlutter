@@ -1,0 +1,11 @@
+//
+//  release-staging.xcconfig
+//  Runner
+//
+//  Created by Gonosen on 19/04/2023.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+#include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.release-staging.xcconfig"
+#include "Generated.xcconfig"

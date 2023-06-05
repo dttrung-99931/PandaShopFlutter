@@ -1,0 +1,37 @@
+import 'package:equatable/equatable.dart';
+
+abstract class BaseEvent extends Equatable {}
+
+class BaseEventWithoutProps extends BaseEvent {
+  @override
+  List<Object?> get props => [DateTime.now()];
+}
+
+class ErrorEvent extends BaseEvent {
+  final String message;
+
+  ErrorEvent(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}
+
+/// Base Event. BaseBloc auto set [LoadingState] if [LoadingEvent] is trigger
+/// It can be used for showing global loading
+abstract class LoadingEvent extends BaseEvent {}
+
+class LoadingEventWithoutProps extends LoadingEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+// Make bloc state become initial
+class InitialEvent extends BaseEventWithoutProps {}
+
+class OnCheckChanged extends BaseEvent {
+  final bool isChecked;
+  OnCheckChanged(this.isChecked);
+
+  @override
+  List<Object?> get props => [isChecked];
+}

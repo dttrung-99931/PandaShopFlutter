@@ -1,0 +1,51 @@
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:evievm_app/core/utils/log.dart';
+
+import '../failures/failures.dart';
+import '../model/base_response.dart';
+import '../utils/error_handlers.dart';
+import '../utils/network_utils.dart';
+
+abstract class BaseRepo {
+  /// Execute [onRemote] if network is available, otherwise [onLocal] and return either result;
+  /// Handle either errors
+  Future<Either<Failure, T>> handleNetwork<T>({
+    required Future<Either<Failure, T>> onRemote,
+    Future<Either<Failure, T>>? onLocal,
+  }) async {
+    bool isConnected = await NetworkUtils.isConnected;
+    if (!isConnected && onLocal == null) {
+      return Left(NetworkFailure()..log());
+    }
+    Either<Failure, Either<Failure, T>> result =
+        await executeWithTryCatch(() async {
+      return await (isConnected ? onRemote : onLocal!);
+    });
+    return result.fold(
+        (Failure l) => Left(l..log()), (Either<Failure, T> r) => r);
+  }
+
+  Future<Either<Failure, T>> handleServerErrors<T>({
+    required Future<BaseResponse<T?>> datasourceResponse,
+  }) async {
+    try {
+      BaseResponse<T?> response = await datasourceResponse;
+      if (response.isSuccess) {
+        return Right(response.data as T);
+      }
+
+      return Left(ServerError(
+          response.message ?? 'messages.undefined_server_error'.tr(),
+          response.errors)
+        ..log());
+    } on DioError catch (e) {
+      loge('$e\n${e.response?.data}');
+      return Left(ServerError(e.response?.data['message'])..log());
+    } catch (e) {
+      loge(e.toString());
+      return Left(ServerError('messages.undefined_server_error'.tr())..log());
+    }
+  }
+}

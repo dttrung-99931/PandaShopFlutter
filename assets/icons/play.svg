@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="104" height="48" viewBox="0 0 104 48">
+  <g id="Group_33182" data-name="Group 33182" transform="translate(24225 17585)">
+    <path id="Polygon_457" data-name="Polygon 457" d="M8.772,2.962a2,2,0,0,1,3.455,0l7.018,12.031A2,2,0,0,1,17.518,18H3.482a2,2,0,0,1-1.728-3.008Z" transform="translate(-24194 -17571.5) rotate(90)" fill="#3a8ef4"/>
+    <text id="_Label" data-name="↳ Label" transform="translate(-24189 -17556)" fill="#518ced" font-size="14" font-family="YuGothicUI-Regular, Yu Gothic UI"><tspan x="0" y="0">計測開始</tspan></text>
+    <g id="Background" transform="translate(-24225 -17585)" fill="none" stroke="#518ced" stroke-width="3">
+      <rect width="104" height="48" rx="24" stroke="none"/>
+      <rect x="1.5" y="1.5" width="101" height="45" rx="22.5" fill="none"/>
+    </g>
+  </g>
+</svg>

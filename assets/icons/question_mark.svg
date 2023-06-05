@@ -1,0 +1,15 @@
+<svg id="ヘルプアイコン" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="36" viewBox="0 0 36 36">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_8230" data-name="Rectangle 8230" width="20" height="20" fill="none"/>
+    </clipPath>
+  </defs>
+  <rect id="Rectangle_8254" data-name="Rectangle 8254" width="36" height="36" fill="#fff" opacity="0"/>
+  <g id="Group_21093" data-name="Group 21093" transform="translate(8 8)">
+    <g id="Group_21092" data-name="Group 21092" transform="translate(0 0)" clip-path="url(#clip-path)">
+      <path id="Path_13045" data-name="Path 13045" d="M17.03,2.874A10,10,0,1,0,9.976,20a9.906,9.906,0,0,0,7.054-2.923l.095-.094A9.977,9.977,0,0,0,17.03,2.874M9.976,18.3a8.277,8.277,0,1,1,8.277-8.277A8.277,8.277,0,0,1,9.976,18.3" transform="translate(0 0)" fill="#518ced"/>
+      <path id="Path_13046" data-name="Path 13046" d="M9.352,12.773a.992.992,0,0,0-.045,1.983.257.257,0,0,0,.028,0,.992.992,0,0,0,.017-1.983" transform="translate(0.463 0.709)" fill="#518ced"/>
+      <path id="Path_13047" data-name="Path 13047" d="M9.7,4.341c-2.077,0-3.416,1.176-3.492,3.069H7.8c0-.037,0-.073.005-.109A1.684,1.684,0,0,1,9.619,5.754c.041,0,.082-.007.123-.008a1.564,1.564,0,0,1,1.609,1.518c0,.777-.319,1.235-1.26,1.8A2.484,2.484,0,0,0,8.609,11.47l.007.614h1.593v-.468c0-.8.286-1.2,1.276-1.784A2.932,2.932,0,0,0,13.1,7.194c0-1.68-1.4-2.853-3.4-2.853" transform="translate(0.345 0.241)" fill="#518ced"/>
+    </g>
+  </g>
+</svg>

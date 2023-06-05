@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="104" height="48" viewBox="0 0 104 48">
+  <g id="Group_33183" data-name="Group 33183" transform="translate(24225 17585)">
+    <g id="Background" transform="translate(-24225 -17585)" fill="none" stroke="#ed5555" stroke-width="3">
+      <rect width="104" height="48" rx="24" stroke="none"/>
+      <rect x="1.5" y="1.5" width="101" height="45" rx="22.5" fill="none"/>
+    </g>
+    <text id="_Label" data-name="↳ Label" transform="translate(-24189 -17556)" fill="#ed5555" font-size="14" font-family="YuGothicUI-Regular, Yu Gothic UI"><tspan x="0" y="0">一時停止</tspan></text>
+    <rect id="Rectangle_11163" data-name="Rectangle 11163" width="16" height="16" rx="2" transform="translate(-24212 -17569)" fill="#ed5555"/>
+  </g>
+</svg>

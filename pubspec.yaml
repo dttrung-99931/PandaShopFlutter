@@ -1,0 +1,91 @@
+name: evievm_app
+
+description: EVM
+
+publish_to: "none"
+
+version: 1.0.0+4
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # --------------- CORE ---------------
+  flutter_bloc: ^8.1.1
+  get_it: ^7.2.0
+  equatable: ^2.0.3
+  dio: ^5.0.0
+  dartz: ^0.10.1
+  rxdart: ^0.27.5
+  connectivity_plus: ^2.3.9
+  intl: ^0.17.0
+  injectable: ^1.5.4
+  shared_preferences: ^2.0.13
+  json_annotation: ^4.8.0
+  easy_localization: ^3.0.1
+  retrofit: ">=4.0.0 <5.0.0"
+  http_parser: ^4.0.2
+  socket_io_client: ^2.0.2
+  camera: ^0.10.5
+  mobile_scanner: ^3.2.0
+
+  # --------------- UI ---------------
+  cupertino_icons: ^1.0.2
+  flutter_rating_bar: ^4.0.1
+  cached_network_image: ^3.2.1
+  flutter_svg: ^1.1.6
+  responsive_framework: ^0.2.0
+  # rive: ^0.8.4
+  expandable: ^5.0.1
+  syncfusion_flutter_datepicker:
+    path: package/syncfusion_flutter_datepicker
+  flutter_screenutil: ^5.7.0
+  another_flushbar: ^1.12.29
+  package_info_plus: ^3.1.0
+  expandable_page_view: ^1.0.17 # Page view wrap height content    
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  injectable_generator: ^1.5.5
+  flutter_launcher_icons: ^0.12.0
+  build_runner: ^2.0.0
+  json_serializable: ^6.0.0
+  retrofit_generator: ">=5.0.0 <6.0.0"
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo.png"
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/rives/
+    - assets/translations/
+
+  fonts:
+    - family: NotoSansJP
+      fonts:
+        - asset: assets/fonts/NotoSansJP-Thin.otf
+          weight: 100
+        - asset: assets/fonts/NotoSansJP-Light.otf
+          weight: 300
+        - asset: assets/fonts/NotoSansJP-Regular.otf
+          weight: 400
+        - asset: assets/fonts/NotoSansJP-Medium.otf
+          weight: 500
+    - family: Arial
+      fonts:
+        - asset: assets/fonts/Arial-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Arial-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Arial-Bold.ttf
+          weight: 700
