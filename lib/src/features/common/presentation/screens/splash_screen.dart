@@ -47,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
       child: Scaffold(
         backgroundColor: EVMColors.primary,
         body: Center(
-          child: SvgPicture.asset(height: 132.h, Assets.img.evmLogo, color: EVMColors.white),
+          child: Image.asset(height: 132.h, Assets.img.splash),
           // TODO: Create animated splash like the below (from Evinote)
           // child: SizedBox(
           //   width: 300,

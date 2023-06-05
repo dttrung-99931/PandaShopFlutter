@@ -1,8 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="flu.gonosen.evm">
-    <queries>
-        <package android:name="com.facebook.katana" />
-    </queries>
+    package="pantech.panshop_app">
+    <!-- <queries> ??? It cause build error =? Usage ??
+    </queries> -->
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
