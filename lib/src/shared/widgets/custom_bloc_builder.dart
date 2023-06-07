@@ -13,13 +13,16 @@ class CustomBlocBuilder<T extends BaseBloc> extends StatelessWidget {
   final Widget Function(BaseState state) builder;
   final bool handleLoading;
   final Type loadingStateType;
-  CustomBlocBuilder(
-      {super.key,
-      required this.buildForStates,
-      required this.builder,
-      this.initialEvent,
-      this.handleLoading = true,
-      this.loadingStateType = LoadingState});
+  final bool isSliver;
+  CustomBlocBuilder({
+    super.key,
+    required this.buildForStates,
+    required this.builder,
+    this.initialEvent,
+    this.handleLoading = true,
+    this.loadingStateType = LoadingState,
+    this.isSliver = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +40,7 @@ class CustomBlocBuilder<T extends BaseBloc> extends StatelessWidget {
       },
       builder: (context, state) {
         if (handleLoading && state.runtimeType == loadingStateType) {
-          return const LoadingWidget();
+          return isSliver ? const SliverToBoxAdapter(child: LoadingWidget()) : const LoadingWidget();
         }
         return builder(state);
         // throw 'State ${state.runtimeType} has been not handled UI';

@@ -17,7 +17,7 @@ import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:evievm_app/src/features/auth/presentation/screens/qr_barcode_reader_login_screen.dart';
 import 'package:evievm_app/src/features/auth/presentation/widgets/sign_up_suggestion.dart';
-import 'package:evievm_app/src/features/top/presentation/screens/top_screen.dart';
+import 'package:evievm_app/src/features/home/presentation/screens/home_screen.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:evievm_app/src/shared/widgets/cutstom_button.dart';
 import 'package:evievm_app/src/shared/widgets/text_input.dart';
@@ -105,7 +105,7 @@ class EmailLoginScreen extends StatelessWidget {
                       buildAndListenForStates: const [LoginSuccess, LoginFailed, ErrorState, LoadingState],
                       listener: (state) {
                         if (state is LoginSuccess) {
-                          Global.navigator.pushReplacementNamed(TopScreen.router);
+                          Global.navigator.pushReplacementNamed(HomeScreen.router);
                         }
                       },
                       builder: (state) {

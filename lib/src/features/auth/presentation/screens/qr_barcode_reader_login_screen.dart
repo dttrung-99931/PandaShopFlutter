@@ -5,7 +5,7 @@ import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:evievm_app/src/features/auth/presentation/screens/email_login_screen.dart';
 import 'package:evievm_app/src/features/auth/presentation/widgets/sign_up_suggestion.dart';
-import 'package:evievm_app/src/features/top/presentation/screens/top_screen.dart';
+import 'package:evievm_app/src/features/home/presentation/screens/home_screen.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_listener.dart';
 import 'package:evievm_app/src/shared/widgets/scanner_widget.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
@@ -55,7 +55,7 @@ class _QrBarcodeReaderLoginScreenState extends State<QrBarcodeReaderLoginScreen>
                   listener: (state) {
                     switch (state.runtimeType) {
                       case LoginSuccess:
-                        Global.navigator.pushNamed(TopScreen.router);
+                        Global.navigator.pushNamed(HomeScreen.router);
                         break;
                       default:
                         qrCameraController.start();

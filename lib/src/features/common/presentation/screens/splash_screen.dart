@@ -8,7 +8,7 @@ import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:evievm_app/src/features/auth/presentation/screens/email_login_screen.dart';
 import 'package:evievm_app/src/features/auth/presentation/screens/qr_barcode_reader_login_screen.dart';
-import 'package:evievm_app/src/features/top/presentation/screens/top_screen.dart';
+import 'package:evievm_app/src/features/home/presentation/screens/home_screen.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
       listener: (state) async {
         if (state is CheckLoginSuccess) {
           await delayMilis(delayedShowingMilis);
-          Global.navigator.pushReplacementNamed(TopScreen.router);
+          Global.navigator.pushReplacementNamed(HomeScreen.router);
         }
       },
       child: Scaffold(

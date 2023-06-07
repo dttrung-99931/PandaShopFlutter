@@ -9,7 +9,7 @@ import 'package:evievm_app/src/features/auth/presentation/screens/sign_up_paymen
 import 'package:evievm_app/src/features/auth/presentation/screens/sign_up_step1_screen.dart';
 import 'package:evievm_app/src/features/auth/presentation/screens/sign_up_success_email_confirm_screen.dart';
 import 'package:evievm_app/src/features/settings/presentation/screens/lab_setting_screen.dart';
-import 'package:evievm_app/src/features/top/presentation/screens/top_screen.dart';
+import 'package:evievm_app/src/features/home/presentation/screens/home_screen.dart';
 import 'package:evievm_app/src/features/auth/presentation/screens/sign_up_step2_lab_info_input_screen.dart';
 import 'package:evievm_app/src/features/common/presentation/screens/splash_screen.dart';
 
@@ -38,9 +38,9 @@ class AppRouter {
       case SignUpPaymentInputScreen.router:
         return SignUpPaymentInputScreen();
 
-      // Top
-      case TopScreen.router:
-        return const TopScreen();
+      // Home
+      case HomeScreen.router:
+        return HomeScreen();
 
       // Settings
       case LabSettingScreen.router:

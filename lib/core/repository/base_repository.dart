@@ -19,12 +19,10 @@ abstract class BaseRepo {
     if (!isConnected && onLocal == null) {
       return Left(NetworkFailure()..log());
     }
-    Either<Failure, Either<Failure, T>> result =
-        await executeWithTryCatch(() async {
+    Either<Failure, Either<Failure, T>> result = await executeWithTryCatch(() async {
       return await (isConnected ? onRemote : onLocal!);
     });
-    return result.fold(
-        (Failure l) => Left(l..log()), (Either<Failure, T> r) => r);
+    return result.fold((Failure l) => Left(l..log()), (Either<Failure, T> r) => r);
   }
 
   Future<Either<Failure, T>> handleServerErrors<T>({
@@ -32,14 +30,11 @@ abstract class BaseRepo {
   }) async {
     try {
       BaseResponse<T?> response = await datasourceResponse;
-      if (response.isSuccess) {
+      if (response.success) {
         return Right(response.data as T);
       }
 
-      return Left(ServerError(
-          response.message ?? 'messages.undefined_server_error'.tr(),
-          response.errors)
-        ..log());
+      return Left(ServerError('Server error code ${response.statusCode}'.tr())..log());
     } on DioError catch (e) {
       loge('$e\n${e.response?.data}');
       return Left(ServerError(e.response?.data['message'])..log());

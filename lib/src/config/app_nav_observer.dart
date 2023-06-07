@@ -1,6 +1,6 @@
 import 'package:evievm_app/src/config/app_router.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
-import 'package:evievm_app/src/features/top/presentation/screens/top_screen.dart';
+import 'package:evievm_app/src/features/home/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppNavObserver extends NavigatorObserver {
@@ -8,7 +8,7 @@ class AppNavObserver extends NavigatorObserver {
   static String get currentRoute => _currentRoute;
 
   final Map<String, Function()> disposeMap = {
-    TopScreen.router: () {
+    HomeScreen.router: () {
       // getIt.resetLazySingleton<StoredPhotoBloc>();
     }
   };
