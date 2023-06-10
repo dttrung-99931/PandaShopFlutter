@@ -6,14 +6,13 @@ import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CustomBlocListener<T extends BaseBloc> extends StatelessWidget {
-  final T _bloc = getIt();
+class CustomBlocListener<T extends BaseBloc> extends StatefulWidget {
   final BaseEvent? initialEvent;
   final void Function(BaseState state) listener;
   final List<Type>? listenForStates;
   final Widget? child;
   final bool handleGlobalLoading;
-  CustomBlocListener({
+  const CustomBlocListener({
     super.key,
     this.initialEvent,
     required this.listener,
@@ -23,30 +22,39 @@ class CustomBlocListener<T extends BaseBloc> extends StatelessWidget {
   });
 
   @override
+  State<CustomBlocListener<T>> createState() => _CustomBlocListenerState<T>();
+}
+
+class _CustomBlocListenerState<T extends BaseBloc> extends State<CustomBlocListener<T>> {
+  final T _bloc = getIt();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initialEvent != null) {
+      _bloc.add(widget.initialEvent!);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocListener<T, BaseState>(
-      bloc: (() {
-        // A trick for add event and return _bloc
-        if (initialEvent != null) {
-          _bloc.add(initialEvent!);
-        }
-        return _bloc;
-      })(),
-      listenWhen: listenForStates == null
+      bloc: _bloc,
+      listenWhen: widget.listenForStates == null
           ? null
           : (previous, current) {
-              return listenForStates!.contains(current.runtimeType);
+              return widget.listenForStates!.contains(current.runtimeType);
             },
       listener: (context, state) {
         _handleShowHideGlobalLoading(state);
-        listener(state);
+        widget.listener(state);
       },
-      child: child,
+      child: widget.child,
     );
   }
 
   void _handleShowHideGlobalLoading(BaseState state) {
-    if (!handleGlobalLoading) return;
+    if (!widget.handleGlobalLoading) return;
     if (state is LoadingState) {
       OverlayUtils.showLoadingOverlay();
     } else if (state is LoadingCompleteState) {

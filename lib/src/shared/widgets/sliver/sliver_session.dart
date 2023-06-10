@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../../../../shared/widgets/section.dart';
+import '../section.dart';
 
 class SliverSection extends StatelessWidget {
   final Widget child;

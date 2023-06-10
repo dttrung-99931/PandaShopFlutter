@@ -15,4 +15,16 @@ class Global {
   static void hideDialog(BuildContext dialogContext) {
     navigator.pop(dialogContext);
   }
+
+  static void pushNamed(String routeName) {
+    navigator.pushNamed(routeName);
+  }
+
+  static void pushReplacementNamed(String routeName) {
+    navigator.pushReplacementNamed(routeName);
+  }
+
+  static void pop() {
+    navigator.pop();
+  }
 }

@@ -1,8 +1,9 @@
+import 'package:evievm_app/src/features/product/presentation/screens/search_products_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/app_colors.dart';
+import '../../../../shared/widgets/search_bar.dart';
 import 'banner_slider.dart';
-import 'search_bar.dart';
 
 class SearchBarAndBanner extends StatelessWidget {
   const SearchBarAndBanner({
@@ -26,7 +27,10 @@ class SearchBarAndBanner extends StatelessWidget {
       expandedHeight: 200,
       pinned: true,
       backgroundColor: AppColors.primary,
-      title: const SearchBar(),
+      title: SearchBar(
+        autoFocus: true,
+        navigateToScreenOnPressed: SearchProductsScreen.router,
+      ),
     );
   }
 }

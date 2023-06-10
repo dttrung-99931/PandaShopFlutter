@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-import '../../../../../shared/widgets/my_card.dart';
+import '../my_card.dart';
 
 class SliverCard extends StatelessWidget {
   final Widget child;

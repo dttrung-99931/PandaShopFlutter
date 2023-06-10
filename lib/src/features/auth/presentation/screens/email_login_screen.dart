@@ -102,7 +102,8 @@ class EmailLoginScreen extends StatelessWidget {
                   const SizedBox(height: 4.0),
                   CustomBlocConsumer<LoginBloc>(
                       handleLoading: false,
-                      buildAndListenForStates: const [LoginSuccess, LoginFailed, ErrorState, LoadingState],
+                      buildForStates: const [LoginSuccess, LoginFailed, ErrorState, LoadingState],
+                      listenForStates: const [LoginSuccess],
                       listener: (state) {
                         if (state is LoginSuccess) {
                           Global.navigator.pushReplacementNamed(HomeScreen.router);

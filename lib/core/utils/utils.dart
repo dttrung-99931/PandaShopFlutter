@@ -10,7 +10,7 @@ bool isNullOrEmpty(dynamic obj) {
   return obj == null || emptyConditions.contains(obj);
 }
 
-disableFocus() async {
+removeCurrentFocus() async {
   if (Global.overlayEntries.isNotEmpty) {
     Global.overlayEntries.removeLast().remove();
   }

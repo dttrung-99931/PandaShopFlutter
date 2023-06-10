@@ -28,7 +28,7 @@ class HomeBloc extends BaseBloc {
       usecaseResult: _getProductsUserCase.call(GetProductsRequestModel()),
       emit: emit,
       onSuccess: (List<ProductDto> result) {
-        return GetHomeProductsSucess(result);
+        return GetProductsSucess(result);
       },
     );
   }

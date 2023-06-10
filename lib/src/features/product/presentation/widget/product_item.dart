@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_dto.dart';
-import 'package:evievm_app/src/features/home/presentation/widgets/product/widgets/price_widget.dart';
+import 'package:evievm_app/src/features/product/presentation/widget/price_widget.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../../../core/utils/app_colors.dart';
-import '../../../../../../config/theme.dart';
+import '../../../../../core/utils/app_colors.dart';
+import '../../../../config/theme.dart';
 
 class ProductItem extends StatelessWidget {
   final ProductDto product;
@@ -47,7 +47,7 @@ class ProductItem extends StatelessWidget {
                 product.name,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
+                style: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
               ),
             ),
             const SizedBox(height: 8),

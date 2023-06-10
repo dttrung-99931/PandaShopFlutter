@@ -16,4 +16,14 @@ class Dimensions {
   }
 
   static double get appBarHeight => 56.h;
+  // static double get paddingHorizontal => 12.w;
+  static EdgeInsets get paddingAll => EdgeInsets.all(12.r);
+  static EdgeInsets get paddingHorizontal => EdgeInsets.symmetric(horizontal: 12.w);
+  static EdgeInsets get paddingVertical => EdgeInsets.symmetric(vertical: 12.w);
+
+  static EdgeInsets get marginAll => EdgeInsets.all(12.r);
+  static EdgeInsets get marginHorizontal => EdgeInsets.symmetric(horizontal: 12.w);
+  static EdgeInsets get marginVertical => EdgeInsets.symmetric(vertical: 12.w);
+
+  static double get productGridRatio => (6 / 11).r;
 }

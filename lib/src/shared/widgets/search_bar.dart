@@ -1,11 +1,24 @@
+import 'package:evievm_app/global.dart';
 import 'package:flutter/material.dart';
-import '../../../../../core/utils/app_colors.dart';
-import '../../../../config/theme.dart';
+import '../../../core/utils/app_colors.dart';
+import '../../config/theme.dart';
 
 class SearchBar extends StatelessWidget {
-  const SearchBar({
+  final String? navigateToScreenOnPressed;
+  final bool autoFocus;
+  final TextEditingController controller;
+  final void Function(String? text)? onSearch;
+  final void Function(String? text)? onTextChanged;
+
+  SearchBar({
     Key? key,
-  }) : super(key: key);
+    TextEditingController? controller,
+    this.navigateToScreenOnPressed,
+    this.autoFocus = false,
+    this.onSearch,
+    this.onTextChanged,
+  })  : controller = controller ?? TextEditingController(),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +29,14 @@ class SearchBar extends StatelessWidget {
       ),
       alignment: Alignment.center,
       child: TextFormField(
+        controller: controller,
+        onEditingComplete: () {
+          onSearch?.call(controller.text);
+        },
+        onChanged: onTextChanged,
+        onTap: navigateToScreenOnPressed != null ? _onPressed : null,
+        autofocus: autoFocus,
+        readOnly: navigateToScreenOnPressed != null,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 10),
           border: const UnderlineInputBorder(
@@ -41,5 +62,11 @@ class SearchBar extends StatelessWidget {
         textAlignVertical: TextAlignVertical.center,
       ),
     );
+  }
+
+  void _onPressed() {
+    if (Global.currentRoute != navigateToScreenOnPressed) {
+      Global.pushNamed(navigateToScreenOnPressed!);
+    }
   }
 }

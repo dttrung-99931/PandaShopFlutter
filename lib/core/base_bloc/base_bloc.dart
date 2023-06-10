@@ -48,6 +48,7 @@ abstract class BaseBloc extends Bloc<BaseEvent, BaseState> {
 
   FutureOr<void> onEveryEvent(BaseEvent event, Emitter<BaseState> emit) async {
     if (event is InitialEvent) {
+      onInitialEvent();
       emit(InitialState());
       return;
     }
@@ -77,4 +78,6 @@ abstract class BaseBloc extends Bloc<BaseEvent, BaseState> {
       emit(state);
     }
   }
+
+  void onInitialEvent() {}
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../../core/utils/app_colors.dart';
-import '../../../../../../../core/utils/format_utils.dart';
-import '../../../../../../../global.dart';
-import '../../../../../../config/theme.dart';
+import '../../../../../core/utils/app_colors.dart';
+import '../../../../../core/utils/format_utils.dart';
+import '../../../../../global.dart';
+import '../../../../config/theme.dart';
 
 class PriceWidget extends StatelessWidget {
   const PriceWidget(

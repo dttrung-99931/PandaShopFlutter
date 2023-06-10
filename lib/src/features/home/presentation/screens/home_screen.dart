@@ -1,3 +1,5 @@
+import 'package:evievm_app/src/features/home/presentation/bloc/home_bloc.dart';
+import 'package:evievm_app/src/features/product/presentation/widget/product_slidergrid_bloc_builder.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/app_colors.dart';
@@ -5,8 +7,8 @@ import '../../../../shared/widgets/hidden_on_scroll_bottom_bar.dart';
 import '../widgets/bottom_nav_bar.dart';
 import '../widgets/categories.dart';
 import '../widgets/home_menu.dart';
-import '../widgets/product/product_gridview.dart';
-import '../widgets/product/product_slidergrid.dart';
+import '../../../product/presentation/widget/product_gridview.dart';
+import '../../../product/presentation/widget/product_slidergrid.dart';
 import '../widgets/search_bar_and_banner.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -38,9 +40,11 @@ class HomeScreen extends StatelessWidget {
                 sliver: HomeMenu(),
               ),
               const Categories(),
-              const SliverPadding(
-                padding: EdgeInsets.all(8),
-                sliver: ProductSliverGrid(),
+              SliverPadding(
+                padding: const EdgeInsets.all(8),
+                sliver: ProductSliverGridBlocBuilder<HomeBloc>(
+                  inititalEvent: OnGetHomeProducts(),
+                ),
               ),
             ],
           ),

@@ -6,15 +6,15 @@ import 'package:evievm_app/src/shared/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CustomBlocBuilder<T extends BaseBloc> extends StatelessWidget {
-  final T _bloc = getIt();
+class CustomBlocBuilder<T extends BaseBloc> extends StatefulWidget {
   final List<Type> buildForStates;
   final BaseEvent? initialEvent;
   final Widget Function(BaseState state) builder;
   final bool handleLoading;
   final Type loadingStateType;
   final bool isSliver;
-  CustomBlocBuilder({
+
+  const CustomBlocBuilder({
     super.key,
     required this.buildForStates,
     required this.builder,
@@ -25,24 +25,33 @@ class CustomBlocBuilder<T extends BaseBloc> extends StatelessWidget {
   });
 
   @override
+  State<CustomBlocBuilder<T>> createState() => _CustomBlocBuilderState<T>();
+}
+
+class _CustomBlocBuilderState<T extends BaseBloc> extends State<CustomBlocBuilder<T>> {
+  final T _bloc = getIt();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initialEvent != null) {
+      _bloc.add(widget.initialEvent!);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<T, BaseState>(
-      bloc: (() {
-        // A trick for add event and return _bloc
-        if (initialEvent != null) {
-          _bloc.add(initialEvent!);
-        }
-        return _bloc;
-      })(),
+      bloc: _bloc,
       // only build when
       buildWhen: (previous, current) {
-        return buildForStates.contains(current.runtimeType);
+        return [LoadingState, ErrorState, ...widget.buildForStates].contains(current.runtimeType);
       },
       builder: (context, state) {
-        if (handleLoading && state.runtimeType == loadingStateType) {
-          return isSliver ? const SliverToBoxAdapter(child: LoadingWidget()) : const LoadingWidget();
+        if (widget.handleLoading && state.runtimeType == widget.loadingStateType) {
+          return widget.isSliver ? const SliverToBoxAdapter(child: LoadingWidget()) : const LoadingWidget();
         }
-        return builder(state);
+        return widget.builder(state);
         // throw 'State ${state.runtimeType} has been not handled UI';
       },
     );
