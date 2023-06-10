@@ -62,4 +62,7 @@ class EVMColors {
 
   static const borderPanel = Color(0xFF748091);
   static const bgFlipCamera = Color(0xFF5F5F5F);
+
+  // PRoduct
+  static const sellNumber = Color(0xFF999999);
 }

@@ -10,7 +10,7 @@ class Global {
 
   static List<OverlayEntry> overlayEntries = [];
 
-  static const currencySymbol = 'vnđ';
+  static const currencySymbol = 'đ';
 
   static void hideDialog(BuildContext dialogContext) {
     navigator.pop(dialogContext);

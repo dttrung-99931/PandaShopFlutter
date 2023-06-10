@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_dto.dart';
 import 'package:evievm_app/src/features/home/presentation/widgets/product/widgets/price_widget.dart';
+import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../../core/utils/app_colors.dart';
 import '../../../../../../config/theme.dart';
@@ -48,11 +51,24 @@ class ProductItem extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            PriceWidget(product.price),
-            PriceWidget(
-              product.originalPrice,
-              isOriginalPrice: true,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // if (product.price < product.originalPrice)
+                PriceWidget(
+                  product.originalPrice,
+                  isOriginalPrice: true,
+                ),
+                PriceWidget(product.price),
+              ],
             ),
+            sh(4.h),
+            // TODO:
+            Align(
+              alignment: Alignment.centerRight,
+              child: Text('Đã bán: 2k', style: textTheme.labelMedium?.copyWith(color: EVMColors.sellNumber)),
+            ),
+
             // const SizedBox(height: 8),
             const Divider(
               indent: 0,
@@ -68,7 +84,7 @@ class ProductItem extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  '1d giao hàng',
+                  'HCM 1d',
                   style: textTheme.bodySmall,
                 ),
                 const Spacer(),

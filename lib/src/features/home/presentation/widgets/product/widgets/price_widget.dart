@@ -27,14 +27,9 @@ class PriceWidget extends StatelessWidget {
             color: AppColors.primary.withOpacity(opacity),
             decoration: isOriginalPrice ? TextDecoration.lineThrough : TextDecoration.none,
           ),
-          children: [
+          children: const [
             TextSpan(
               text: Global.currencySymbol,
-              style: (isOriginalPrice ? textTheme.bodySmall : textTheme.bodyMedium)?.copyWith(
-                fontWeight: FontWeight.w500,
-                color: AppColors.primary.withOpacity(opacity),
-                decoration: isOriginalPrice ? TextDecoration.lineThrough : TextDecoration.none,
-              ),
             )
           ]),
     );

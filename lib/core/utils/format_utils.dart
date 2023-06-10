@@ -6,6 +6,10 @@ class FormatUtils {
 
   static final NumberFormat currencyFormmater = NumberFormat('#,###');
   static String formatMoney(double money) {
+    if (money.toStringAsFixed(0).length > 6) {
+      // TODO: Return text number for long price like '20tr300'
+      return 'Giá dài';
+    }
     return currencyFormmater.format(money);
   }
 

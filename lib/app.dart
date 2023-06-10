@@ -39,7 +39,7 @@ class EvmApp extends StatelessWidget {
     return GestureDetector(
       onTap: disableFocus,
       child: ScreenUtilInit(
-        designSize: const Size(1280, 800),
+        designSize: const Size(375, 812),
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (ctx, child) => MaterialApp(
