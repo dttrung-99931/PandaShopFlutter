@@ -9,10 +9,10 @@ import '../../data/models/response/product_model.dart';
 import '../repos/product_repo.dart';
 
 @lazySingleton
-class GetProductsUserCase extends EitherUseCase<List<ProductDto>, GetProductsRequestModel> {
+class GetProductsUseCase extends EitherUseCase<List<ProductDto>, GetProductsRequestModel> {
   final ProductRepo _repo;
 
-  GetProductsUserCase(this._repo);
+  GetProductsUseCase(this._repo);
 
   @override
   Future<Either<Failure, List<ProductDto>>> call(GetProductsRequestModel param) async {

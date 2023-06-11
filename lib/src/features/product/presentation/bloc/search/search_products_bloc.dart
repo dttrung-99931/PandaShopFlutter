@@ -27,7 +27,7 @@ part 'search_products_state.dart';
 @lazySingleton
 class SearchProductsBloc extends BaseBloc {
   final SearchProductsUserCase _searchUsecase;
-  final GetProductsUserCase _getUsecase;
+  final GetProductsUseCase _getUsecase;
 
   final TextEditingController _edtController = TextEditingController();
   TextEditingController get edtController => _edtController;

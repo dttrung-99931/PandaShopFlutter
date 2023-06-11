@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
+import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_dto.dart';
+import 'package:evievm_app/src/features/product/presentation/screens/product_detail_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/price_widget.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +23,12 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Global.pushNamed(
+          ProductDetailScreen.router,
+          args: ProductDetailScreenArgs(product.id),
+        );
+      },
       child: Container(
         // padding: const EdgeInsets.fromLTRB(18, 18, 18, 18),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),

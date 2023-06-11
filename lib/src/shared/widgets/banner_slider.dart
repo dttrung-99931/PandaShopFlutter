@@ -1,29 +1,30 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import '../../../../../core/utils/dummy_data.dart';
+import 'package:evievm_app/src/features/product/domain/dto/product_detail_dto.dart';
 
 class BannerSlider extends StatelessWidget {
+  final List<ImageDto> images;
+
   const BannerSlider({
     Key? key,
-    required this.size,
+    required this.images,
   }) : super(key: key);
-
-  final Size size;
 
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
-      items: DummyData.bannerImages
+      items: images
           .map(
-            (imgUrl) => Padding(
+            (img) => Padding(
               padding: const EdgeInsets.symmetric(vertical: 12),
               child: AspectRatio(
                 aspectRatio: 3 / 4,
                 child: CachedNetworkImage(
-                  imageUrl: imgUrl,
+                  imageUrl: img.link,
                   fit: BoxFit.cover,
                 ),
               ),

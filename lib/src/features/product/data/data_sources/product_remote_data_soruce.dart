@@ -6,6 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../models/request/search_products_request_model.dart';
+import '../models/response/product_detail_model.dart';
 import '../models/response/search_product_model.dart';
 
 part 'product_remote_data_soruce.g.dart';
@@ -25,4 +26,7 @@ abstract class ProductRemoteDatasource {
 
   @GET('/v1/Products/SearchSuggestions')
   Future<BaseResponse<SearchProductModel>> searchProducts(@Queries() SearchProductsRequestModel params);
+
+  @GET('/v1/Products/{id}')
+  Future<BaseResponse<ProductDetailModel?>> getProductDetail(@Path() int id);
 }

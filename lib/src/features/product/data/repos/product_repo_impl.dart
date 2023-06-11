@@ -8,6 +8,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../domain/repos/product_repo.dart';
 import '../data_sources/product_remote_data_soruce.dart';
+import '../models/response/product_detail_model.dart';
 
 @LazySingleton(as: ProductRepo)
 class ProductRepoImpl extends ProductRepo {
@@ -29,6 +30,15 @@ class ProductRepoImpl extends ProductRepo {
     return handleNetwork(
       onRemote: handleServerErrors(
         datasourceResponse: datasource.searchProducts(params),
+      ),
+    );
+  }
+
+  @override
+  Future<Either<Failure, ProductDetailModel?>> getProductDetail(int id) {
+    return handleNetwork(
+      onRemote: handleServerErrors(
+        datasourceResponse: datasource.getProductDetail(id),
       ),
     );
   }

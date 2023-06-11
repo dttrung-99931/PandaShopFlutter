@@ -2,8 +2,9 @@ import 'package:evievm_app/src/features/product/presentation/screens/search_prod
 import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/app_colors.dart';
+import '../../../../../core/utils/dummy_data.dart';
 import '../../../../shared/widgets/search_bar.dart';
-import 'banner_slider.dart';
+import '../../../../shared/widgets/banner_slider.dart';
 
 class SearchBarAndBanner extends StatelessWidget {
   const SearchBarAndBanner({
@@ -17,7 +18,7 @@ class SearchBarAndBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       flexibleSpace: FlexibleSpaceBar(
-        background: BannerSlider(size: size),
+        background: BannerSlider(images: DummyData.bannerImages),
         centerTitle: true,
         expandedTitleScale: 1,
         collapseMode: CollapseMode.pin,

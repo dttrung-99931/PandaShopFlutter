@@ -20,7 +20,7 @@ class ProductGridViewBlocBuilder<TBLoc extends BaseBloc> extends StatelessWidget
         isSliver: true,
         builder: (state) {
           if (state is GetProductsSucess) {
-            return ProductGridView(state.data);
+            return ProductGridView(state.data, physics: const NeverScrollableScrollPhysics());
           }
 
           return const SizedBox.shrink();

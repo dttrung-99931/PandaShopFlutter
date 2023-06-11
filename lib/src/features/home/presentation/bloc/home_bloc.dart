@@ -17,7 +17,7 @@ part 'home_state.dart';
 
 @lazySingleton
 class HomeBloc extends BaseBloc {
-  final GetProductsUserCase _getProductsUserCase;
+  final GetProductsUseCase _getProductsUserCase;
 
   HomeBloc(this._getProductsUserCase) : super(InitialState()) {
     onLoad<OnGetHomeProducts>(_onGetHomeProducts);

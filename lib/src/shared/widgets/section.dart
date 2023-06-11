@@ -1,5 +1,7 @@
+import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../config/theme.dart';
 
@@ -10,6 +12,7 @@ class Section extends StatelessWidget {
   final EdgeInsets titlePadding;
 
   const Section({
+    super.key,
     required this.title,
     required this.child,
     this.padding = const EdgeInsets.all(12),
@@ -18,7 +21,9 @@ class Section extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      color: EVMColors.white,
+      margin: EdgeInsets.only(top: 4.h),
       padding: padding,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -27,7 +32,7 @@ class Section extends StatelessWidget {
             padding: titlePadding,
             child: Text(title, style: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500)),
           ),
-          child,
+          Padding(padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 8.w), child: child),
         ],
       ),
     );

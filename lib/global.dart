@@ -16,12 +16,12 @@ class Global {
     navigator.pop(dialogContext);
   }
 
-  static void pushNamed(String routeName) {
-    navigator.pushNamed(routeName);
+  static void pushNamed(String routeName, {Object? args}) {
+    navigator.pushNamed(routeName, arguments: args);
   }
 
-  static void pushReplacementNamed(String routeName) {
-    navigator.pushReplacementNamed(routeName);
+  static void pushReplacementNamed(String routeName, {Object? args}) {
+    navigator.pushReplacementNamed(routeName, arguments: args);
   }
 
   static void pop() {

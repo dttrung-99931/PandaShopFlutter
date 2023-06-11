@@ -11,6 +11,7 @@ extension TextStyleExt on TextStyle {
   TextStyle light() => copyWith(fontWeight: FontWeight.w300);
   TextStyle regular() => copyWith(fontWeight: FontWeight.w400);
   TextStyle bold() => copyWith(fontWeight: FontWeight.bold);
+  TextStyle semibold() => copyWith(fontWeight: FontWeight.w600);
 
   TextStyle arial() => copyWith(fontFamily: 'Arial');
   TextStyle notoSansJP() => copyWith(fontFamily: 'NotoSansJP');
