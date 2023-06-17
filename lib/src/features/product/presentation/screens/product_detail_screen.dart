@@ -1,6 +1,7 @@
 import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/utils/dimensions.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
+import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
@@ -75,10 +76,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         slivers: [
           _SliverAppBar(productDetail: productDetail),
           _ProductName(productDetail: productDetail),
-          _ProductProperties(productDetail: productDetail),
+          _ProductDescriptionAndProperties(productDetail: productDetail),
+          _ProductOptions(productDetail: productDetail),
           const SliverSection(
             title: 'Sản phẩm tương tự',
-            child: ProductSliverGridBlocBuilder<HomeBloc>(),
+            child: ProductGridViewBlocBuilder<HomeBloc>(),
           ),
         ],
       );
@@ -87,8 +89,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   }
 }
 
-class _ProductProperties extends StatelessWidget {
-  const _ProductProperties({
+class _ProductDescriptionAndProperties extends StatelessWidget {
+  const _ProductDescriptionAndProperties({
     required this.productDetail,
   });
 
@@ -99,8 +101,14 @@ class _ProductProperties extends StatelessWidget {
     return SliverSection(
       title: 'Thông tin sản phẩm',
       child: Column(
-        children: productDetail.propertyValues
-            .map(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(productDetail.description, style: textTheme.bodyMedium),
+          if (productDetail.propertyValues.isNotEmpty) ...[
+            sh(16.h),
+            Text('Thông số', style: textTheme.bodyLarge),
+            sh(4.h),
+            ...productDetail.propertyValues.map(
               (e) => Padding(
                 padding: EdgeInsets.symmetric(vertical: 2.h),
                 child: Row(
@@ -108,6 +116,43 @@ class _ProductProperties extends StatelessWidget {
                     Text(e.name, style: textTheme.bodyMedium?.semibold()),
                     const Spacer(),
                     Text(e.value, style: textTheme.bodyMedium),
+                  ],
+                ),
+              ),
+            )
+          ]
+        ],
+      ),
+    );
+  }
+}
+
+class _ProductOptions extends StatelessWidget {
+  const _ProductOptions({
+    required this.productDetail,
+  });
+
+  final ProductDetailDto productDetail;
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverSection(
+      title: 'Phần loại',
+      child: Column(
+        children: productDetail.optionProperties.entries
+            .map(
+              (MapEntry<String, Set<String>> propertyAndValues) => Padding(
+                padding: EdgeInsets.symmetric(vertical: 2.h),
+                child: Row(
+                  children: [
+                    // TODO: make this shorter, add 'view more' button
+                    Text(propertyAndValues.key, style: textTheme.bodyMedium?.semibold()),
+                    const Spacer(),
+                    ...propertyAndValues.value.map<Widget>((value) => Text(value)).toList().addBetweenEvery(
+                          SizedBox(
+                            width: 4.w,
+                          ),
+                        )
                   ],
                 ),
               ),

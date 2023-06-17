@@ -8,6 +8,18 @@ class ProductDetailDto {
   final List<PropertyValueDto> propertyValues;
   final List<ProductOptionDto> options;
 
+  // Map<propertyName, values>
+  Map<String, Set<String>> get optionProperties {
+    Map<String, Set<String>> map = {};
+    for (ProductOptionDto option in options) {
+      for (PropertyValueDto prop in option.propertyValues) {
+        map[prop.name] ??= {};
+        map[prop.name]!.add(prop.value);
+      }
+    }
+    return map;
+  }
+
   ProductDetailDto({
     required this.id,
     required this.name,
