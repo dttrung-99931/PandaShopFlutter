@@ -1,6 +1,8 @@
 import 'package:evievm_app/core/failures/failures.dart';
 import 'package:dartz/dartz.dart';
+import 'package:evievm_app/src/features/product/data/models/request/get_product_cates_request_model.dart';
 import 'package:evievm_app/src/features/product/data/models/request/search_products_request_model.dart';
+import 'package:evievm_app/src/features/product/data/models/response/product_category_model.dart';
 import 'package:evievm_app/src/features/product/data/models/response/product_model.dart';
 import 'package:evievm_app/src/features/product/data/models/request/get_products_request_model.dart';
 import 'package:evievm_app/src/features/product/data/models/response/search_product_model.dart';
@@ -39,6 +41,15 @@ class ProductRepoImpl extends ProductRepo {
     return handleNetwork(
       onRemote: handleServerErrors(
         datasourceResponse: datasource.getProductDetail(id),
+      ),
+    );
+  }
+
+  @override
+  Future<Either<Failure, List<ProductCategoryModel>>> getProductCates(GetProductCatesRequestModel params) {
+    return handleNetwork(
+      onRemote: handleServerErrors(
+        datasourceResponse: datasource.getProductCates(params),
       ),
     );
   }

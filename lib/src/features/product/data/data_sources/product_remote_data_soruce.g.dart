@@ -103,6 +103,37 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
     return value;
   }
 
+  @override
+  Future<BaseResponse<List<ProductCategoryModel>>> getProductCates(
+      params) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.addAll(params.toJson());
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<List<ProductCategoryModel>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/v1/Categories',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseResponse<List<ProductCategoryModel>>.fromJson(
+      _result.data!,
+      (json) => (json as List<dynamic>)
+          .map<ProductCategoryModel>(
+              (i) => ProductCategoryModel.fromJson(i as Map<String, dynamic>))
+          .toList(),
+    );
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

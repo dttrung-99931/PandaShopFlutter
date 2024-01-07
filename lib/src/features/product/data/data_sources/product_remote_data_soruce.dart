@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:evievm_app/core/model/base_response.dart';
+import 'package:evievm_app/src/features/product/data/models/request/get_product_cates_request_model.dart';
 import 'package:evievm_app/src/features/product/data/models/request/get_products_request_model.dart';
+import 'package:evievm_app/src/features/product/data/models/response/product_category_model.dart';
 import 'package:evievm_app/src/features/product/data/models/response/product_model.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
@@ -29,4 +31,7 @@ abstract class ProductRemoteDatasource {
 
   @GET('/v1/Products/{id}')
   Future<BaseResponse<ProductDetailModel?>> getProductDetail(@Path() int id);
+
+  @GET('/v1/Categories')
+  Future<BaseResponse<List<ProductCategoryModel>>> getProductCates(@Queries() GetProductCatesRequestModel params);
 }
