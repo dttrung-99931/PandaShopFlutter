@@ -34,7 +34,7 @@ dependencies:
   # --------------- UI ---------------
   cupertino_icons: ^1.0.2
   flutter_rating_bar: ^4.0.1
-  cached_network_image: ^3.2.1
+  extended_image: ^7.0.2
   flutter_svg: ^1.1.6
   responsive_framework: ^0.2.0
   # rive: ^0.8.4

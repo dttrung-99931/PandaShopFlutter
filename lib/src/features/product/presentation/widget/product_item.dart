@@ -1,10 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_dto.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/product_detail_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/price_widget.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,9 +43,10 @@ class ProductItem extends StatelessWidget {
             // TODO: hanlde responsive with other image sizes
             Expanded(
               flex: 5,
-              child: CachedNetworkImage(
-                fit: BoxFit.cover,
-                imageUrl: product.thumbnailUrl,
+              child: ExtendedImage.network(
+                product.thumbnailUrl,
+                fit: BoxFit.scaleDown,
+                // layoutInsets: EdgeInsets.all(2.r),
               ),
             ),
             const SizedBox(height: 12),

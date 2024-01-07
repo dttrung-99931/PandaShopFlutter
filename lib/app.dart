@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/global.dart';
@@ -17,7 +19,7 @@ Future<void> appMain() async {
   await EasyLocalization.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
   configureDependencies();
-
+  HttpOverrides.global = PandaHttpOverrides();
   runApp(EasyLocalization(
     supportedLocales: AppTranslation.supportedLocales,
     path: AppTranslation.path,
@@ -56,5 +58,15 @@ class EvmApp extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+
+// To fix CERTIFICATE_VERIFY_FAILED error 
+class PandaHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
   }
 }
