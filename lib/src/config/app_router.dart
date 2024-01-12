@@ -1,3 +1,4 @@
+import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/product_detail_screen.dart';
@@ -67,16 +68,20 @@ class AppRouter {
   }
 
   static void _configUIForScreen(RouteSettings settings) {
-    if ([EmailLoginScreen.router, SplashScreen.router].contains(settings.name)) {
+    if (![HomeScreen.router].contains(settings.name)) {
       // Hide status bar
       // TODO: do not hide system nav bar
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+      // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+      // SystemChrome.setSystemUIOverlayStyle(
+      //   const SystemUiOverlayStyle(statusBarColor: AppColors.primary),
+      // );
+
     } else {
       // Show status bar again
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-      SystemChrome.setSystemUIOverlayStyle(
-        const SystemUiOverlayStyle(statusBarColor: EVMColors.blue2, statusBarBrightness: Brightness.light),
-      );
+      // SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+      // SystemChrome.setSystemUIOverlayStyle(
+      //   const SystemUiOverlayStyle(statusBarColor: EVMColors.blueGreyDark, statusBarBrightness: Brightness.light),
+      // );
     }
   }
 

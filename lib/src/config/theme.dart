@@ -1,3 +1,4 @@
+import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/global.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +13,11 @@ ThemeData theme(BuildContext context) {
   final themeData = ThemeData(
     fontFamily: 'NotoSansJP',
     colorScheme: const ColorScheme.light(
-      primary: EVMColors.primary,
+      primary: AppColors.primary,
     ),
-    appBarTheme: const AppBarTheme(systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: Colors.transparent)),
+    appBarTheme: const AppBarTheme(
+      systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: AppColors.transparent),
+    ),
     textTheme: Theme.of(context).textTheme.copyWith(
           /// Title
           titleLarge: TextStyle(

@@ -45,7 +45,7 @@ class _CustomBlocBuilderState<T extends BaseBloc> extends State<CustomBlocBuilde
       bloc: _bloc,
       // only build when
       buildWhen: (previous, current) {
-        return [LoadingState, ErrorState, ...widget.buildForStates].contains(current.runtimeType);
+        return [widget.loadingStateType, ErrorState, ...widget.buildForStates].contains(current.runtimeType);
       },
       builder: (context, state) {
         if (widget.handleLoading && state.runtimeType == widget.loadingStateType) {

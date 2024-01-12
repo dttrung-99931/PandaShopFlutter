@@ -7,4 +7,4 @@ class GetProductDetailSucess extends FullDataLoadedState<ProductDetailDto?> {
   List<Object?> get props => [data];
 }
 
-class LoadingProducts extends LoadingState {}
+class LoadingProductDetail extends LoadingState {}

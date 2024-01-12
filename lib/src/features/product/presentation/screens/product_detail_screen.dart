@@ -1,4 +1,5 @@
 import 'package:evievm_app/core/base_bloc/base_event.dart';
+import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/dimensions.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
@@ -22,6 +23,7 @@ import 'package:evievm_app/src/shared/widgets/sliver_section.dart';
 import 'package:evievm_app/src/shared/widgets/section.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/base_bloc/base_state.dart';
@@ -57,9 +59,16 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: EVMColors.background,
+      appBar: AppBar(
+        systemOverlayStyle: const SystemUiOverlayStyle(statusBarColor: AppColors.primary, 
+        ),
+        elevation: 0, 
+        toolbarHeight: 0,
+      ),
       body: SafeArea(
         child: CustomBlocBuilder<ProductDetailBloc>(
           buildForStates: const [GetProductDetailSucess],
+          loadingStateType: LoadingProductDetail,
           builder: _productDetailBuilder,
         ),
       ),
