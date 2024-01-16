@@ -23,7 +23,7 @@ class Section extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: EVMColors.white,
-      margin: EdgeInsets.only(top: 4.h),
+      margin: EdgeInsets.only(top: 4.h, left: 4.w, right: 4.w),
       padding: padding,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
