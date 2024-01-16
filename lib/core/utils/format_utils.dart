@@ -6,11 +6,20 @@ class FormatUtils {
 
   static final NumberFormat currencyFormmater = NumberFormat('#,###');
   static String formatMoney(double money) {
-    if (money.toStringAsFixed(0).length > 6) {
-      // TODO: Return text number for long price like '20tr300'
-      return 'Giá dài';
-    }
+    // if (money.toStringAsFixed(0).length > 6) {
+    //   return formatLargeMoney(money);
+    // }
     return currencyFormmater.format(money);
+  }
+
+  static String formatLargeMoney(double number) {
+    if (number < 1000) {
+      return number.toString();
+    } else if (number < 1000000) {
+      return '${(number / 1000).toStringAsFixed(0)}k';
+    } else {
+      return '${(number / 1000000).toStringAsFixed(0)}tr${((number % 1000000) / 1000).toStringAsFixed(0)}';
+    }
   }
 
   static String formatDate(DateTime date, {String format = 'yyyy/MM/dd', String? locale}) {

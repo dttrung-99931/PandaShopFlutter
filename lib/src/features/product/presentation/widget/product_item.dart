@@ -59,15 +59,14 @@ class ProductItem extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // if (product.price < product.originalPrice)
+                PriceWidget(product.price),
                 PriceWidget(
                   product.originalPrice,
                   isOriginalPrice: true,
                 ),
-                PriceWidget(product.price),
               ],
             ),
             sh(4.h),
