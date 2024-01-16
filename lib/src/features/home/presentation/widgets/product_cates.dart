@@ -60,7 +60,7 @@ class _ProductCates extends StatelessWidget {
         // plus 1 col if there's last odd items
         (menuItemsCount % rows != 0 ? 1 : 0);
     return Container(
-      height: _itemHeight * rows + 36.h,
+      height: _itemHeight * rows + 44.h,
       color: AppColors.white,
       child: ListView.separated(
         padding: const EdgeInsets.all(8),
