@@ -63,6 +63,17 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           builder: _productDetailBuilder,
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: AppColors.primary,
+        mini: true,
+        materialTapTargetSize: MaterialTapTargetSize.padded,
+        child: Icon(
+          Icons.add,
+          color: AppColors.white.withOpacity(.8),
+          size: 24.r,
+        ),
+      ),
     );
   }
 

@@ -1,6 +1,7 @@
 import 'package:evievm_app/src/features/home/presentation/bloc/home_bloc.dart';
 import 'package:evievm_app/src/features/home/presentation/widgets/product_cates.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/product_slidergrid_bloc_builder.dart';
+import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
