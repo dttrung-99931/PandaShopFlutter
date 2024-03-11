@@ -7,6 +7,7 @@ import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_detail_dto.dart';
 import 'package:evievm_app/src/features/product/presentation/bloc/product_detail/product_detail_bloc.dart';
+import 'package:evievm_app/src/features/product/presentation/bloc/product_detail/product_option/product_option_bloc.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:evievm_app/src/shared/widgets/image_slider.dart';
 import 'package:evievm_app/src/shared/widgets/not_found.dart';
@@ -142,10 +143,10 @@ class _ProductOptions extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverSection(
       title: 'Phần loại',
-      child: CustomBlocBuilder<ProductDetailBloc>(
-          buildForStates: const [OptionPropSelectedChanged],
+      child: CustomBlocBuilder<ProductOptionBloc>(
+          buildForStates: const [OptionSelectedChanged],
           builder: (state) {
-            if (state is! OptionPropSelectedChanged) {
+            if (state is! OptionSelectedChanged) {
               return const SizedBox.shrink();
             }
             return Column(
@@ -193,7 +194,7 @@ class _OptionPropertySelectState extends State<_OptionPropertySelect> {
               (selectableVal) => InkWell(
                 onTap: selectableVal.isSelectable && !selectableVal.isSelected
                     ? () {
-                        getIt<ProductDetailBloc>().add(
+                        getIt<ProductOptionBloc>().add(
                           OnOptionPropSelectedChagned(
                             propertyName: widget.propertyName,
                             value: selectableVal.value,
@@ -254,10 +255,10 @@ class _ProductNameAndPrice extends StatelessWidget {
               style: textTheme.titleSmall?.copyWith(color: EVMColors.black),
               textAlign: TextAlign.center,
             ),
-            CustomBlocBuilder<ProductDetailBloc>(
-                buildForStates: const [OptionPropSelectedChanged],
+            CustomBlocBuilder<ProductOptionBloc>(
+                buildForStates: const [OptionSelectedChanged],
                 builder: (state) {
-                  if (state is OptionPropSelectedChanged && state.selectedOption != null) {
+                  if (state is OptionSelectedChanged && state.selectedOption != null) {
                     return PriceWidget(state.selectedOption!.price);
                   }
                   return const SizedBox.shrink();

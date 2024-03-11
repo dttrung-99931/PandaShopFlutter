@@ -8,23 +8,6 @@ class GetProductDetailSucess extends FullDataLoadedState<ProductDetailDto?> {
   List<Object?> get props => [data];
 }
 
-class OptionPropSelectedChanged extends BaseState {
-  final Map<String, List<SelectableValueDto>> selectablePropVals;
-  final ProductOptionDto? selectedOption;
-
-  OptionPropSelectedChanged({
-    required this.selectablePropVals,
-    required this.selectedOption,
-  });
-
-  @override
-  List<Object?> get props => [
-        selectablePropVals,
-        selectedOption,
-        now.toString(),
-      ];
-}
-
 class LoadingProducts extends LoadingState {}
 
 class LoadingProductDetail extends LoadingState {}
