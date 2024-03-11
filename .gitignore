@@ -48,7 +48,6 @@ app.*.map.json
 
 /windows/
 
-*.g.dart
 /web/
 /macos
 /linux
@@ -76,5 +75,3 @@ app.*.map.json
 .dart_tool/version
 .dart_tool/package_config_subset
 .dart_tool/package_config.json
-
-/lib/src/config/di/injection.config.dart

@@ -33,7 +33,7 @@ class ProductDetailBloc extends BaseBloc {
   ProductDetailBloc(this._getProductDetailUsecase) : super(InitialState()) {
     onLoad<OnGetProductDetail>(
       _onGetProductDetail,
-      loadingStateBuilder: (_) => LoadingProducts(),
+      loadingStateBuilder: (_) => LoadingProductDetail(),
     );
     on<OnOptionPropSelectedChagned>(_onOptionPropSelectedChagned);
   }

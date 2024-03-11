@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -23,8 +23,8 @@ class BannerSlider extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 12),
               child: AspectRatio(
                 aspectRatio: 3 / 4,
-                child: CachedNetworkImage(
-                  imageUrl: img.link,
+                child: ExtendedImage.network(
+                  img.link,
                   fit: BoxFit.cover,
                 ),
               ),

@@ -1,18 +1,15 @@
 import 'dart:math';
 
+import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/assets/assets.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/global.dart';
-import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
-import 'package:evievm_app/src/features/auth/presentation/screens/email_login_screen.dart';
-import 'package:evievm_app/src/features/auth/presentation/screens/qr_barcode_reader_login_screen.dart';
 import 'package:evievm_app/src/features/home/presentation/screens/home_screen.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../core/utils/time_utils.dart';
 // import 'package:rive/rive.dart';
@@ -45,20 +42,12 @@ class _SplashScreenState extends State<SplashScreen> {
         }
       },
       child: Scaffold(
-        backgroundColor: EVMColors.primary,
+        backgroundColor: AppColors.primary.withOpacity(.8),
         body: Center(
-          child: Image.asset(height: 132.h, Assets.img.splash),
-          // TODO: Create animated splash like the below (from Evinote)
-          // child: SizedBox(
-          //   width: 300,
-          //   height: 300,
-          //   child: RiveAnimation.asset(
-          //     Assets.riv.splashLogo,
-          //     alignment: Alignment.center,
-          //     controllers: [_controller],
-          //     // onInit: (_) => setState(() {}),
-          //   ),
-          // ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8.r),
+            child: Image.asset(height: 100.h, Assets.img.splash),
+          ),
         ),
       ),
     );

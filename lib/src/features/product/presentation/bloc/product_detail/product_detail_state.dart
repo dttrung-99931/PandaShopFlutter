@@ -26,3 +26,5 @@ class OptionPropSelectedChanged extends BaseState {
 }
 
 class LoadingProducts extends LoadingState {}
+
+class LoadingProductDetail extends LoadingState {}

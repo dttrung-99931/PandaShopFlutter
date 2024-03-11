@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/io.dart';
 import 'package:evievm_app/core/interceptors/api_interceptor.dart';
 import 'package:evievm_app/core/utils/curl_logger_dio_interceptor.dart';
 import 'package:evievm_app/core/utils/storage.dart';
@@ -30,6 +33,10 @@ abstract class AppModuleDepedenciesProvider {
     if (AppConfig.config.logCurl) {
       dio.interceptors.add(CurlLoggerDioInterceptor(printOnSuccess: true));
     }
+    (dio.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate =(HttpClient httpClient) {
+      httpClient.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+      return httpClient;
+    };
     return dio;
   }
 

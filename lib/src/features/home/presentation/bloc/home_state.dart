@@ -4,7 +4,8 @@ class LogoutSuccess extends LoadingCompleteStateWithoutProps {}
 
 class GetProductsSucess extends FullDataLoadedState<List<ProductDto>> {
   GetProductsSucess(super.data);
+}
 
-  @override
-  List<Object?> get props => [data];
+class GetProductCatesSucess extends FullDataLoadedState<List<ProductCategoryDto>> {
+  GetProductCatesSucess(super.data);
 }

@@ -22,7 +22,7 @@ class HomeMenu extends StatelessWidget {
         (menuItemsCount % rows != 0 ? 1 : 0);
     return SliverToBoxAdapter(
       child: Container(
-        height: 160,
+        height: 180,
         color: AppColors.white,
         child: ListView.separated(
           padding: const EdgeInsets.all(8),
@@ -37,8 +37,8 @@ class HomeMenu extends StatelessWidget {
               children: [
                 for (int menuIndex = fromIndex; menuIndex <= toIndex; menuIndex++)
                   Container(
-                    height: 56,
-                    width: 56,
+                    height: 64,
+                    width: 64,
                     margin: const EdgeInsets.fromLTRB(8, 8, 8, 0),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(

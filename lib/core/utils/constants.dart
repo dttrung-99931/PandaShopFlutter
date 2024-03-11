@@ -1,3 +1,5 @@
+import 'package:flutter/widgets.dart';
+
 import 'time_utils.dart';
 
 class Constatnts {
@@ -15,3 +17,5 @@ class Constatnts {
 
   static const int noLimit = -1;
 }
+
+const emptyWidget = SizedBox.shrink();
