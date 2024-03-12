@@ -1,26 +1,23 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 
-import 'package:evievm_app/core/utils/extensions/list_extension.dart';
-import 'package:evievm_app/core/utils/time_utils.dart';
+import 'package:evievm_app/core/base_bloc/base_bloc.dart';
+import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_detail_dto.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-import 'package:evievm_app/core/base_bloc/base_bloc.dart';
-import 'package:evievm_app/core/base_bloc/base_state.dart';
-
 import '../../../../../../core/base_bloc/base_event.dart';
 import '../../../domain/use_cases/get_product_detail_usecase.dart';
 
-part 'product_detail_event.dart';
-part 'product_detail_state.dart';
+part 'shopping_event.dart';
+part 'shopping_state.dart';
 
 @lazySingleton
-class ProductDetailBloc extends BaseBloc {
+class ShoppingCartBloc extends BaseBloc {
   final GetProductDetailUseCase _getProductDetailUsecase;
 
-  ProductDetailBloc(this._getProductDetailUsecase) : super(InitialState()) {
+  ShoppingCartBloc(this._getProductDetailUsecase) : super(InitialState()) {
     onLoad<OnGetProductDetail>(
       _onGetProductDetail,
       loadingStateBuilder: (_) => LoadingProductDetail(),

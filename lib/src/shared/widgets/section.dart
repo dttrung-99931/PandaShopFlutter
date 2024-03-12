@@ -30,7 +30,13 @@ class Section extends StatelessWidget {
         children: [
           Padding(
             padding: titlePadding,
-            child: Text(title, style: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500)),
+            child: Text(
+              title,
+              style: textTheme.bodyLarge?.copyWith(
+                fontWeight: FontWeight.w600,
+                color: EVMColors.black,
+              ),
+            ),
           ),
           Padding(padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 8.w), child: child),
         ],

@@ -40,7 +40,7 @@ abstract class BaseRepo {
       return Left(ServerError(e.response?.data['message'])..log());
     } catch (e) {
       loge(e.toString());
-      return Left(ServerError('messages.undefined_server_error'.tr())..log());
+      return Left(UnexpectedFailure()..log(moreDetailedStackTrace: e is TypeError ? e.stackTrace : null));
     }
   }
 }

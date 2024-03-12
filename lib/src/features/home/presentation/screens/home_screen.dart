@@ -49,7 +49,7 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: HiddenOnSrollWidget(
-        _scrollController,
+        scrollController: _scrollController,
         child: const HomeBottomNavBar(),
       ),
     );

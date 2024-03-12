@@ -5,11 +5,13 @@ import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/config/theme.dart';
-import 'package:evievm_app/src/features/home/presentation/bloc/home_bloc.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_detail_dto.dart';
 import 'package:evievm_app/src/features/product/presentation/bloc/product_detail/product_detail_bloc.dart';
-import 'package:evievm_app/src/features/product/presentation/widget/product_gridview_bloc_builder.dart';
+import 'package:evievm_app/src/features/product/presentation/bloc/product_detail/product_option/product_option_bloc.dart';
+import 'package:evievm_app/src/features/product/presentation/widget/add_cart_and_buy.dart';
+import 'package:evievm_app/src/shared/widgets/color_container.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
+import 'package:evievm_app/src/shared/widgets/hidden_on_scroll_bottom_bar.dart';
 import 'package:evievm_app/src/shared/widgets/image_slider.dart';
 import 'package:evievm_app/src/shared/widgets/not_found.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
@@ -20,6 +22,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/base_bloc/base_state.dart';
 import '../../../../shared/widgets/back_button.dart';
+import '../widget/price_widget.dart';
 
 class ProductDetailScreenArgs {
   final int productId;
@@ -39,6 +42,9 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  final ProductDetailBloc _bloc = getIt();
+  final _scrollContorller = ScrollController();
+
   @override
   void initState() {
     super.initState();
@@ -63,16 +69,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           builder: _productDetailBuilder,
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: AppColors.primary,
-        mini: true,
-        materialTapTargetSize: MaterialTapTargetSize.padded,
-        child: Icon(
-          Icons.add,
-          color: AppColors.white.withOpacity(.8),
-          size: 24.r,
-        ),
+      bottomNavigationBar: HiddenOnSrollWidget(
+        scrollController: _scrollContorller,
+        child: const AddCartAndBuyBottomBar(),
       ),
     );
   }
@@ -84,15 +83,16 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       }
       ProductDetailDto productDetail = state.data!;
       return CustomScrollView(
+        controller: _scrollContorller,
         slivers: [
           _SliverAppBar(productDetail: productDetail),
-          _ProductName(productDetail: productDetail),
-          _ProductDescriptionAndProperties(productDetail: productDetail),
+          _ProductNameAndPrice(productDetail: productDetail),
           _ProductOptions(productDetail: productDetail),
-          const SliverSection(
-            title: 'Sản phẩm tương tự',
-            child: ProductGridViewBlocBuilder<HomeBloc>(),
-          ),
+          _ProductDescriptionAndProperties(productDetail: productDetail),
+          // const SliverSection(
+          //   title: 'Sản phẩm tương tự',
+          //   child: ProductGridViewBlocBuilder<HomeBloc>(),
+          // ),
         ],
       );
     }
@@ -114,10 +114,13 @@ class _ProductDescriptionAndProperties extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(productDetail.description, style: textTheme.bodyMedium),
+          Text(productDetail.description, style: textTheme.bodyLarge),
           if (productDetail.propertyValues.isNotEmpty) ...[
             sh(16.h),
-            Text('Thông số', style: textTheme.bodyLarge),
+            Text(
+              'Thông số',
+              style: textTheme.bodyLarge?.copyWith(color: EVMColors.black.withOpacity(.8)),
+            ),
             sh(4.h),
             ...productDetail.propertyValues.map(
               (e) => Padding(
@@ -148,34 +151,102 @@ class _ProductOptions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverSection(
-      title: 'Phần loại',
-      child: Column(
-        children: productDetail.optionProperties.entries
-            .map(
-              (MapEntry<String, Set<String>> propertyAndValues) => Padding(
-                padding: EdgeInsets.symmetric(vertical: 2.h),
-                child: Row(
-                  children: [
-                    // TODO: make this shorter, add 'view more' button
-                    Text(propertyAndValues.key, style: textTheme.bodyMedium?.semibold()),
-                    const Spacer(),
-                    ...propertyAndValues.value.map<Widget>((value) => Text(value)).toList().addBetweenEvery(
-                          SizedBox(
-                            width: 4.w,
-                          ),
-                        )
-                  ],
-                ),
-              ),
-            )
-            .toList(),
-      ),
+      title: 'Phân loại',
+      child: CustomBlocBuilder<ProductOptionBloc>(
+          buildForStates: const [OptionSelectedChanged],
+          builder: (state) {
+            if (state is! OptionSelectedChanged) {
+              return const SizedBox.shrink();
+            }
+            return Column(
+              children: state.selectablePropVals.entries
+                  .map<Widget>(
+                    (MapEntry<String, List<SelectableValueDto>> entry) => Padding(
+                      padding: EdgeInsets.symmetric(vertical: 2.h),
+                      child: _OptionPropertySelect(
+                        propertyName: entry.key,
+                        selectableValues: entry.value,
+                      ),
+                    ),
+                  )
+                  .toList()
+                  .addBetweenEvery(sh(2.h)),
+            );
+          }),
     );
   }
 }
 
-class _ProductName extends StatelessWidget {
-  const _ProductName({
+class _OptionPropertySelect extends StatefulWidget {
+  final String propertyName;
+  final List<SelectableValueDto> selectableValues;
+
+  const _OptionPropertySelect({
+    required this.propertyName,
+    required this.selectableValues,
+  });
+
+  @override
+  State<_OptionPropertySelect> createState() => _OptionPropertySelectState();
+}
+
+class _OptionPropertySelectState extends State<_OptionPropertySelect> {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        // TODO: make this shorter, add 'view more' button
+        Text(widget.propertyName, style: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500)),
+        const Spacer(),
+        ...widget.selectableValues
+            .map<Widget>(
+              (selectableVal) => InkWell(
+                onTap: selectableVal.isSelectable && !selectableVal.isSelected
+                    ? () {
+                        getIt<ProductOptionBloc>().add(
+                          OnOptionPropSelectedChagned(
+                            propertyName: widget.propertyName,
+                            value: selectableVal.value,
+                            isSelected: !selectableVal.isSelected,
+                          ),
+                        );
+                      }
+                    : null,
+                child: Container(
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: selectableVal.isSelected ? AppColors.black.withOpacity(.6) : EVMColors.transparent,
+                    borderRadius: BorderRadius.circular(16.r),
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 4.h,
+                    horizontal: 12.h,
+                  ),
+                  child: Text(
+                    selectableVal.value,
+                    style: textTheme.bodyMedium?.copyWith(
+                      color: selectableVal.isSelected
+                          ? AppColors.white
+                          : Colors.black.withOpacity(selectableVal.isSelectable ? 1 : .36),
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+            )
+            .toList()
+            .addBetweenEvery(
+              SizedBox(
+                width: 4.w,
+              ),
+            )
+      ],
+    );
+  }
+}
+
+class _ProductNameAndPrice extends StatelessWidget {
+  const _ProductNameAndPrice({
     required this.productDetail,
   });
 
@@ -187,7 +258,23 @@ class _ProductName extends StatelessWidget {
       child: Container(
         padding: Dimensions.paddingAll.copyWith(top: 16.h, bottom: 16.h),
         color: EVMColors.white,
-        child: Text(productDetail.name, style: textTheme.titleSmall, textAlign: TextAlign.center),
+        child: Column(
+          children: [
+            Text(
+              productDetail.name,
+              style: textTheme.titleSmall?.copyWith(color: EVMColors.black),
+              textAlign: TextAlign.center,
+            ),
+            CustomBlocBuilder<ProductOptionBloc>(
+                buildForStates: const [OptionSelectedChanged],
+                builder: (state) {
+                  if (state is OptionSelectedChanged && state.selectedOption != null) {
+                    return PriceWidget(state.selectedOption!.price);
+                  }
+                  return const SizedBox.shrink();
+                }),
+          ],
+        ),
       ),
     );
   }
@@ -210,13 +297,61 @@ class _SliverAppBar extends StatelessWidget {
         expandedTitleScale: 1,
         collapseMode: CollapseMode.pin,
       ),
+      elevation: 2,
+      pinned: true,
       stretchTriggerOffset: 56,
       leading: const PShopBackButton(),
       // collapsedHeight: 96, // hight when pined
       expandedHeight: 300.h,
       automaticallyImplyLeading: false,
       backgroundColor: EVMColors.white,
-      title: Text(productDetail.name, style: textTheme.titleSmall),
+      title: Text(
+        productDetail.name,
+        style: textTheme.titleSmall?.copyWith(color: EVMColors.black),
+      ),
+      actionsIconTheme: const IconThemeData(
+        color: AppColors.black,
+      ),
+      actions: [
+        IconButton(
+          icon: const Icon(
+            Icons.share_outlined,
+          ),
+          onPressed: () {},
+        ),
+        const CartButton()
+      ],
+    );
+  }
+}
+
+class CartButton extends StatelessWidget {
+  const CartButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        IconButton(
+          icon: const Icon(Icons.shopping_cart_outlined),
+          onPressed: () {},
+        ),
+        Positioned(
+          top: 4.h,
+          right: 4.w,
+          child: Container(
+            padding: EdgeInsets.all(2.r),
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              boxShadow: [BoxShadow(color: AppColors.grey, blurRadius: 4.r)],
+              shape: BoxShape.circle,
+            ),
+            child: Text('10', style: textTheme.bodySmall?.withColor(AppColors.primary).bold()),
+          ),
+        ),
+      ],
     );
   }
 }

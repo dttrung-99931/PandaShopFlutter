@@ -20,9 +20,15 @@ extension TextStyleExt on TextStyle {
   TextStyle spacing(double spacing) => copyWith(letterSpacing: spacing * 0);
 }
 
-extension WidgetExt on GlobalKey {
+extension GlobalKeyExt on GlobalKey {
   Offset get position {
     RenderBox renderBox = (currentContext!.findRenderObject() as RenderBox);
     return renderBox.localToGlobal(Offset.zero);
+  }
+}
+
+extension WidgetExt on Widget {
+  SliverToBoxAdapter toSliver() {
+    return SliverToBoxAdapter(child: this);
   }
 }

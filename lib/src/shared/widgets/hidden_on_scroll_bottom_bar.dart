@@ -8,8 +8,8 @@ class HiddenOnSrollWidget extends StatelessWidget {
   final double height;
   final int animateDurationInMinlis;
 
-  HiddenOnSrollWidget(
-    this.scrollController, {
+  HiddenOnSrollWidget({
+    required this.scrollController,
     required this.child,
     Key? key,
     this.height = kBottomNavigationBarHeight,

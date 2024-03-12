@@ -9,12 +9,13 @@ class Failure {
 
   Failure([this.msg = 'no failure message']) : displayMsg = (mapMessage[msg] ?? msg).tr();
 
-  void log() {
+  void log({StackTrace? moreDetailedStackTrace}) {
     loge('  Error');
     loge('    $runtimeType $msg');
 
     // Log calling method
-    List<String> stackTraces = StackTrace.current.toString().split('\n');
+    List<String> stackTraces = (moreDetailedStackTrace ?? StackTrace.current).toString().split('\n');
+    loge('    ${stackTraces[0]}');
     loge('    ${stackTraces[1]}');
   }
 }
