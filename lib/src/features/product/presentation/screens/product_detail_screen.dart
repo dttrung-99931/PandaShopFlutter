@@ -8,7 +8,9 @@ import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_detail_dto.dart';
 import 'package:evievm_app/src/features/product/presentation/bloc/product_detail/product_detail_bloc.dart';
 import 'package:evievm_app/src/features/product/presentation/bloc/product_detail/product_option/product_option_bloc.dart';
+import 'package:evievm_app/src/features/product/presentation/widget/add_cart_and_buy.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
+import 'package:evievm_app/src/shared/widgets/hidden_on_scroll_bottom_bar.dart';
 import 'package:evievm_app/src/shared/widgets/image_slider.dart';
 import 'package:evievm_app/src/shared/widgets/not_found.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
@@ -40,6 +42,7 @@ class ProductDetailScreen extends StatefulWidget {
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   final ProductDetailBloc _bloc = getIt();
+  final _scrollContorller = ScrollController();
 
   @override
   void initState() {
@@ -65,6 +68,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           builder: _productDetailBuilder,
         ),
       ),
+      bottomNavigationBar: HiddenOnSrollWidget(
+        scrollController: _scrollContorller,
+        child: const AddCartAndBuyBottomBar(),
+      ),
     );
   }
 
@@ -75,6 +82,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       }
       ProductDetailDto productDetail = state.data!;
       return CustomScrollView(
+        controller: _scrollContorller,
         slivers: [
           _SliverAppBar(productDetail: productDetail),
           _ProductNameAndPrice(productDetail: productDetail),
@@ -105,7 +113,7 @@ class _ProductDescriptionAndProperties extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(productDetail.description, style: textTheme.bodyMedium),
+          Text(productDetail.description, style: textTheme.bodyLarge),
           if (productDetail.propertyValues.isNotEmpty) ...[
             sh(16.h),
             Text(
@@ -142,7 +150,7 @@ class _ProductOptions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverSection(
-      title: 'Phần loại',
+      title: 'Phân loại',
       child: CustomBlocBuilder<ProductOptionBloc>(
           buildForStates: const [OptionSelectedChanged],
           builder: (state) {
@@ -187,7 +195,7 @@ class _OptionPropertySelectState extends State<_OptionPropertySelect> {
     return Row(
       children: [
         // TODO: make this shorter, add 'view more' button
-        Text(widget.propertyName, style: textTheme.bodyMedium?.semibold()),
+        Text(widget.propertyName, style: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500)),
         const Spacer(),
         ...widget.selectableValues
             .map<Widget>(
@@ -206,7 +214,7 @@ class _OptionPropertySelectState extends State<_OptionPropertySelect> {
                 child: Container(
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: selectableVal.isSelected ? EVMColors.primary : EVMColors.transparent,
+                    color: selectableVal.isSelected ? AppColors.black.withOpacity(.6) : EVMColors.transparent,
                     borderRadius: BorderRadius.circular(16.r),
                   ),
                   padding: EdgeInsets.symmetric(
@@ -217,8 +225,9 @@ class _OptionPropertySelectState extends State<_OptionPropertySelect> {
                     selectableVal.value,
                     style: textTheme.bodyMedium?.copyWith(
                       color: selectableVal.isSelected
-                          ? EVMColors.white
-                          : EVMColors.black.withOpacity(selectableVal.isSelectable ? 1 : .36),
+                          ? AppColors.white
+                          : Colors.black.withOpacity(selectableVal.isSelectable ? 1 : .36),
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
@@ -299,6 +308,21 @@ class _SliverAppBar extends StatelessWidget {
         productDetail.name,
         style: textTheme.titleSmall?.copyWith(color: EVMColors.black),
       ),
+      actionsIconTheme: const IconThemeData(
+        color: AppColors.black,
+      ),
+      actions: [
+        IconButton(
+          icon: const Icon(
+            Icons.share_outlined,
+          ),
+          onPressed: () {},
+        ),
+        IconButton(
+          icon: const Icon(Icons.shopping_cart_outlined),
+          onPressed: () {},
+        )
+      ],
     );
   }
 }
