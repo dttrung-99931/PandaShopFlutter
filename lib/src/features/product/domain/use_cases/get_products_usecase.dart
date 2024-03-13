@@ -18,7 +18,7 @@ class GetProductsUseCase extends EitherUseCase<List<ProductDto>, GetProductsRequ
   Future<Either<Failure, List<ProductDto>>> call(GetProductsRequestModel param) async {
     return handleRepoResult(
       repoResult: _repo.getProducts(param),
-      onSuccess: (List<ProductModel> model) async {
+      onSuccess: (List<ShortProductModel> model) async {
         return model.map((e) => ProductDto.fromModel(e)).toList();
       },
     );

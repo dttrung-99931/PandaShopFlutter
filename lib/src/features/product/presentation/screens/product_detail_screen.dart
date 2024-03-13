@@ -3,11 +3,13 @@ import 'package:evievm_app/core/utils/dimensions.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
+import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_detail_dto.dart';
 import 'package:evievm_app/src/features/product/presentation/bloc/product_detail/product_detail_bloc.dart';
 import 'package:evievm_app/src/features/product/presentation/bloc/product_detail/product_option/product_option_bloc.dart';
+import 'package:evievm_app/src/features/product/presentation/screens/shopping_cart_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/add_cart_and_buy.dart';
 import 'package:evievm_app/src/shared/widgets/color_container.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
@@ -336,7 +338,9 @@ class CartButton extends StatelessWidget {
       children: [
         IconButton(
           icon: const Icon(Icons.shopping_cart_outlined),
-          onPressed: () {},
+          onPressed: () {
+            Global.pushNamed(ShoppingCartScreen.router);
+          },
         ),
         Positioned(
           top: 4.h,

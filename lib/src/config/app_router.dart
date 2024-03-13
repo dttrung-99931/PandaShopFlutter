@@ -3,6 +3,7 @@ import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/product_detail_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/search_products_screen.dart';
+import 'package:evievm_app/src/features/product/presentation/screens/shopping_cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:evievm_app/src/features/auth/presentation/screens/email_login_screen.dart';
@@ -45,6 +46,10 @@ class AppRouter {
       case HomeScreen.router:
         return HomeScreen();
 
+      // Shopping cart
+      case ShoppingCartScreen.router:
+        return const ShoppingCartScreen();
+
       // Products
       case SearchProductsScreen.router:
         return const SearchProductsScreen();
@@ -75,7 +80,6 @@ class AppRouter {
       // SystemChrome.setSystemUIOverlayStyle(
       //   const SystemUiOverlayStyle(statusBarColor: AppColors.primary),
       // );
-
     } else {
       // Show status bar again
       // SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);

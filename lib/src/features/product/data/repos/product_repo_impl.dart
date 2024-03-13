@@ -19,7 +19,7 @@ class ProductRepoImpl extends ProductRepo {
   ProductRepoImpl(this.datasource);
 
   @override
-  Future<Either<Failure, List<ProductModel>>> getProducts(GetProductsRequestModel params) {
+  Future<Either<Failure, List<ShortProductModel>>> getProducts(GetProductsRequestModel params) {
     return handleNetwork(
       onRemote: handleServerErrors(
         datasourceResponse: datasource.getProducts(params),

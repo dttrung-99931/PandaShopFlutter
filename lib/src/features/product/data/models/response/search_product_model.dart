@@ -7,7 +7,7 @@ part 'search_product_model.g.dart';
 @JsonSerializable(explicitToJson: true, createToJson: false)
 class SearchProductModel {
   final List<ProductCategoryModel> categories;
-  final List<ProductModel> products;
+  final List<ShortProductModel> products;
 
   SearchProductModel(this.categories, this.products);
 

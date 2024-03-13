@@ -3,38 +3,34 @@ import 'dart:async';
 
 import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
-import 'package:evievm_app/src/features/product/domain/dto/product_detail_dto.dart';
+import 'package:evievm_app/src/features/product/domain/dto/shopping_cart_dto.dart';
+import 'package:evievm_app/src/features/product/domain/use_cases/shopping_cart/get_shopping_cart_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../../../core/base_bloc/base_event.dart';
-import '../../../domain/use_cases/get_product_detail_usecase.dart';
 
-part 'shopping_event.dart';
-part 'shopping_state.dart';
+part 'shopping_cart_event.dart';
+part 'shopping_cart_state.dart';
 
 @lazySingleton
 class ShoppingCartBloc extends BaseBloc {
-  final GetProductDetailUseCase _getProductDetailUsecase;
+  final GetShoppingCartUseCase _getShoppingCartUseCase;
 
-  ShoppingCartBloc(this._getProductDetailUsecase) : super(InitialState()) {
-    onLoad<OnGetProductDetail>(
-      _onGetProductDetail,
+  ShoppingCartBloc(this._getShoppingCartUseCase) : super(InitialState()) {
+    onLoad<OnGetShoppingCart>(
+      _onGetShoppingCart,
       loadingStateBuilder: (_) => LoadingProductDetail(),
     );
   }
 
-  Future<void> _onGetProductDetail(OnGetProductDetail event, Emitter<BaseState> emit) async {
+  Future<void> _onGetShoppingCart(OnGetShoppingCart event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
-      usecaseResult: _getProductDetailUsecase.call(event.id),
+      usecaseResult: _getShoppingCartUseCase.call(event.id),
       emit: emit,
-      onSuccess: (ProductDetailDto? result) {
-        return _onGetProductDetailSuccess(result, emit);
+      onSuccess: (ShoppingCartDto result) {
+        return GetShoppingCartSuccess(result);
       },
     );
-  }
-
-  BaseState? _onGetProductDetailSuccess(ProductDetailDto? result, Emitter<BaseState> emit) {
-    return GetProductDetailSucess(result);
   }
 }

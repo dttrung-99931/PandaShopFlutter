@@ -17,7 +17,7 @@ class ProductDto {
     required this.thumbnailUrl,
   });
 
-  factory ProductDto.fromModel(ProductModel model) {
+  factory ProductDto.fromModel(ShortProductModel model) {
     return ProductDto(
       id: model.id,
       name: model.name,

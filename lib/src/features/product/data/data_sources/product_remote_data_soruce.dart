@@ -24,7 +24,7 @@ abstract class ProductRemoteDatasourceProvider {
 @RestApi()
 abstract class ProductRemoteDatasource {
   @GET('/v1/Products')
-  Future<BaseResponse<List<ProductModel>>> getProducts(@Queries() GetProductsRequestModel params);
+  Future<BaseResponse<List<ShortProductModel>>> getProducts(@Queries() GetProductsRequestModel params);
 
   @GET('/v1/Products/SearchSuggestions')
   Future<BaseResponse<SearchProductModel>> searchProducts(@Queries() SearchProductsRequestModel params);

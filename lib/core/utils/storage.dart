@@ -8,6 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 const _KEY_TOKEN = '_KEY_TOKEN';
 const _KEY_USER_PROFILE = '_KEY_USER_PROFILE';
 const _KEY_LOGIN_EMAIL = '_KEY_LOGIN_EMAIL';
+const _TEST_USER_TOKEN =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMTIiLCJjYXJ0X2lkIjoiOSIsInN1YiI6IjA5ODgyMDIwNzEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJ1c2VyIiwiZXhwIjoxNzEwNjY4ODc1LCJpc3MiOiJEVFQiLCJhdWQiOiJEVFQifQ.SGYZ1wYZ1Oz2ZZm1vdbqFz3HKymbuLBW_Caph5m9CPQ';
 
 class Storage {
   late final SharedPreferences _preferences;
@@ -30,7 +32,7 @@ extension TokenStrorage on Storage {
     await _preferences.remove(_KEY_TOKEN);
   }
 
-  String? get token => _preferences.getString(_KEY_TOKEN);
+  String? get token => _TEST_USER_TOKEN;
 }
 
 extension LoginEmailStrorage on Storage {

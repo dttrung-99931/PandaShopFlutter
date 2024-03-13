@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'product_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class ProductModel {
+class ShortProductModel {
   final int id;
   final String name;
   final double firstPrice;
@@ -13,10 +13,10 @@ class ProductModel {
   final int remainingNum;
   final double starNum;
 
-  ProductModel(this.id, this.name, this.firstPrice, this.thumbImgLink, this.sentFrom, this.sellingNum,
+  ShortProductModel(this.id, this.name, this.firstPrice, this.thumbImgLink, this.sentFrom, this.sellingNum,
       this.remainingNum, this.starNum);
 
-  factory ProductModel.fromJson(Map<String, dynamic> json) => _$ProductModelFromJson(json);
+  factory ShortProductModel.fromJson(Map<String, dynamic> json) => _$ProductModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProductModelToJson(this);
 }

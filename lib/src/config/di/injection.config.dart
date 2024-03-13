@@ -12,40 +12,48 @@ import 'package:injectable/injectable.dart' as _i2;
 import '../../../core/interceptors/api_interceptor.dart' as _i7;
 import '../../../core/utils/storage.dart' as _i6;
 import '../../features/auth/data/data_sources/auth_remote_data_soruce.dart'
-    as _i16;
-import '../../features/auth/data/repositories/auth_repo_impl.dart' as _i24;
-import '../../features/auth/domain/repositories/auth_repo.dart' as _i23;
+    as _i19;
+import '../../features/auth/data/repositories/auth_repo_impl.dart' as _i29;
+import '../../features/auth/domain/repositories/auth_repo.dart' as _i28;
 import '../../features/auth/domain/use_cases/check_login_usecase.dart' as _i8;
-import '../../features/auth/domain/use_cases/email_login_usecase.dart' as _i25;
+import '../../features/auth/domain/use_cases/email_login_usecase.dart' as _i30;
 import '../../features/auth/domain/use_cases/get_remember_login_email_usecase.dart'
     as _i10;
 import '../../features/auth/domain/use_cases/logout_usecase.dart' as _i11;
 import '../../features/auth/domain/use_cases/qr_barcode_reader_login_usecase.dart'
-    as _i26;
-import '../../features/auth/presentation/bloc/login/login_bloc.dart' as _i27;
+    as _i31;
+import '../../features/auth/presentation/bloc/login/login_bloc.dart' as _i32;
 import '../../features/auth/presentation/bloc/sign_up/sign_up_bloc.dart' as _i5;
-import '../../features/home/presentation/bloc/home_bloc.dart' as _i20;
+import '../../features/home/presentation/bloc/home_bloc.dart' as _i24;
 import '../../features/product/data/data_sources/product_remote_data_soruce.dart'
     as _i12;
+import '../../features/product/data/data_sources/shopping_cart_data_soruce.dart'
+    as _i16;
 import '../../features/product/data/repos/product_repo_impl.dart' as _i14;
+import '../../features/product/data/repos/shopping_cart_repo_impl.dart' as _i18;
 import '../../features/product/domain/repos/product_repo.dart' as _i13;
+import '../../features/product/domain/repos/shopping_cart_repo.dart' as _i17;
 import '../../features/product/domain/use_cases/get_product_cates_usecase.dart'
-    as _i17;
+    as _i20;
 import '../../features/product/domain/use_cases/get_product_detail_usecase.dart'
-    as _i18;
+    as _i21;
 import '../../features/product/domain/use_cases/get_products_usecase.dart'
-    as _i19;
+    as _i22;
 import '../../features/product/domain/use_cases/search_products_usecase.dart'
     as _i15;
+import '../../features/product/domain/use_cases/shopping_cart/get_shopping_cart_usecase.dart'
+    as _i23;
 import '../../features/product/presentation/bloc/product_detail/product_detail_bloc.dart'
-    as _i21;
+    as _i25;
 import '../../features/product/presentation/bloc/product_detail/product_option/product_option_bloc.dart'
     as _i3;
 import '../../features/product/presentation/bloc/product_detail/product_option/product_option_bloc_communicaton.dart'
     as _i4;
 import '../../features/product/presentation/bloc/search/search_products_bloc.dart'
-    as _i22;
-import 'injection.dart' as _i28; // ignore_for_file: unnecessary_lambdas
+    as _i26;
+import '../../features/product/presentation/bloc/shopping_cart/shopping_cart_bloc.dart'
+    as _i27;
+import 'injection.dart' as _i33; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -61,6 +69,7 @@ Future<_i1.GetIt> $initGetIt(
   );
   final appModuleDepedenciesProvider = _$AppModuleDepedenciesProvider();
   final productRemoteDatasourceProvider = _$ProductRemoteDatasourceProvider();
+  final shoppingCartDatasourceProvider = _$ShoppingCartDatasourceProvider();
   final authRepoteDatasourceProvider = _$AuthRepoteDatasourceProvider();
   gh.lazySingleton<_i3.ProductOptionBloc>(() => _i3.ProductOptionBloc());
   gh.lazySingleton<_i4.ProductOptionCommunication>(
@@ -86,37 +95,45 @@ Future<_i1.GetIt> $initGetIt(
       () => _i14.ProductRepoImpl(get<_i12.ProductRemoteDatasource>()));
   gh.lazySingleton<_i15.SearchProductsUserCase>(
       () => _i15.SearchProductsUserCase(get<_i13.ProductRepo>()));
-  gh.singleton<_i16.AuthRepoteDatasource>(
+  gh.singleton<_i16.ShoppingCartDatasource>(shoppingCartDatasourceProvider
+      .provideShoppingCartDatasource(get<_i9.Dio>()));
+  gh.lazySingleton<_i17.ShoppingCartRepo>(
+      () => _i18.ShoppingCartRepoImpl(get<_i16.ShoppingCartDatasource>()));
+  gh.singleton<_i19.AuthRepoteDatasource>(
       authRepoteDatasourceProvider.provideAuthRepoteDatasource(get<_i9.Dio>()));
-  gh.lazySingleton<_i17.GetProductCatesUseCase>(
-      () => _i17.GetProductCatesUseCase(get<_i13.ProductRepo>()));
-  gh.lazySingleton<_i18.GetProductDetailUseCase>(
-      () => _i18.GetProductDetailUseCase(get<_i13.ProductRepo>()));
-  gh.lazySingleton<_i19.GetProductsUseCase>(
-      () => _i19.GetProductsUseCase(get<_i13.ProductRepo>()));
-  gh.lazySingleton<_i20.HomeBloc>(() => _i20.HomeBloc(
-        get<_i19.GetProductsUseCase>(),
-        get<_i17.GetProductCatesUseCase>(),
+  gh.lazySingleton<_i20.GetProductCatesUseCase>(
+      () => _i20.GetProductCatesUseCase(get<_i13.ProductRepo>()));
+  gh.lazySingleton<_i21.GetProductDetailUseCase>(
+      () => _i21.GetProductDetailUseCase(get<_i13.ProductRepo>()));
+  gh.lazySingleton<_i22.GetProductsUseCase>(
+      () => _i22.GetProductsUseCase(get<_i13.ProductRepo>()));
+  gh.lazySingleton<_i23.GetShoppingCartUseCase>(
+      () => _i23.GetShoppingCartUseCase(get<_i17.ShoppingCartRepo>()));
+  gh.lazySingleton<_i24.HomeBloc>(() => _i24.HomeBloc(
+        get<_i22.GetProductsUseCase>(),
+        get<_i20.GetProductCatesUseCase>(),
       ));
-  gh.lazySingleton<_i21.ProductDetailBloc>(
-      () => _i21.ProductDetailBloc(get<_i18.GetProductDetailUseCase>()));
-  gh.lazySingleton<_i22.SearchProductsBloc>(() => _i22.SearchProductsBloc(
+  gh.lazySingleton<_i25.ProductDetailBloc>(
+      () => _i25.ProductDetailBloc(get<_i21.GetProductDetailUseCase>()));
+  gh.lazySingleton<_i26.SearchProductsBloc>(() => _i26.SearchProductsBloc(
         get<_i15.SearchProductsUserCase>(),
-        get<_i19.GetProductsUseCase>(),
+        get<_i22.GetProductsUseCase>(),
       ));
-  gh.lazySingleton<_i23.AuthRepo>(
-      () => _i24.AuthRepoImpl(get<_i16.AuthRepoteDatasource>()));
-  gh.lazySingleton<_i25.EmailLoginUseCase>(() => _i25.EmailLoginUseCase(
-        get<_i23.AuthRepo>(),
+  gh.lazySingleton<_i27.ShoppingCartBloc>(
+      () => _i27.ShoppingCartBloc(get<_i23.GetShoppingCartUseCase>()));
+  gh.lazySingleton<_i28.AuthRepo>(
+      () => _i29.AuthRepoImpl(get<_i19.AuthRepoteDatasource>()));
+  gh.lazySingleton<_i30.EmailLoginUseCase>(() => _i30.EmailLoginUseCase(
+        get<_i28.AuthRepo>(),
         get<_i6.Storage>(),
       ));
-  gh.lazySingleton<_i26.QrBarcodeLoginUseCase>(() => _i26.QrBarcodeLoginUseCase(
-        get<_i23.AuthRepo>(),
-        get<_i25.EmailLoginUseCase>(),
+  gh.lazySingleton<_i31.QrBarcodeLoginUseCase>(() => _i31.QrBarcodeLoginUseCase(
+        get<_i28.AuthRepo>(),
+        get<_i30.EmailLoginUseCase>(),
       ));
-  gh.lazySingleton<_i27.LoginBloc>(() => _i27.LoginBloc(
-        get<_i25.EmailLoginUseCase>(),
-        get<_i26.QrBarcodeLoginUseCase>(),
+  gh.lazySingleton<_i32.LoginBloc>(() => _i32.LoginBloc(
+        get<_i30.EmailLoginUseCase>(),
+        get<_i31.QrBarcodeLoginUseCase>(),
         get<_i8.CheckLoginUseCase>(),
         get<_i11.LogoutUseCase>(),
         get<_i10.GetRememberLoginEmailUserCase>(),
@@ -125,10 +142,13 @@ Future<_i1.GetIt> $initGetIt(
 }
 
 class _$AppModuleDepedenciesProvider
-    extends _i28.AppModuleDepedenciesProvider {}
+    extends _i33.AppModuleDepedenciesProvider {}
 
 class _$ProductRemoteDatasourceProvider
     extends _i12.ProductRemoteDatasourceProvider {}
 
+class _$ShoppingCartDatasourceProvider
+    extends _i16.ShoppingCartDatasourceProvider {}
+
 class _$AuthRepoteDatasourceProvider
-    extends _i16.AuthRepoteDatasourceProvider {}
+    extends _i19.AuthRepoteDatasourceProvider {}

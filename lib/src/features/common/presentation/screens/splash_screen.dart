@@ -7,6 +7,7 @@ import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:evievm_app/src/features/home/presentation/screens/home_screen.dart';
+import 'package:evievm_app/src/features/product/presentation/screens/shopping_cart_screen.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

@@ -17,7 +17,11 @@ extension TextStyleExt on TextStyle {
   TextStyle notoSansJP() => copyWith(fontFamily: 'NotoSansJP');
 
   TextStyle withColor(Color color) => copyWith(color: color);
+  TextStyle withSize(double fontSize) => copyWith(fontSize: fontSize);
+  TextStyle withHeight(double height) => copyWith(height: height);
+  TextStyle withWeight(FontWeight fw) => copyWith(fontWeight: fw);
   TextStyle spacing(double spacing) => copyWith(letterSpacing: spacing * 0);
+  TextStyle overflowElipse() => copyWith(overflow: TextOverflow.ellipsis);
 }
 
 extension GlobalKeyExt on GlobalKey {
