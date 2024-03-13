@@ -36,30 +36,28 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: EVMColors.background,
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            const _AppBar(),
-            CustomBlocBuilder<ShoppingCartBloc>(
-              isSliver: true,
-              buildForStates: const [GetShoppingCartSuccess],
-              builder: (state) {
-                if (state is GetShoppingCartSuccess) {
-                  return SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      childCount: state.data.items.length,
-                      (context, index) {
-                        CartItemDto item = state.data.items[index];
-                        return CartItem(item: item);
-                      },
-                    ),
-                  );
-                }
-                return const SliverToBoxAdapter(child: SizedBox.shrink());
-              },
-            ),
-          ],
-        ),
+      body: CustomScrollView(
+        slivers: [
+          const _AppBar(),
+          CustomBlocBuilder<ShoppingCartBloc>(
+            isSliver: true,
+            buildForStates: const [GetShoppingCartSuccess],
+            builder: (state) {
+              if (state is GetShoppingCartSuccess) {
+                return SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    childCount: state.data.items.length,
+                    (context, index) {
+                      CartItemDto item = state.data.items[index];
+                      return CartItem(item: item);
+                    },
+                  ),
+                );
+              }
+              return const SliverToBoxAdapter(child: SizedBox.shrink());
+            },
+          ),
+        ],
       ),
       bottomNavigationBar: const OrderBottomBar(),
     );
@@ -100,14 +98,18 @@ class CartItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 sh(2.h),
-                Text(
-                  item.product.name,
-                  style: textTheme.bodyMedium?.withWeight(FontWeight.w500).overflowElipse().withColor(
-                        AppColors.black.withOpacity(.8),
-                      ),
-                  maxLines: 2,
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minHeight: 12.h * 2,
+                  ),
+                  child: Text(
+                    item.product.name,
+                    style: textTheme.bodyLarge?.withWeight(FontWeight.w500).overflowElipse().withColor(
+                          AppColors.black.withOpacity(.8),
+                        ),
+                    maxLines: 2,
+                  ),
                 ),
-                sh(2.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

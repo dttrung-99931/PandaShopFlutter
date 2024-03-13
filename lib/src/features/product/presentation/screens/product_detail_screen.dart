@@ -11,6 +11,7 @@ import 'package:evievm_app/src/features/product/presentation/bloc/product_detail
 import 'package:evievm_app/src/features/product/presentation/bloc/product_detail/product_option/product_option_bloc.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/shopping_cart_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/add_cart_and_buy.dart';
+import 'package:evievm_app/src/features/product/presentation/widget/cart_button.dart';
 import 'package:evievm_app/src/shared/widgets/color_container.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:evievm_app/src/shared/widgets/hidden_on_scroll_bottom_bar.dart';
@@ -322,39 +323,6 @@ class _SliverAppBar extends StatelessWidget {
           onPressed: () {},
         ),
         const CartButton()
-      ],
-    );
-  }
-}
-
-class CartButton extends StatelessWidget {
-  const CartButton({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        IconButton(
-          icon: const Icon(Icons.shopping_cart_outlined),
-          onPressed: () {
-            Global.pushNamed(ShoppingCartScreen.router);
-          },
-        ),
-        Positioned(
-          top: 4.h,
-          right: 4.w,
-          child: Container(
-            padding: EdgeInsets.all(2.r),
-            decoration: BoxDecoration(
-              color: AppColors.white,
-              boxShadow: [BoxShadow(color: AppColors.grey, blurRadius: 4.r)],
-              shape: BoxShape.circle,
-            ),
-            child: Text('10', style: textTheme.bodySmall?.withColor(AppColors.primary).bold()),
-          ),
-        ),
       ],
     );
   }

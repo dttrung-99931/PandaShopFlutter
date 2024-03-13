@@ -38,7 +38,7 @@ class SearchBar extends StatelessWidget {
         autofocus: autoFocus,
         readOnly: navigateToScreenOnPressed != null,
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(vertical: 10),
+          contentPadding: const EdgeInsets.symmetric(vertical: 8),
           border: const UnderlineInputBorder(
             borderSide: BorderSide.none,
           ),
