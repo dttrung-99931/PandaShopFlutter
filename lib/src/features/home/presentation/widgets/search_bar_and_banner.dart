@@ -1,5 +1,7 @@
 import 'package:evievm_app/src/features/product/presentation/screens/search_products_screen.dart';
+import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/dummy_data.dart';
@@ -32,6 +34,16 @@ class SearchBarAndBanner extends StatelessWidget {
         autoFocus: true,
         navigateToScreenOnPressed: SearchProductsScreen.router,
       ),
+      actions: [
+        InkWell(
+          child: Icon(
+            Icons.shopping_cart_outlined,
+            color: AppColors.white,
+            size: 32.r,
+          ),
+        ),
+        sw(12.w),
+      ],
     );
   }
 }
