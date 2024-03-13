@@ -45,5 +45,16 @@
                 "dev"
             ]
         },
+        {
+            "name": "dev home",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "program": "lib/main_dev_home.dart",
+            "args": [
+                "--flavor",
+                "dev"
+            ]
+        },
     ]
 }
