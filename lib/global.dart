@@ -1,3 +1,4 @@
+import 'package:another_flushbar/flushbar_route.dart';
 import 'package:evievm_app/src/config/app_nav_observer.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -7,7 +8,7 @@ class Global {
   static BuildContext get context => globalKey.currentContext!;
 
   static String get currentRoute => AppNavObserver.currentRoute;
-  static int get shoppingCartId => 9;
+  static int get shoppingCartId => 2;
 
   static List<OverlayEntry> overlayEntries = [];
 
@@ -18,7 +19,12 @@ class Global {
   }
 
   static void pushNamed(String routeName, {Object? args}) {
+    hideAllSnackbars();
     navigator.pushNamed(routeName, arguments: args);
+  }
+
+  static void hideAllSnackbars() {
+    navigator.popUntil((route) => route is! FlushbarRoute);
   }
 
   static void pushReplacementNamed(String routeName, {Object? args}) {

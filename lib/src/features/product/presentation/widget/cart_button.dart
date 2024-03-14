@@ -31,9 +31,9 @@ class CartButton extends StatelessWidget {
           top: 4.h,
           right: 4.w,
           child: CustomBlocBuilder<ShoppingCartBloc>(
-              buildForStates: const [GetShoppingCartSuccess],
+              buildCondition: (state) => state is ShoppingCartUpdated,
               builder: (state) {
-                if (state is! GetShoppingCartSuccess) {
+                if (state is! ShoppingCartUpdated) {
                   return emptyWidget;
                 }
                 return Container(

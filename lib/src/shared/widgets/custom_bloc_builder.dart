@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomBlocBuilder<T extends BaseBloc> extends StatefulWidget {
   final List<Type>? buildForStates;
+  final bool Function(BaseState state)? buildCondition;
   final BaseEvent? initialEvent;
   final Widget Function(BaseState state) builder;
   final bool handleLoading;
@@ -22,6 +23,7 @@ class CustomBlocBuilder<T extends BaseBloc> extends StatefulWidget {
     this.handleLoading = true,
     this.loadingStateType = LoadingState,
     this.isSliver = false,
+    this.buildCondition,
   });
 
   @override
@@ -45,9 +47,11 @@ class _CustomBlocBuilderState<T extends BaseBloc> extends State<CustomBlocBuilde
       bloc: _bloc,
       // only build when
       buildWhen: (previous, current) {
-        return widget.buildForStates != null
+        bool isOkType = widget.buildForStates != null
             ? [widget.loadingStateType, ErrorState, ...widget.buildForStates!].contains(current.runtimeType)
             : true;
+        bool isOkCondition = widget.buildCondition != null ? widget.buildCondition!(current) : true;
+        return isOkType && isOkCondition;
       },
       builder: (context, state) {
         if (widget.handleLoading && state.runtimeType == widget.loadingStateType) {

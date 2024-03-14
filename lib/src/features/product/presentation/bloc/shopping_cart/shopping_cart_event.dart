@@ -3,11 +3,16 @@ part of 'shopping_cart_bloc.dart';
 
 class OnGetShoppingCart extends BaseEvent {
   final int id;
+  final bool clearSelectedItems;
 
-  OnGetShoppingCart(this.id);
+  OnGetShoppingCart(
+    this.id, {
+      this.clearSelectedItems = false,
+    }
+  );
 
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [id, clearSelectedItems];
 }
 
 class OnUpsertCart extends BaseEvent {

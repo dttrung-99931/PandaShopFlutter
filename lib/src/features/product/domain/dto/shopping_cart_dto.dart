@@ -44,6 +44,7 @@ class CartItemDto extends Selectable {
     required this.proudctOptionId,
     required this.product,
     required this.id,
+    super.isSelected,
   });
 
   factory CartItemDto.fromModel(CartItemModel model) {
@@ -63,12 +64,14 @@ class CartItemDto extends Selectable {
     int? proudctOptionId,
     ProductDto? product,
     int? id,
+    bool? isSelected
   }) {
     return CartItemDto(
       productNum: productNum ?? this.productNum,
       proudctOptionId: proudctOptionId ?? this.proudctOptionId,
       product: product ?? this.product,
       id: id ?? this.id,
+      isSelected: isSelected ?? this.isSelected,
     );
   }
 }

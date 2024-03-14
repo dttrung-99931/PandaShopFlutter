@@ -34,7 +34,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
   @override
   void initState() {
     super.initState();
-    getIt<ShoppingCartBloc>().add(OnGetShoppingCart(Global.shoppingCartId));
+    shoppingCartBloc.add(OnGetShoppingCart(Global.shoppingCartId, clearSelectedItems: true));
   }
 
   @override
@@ -46,9 +46,9 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
           const _AppBar(),
           CustomBlocBuilder<ShoppingCartBloc>(
             isSliver: true,
-            buildForStates: const [GetShoppingCartSuccess],
+            buildCondition: (state) => state is ShoppingCartUpdated,
             builder: (state) {
-              if (state is GetShoppingCartSuccess) {
+              if (state is ShoppingCartUpdated) {
                 return SliverList(
                   delegate: SliverChildBuilderDelegate(
                     childCount: state.data.items.length,
@@ -89,7 +89,7 @@ class CartItem extends StatelessWidget {
       child: Row(
         children: [
           CustomStatefullCheckbox(
-            initialCheck: false,
+            initialCheck: item.isSelected,
             shape: BoxShape.rectangle,
             onCheckChanged: (isChecked) {
               shoppingCartBloc.add(OnCheckCartItem(isChecked: isChecked, item: item));

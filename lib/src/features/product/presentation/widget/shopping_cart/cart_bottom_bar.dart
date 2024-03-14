@@ -53,9 +53,8 @@ class SelectedCartItemsOverview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomBlocBuilder<ShoppingCartBloc>(
-      buildForStates: const [CartItemsChecked],
       builder: (state) {
-        if (state is! CartItemsChecked || state.data.selectedItems.isEmpty) {
+        if (state is! ShoppingCartUpdated || state.data.selectedItems.isEmpty) {
           return emptyWidget;
         }
         return Padding(
@@ -72,7 +71,7 @@ class SelectedCartItemsOverview extends StatelessWidget {
                   DeleteCartItemsButton(selected: state.data.selected)
                 ],
               ),
-              PriceWidget(state.data.totalPricesOfSelected),
+              PriceWidget(state.data.totalPriceOfSelected),
             ],
           ),
         );

@@ -5,7 +5,9 @@ import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/bloc_concurrency.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
+import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/core/utils/time_utils.dart';
+import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/product/data/models/request/shopping_cart/upsert_cart_request_model.dart';
@@ -41,8 +43,8 @@ class ShoppingCartBloc extends BaseBloc {
   }
 
   Future<void> _onGetShoppingCart(OnGetShoppingCart event, Emitter<BaseState> emit) async {
-    if (_cart != null) {
-      emit(CartItemsChecked(_cart!.copyWith(items: [])));
+    if (_cart != null && event.clearSelectedItems) {
+      emit(ShoppingCartUpdated(_cart!.copyWith(items: [])));
     }
     await handleUsecaseResult(
       usecaseResult: _getShoppingCartUseCase.call(event.id),
@@ -59,8 +61,17 @@ class ShoppingCartBloc extends BaseBloc {
       usecaseResult: _upsertCartUseCase.call(event.requestModel),
       emit: emit,
       onSuccess: (dynamic _) {
-        add(OnGetShoppingCart(Global.shoppingCartId));
-        return UpsertShoppingCartSuccess();
+        CartItemDto? existing = _cart!.items
+            .firstWhereOrNull((element) => element.proudctOptionId == event.requestModel.productOptionId)
+            ?.copyWith(
+              productNum: event.requestModel.productNum,
+            );
+        if (existing != null) {
+          _updateCartItem(existing);
+        } else {
+          add(OnGetShoppingCart(Global.shoppingCartId));
+        }
+        return UpsertShoppingCartSuccess(_cart!);
       },
     );
   }
@@ -68,7 +79,7 @@ class ShoppingCartBloc extends BaseBloc {
   FutureOr<void> _onCheckCartItem(OnCheckCartItem event, Emitter<BaseState> emit) async {
     if (_cart != null) {
       _updateCartItem(event.item..isSelected = event.isChecked);
-      emit(CartItemsChecked(_cart!));
+      emit(ShoppingCartUpdated(_cart!));
     }
   }
 

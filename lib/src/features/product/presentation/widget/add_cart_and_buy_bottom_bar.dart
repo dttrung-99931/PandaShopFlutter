@@ -28,53 +28,78 @@ class AddCartAndBuyBottomBar extends StatelessWidget {
         height: 60.h,
         child: Row(
           children: [
-            SizedBox(
-              width: size.width * 0.45,
-              child: CustomBlocBuilder<ProductOptionBloc>(builder: (context) {
-                ProductOptionDto? option = productOptionBloc.selectedOption;
-                return CustomBlocListener<ShoppingCartBloc>(
-                  listener: (state) {
-                    if (state is UpsertShoppingCartSuccess && Global.currentRoute == ProductDetailScreen.router) {
-                      showSnackBar('Đã thêm vào giỏ hàng');
-                    }
-                  },
-                  child: TextButton(
-                    onPressed: option != null
-                        ? () {
-                            shoppingCartBloc.add(
-                              OnUpsertCart(
-                                requestModel: UpsertCartRequestModel(
-                                  productOptionId: option.id,
-                                  productNum: productOptionBloc.productQuantity,
-                                ),
-                              ),
-                            );
-                          }
-                        : null,
-                    child: Text("Thêm giỏ hàng", style: textTheme.bodyLarge),
-                  ),
-                );
-              }),
-            ),
-            Expanded(
-              child: ClipPath(
-                clipper: _CustomClipPath(),
-                child: Container(
-                  color: AppColors.primary,
-                  margin: const EdgeInsets.all(4),
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Húp ngay",
-                      style: textTheme.bodyLarge?.copyWith(color: AppColors.white),
-                    ),
-                  ),
-                ),
-              ),
+            AddToCartButton(size: size),
+            const Expanded(
+              child: BuyNowButton(),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class BuyNowButton extends StatelessWidget {
+  const BuyNowButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipPath(
+      clipper: _CustomClipPath(),
+      child: Container(
+        color: AppColors.primary,
+        margin: const EdgeInsets.all(4),
+        child: TextButton(
+          onPressed: () {},
+          child: Text(
+            "Húp ngay",
+            style: textTheme.bodyLarge?.copyWith(color: AppColors.white),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class AddToCartButton extends StatelessWidget {
+  const AddToCartButton({
+    super.key,
+    required this.size,
+  });
+
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: size.width * 0.45,
+      child: CustomBlocBuilder<ProductOptionBloc>(builder: (context) {
+        ProductOptionDto? option = productOptionBloc.selectedOption;
+        return CustomBlocListener<ShoppingCartBloc>(
+          listener: (state) {
+            if (state is UpsertShoppingCartSuccess && Global.currentRoute == ProductDetailScreen.router) {
+              showSnackBar('Đã thêm vào giỏ hàng');
+            }
+          },
+          child: TextButton(
+            onPressed: option != null
+                ? () {
+                    shoppingCartBloc.add(
+                      OnUpsertCart(
+                        requestModel: UpsertCartRequestModel(
+                          productOptionId: option.id,
+                          productNum: productOptionBloc.productQuantity,
+                        ),
+                      ),
+                    );
+                  }
+                : null,
+            child: Text("Thêm giỏ hàng", style: textTheme.bodyLarge),
+          ),
+        );
+      }),
     );
   }
 }
