@@ -1,3 +1,4 @@
+import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/home/presentation/bloc/home_bloc.dart';
 import 'package:evievm_app/src/features/home/presentation/widgets/product_cates.dart';
@@ -27,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    getIt<ShoppingCartBloc>().add(OnGetShoppingCart(9));
+    getIt<ShoppingCartBloc>().add(OnGetShoppingCart(Global.shoppingCartId));
     super.initState();
   }
 
