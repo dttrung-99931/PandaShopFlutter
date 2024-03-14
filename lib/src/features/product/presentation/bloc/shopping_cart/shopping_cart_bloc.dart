@@ -71,7 +71,7 @@ class ShoppingCartBloc extends BaseBloc {
         } else {
           add(OnGetShoppingCart(Global.shoppingCartId));
         }
-        return UpsertShoppingCartSuccess(_cart!);
+        return UpsertShoppingCartSuccess(_cart!, isFirstAdd: false);
       },
     );
   }

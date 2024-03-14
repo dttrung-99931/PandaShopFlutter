@@ -163,6 +163,7 @@ class ProductCounter extends StatelessWidget {
   Widget build(BuildContext context) {
     return SpacingRow(
       spacing: 4.w,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         _Button(
           onPressed: () {

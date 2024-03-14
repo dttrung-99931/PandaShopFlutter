@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomBlocConsumer<T extends BaseBloc> extends StatefulWidget {
-  final List<Type> buildForStates;
-  final List<Type> listenForStates;
+  final List<Type>? buildForStates;
+    final bool Function(BaseState state)? buildCondition;
+  final List<Type>? listenForStates;
   final BaseEvent? initialEvent;
   final Widget Function(BaseState state) builder;
   final void Function(BaseState state) listener;
@@ -16,16 +17,17 @@ class CustomBlocConsumer<T extends BaseBloc> extends StatefulWidget {
   final Type loadingStateType;
   final bool isSliver;
 
-  CustomBlocConsumer({
+  const CustomBlocConsumer({
     super.key,
-    this.buildForStates = const [],
-    required this.listenForStates,
+    this.buildForStates,
+    this.listenForStates,
     required this.builder,
     required this.listener,
     this.loadingStateType = LoadingState,
     this.handleLoading = true,
     this.initialEvent,
     this.isSliver = false,
+    this.buildCondition,
   });
 
   @override
@@ -52,10 +54,14 @@ class _CustomBlocConsumerState<T extends BaseBloc> extends State<CustomBlocConsu
       bloc: _bloc,
       // only build when
       buildWhen: (previous, current) {
-        return [LoadingState, ErrorState, ...widget.buildForStates].contains(current.runtimeType);
+        bool isOkType = widget.buildForStates != null
+            ? [widget.loadingStateType, ErrorState, ...widget.buildForStates!].contains(current.runtimeType)
+            : true;
+        bool isOkCondition = widget.buildCondition != null ? widget.buildCondition!(current) : true;
+        return isOkType && isOkCondition;
       },
       listenWhen: (previous, current) {
-        return widget.listenForStates.contains(current.runtimeType);
+        return widget.listenForStates != null ? widget.listenForStates!.contains(current.runtimeType) : true;
       },
       builder: (context, state) {
         if (widget.handleLoading && state.runtimeType == widget.loadingStateType) {

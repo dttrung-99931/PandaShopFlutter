@@ -9,7 +9,11 @@ class GetShoppingCartSuccess extends ShoppingCartUpdated {
   GetShoppingCartSuccess(super.data);
 }
 class UpsertShoppingCartSuccess extends ShoppingCartUpdated {
-  UpsertShoppingCartSuccess(super.data);
+  final bool isFirstAdd;
+  UpsertShoppingCartSuccess(
+    super.data,
+{    required this.isFirstAdd,}
+  );
 }
 
 class DeleteCartItemsSuccess extends LoadingCompleteStateWithoutProps {}
