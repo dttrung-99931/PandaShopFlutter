@@ -7,6 +7,7 @@ class Global {
   static BuildContext get context => globalKey.currentContext!;
 
   static String get currentRoute => AppNavObserver.currentRoute;
+  static int get shoppingCartId => 9;
 
   static List<OverlayEntry> overlayEntries = [];
 

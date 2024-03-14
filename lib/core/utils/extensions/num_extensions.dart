@@ -1,5 +1,7 @@
 import 'dart:core';
 
+import 'package:flutter/widgets.dart';
+
 extension DurationExt on num {
   Duration get milliseconds => Duration(microseconds: (this * 1000).round());
 
@@ -10,4 +12,7 @@ extension DurationExt on num {
   Duration get hours => Duration(minutes: (this * Duration.minutesPerHour).round());
 
   Duration get days => Duration(hours: (this * Duration.hoursPerDay).round());
+
+  SizedBox get swb => SizedBox(width: toDouble());
+  SizedBox get shb => SizedBox(height: toDouble());
 }

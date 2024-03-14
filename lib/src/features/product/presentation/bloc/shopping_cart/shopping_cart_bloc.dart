@@ -3,8 +3,16 @@ import 'dart:async';
 
 import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
+import 'package:evievm_app/core/utils/bloc_concurrency.dart';
+import 'package:evievm_app/core/utils/extensions/list_extension.dart';
+import 'package:evievm_app/core/utils/time_utils.dart';
+import 'package:evievm_app/global.dart';
+import 'package:evievm_app/src/config/di/injection.dart';
+import 'package:evievm_app/src/features/product/data/models/request/shopping_cart/upsert_cart_request_model.dart';
 import 'package:evievm_app/src/features/product/domain/dto/shopping_cart_dto.dart';
+import 'package:evievm_app/src/features/product/domain/use_cases/shopping_cart/delete_cart_items_usecase.dart';
 import 'package:evievm_app/src/features/product/domain/use_cases/shopping_cart/get_shopping_cart_usecase.dart';
+import 'package:evievm_app/src/features/product/domain/use_cases/shopping_cart/upsert_cart_item_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -13,23 +21,72 @@ import '../../../../../../core/base_bloc/base_event.dart';
 part 'shopping_cart_event.dart';
 part 'shopping_cart_state.dart';
 
+ShoppingCartBloc get shoppingCartBloc => getIt<ShoppingCartBloc>();
+
 @lazySingleton
 class ShoppingCartBloc extends BaseBloc {
   final GetShoppingCartUseCase _getShoppingCartUseCase;
+  final UpsertCartItemUseCase _upsertCartUseCase;
+  final DeleteCartItemsUseCase _deleteItems;
+  ShoppingCartDto? _cart;
 
-  ShoppingCartBloc(this._getShoppingCartUseCase) : super(InitialState()) {
+  ShoppingCartBloc(this._getShoppingCartUseCase, this._upsertCartUseCase, this._deleteItems) : super(InitialState()) {
     onLoad<OnGetShoppingCart>(
       _onGetShoppingCart,
       loadingStateBuilder: (_) => LoadingProductDetail(),
     );
+    on<OnUpsertCart>(_onUpsertCart, transformer: BlocConcurrency.sequential());
+    on<OnCheckCartItem>(_onCheckCartItem, transformer: BlocConcurrency.sequential());
+    on<OnDeleteCartItems>(_onDeleteCartItems, transformer: BlocConcurrency.sequential());
   }
 
   Future<void> _onGetShoppingCart(OnGetShoppingCart event, Emitter<BaseState> emit) async {
+    if (_cart != null) {
+      emit(CartItemsChecked(_cart!.copyWith(items: [])));
+    }
     await handleUsecaseResult(
       usecaseResult: _getShoppingCartUseCase.call(event.id),
       emit: emit,
       onSuccess: (ShoppingCartDto result) {
+        _cart = result;
         return GetShoppingCartSuccess(result);
+      },
+    );
+  }
+
+  FutureOr<void> _onUpsertCart(OnUpsertCart event, Emitter<BaseState> emit) async {
+    await handleUsecaseResult(
+      usecaseResult: _upsertCartUseCase.call(event.requestModel),
+      emit: emit,
+      onSuccess: (dynamic _) {
+        add(OnGetShoppingCart(Global.shoppingCartId));
+        return UpsertShoppingCartSuccess();
+      },
+    );
+  }
+
+  FutureOr<void> _onCheckCartItem(OnCheckCartItem event, Emitter<BaseState> emit) async {
+    if (_cart != null) {
+      _updateCartItem(event.item..isSelected = event.isChecked);
+      emit(CartItemsChecked(_cart!));
+    }
+  }
+
+  void _updateCartItem(CartItemDto updated) {
+    List<CartItemDto> updatedItems = _cart!.items
+      ..replaceWhere(
+        (item) => item.id == updated.id,
+        updated,
+      );
+    _cart = _cart!.copyWith(items: updatedItems);
+  }
+
+  FutureOr<void> _onDeleteCartItems(OnDeleteCartItems event, Emitter<BaseState> emit) async {
+    await handleUsecaseResult(
+      usecaseResult: _deleteItems.call(event.items.mapList((element) => element.id)),
+      emit: emit,
+      onSuccess: (dynamic _) {
+        return DeleteCartItemsSuccess();
       },
     );
   }

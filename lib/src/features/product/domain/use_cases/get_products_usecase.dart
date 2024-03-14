@@ -5,7 +5,7 @@ import 'package:evievm_app/src/features/product/data/models/request/get_products
 import 'package:evievm_app/src/features/product/domain/dto/product_dto.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../data/models/response/product_model.dart';
+import '../../data/models/response/short_product_model.dart';
 import '../repos/product_repo.dart';
 
 @lazySingleton

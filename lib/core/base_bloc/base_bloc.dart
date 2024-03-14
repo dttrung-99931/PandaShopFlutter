@@ -22,6 +22,7 @@ abstract class BaseBloc extends Bloc<BaseEvent, BaseState> {
   BaseBloc(super.initialState) {
     blocCommunication?.startCommunication(this);
     on<BaseEvent>(onEveryEvent);
+    on<OnSetState>(_onSetState);
   }
 
   @override
@@ -69,7 +70,7 @@ abstract class BaseBloc extends Bloc<BaseEvent, BaseState> {
     BaseState? state = either.fold(
       (Failure l) {
         ErrorState errorState = onError?.call(l) ?? ErrorState(l);
-        OverlayUtils.showSnackBar(errorState.failure.displayMsg, SnackType.fail);
+        showSnackBar(errorState.failure.displayMsg, SnackType.fail);
         return errorState;
       },
       (T r) => onSuccess(r),
@@ -80,4 +81,8 @@ abstract class BaseBloc extends Bloc<BaseEvent, BaseState> {
   }
 
   void onInitialEvent() {}
+
+  FutureOr<void> _onSetState(OnSetState<BaseState> event, Emitter<BaseState> emit) {
+    emit(event.state);
+  }
 }

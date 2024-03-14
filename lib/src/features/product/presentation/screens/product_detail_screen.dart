@@ -10,7 +10,7 @@ import 'package:evievm_app/src/features/product/domain/dto/product_detail_dto.da
 import 'package:evievm_app/src/features/product/presentation/bloc/product_detail/product_detail_bloc.dart';
 import 'package:evievm_app/src/features/product/presentation/bloc/product_detail/product_option/product_option_bloc.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/shopping_cart_screen.dart';
-import 'package:evievm_app/src/features/product/presentation/widget/add_cart_and_buy.dart';
+import 'package:evievm_app/src/features/product/presentation/widget/add_cart_and_buy_bottom_bar.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/cart_button.dart';
 import 'package:evievm_app/src/shared/widgets/color_container.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';

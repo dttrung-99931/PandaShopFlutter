@@ -18,6 +18,8 @@ import '../../../../../../../core/base_bloc/base_event.dart';
 part 'product_option_event.dart';
 part 'product_option_state.dart';
 
+ProductOptionBloc get productOptionBloc => getIt<ProductOptionBloc>();
+
 @lazySingleton
 class ProductOptionBloc extends BaseBloc {
   ProductOptionBloc() : super(InitialState()) {
@@ -36,6 +38,7 @@ class ProductOptionBloc extends BaseBloc {
 
   double? get price => _selectedOption?.price;
   int _productQuantity = 1;
+  int get productQuantity => _productQuantity;
 
   Future<void> _onOptionPropSelectedChagned(OnOptionPropSelectedChagned event, Emitter<BaseState> emit) async {
     if (event.isSelected) {

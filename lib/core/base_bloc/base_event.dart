@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import 'base_state.dart';
+
 abstract class BaseEvent extends Equatable {}
 
 class BaseEventWithoutProps extends BaseEvent {
@@ -34,4 +36,13 @@ class OnCheckChanged extends BaseEvent {
 
   @override
   List<Object?> get props => [isChecked];
+}
+
+class OnSetState<T extends BaseState> extends BaseEvent {
+  final T state;
+
+  OnSetState(this.state);
+
+  @override
+  List<Object?> get props => [state];
 }

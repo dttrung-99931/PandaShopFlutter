@@ -1,14 +1,18 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/utils/app_colors.dart';
+import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/config/theme.dart';
+import 'package:evievm_app/src/features/product/data/models/request/shopping_cart/upsert_cart_request_model.dart';
 import 'package:evievm_app/src/features/product/domain/dto/shopping_cart_dto.dart';
+import 'package:evievm_app/src/features/product/domain/dto/shopping_cart_dto_ext.dart';
 import 'package:evievm_app/src/features/product/presentation/bloc/shopping_cart/shopping_cart_bloc.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/price_widget.dart';
-import 'package:evievm_app/src/features/product/presentation/widget/shopping_cart/order_bottom_bar.dart';
+import 'package:evievm_app/src/features/product/presentation/widget/shopping_cart/cart_bottom_bar.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
+import 'package:evievm_app/src/shared/widgets/custom_statefull_checkbox.dart';
 import 'package:evievm_app/src/shared/widgets/spacing_row.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +63,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: const OrderBottomBar(),
+      bottomNavigationBar: const CartBottomBar(),
     );
   }
 }
@@ -83,6 +87,13 @@ class CartItem extends StatelessWidget {
       ),
       child: Row(
         children: [
+          CustomStatefullCheckbox(
+            initialCheck: false,
+            shape: BoxShape.rectangle,
+            onCheckChanged: (isChecked) {
+              shoppingCartBloc.add(OnCheckCartItem(isChecked: isChecked, item: item));
+            },
+          ),
           IntrinsicHeight(
             child: ExtendedImage.network(
               item.product.thumbnailUrl,
@@ -115,7 +126,7 @@ class CartItem extends StatelessWidget {
                   children: [
                     // PriceWidget(item.product.price, isOriginalPrice: true),
                     PriceWidget(item.product.price),
-                    _ProductCounter(item: item),
+                    ProductCounter(item: item),
                   ],
                 ),
                 sh(2.h),
@@ -139,8 +150,9 @@ class CartItem extends StatelessWidget {
   }
 }
 
-class _ProductCounter extends StatelessWidget {
-  const _ProductCounter({
+class ProductCounter extends StatelessWidget {
+  const ProductCounter({
+    super.key,
     required this.item,
   });
 
@@ -152,12 +164,37 @@ class _ProductCounter extends StatelessWidget {
       spacing: 4.w,
       children: [
         _Button(
-          onPressed: () {},
+          onPressed: () {
+            if (item.productNum == 1) {
+              showDialog(
+                context: context,
+                builder: (_) => DeleteCartItemsDialog(selected: [item]),
+              );
+              return;
+            }
+            shoppingCartBloc.add(
+              OnUpsertCart(
+                requestModel: UpsertCartRequestModel(
+                  productOptionId: item.proudctOptionId,
+                  productNum: item.productNum - 1,
+                ),
+              ),
+            );
+          },
           symbol: '-',
         ),
         Text(item.productNum.toString()),
         _Button(
-          onPressed: () {},
+          onPressed: () {
+            shoppingCartBloc.add(
+              OnUpsertCart(
+                requestModel: UpsertCartRequestModel(
+                  productOptionId: item.proudctOptionId,
+                  productNum: item.productNum + 1,
+                ),
+              ),
+            );
+          },
           symbol: '+',
         ),
       ],

@@ -1,4 +1,3 @@
-import 'package:evievm_app/src/features/auth/domain/dto/lab_dto.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'lab_model.g.dart';
 
@@ -72,17 +71,13 @@ class LabModel {
   });
 
   static List<LabModel> get dummyLabs => [
-        LabModel(
-            address: 'AAAデンタルラボラトリー',
-            code: '0451234567',
-            name: '240-0003 神奈川県横浜市保土ケ谷区天王町1-1-1 XXXビルディング3F'),
+        LabModel(address: 'AAAデンタルラボラトリー', code: '0451234567', name: '240-0003 神奈川県横浜市保土ケ谷区天王町1-1-1 XXXビルディング3F'),
         // LabDto(
         //     address: 'AAAデンタルラボラトリー',
         //     code: '0451234567',
         //     name: '240-0003 神奈川県横浜市保土ケ谷区天王町1-1-1 XXXビルディング3F'),
       ];
 
-  factory LabModel.fromJson(Map<String, dynamic> json) =>
-      _$LabModelFromJson(json);
+  factory LabModel.fromJson(Map<String, dynamic> json) => _$LabModelFromJson(json);
   Map<String, dynamic> toJson() => _$LabModelToJson(this);
 }

@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:evievm_app/src/features/product/data/models/response/product_model.dart';
+import 'package:evievm_app/src/features/product/data/models/response/short_product_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'shopping_cart_model.g.dart';

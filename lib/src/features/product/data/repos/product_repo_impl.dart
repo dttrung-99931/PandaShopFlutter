@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:evievm_app/src/features/product/data/models/request/get_product_cates_request_model.dart';
 import 'package:evievm_app/src/features/product/data/models/request/search_products_request_model.dart';
 import 'package:evievm_app/src/features/product/data/models/response/product_category_model.dart';
-import 'package:evievm_app/src/features/product/data/models/response/product_model.dart';
+import 'package:evievm_app/src/features/product/data/models/response/short_product_model.dart';
 import 'package:evievm_app/src/features/product/data/models/request/get_products_request_model.dart';
 import 'package:evievm_app/src/features/product/data/models/response/search_product_model.dart';
 import 'package:injectable/injectable.dart';

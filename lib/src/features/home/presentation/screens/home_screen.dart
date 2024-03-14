@@ -1,5 +1,7 @@
+import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/home/presentation/bloc/home_bloc.dart';
 import 'package:evievm_app/src/features/home/presentation/widgets/product_cates.dart';
+import 'package:evievm_app/src/features/product/presentation/bloc/shopping_cart/shopping_cart_bloc.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/product_slidergrid_bloc_builder.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:flutter/material.dart';
@@ -10,12 +12,24 @@ import '../../../../shared/widgets/hidden_on_scroll_bottom_bar.dart';
 import '../widgets/bottom_nav_bar.dart';
 import '../widgets/search_bar_and_banner.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static const router = '/home';
 
-  HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final _pageStorageBucket = PageStorageBucket();
   final _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    getIt<ShoppingCartBloc>().add(OnGetShoppingCart(9));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

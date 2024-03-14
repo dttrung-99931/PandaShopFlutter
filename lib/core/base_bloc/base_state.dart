@@ -1,5 +1,6 @@
 import 'package:evievm_app/core/failures/failures.dart';
 import 'package:equatable/equatable.dart';
+import 'package:evievm_app/core/utils/time_utils.dart';
 
 abstract class BaseState extends Equatable {}
 
@@ -32,8 +33,9 @@ class FullDataLoadedState<T> extends LoadingCompleteState {
 
   FullDataLoadedState(this.data);
 
+  /// TODO: fix CustomBlocBuilder not receive state. Remove now.toString
   @override
-  List<Object?> get props => [data];
+  List<Object?> get props => [data, now.toString()];
 }
 
 class PartDataLoadedState<T> extends BaseState {

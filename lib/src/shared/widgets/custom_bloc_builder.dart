@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomBlocBuilder<T extends BaseBloc> extends StatefulWidget {
-  final List<Type> buildForStates;
+  final List<Type>? buildForStates;
   final BaseEvent? initialEvent;
   final Widget Function(BaseState state) builder;
   final bool handleLoading;
@@ -16,7 +16,7 @@ class CustomBlocBuilder<T extends BaseBloc> extends StatefulWidget {
 
   const CustomBlocBuilder({
     super.key,
-    required this.buildForStates,
+    this.buildForStates,
     required this.builder,
     this.initialEvent,
     this.handleLoading = true,
@@ -45,7 +45,9 @@ class _CustomBlocBuilderState<T extends BaseBloc> extends State<CustomBlocBuilde
       bloc: _bloc,
       // only build when
       buildWhen: (previous, current) {
-        return [widget.loadingStateType, ErrorState, ...widget.buildForStates].contains(current.runtimeType);
+        return widget.buildForStates != null
+            ? [widget.loadingStateType, ErrorState, ...widget.buildForStates!].contains(current.runtimeType)
+            : true;
       },
       builder: (context, state) {
         if (widget.handleLoading && state.runtimeType == widget.loadingStateType) {

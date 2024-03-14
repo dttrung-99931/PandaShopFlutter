@@ -56,9 +56,9 @@ class _CustomBlocListenerState<T extends BaseBloc> extends State<CustomBlocListe
   void _handleShowHideGlobalLoading(BaseState state) {
     if (!widget.handleGlobalLoading) return;
     if (state is LoadingState) {
-      OverlayUtils.showLoadingOverlay();
+      showLoadingOverlay();
     } else if (state is LoadingCompleteState) {
-      OverlayUtils.hideLoadingOverlay();
+      hideLoadingOverlay();
     }
   }
 }
