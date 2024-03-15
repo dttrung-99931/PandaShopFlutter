@@ -114,21 +114,14 @@ class DeleteCartItemsDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomBlocListener<ShoppingCartBloc>(
-      listener: (state) {
-        if (state is DeleteCartItemsSuccess) {
-          shoppingCartBloc.add(OnGetShoppingCart());
-          Global.pop();
-        }
+    return AppAlertDialog(
+      title: 'Xác nhận xóa sản phẩm khỏi giỏ hàng',
+      positiveLabel: 'Xác nhận',
+      width: 400.w,
+      onPositivePressed: () {
+        shoppingCartBloc.add(OnDeleteCartItems(items: selected));
+        Global.pop();
       },
-      child: AppAlertDialog(
-        title: 'Xác nhận xóa sản phẩm khỏi giỏ hàng',
-        positiveLabel: 'Xác nhận',
-        width: 400.w,
-        onPositivePressed: () {
-          shoppingCartBloc.add(OnDeleteCartItems(items: selected));
-        },
-      ),
     );
   }
 }

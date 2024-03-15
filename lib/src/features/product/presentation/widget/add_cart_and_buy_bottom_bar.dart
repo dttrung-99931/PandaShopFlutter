@@ -60,7 +60,7 @@ class BuyNowButton extends StatelessWidget {
         child: TextButton(
           onPressed: () {},
           child: Text(
-            "Húp ngay",
+            "Mua ngay",
             style: textTheme.bodyLarge?.copyWith(color: AppColors.white),
           ),
         ),
@@ -96,9 +96,9 @@ class AddToCartButton extends StatelessWidget {
             builder: (state) {
               if (state is ShoppingCartUpdated) {
                 CartItemDto? item = state.data.getItem(option.id);
-                if (item != null){
+                if (item != null && item.productNum > 0) {
                   // TODO: fix wrong ProductCounter show a short time right after open prod detail screen
-                  return ProductCounter(item: item);
+                  return ProductCounter(item: item, comfirmDelete: false);
                 }
               }
 

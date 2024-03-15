@@ -13,6 +13,7 @@ import 'package:evievm_app/src/features/product/presentation/bloc/shopping_cart/
 import 'package:evievm_app/src/features/product/presentation/widget/price_widget.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/shopping_cart/cart_bottom_bar.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
+import 'package:evievm_app/src/shared/widgets/custom_bloc_listener.dart';
 import 'package:evievm_app/src/shared/widgets/custom_statefull_checkbox.dart';
 import 'package:evievm_app/src/shared/widgets/spacing_row.dart';
 import 'package:extended_image/extended_image.dart';
@@ -155,9 +156,11 @@ class ProductCounter extends StatelessWidget {
   const ProductCounter({
     super.key,
     required this.item,
+    this.comfirmDelete = true,
   });
 
   final CartItemDto item;
+  final bool comfirmDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -165,25 +168,36 @@ class ProductCounter extends StatelessWidget {
       spacing: 4.w,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _Button(
-          onPressed: () {
-            if (item.productNum == 1) {
-              showDialog(
-                context: context,
-                builder: (_) => DeleteCartItemsDialog(selected: [item]),
-              );
-              return;
+        CustomBlocListener<ShoppingCartBloc>(
+          listener: (state) {
+            if (state is DeleteCartItemsSuccess) {
+              shoppingCartBloc.add(OnGetShoppingCart());
             }
-            shoppingCartBloc.add(
-              OnUpsertCart(
-                requestModel: UpsertCartRequestModel(
-                  productOptionId: item.proudctOptionId,
-                  productNum: item.productNum - 1,
-                ),
-              ),
-            );
           },
-          symbol: '-',
+          child: _Button(
+            onPressed: () {
+              if (item.productNum == 1) {
+                if (!comfirmDelete) {
+                  shoppingCartBloc.add(OnDeleteCartItems(items: [item]));
+                  return;
+                }
+                showDialog(
+                  context: context,
+                  builder: (_) => DeleteCartItemsDialog(selected: [item]),
+                );
+                return;
+              }
+              shoppingCartBloc.add(
+                OnUpsertCart(
+                  requestModel: UpsertCartRequestModel(
+                    productOptionId: item.proudctOptionId,
+                    productNum: item.productNum - 1,
+                  ),
+                ),
+              );
+            },
+            symbol: '-',
+          ),
         ),
         Text(item.productNum.toString()),
         _Button(
