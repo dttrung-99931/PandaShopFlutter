@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
+import 'package:evievm_app/core/use_case/use_case.dart';
 import 'package:evievm_app/core/utils/bloc_concurrency.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
@@ -13,6 +14,7 @@ import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/product/data/models/request/shopping_cart/upsert_cart_request_model.dart';
 import 'package:evievm_app/src/features/product/domain/dto/shopping_cart_dto.dart';
 import 'package:evievm_app/src/features/product/domain/use_cases/shopping_cart/delete_cart_items_usecase.dart';
+import 'package:evievm_app/src/features/product/domain/use_cases/shopping_cart/get_shopping_cart_by_id_usecase.dart';
 import 'package:evievm_app/src/features/product/domain/use_cases/shopping_cart/get_shopping_cart_usecase.dart';
 import 'package:evievm_app/src/features/product/domain/use_cases/shopping_cart/upsert_cart_item_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,12 +44,12 @@ class ShoppingCartBloc extends BaseBloc {
     on<OnDeleteCartItems>(_onDeleteCartItems, transformer: BlocConcurrency.sequential());
   }
 
-  Future<void> _onGetShoppingCart(OnGetShoppingCart event, Emitter<BaseState> emit) async {
+  FutureOr<void> _onGetShoppingCart(OnGetShoppingCart event, Emitter<BaseState> emit) async {
     if (_cart != null && event.clearSelectedItems) {
       emit(ShoppingCartUpdated(_cart!.copyWith(items: [])));
     }
     await handleUsecaseResult(
-      usecaseResult: _getShoppingCartUseCase.call(event.id),
+      usecaseResult: _getShoppingCartUseCase.call(noParam),
       emit: emit,
       onSuccess: (ShoppingCartDto result) {
         _cart = result;
@@ -69,7 +71,7 @@ class ShoppingCartBloc extends BaseBloc {
         if (existing != null) {
           _updateCartItem(existing);
         } else {
-          add(OnGetShoppingCart(Global.shoppingCartId));
+          add(OnGetShoppingCart());
         }
         return UpsertShoppingCartSuccess(_cart!, isFirstAdd: false);
       },

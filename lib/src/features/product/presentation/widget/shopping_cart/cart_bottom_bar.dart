@@ -117,7 +117,7 @@ class DeleteCartItemsDialog extends StatelessWidget {
     return CustomBlocListener<ShoppingCartBloc>(
       listener: (state) {
         if (state is DeleteCartItemsSuccess) {
-          shoppingCartBloc.add(OnGetShoppingCart(Global.shoppingCartId));
+          shoppingCartBloc.add(OnGetShoppingCart());
           Global.pop();
         }
       },

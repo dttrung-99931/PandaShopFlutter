@@ -9,16 +9,16 @@ import 'package:evievm_app/src/features/product/domain/repos/shopping_cart_repo.
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class GetShoppingCartUseCase extends EitherUseCase<ShoppingCartDto, NoParams> {
+class GetShoppingCartByIdUseCase extends EitherUseCase<ShoppingCartDto, int> {
   // cart id
   final ShoppingCartRepo _repo;
 
-  GetShoppingCartUseCase(this._repo);
+  GetShoppingCartByIdUseCase(this._repo);
 
   @override
-  Future<Either<Failure, ShoppingCartDto>> call(NoParams _) async {
+  Future<Either<Failure, ShoppingCartDto>> call(int id) async {
     return handleRepoResult(
-      repoResult: _repo.getShoppingCart(),
+      repoResult: _repo.getShoppingCartById(id),
       onSuccess: (ShoppingCartModel model) async {
         return ShoppingCartDto.fromModel(model);
       },

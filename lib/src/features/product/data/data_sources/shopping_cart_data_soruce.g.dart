@@ -19,7 +19,7 @@ class _ShoppingCartDatasource implements ShoppingCartDatasource {
   String? baseUrl;
 
   @override
-  Future<BaseResponse<ShoppingCartModel>> get(shoppingCartId) async {
+  Future<BaseResponse<ShoppingCartModel>> getById(shoppingCartId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -33,6 +33,32 @@ class _ShoppingCartDatasource implements ShoppingCartDatasource {
             .compose(
               _dio.options,
               '/v1/carts/${shoppingCartId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseResponse<ShoppingCartModel>.fromJson(
+      _result.data!,
+      (json) => ShoppingCartModel.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseResponse<ShoppingCartModel>> get() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<ShoppingCartModel>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/v1/carts/cart',
               queryParameters: queryParameters,
               data: _data,
             )

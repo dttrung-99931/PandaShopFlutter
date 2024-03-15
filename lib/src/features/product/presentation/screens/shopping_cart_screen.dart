@@ -34,7 +34,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
   @override
   void initState() {
     super.initState();
-    shoppingCartBloc.add(OnGetShoppingCart(Global.shoppingCartId, clearSelectedItems: true));
+    shoppingCartBloc.add(OnGetShoppingCart(clearSelectedItems: true));
   }
 
   @override

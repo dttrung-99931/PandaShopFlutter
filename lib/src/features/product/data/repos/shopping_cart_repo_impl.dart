@@ -13,10 +13,10 @@ class ShoppingCartRepoImpl extends ShoppingCartRepo {
   ShoppingCartRepoImpl(this.datasource);
 
   @override
-  Future<Either<Failure, ShoppingCartModel>> getShoppingCart(int shoppingCartId) {
+  Future<Either<Failure, ShoppingCartModel>> getShoppingCartById(int shoppingCartId) {
     return handleNetwork(
       onRemote: handleServerErrors(
-        datasourceResponse: datasource.get(shoppingCartId),
+        datasourceResponse: datasource.getById(shoppingCartId),
       ),
     );
   }
@@ -35,6 +35,15 @@ class ShoppingCartRepoImpl extends ShoppingCartRepo {
     return handleNetwork(
       onRemote: handleServerErrors(
         datasourceResponse: datasource.deleteItems({'itemIds': cartItemDtos}),
+      ),
+    );
+  }
+
+  @override
+  Future<Either<Failure, ShoppingCartModel>> getShoppingCart() {
+    return handleNetwork(
+      onRemote: handleServerErrors(
+        datasourceResponse: datasource.get(),
       ),
     );
   }

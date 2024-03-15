@@ -2,14 +2,24 @@
 part of 'shopping_cart_bloc.dart';
 
 class OnGetShoppingCart extends BaseEvent {
+  final bool clearSelectedItems;
+
+  OnGetShoppingCart({
+    this.clearSelectedItems = false,
+  });
+
+  @override
+  List<Object?> get props => [clearSelectedItems];
+}
+
+class OnGetShoppingCartById extends BaseEvent {
   final int id;
   final bool clearSelectedItems;
 
-  OnGetShoppingCart(
+  OnGetShoppingCartById(
     this.id, {
-      this.clearSelectedItems = false,
-    }
-  );
+    this.clearSelectedItems = false,
+  });
 
   @override
   List<Object?> get props => [id, clearSelectedItems];

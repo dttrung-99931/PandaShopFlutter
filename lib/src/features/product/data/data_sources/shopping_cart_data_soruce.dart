@@ -18,7 +18,10 @@ abstract class ShoppingCartDatasourceProvider {
 @RestApi()
 abstract class ShoppingCartDatasource {
   @GET('/v1/carts/{shoppingCartId}')
-  Future<BaseResponse<ShoppingCartModel>> get(@Path('shoppingCartId') int shoppingCartId);
+  Future<BaseResponse<ShoppingCartModel>> getById(@Path('shoppingCartId') int shoppingCartId);
+
+  @GET('/v1/carts/cart')
+  Future<BaseResponse<ShoppingCartModel>> get();
 
   @PUT('/v1/carts/UpsertCart')
   Future<BaseResponse<dynamic>> upsert(@Body() UpsertCartRequestModel param);

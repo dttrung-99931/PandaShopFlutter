@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    getIt<ShoppingCartBloc>().add(OnGetShoppingCart(Global.shoppingCartId));
+    getIt<ShoppingCartBloc>().add(OnGetShoppingCart());
     super.initState();
   }
 

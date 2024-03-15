@@ -13,18 +13,18 @@ import '../../../core/interceptors/api_interceptor.dart' as _i7;
 import '../../../core/utils/storage.dart' as _i6;
 import '../../features/auth/data/data_sources/auth_remote_data_soruce.dart'
     as _i20;
-import '../../features/auth/data/repositories/auth_repo_impl.dart' as _i31;
-import '../../features/auth/domain/repositories/auth_repo.dart' as _i30;
+import '../../features/auth/data/repositories/auth_repo_impl.dart' as _i32;
+import '../../features/auth/domain/repositories/auth_repo.dart' as _i31;
 import '../../features/auth/domain/use_cases/check_login_usecase.dart' as _i8;
-import '../../features/auth/domain/use_cases/email_login_usecase.dart' as _i32;
+import '../../features/auth/domain/use_cases/email_login_usecase.dart' as _i33;
 import '../../features/auth/domain/use_cases/get_remember_login_email_usecase.dart'
     as _i10;
 import '../../features/auth/domain/use_cases/logout_usecase.dart' as _i11;
 import '../../features/auth/domain/use_cases/qr_barcode_reader_login_usecase.dart'
-    as _i33;
-import '../../features/auth/presentation/bloc/login/login_bloc.dart' as _i34;
+    as _i34;
+import '../../features/auth/presentation/bloc/login/login_bloc.dart' as _i35;
 import '../../features/auth/presentation/bloc/sign_up/sign_up_bloc.dart' as _i5;
-import '../../features/home/presentation/bloc/home_bloc.dart' as _i26;
+import '../../features/home/presentation/bloc/home_bloc.dart' as _i27;
 import '../../features/product/data/data_sources/product_remote_data_soruce.dart'
     as _i12;
 import '../../features/product/data/data_sources/shopping_cart_data_soruce.dart'
@@ -43,21 +43,23 @@ import '../../features/product/domain/use_cases/search_products_usecase.dart'
     as _i15;
 import '../../features/product/domain/use_cases/shopping_cart/delete_cart_items_usecase.dart'
     as _i21;
-import '../../features/product/domain/use_cases/shopping_cart/get_shopping_cart_usecase.dart'
+import '../../features/product/domain/use_cases/shopping_cart/get_shopping_cart_by_id_usecase.dart'
     as _i25;
+import '../../features/product/domain/use_cases/shopping_cart/get_shopping_cart_usecase.dart'
+    as _i26;
 import '../../features/product/domain/use_cases/shopping_cart/upsert_cart_item_usecase.dart'
     as _i19;
 import '../../features/product/presentation/bloc/product_detail/product_detail_bloc.dart'
-    as _i27;
+    as _i28;
 import '../../features/product/presentation/bloc/product_detail/product_option/product_option_bloc.dart'
     as _i3;
 import '../../features/product/presentation/bloc/product_detail/product_option/product_option_bloc_communicaton.dart'
     as _i4;
 import '../../features/product/presentation/bloc/search/search_products_bloc.dart'
-    as _i28;
-import '../../features/product/presentation/bloc/shopping_cart/shopping_cart_bloc.dart'
     as _i29;
-import 'injection.dart' as _i35; // ignore_for_file: unnecessary_lambdas
+import '../../features/product/presentation/bloc/shopping_cart/shopping_cart_bloc.dart'
+    as _i30;
+import 'injection.dart' as _i36; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -115,36 +117,38 @@ Future<_i1.GetIt> $initGetIt(
       () => _i23.GetProductDetailUseCase(get<_i13.ProductRepo>()));
   gh.lazySingleton<_i24.GetProductsUseCase>(
       () => _i24.GetProductsUseCase(get<_i13.ProductRepo>()));
-  gh.lazySingleton<_i25.GetShoppingCartUseCase>(
-      () => _i25.GetShoppingCartUseCase(get<_i17.ShoppingCartRepo>()));
-  gh.lazySingleton<_i26.HomeBloc>(() => _i26.HomeBloc(
+  gh.lazySingleton<_i25.GetShoppingCartByIdUseCase>(
+      () => _i25.GetShoppingCartByIdUseCase(get<_i17.ShoppingCartRepo>()));
+  gh.lazySingleton<_i26.GetShoppingCartUseCase>(
+      () => _i26.GetShoppingCartUseCase(get<_i17.ShoppingCartRepo>()));
+  gh.lazySingleton<_i27.HomeBloc>(() => _i27.HomeBloc(
         get<_i24.GetProductsUseCase>(),
         get<_i22.GetProductCatesUseCase>(),
       ));
-  gh.lazySingleton<_i27.ProductDetailBloc>(
-      () => _i27.ProductDetailBloc(get<_i23.GetProductDetailUseCase>()));
-  gh.lazySingleton<_i28.SearchProductsBloc>(() => _i28.SearchProductsBloc(
+  gh.lazySingleton<_i28.ProductDetailBloc>(
+      () => _i28.ProductDetailBloc(get<_i23.GetProductDetailUseCase>()));
+  gh.lazySingleton<_i29.SearchProductsBloc>(() => _i29.SearchProductsBloc(
         get<_i15.SearchProductsUserCase>(),
         get<_i24.GetProductsUseCase>(),
       ));
-  gh.lazySingleton<_i29.ShoppingCartBloc>(() => _i29.ShoppingCartBloc(
-        get<_i25.GetShoppingCartUseCase>(),
+  gh.lazySingleton<_i30.ShoppingCartBloc>(() => _i30.ShoppingCartBloc(
+        get<_i26.GetShoppingCartUseCase>(),
         get<_i19.UpsertCartItemUseCase>(),
         get<_i21.DeleteCartItemsUseCase>(),
       ));
-  gh.lazySingleton<_i30.AuthRepo>(
-      () => _i31.AuthRepoImpl(get<_i20.AuthRepoteDatasource>()));
-  gh.lazySingleton<_i32.EmailLoginUseCase>(() => _i32.EmailLoginUseCase(
-        get<_i30.AuthRepo>(),
+  gh.lazySingleton<_i31.AuthRepo>(
+      () => _i32.AuthRepoImpl(get<_i20.AuthRepoteDatasource>()));
+  gh.lazySingleton<_i33.EmailLoginUseCase>(() => _i33.EmailLoginUseCase(
+        get<_i31.AuthRepo>(),
         get<_i6.Storage>(),
       ));
-  gh.lazySingleton<_i33.QrBarcodeLoginUseCase>(() => _i33.QrBarcodeLoginUseCase(
-        get<_i30.AuthRepo>(),
-        get<_i32.EmailLoginUseCase>(),
+  gh.lazySingleton<_i34.QrBarcodeLoginUseCase>(() => _i34.QrBarcodeLoginUseCase(
+        get<_i31.AuthRepo>(),
+        get<_i33.EmailLoginUseCase>(),
       ));
-  gh.lazySingleton<_i34.LoginBloc>(() => _i34.LoginBloc(
-        get<_i32.EmailLoginUseCase>(),
-        get<_i33.QrBarcodeLoginUseCase>(),
+  gh.lazySingleton<_i35.LoginBloc>(() => _i35.LoginBloc(
+        get<_i33.EmailLoginUseCase>(),
+        get<_i34.QrBarcodeLoginUseCase>(),
         get<_i8.CheckLoginUseCase>(),
         get<_i11.LogoutUseCase>(),
         get<_i10.GetRememberLoginEmailUserCase>(),
@@ -153,7 +157,7 @@ Future<_i1.GetIt> $initGetIt(
 }
 
 class _$AppModuleDepedenciesProvider
-    extends _i35.AppModuleDepedenciesProvider {}
+    extends _i36.AppModuleDepedenciesProvider {}
 
 class _$ProductRemoteDatasourceProvider
     extends _i12.ProductRemoteDatasourceProvider {}
