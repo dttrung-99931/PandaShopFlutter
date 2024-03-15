@@ -87,6 +87,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       ProductDetailDto productDetail = state.data!;
       return CustomScrollView(
         controller: _scrollContorller,
+        physics: const BouncingScrollPhysics(),
         slivers: [
           _SliverAppBar(productDetail: productDetail),
           _ProductNameAndPrice(productDetail: productDetail),
