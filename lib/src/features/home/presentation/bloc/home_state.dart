@@ -9,3 +9,7 @@ class GetProductsSucess extends FullDataLoadedState<List<ProductDto>> {
 class GetProductCatesSucess extends FullDataLoadedState<List<ProductCategoryDto>> {
   GetProductCatesSucess(super.data);
 }
+
+class GetHomeBannersSucess extends FullDataLoadedState<List<HomeBannerDto>> {
+  GetHomeBannersSucess(super.data);
+}
