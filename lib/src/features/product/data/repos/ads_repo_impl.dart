@@ -4,7 +4,7 @@ import 'package:evievm_app/src/features/product/data/data_sources/ads/ads_data_s
 import 'package:evievm_app/src/features/product/data/models/response/home/home_banner_model.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../domain/repos/Ads_repo.dart';
+import '../../domain/repos/ads_repo.dart';
 
 @LazySingleton(as: AdsRepo)
 class AdsRepoImpl extends AdsRepo {
