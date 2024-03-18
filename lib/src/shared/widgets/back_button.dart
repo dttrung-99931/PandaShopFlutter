@@ -1,3 +1,4 @@
+import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,7 +23,7 @@ class PShopBackButton extends StatelessWidget {
           child: Icon(
             Icons.arrow_back_ios,
             size: 24.r,
-            color: EVMColors.blackLight,
+            color: AppColors.icon,
           ),
         ),
       ),

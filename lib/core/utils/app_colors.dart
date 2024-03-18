@@ -1,3 +1,4 @@
+import 'package:evievm_app/core/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 
 class AppColors {
@@ -8,14 +9,17 @@ class AppColors {
   static const deepPurple = Color(0xff0e1543);
   static const lightGrey = Color(0xFFe4e8ec);
   static const white = Colors.white;
-  static const black = Colors.black;
+  static const black = Color.fromRGBO(0, 0, 0, 1);
+
+  static final border = primary.withOpacity(Dimensions.borderOpacity);
+  static final borderLight = primary.withOpacity(Dimensions.borderOpacityLight);
+  static final icon = primary.withOpacity(.8);
 
   static const red = Color(0xFFFC6356);
   static const redDeep = Color(0xFFED5555);
   static const lightRed = Color(0xFFFFFAFA);
   static const lightGrey2 = Color(0xFFECEDF2);
   static const blackLight = Color(0xFF5f5f5f);
-  static const border = blackLight;
   static const blue = Color(0xFF518CED);
   static const blue2 = Color(0xFF649CF8);
   static const blueDark = Color(0xFF0055B1);
@@ -64,5 +68,4 @@ class AppColors {
 
   // PRoduct
   static const sellNumber = Color(0xFF999999);
-
 }

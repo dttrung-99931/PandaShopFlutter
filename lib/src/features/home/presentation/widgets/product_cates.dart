@@ -108,11 +108,11 @@ class _Item extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(2.r),
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
             // offset: Offset(1, 3),
             spreadRadius: 1,
-            color: Colors.black12,
+            color: AppColors.primary.withOpacity(.4),
             blurRadius: 1,
           )
         ],

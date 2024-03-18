@@ -22,7 +22,22 @@ class CartButton extends StatelessWidget {
       children: [
         IconButton(
           iconSize: size,
-          icon: const Icon(Icons.shopping_cart_outlined),
+          padding: EdgeInsets.all(8.r),
+          icon: Container(
+            decoration: BoxDecoration(
+              color: AppColors.white.withOpacity(.8),
+              borderRadius: BorderRadius.circular(size ?? 32.r),
+            ),
+            padding: EdgeInsets.all(4.r),
+            alignment: Alignment.center,
+            child: Transform.translate(
+              offset: Offset(1.w, 1.h),
+              child: Icon(
+                Icons.shopping_cart_outlined,
+                color: AppColors.primary.withOpacity(.8),
+              ),
+            ),
+          ),
           onPressed: () {
             Global.pushNamed(ShoppingCartScreen.router);
           },
@@ -45,7 +60,7 @@ class CartButton extends StatelessWidget {
                   ),
                   child: Text(
                     state.data.totalItems.toString(),
-                    style: textTheme.bodySmall?.withColor(AppColors.primary).bold(),
+                    style: textTheme.labelMedium?.withColor(AppColors.primary).bold(),
                   ),
                 );
               }),

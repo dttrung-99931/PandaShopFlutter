@@ -1,3 +1,4 @@
+import 'package:evievm_app/core/utils/dimensions.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_dto.dart';
@@ -32,11 +33,18 @@ class ProductItem extends StatelessWidget {
       child: Container(
         // padding: const EdgeInsets.fromLTRB(18, 18, 18, 18),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-        // padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
           color: AppColors.white,
+          borderRadius: BorderRadius.circular(8.r),
+          boxShadow: [
+            BoxShadow(
+              spreadRadius: 0.5,
+              color: AppColors.primary.withOpacity(.4),
+              blurRadius: 1,
+            )
+          ],
         ),
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

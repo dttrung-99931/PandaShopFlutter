@@ -311,19 +311,20 @@ class _SliverAppBar extends StatelessWidget {
       backgroundColor: EVMColors.white,
       title: Text(
         productDetail.name,
-        style: textTheme.titleSmall?.copyWith(color: EVMColors.black),
+        style: textTheme.titleSmall?.copyWith(color: AppColors.black),
       ),
       actionsIconTheme: const IconThemeData(
         color: AppColors.black,
       ),
       actions: [
         IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.share_outlined,
+            color: AppColors.icon,
           ),
           onPressed: () {},
         ),
-        const CartButton()
+        CartButton(size: 28.r)
       ],
     );
   }

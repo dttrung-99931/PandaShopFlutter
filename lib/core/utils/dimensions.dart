@@ -1,3 +1,4 @@
+import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,4 +27,7 @@ class Dimensions {
   static EdgeInsets get marginVertical => EdgeInsets.symmetric(vertical: 12.w);
 
   static double get productGridRatio => (10 / 17).r;
+
+  static double get borderOpacity => .8;
+  static double get borderOpacityLight => .4;
 }

@@ -1,5 +1,8 @@
+import 'package:evievm_app/core/utils/dimensions.dart';
 import 'package:evievm_app/global.dart';
+import 'package:evievm_app/src/shared/widgets/color_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../config/theme.dart';
 
@@ -24,8 +27,9 @@ class SearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: AppColors.white.withOpacity(.9),
         borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: AppColors.borderLight),
       ),
       alignment: Alignment.center,
       child: TextFormField(
@@ -38,13 +42,13 @@ class SearchBar extends StatelessWidget {
         autofocus: autoFocus,
         readOnly: navigateToScreenOnPressed != null,
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(vertical: 8),
+          contentPadding: EdgeInsets.symmetric(vertical: 8.h),
           border: const UnderlineInputBorder(
             borderSide: BorderSide.none,
           ),
-          prefixIcon: const Padding(
-            padding: EdgeInsets.only(left: 6),
-            child: Icon(
+          prefixIcon: Padding(
+            padding: EdgeInsets.only(left: 8.h),
+            child: const Icon(
               Icons.search,
               size: 20,
               color: Colors.black45,

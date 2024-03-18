@@ -25,7 +25,7 @@ class BannerSlider extends StatelessWidget {
                 aspectRatio: 3 / 4,
                 child: ExtendedImage.network(
                   img.link,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                 ),
               ),
             ),

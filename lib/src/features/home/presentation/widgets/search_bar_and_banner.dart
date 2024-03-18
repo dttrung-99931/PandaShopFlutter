@@ -52,13 +52,13 @@ class _SearchBarAndBannerState extends State<SearchBarAndBanner> {
       // collapsedHeight: 96, // hight when pined
       expandedHeight: 200,
       pinned: true,
-      backgroundColor: AppColors.primary,
+      backgroundColor: AppColors.white,
       title: SearchBar(
         autoFocus: true,
         navigateToScreenOnPressed: SearchProductsScreen.router,
       ),
       actions: [
-        CartButton(size: 32.r),
+        Center(child: CartButton(size: 28.r)),
         sw(12.w),
       ],
     );

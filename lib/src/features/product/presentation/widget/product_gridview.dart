@@ -3,6 +3,7 @@ import 'package:evievm_app/src/features/product/presentation/widget/product_item
 import 'package:evievm_app/src/features/product/domain/dto/product_dto.dart';
 import 'package:evievm_app/src/shared/widgets/not_found.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductGridView extends StatelessWidget {
   const ProductGridView(
@@ -22,8 +23,8 @@ class ProductGridView extends StatelessWidget {
             padding: padding,
             crossAxisCount: 2,
             childAspectRatio: Dimensions.productGridRatio,
-            mainAxisSpacing: 8,
-            crossAxisSpacing: 8,
+            mainAxisSpacing: 8.r,
+            crossAxisSpacing: 8.r,
             physics: physics,
             shrinkWrap: true,
             children: [...products.map((product) => ProductItem(product))],
