@@ -22,11 +22,14 @@ class BannerSlider extends StatelessWidget {
           .map(
             (img) => Padding(
               padding: EdgeInsets.symmetric(vertical: 16.h),
-              child: AspectRatio(
-                aspectRatio: 3 / 4,
-                child: ExtendedImage.network(
-                  img.link,
-                  fit: BoxFit.cover,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(5.r),
+                child: AspectRatio(
+                  aspectRatio: 3 / 4,
+                  child: ExtendedImage.network(
+                    img.link,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),

@@ -27,7 +27,7 @@ class SearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.white.withOpacity(.9),
+        color: AppColors.white.withOpacity(.8),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: AppColors.borderLight),
       ),
@@ -59,10 +59,11 @@ class SearchBar extends StatelessWidget {
             minWidth: 36,
           ),
           isDense: true,
-          hintText: 'Tên sách, tác giả, nội dung...',
-          hintStyle: textTheme.bodyMedium?.copyWith(fontSize: 15),
+          hintText: 'Tên sản phẩm, tên shop...',
+          hintStyle: textTheme.bodyMedium?.copyWith(fontSize: 15, color: AppColors.black.withOpacity(.5)),
         ),
-        style: textTheme.bodyMedium?.copyWith(fontSize: 15, fontWeight: FontWeight.normal),
+        style: textTheme.bodyMedium
+            ?.copyWith(fontSize: 15, fontWeight: FontWeight.normal, color: AppColors.black.withOpacity(.9)),
         textAlignVertical: TextAlignVertical.center,
       ),
     );
