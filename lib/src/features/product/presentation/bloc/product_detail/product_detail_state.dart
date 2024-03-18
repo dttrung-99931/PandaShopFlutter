@@ -2,10 +2,11 @@
 part of 'product_detail_bloc.dart';
 
 class GetProductDetailSucess extends FullDataLoadedState<ProductDetailDto?> {
-  GetProductDetailSucess(super.data);
+  final int? selectedOptionId;
+  GetProductDetailSucess(super.data, {this.selectedOptionId});
 
   @override
-  List<Object?> get props => [data];
+  List<Object?> get props => [data, selectedOptionId];
 }
 
 class LoadingProducts extends LoadingState {}

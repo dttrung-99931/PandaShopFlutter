@@ -18,10 +18,12 @@ class OnOptionPropSelectedChagned extends BaseEvent {
 
 class OnInitProductOption extends BaseEvent {
   final ProductDetailDto productDetail;
+  final int? selectedOptionId;
   OnInitProductOption({
     required this.productDetail,
+    this.selectedOptionId,
   });
 
   @override
-  List<Object?> get props => [productDetail];
+  List<Object?> get props => [productDetail, selectedOptionId];
 }

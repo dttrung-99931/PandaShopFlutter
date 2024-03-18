@@ -67,19 +67,25 @@ class ProductOptionBloc extends BaseBloc {
 
   void _onSelectedOptionPropMapChanged(Emitter<BaseState> emit) {
     emit(
-      OptionSelectedChanged(selectablePropVals: _selectableValuesOfPropMap, selectedOption: _selectedOption),
+      OptionSelectedChanged(
+        selectablePropVals: {..._selectableValuesOfPropMap},
+        selectedOption: _selectedOption,
+      ),
     );
   }
 
   FutureOr<void> _onGetProductDetailSuccess(OnInitProductOption event, Emitter<BaseState> emit) {
     _product = event.productDetail;
     _selectableValuesOfPropMap = _product.getAllSelectableValsOfProps();
-    _selectedOption = _product.options.firstOrNull;
+    _selectedOption = (event.selectedOptionId != null
+            ? _product.options.firstWhereOrNull((p0) => p0.id == event.selectedOptionId)
+            : null) ??
+        _product.options.firstOrNull;
     if (_selectedOption != null) {
       _selectedPropValMap = _selectedOption!.propertyValuesMap;
-      for (MapEntry<String, String> propVal in _selectedPropValMap.entries) {
-        _selectableValuesOfPropMap[propVal.key]?.firstWhereOrNull(
-          (SelectableValueDto selectable) => selectable.isSelected = true,
+      for (MapEntry<String, String> selected in _selectedPropValMap.entries) {
+        _selectableValuesOfPropMap[selected.key]?.forEach(
+          (SelectableValueDto selectable) => selectable.isSelected = selectable.value == selected.value,
         );
       }
     }

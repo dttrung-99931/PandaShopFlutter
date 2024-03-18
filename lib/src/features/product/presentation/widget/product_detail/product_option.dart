@@ -24,26 +24,28 @@ class ProductOptions extends StatelessWidget {
     return SliverSection(
       title: 'Phân loại',
       child: CustomBlocBuilder<ProductOptionBloc>(
-          buildForStates: const [OptionSelectedChanged],
-          builder: (state) {
-            if (state is! OptionSelectedChanged) {
-              return const SizedBox.shrink();
-            }
-            return Column(
-              children: state.selectablePropVals.entries
-                  .map<Widget>(
-                    (MapEntry<String, List<SelectableValueDto>> entry) => Padding(
-                      padding: EdgeInsets.symmetric(vertical: 2.h),
-                      child: _OptionPropertySelect(
-                        propertyName: entry.key,
-                        selectableValues: entry.value,
-                      ),
+        key: GlobalKey(),
+        buildForStates: const [OptionSelectedChanged],
+        builder: (state) {
+          if (state is! OptionSelectedChanged) {
+            return const SizedBox.shrink();
+          }
+          return Column(
+            children: state.selectablePropVals.entries
+                .map<Widget>(
+                  (MapEntry<String, List<SelectableValueDto>> entry) => Padding(
+                    padding: EdgeInsets.symmetric(vertical: 2.h),
+                    child: _OptionPropertySelect(
+                      propertyName: entry.key,
+                      selectableValues: entry.value,
                     ),
-                  )
-                  .toList()
-                  .addBetweenEvery(sh(2.h)),
-            );
-          }),
+                  ),
+                )
+                .toList()
+                .addBetweenEvery(sh(2.h)),
+          );
+        },
+      ),
     );
   }
 }

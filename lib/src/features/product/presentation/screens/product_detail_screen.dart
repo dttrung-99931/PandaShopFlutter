@@ -1,5 +1,6 @@
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
+import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_detail_dto.dart';
 import 'package:evievm_app/src/features/product/presentation/bloc/product_detail/product_detail_bloc.dart';
@@ -18,8 +19,9 @@ import '../../../../../core/base_bloc/base_state.dart';
 
 class ProductDetailScreenArgs {
   final int productId;
+  final int? selectedOptionId;
 
-  ProductDetailScreenArgs(this.productId);
+  ProductDetailScreenArgs(this.productId, {this.selectedOptionId});
 }
 
 class ProductDetailScreen extends StatefulWidget {
@@ -39,7 +41,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   void initState() {
     super.initState();
-    getIt<ProductDetailBloc>().add(OnGetProductDetail(widget.args.productId));
+    getIt<ProductDetailBloc>().add(
+      OnGetProductDetail(widget.args.productId, selectedOptionId: widget.args.selectedOptionId),
+    );
   }
 
   @override

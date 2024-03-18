@@ -56,7 +56,7 @@ class CartItem extends StatelessWidget {
               onTap: () {
                 Global.pushNamedSafe(
                   ProductDetailScreen.router,
-                  args: ProductDetailScreenArgs(item.product.id),
+                  args: ProductDetailScreenArgs(item.product.id, selectedOptionId: item.prouductOption.id),
                 );
               },
               child: Column(

@@ -10,7 +10,12 @@ class ProductOptionCommunication extends BlocCommunication<ProductOptionBloc> {
   void startCommunication(ProductOptionBloc bloc) {
     listenOtherBloc<ProductDetailBloc>((state) {
       if (state is GetProductDetailSucess && state.data != null) {
-        bloc.add(OnInitProductOption(productDetail: state.data!));
+        bloc.add(
+          OnInitProductOption(
+            productDetail: state.data!,
+            selectedOptionId: state.selectedOptionId,
+          ),
+        );
       }
     });
   }
