@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import 'package:evievm_app/src/features/product/domain/dto/product_detail_dto.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BannerSlider extends StatelessWidget {
   final List<ImageDto> images;
@@ -20,12 +21,12 @@ class BannerSlider extends StatelessWidget {
       items: images
           .map(
             (img) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12),
+              padding: EdgeInsets.symmetric(vertical: 16.h),
               child: AspectRatio(
                 aspectRatio: 3 / 4,
                 child: ExtendedImage.network(
                   img.link,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),

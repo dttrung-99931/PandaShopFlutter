@@ -50,7 +50,7 @@ class _SearchBarAndBannerState extends State<SearchBarAndBanner> {
       ),
       stretchTriggerOffset: 56,
       // collapsedHeight: 96, // hight when pined
-      expandedHeight: 200,
+      expandedHeight: 180,
       pinned: true,
       backgroundColor: AppColors.white,
       title: SearchBar(
