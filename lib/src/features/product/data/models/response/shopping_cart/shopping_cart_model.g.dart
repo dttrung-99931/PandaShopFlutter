@@ -17,7 +17,8 @@ ShoppingCartModel _$ShoppingCartModelFromJson(Map<String, dynamic> json) =>
 CartItemModel _$CartItemModelFromJson(Map<String, dynamic> json) =>
     CartItemModel(
       productNum: json['productNum'] as int,
-      productOptionId: json['productOptionId'] as int,
+      productOption: ProductOptionModel.fromJson(
+          json['productOption'] as Map<String, dynamic>),
       shortProduct: ShortProductModel.fromJson(
           json['shortProduct'] as Map<String, dynamic>),
       id: json['id'] as int,

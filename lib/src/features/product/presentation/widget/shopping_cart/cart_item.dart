@@ -5,6 +5,8 @@ import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/product/domain/dto/shopping_cart_dto.dart';
 import 'package:evievm_app/src/features/product/presentation/bloc/shopping_cart/shopping_cart_bloc.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/price_widget.dart';
+import 'package:evievm_app/src/features/product/presentation/widget/product_detail/product_option.dart';
+import 'package:evievm_app/src/features/product/presentation/widget/shopping_cart/cart_item_properties.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/shopping_cart/product_counter.dart';
 import 'package:evievm_app/src/shared/widgets/custom_statefull_checkbox.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
@@ -73,7 +75,9 @@ class CartItem extends StatelessWidget {
                     ProductCounter(item: item),
                   ],
                 ),
-                sh(2.h),
+                sh(4.h),
+                CartItemProperties(item: item),
+                sh(12.h),
                 Row(
                   children: [
                     Icon(Icons.add_location_rounded, color: AppColors.blackLight.withOpacity(0.8), size: 16.r),

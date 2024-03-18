@@ -1,9 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:equatable/equatable.dart';
+
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/src/features/product/data/models/response/shopping_cart/shopping_cart_model.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_dto.dart';
 import 'package:evievm_app/src/shared/models/selectable.dart';
+
+import 'product_detail_dto.dart';
 
 class ShoppingCartDto extends Equatable {
   const ShoppingCartDto({
@@ -35,13 +38,13 @@ class ShoppingCartDto extends Equatable {
 
 class CartItemDto extends Selectable {
   final int productNum;
-  final int proudctOptionId;
+  final ProductOptionDto prouductOption;
   final ProductDto product;
   final int id;
 
   CartItemDto({
     required this.productNum,
-    required this.proudctOptionId,
+    required this.prouductOption,
     required this.product,
     required this.id,
     super.isSelected,
@@ -50,7 +53,7 @@ class CartItemDto extends Selectable {
   factory CartItemDto.fromModel(CartItemModel model) {
     return CartItemDto(
       productNum: model.productNum,
-      proudctOptionId: model.productOptionId,
+      prouductOption: ProductOptionDto.fromModel(model.productOption),
       product: ProductDto.fromModel(model.shortProduct),
       id: model.id,
     );
@@ -61,17 +64,15 @@ class CartItemDto extends Selectable {
 
   CartItemDto copyWith({
     int? productNum,
-    int? proudctOptionId,
+    ProductOptionDto? proudctOption,
     ProductDto? product,
     int? id,
-    bool? isSelected
   }) {
     return CartItemDto(
       productNum: productNum ?? this.productNum,
-      proudctOptionId: proudctOptionId ?? this.proudctOptionId,
+      prouductOption: proudctOption ?? this.prouductOption,
       product: product ?? this.product,
       id: id ?? this.id,
-      isSelected: isSelected ?? this.isSelected,
     );
   }
 }

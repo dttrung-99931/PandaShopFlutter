@@ -49,7 +49,7 @@ class ProductCounter extends StatelessWidget {
               shoppingCartBloc.add(
                 OnUpsertCart(
                   requestModel: UpsertCartRequestModel(
-                    productOptionId: item.proudctOptionId,
+                    productOptionId: item.prouductOption.id,
                     productNum: item.productNum - 1,
                   ),
                 ),
@@ -64,7 +64,7 @@ class ProductCounter extends StatelessWidget {
             shoppingCartBloc.add(
               OnUpsertCart(
                 requestModel: UpsertCartRequestModel(
-                  productOptionId: item.proudctOptionId,
+                  productOptionId: item.prouductOption.id,
                   productNum: item.productNum + 1,
                 ),
               ),

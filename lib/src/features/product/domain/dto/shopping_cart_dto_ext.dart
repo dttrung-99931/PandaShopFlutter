@@ -7,12 +7,11 @@ extension ShoppingCartDtoExt on ShoppingCartDto {
   int get totalSelected => selected.length;
   List<CartItemDto> get selected => items.where((element) => element.isSelected).toList();
 
-  bool containProduct(int productOptionId){
-    return items.any((element) => element.proudctOptionId == productOptionId);
+  bool containProduct(int productOptionId) {
+    return items.any((element) => element.prouductOption.id == productOptionId);
   }
 
   CartItemDto? getItem(int productOptionId) {
-    return items.firstWhereOrNull((element) => element.proudctOptionId == productOptionId);
+    return items.firstWhereOrNull((element) => element.prouductOption.id == productOptionId);
   }
-
 }

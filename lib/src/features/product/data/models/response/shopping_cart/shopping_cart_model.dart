@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evievm_app/src/features/product/data/models/response/product_detail_model.dart';
 import 'package:evievm_app/src/features/product/data/models/response/short_product_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -20,13 +21,13 @@ class ShoppingCartModel {
 @JsonSerializable(createToJson: false, explicitToJson: true)
 class CartItemModel {
   final int productNum;
-  final int productOptionId;
+  final ProductOptionModel productOption;
   final ShortProductModel shortProduct;
   final int id;
 
   CartItemModel({
     required this.productNum,
-    required this.productOptionId,
+    required this.productOption,
     required this.shortProduct,
     required this.id,
   });

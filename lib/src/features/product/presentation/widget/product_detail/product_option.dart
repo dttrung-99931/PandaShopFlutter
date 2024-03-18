@@ -1,10 +1,10 @@
-import 'package:evievm_app/core/utils/app_colors.dart';
-import 'package:evievm_app/core/utils/evm_colors.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_detail_dto.dart';
 import 'package:evievm_app/src/features/product/presentation/bloc/product_detail/product_option/product_option_bloc.dart';
+import 'package:evievm_app/src/shared/widgets/common/app_chip.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:evievm_app/src/shared/widgets/sliver/sliver_session.dart';
@@ -83,25 +83,10 @@ class _OptionPropertySelectState extends State<_OptionPropertySelect> {
                         );
                       }
                     : null,
-                child: Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: selectableVal.isSelected ? AppColors.black.withOpacity(.6) : EVMColors.transparent,
-                    borderRadius: BorderRadius.circular(16.r),
-                  ),
-                  padding: EdgeInsets.symmetric(
-                    vertical: 4.h,
-                    horizontal: 12.h,
-                  ),
-                  child: Text(
-                    selectableVal.value,
-                    style: textTheme.bodyMedium?.copyWith(
-                      color: selectableVal.isSelected
-                          ? AppColors.white
-                          : Colors.black.withOpacity(selectableVal.isSelectable ? 1 : .36),
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+                child: AppChip(
+                  isSelected: selectableVal.isSelected,
+                  label: selectableVal.value,
+                  isSelectable: selectableVal.isSelectable,
                 ),
               ),
             )
