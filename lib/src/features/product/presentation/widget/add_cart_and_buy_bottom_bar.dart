@@ -91,6 +91,7 @@ class AddToCartButton extends StatelessWidget {
               }
             },
             buildCondition: (state) => state is! ErrorState,
+            buildForStates: const [UpsertShoppingCartSuccess, GetShoppingCartSuccess],
             builder: (state) {
               if (state is ShoppingCartUpdated) {
                 CartItemDto? item = state.data.getItem(option.id);
