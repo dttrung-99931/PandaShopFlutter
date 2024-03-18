@@ -34,7 +34,6 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
-  final ProductDetailBloc _bloc = getIt();
   final _scrollContorller = ScrollController();
 
   @override
@@ -48,11 +47,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     return Scaffold(
       backgroundColor: EVMColors.background,
       appBar: AppBar(
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: AppColors.primary,
-        ),
         elevation: 0,
         toolbarHeight: 0,
+        backgroundColor: AppColors.primary,
       ),
       body: SafeArea(
         child: CustomBlocBuilder<ProductDetailBloc>(

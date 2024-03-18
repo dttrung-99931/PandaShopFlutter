@@ -17,6 +17,7 @@ ThemeData theme(BuildContext context) {
     ),
     appBarTheme: const AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: AppColors.transparent),
+      backgroundColor: AppColors.primary,
     ),
     textTheme: Theme.of(context).textTheme.copyWith(
           /// Title

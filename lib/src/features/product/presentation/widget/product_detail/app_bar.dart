@@ -6,6 +6,7 @@ import 'package:evievm_app/src/features/product/presentation/widget/cart_button.
 import 'package:evievm_app/src/shared/widgets/back_button.dart';
 import 'package:evievm_app/src/shared/widgets/image_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductDetailAppBar extends StatelessWidget {
@@ -28,11 +29,12 @@ class ProductDetailAppBar extends StatelessWidget {
       elevation: 2,
       pinned: true,
       stretchTriggerOffset: 56,
-      leading: const PShopBackButton(),
+      leading: const PShopBackButton(color: AppColors.primary),
       // collapsedHeight: 96, // hight when pined
       expandedHeight: 300.h,
       automaticallyImplyLeading: false,
-      backgroundColor: EVMColors.white,
+      backgroundColor: AppColors.white,
+      titleSpacing: 8.w,
       title: Text(
         productDetail.name,
         style: textTheme.titleSmall?.copyWith(color: AppColors.black),
@@ -42,9 +44,9 @@ class ProductDetailAppBar extends StatelessWidget {
       ),
       actions: [
         IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.share_outlined,
-            color: AppColors.icon,
+            color: AppColors.primary,
           ),
           onPressed: () {},
         ),
