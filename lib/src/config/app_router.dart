@@ -1,6 +1,7 @@
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
+import 'package:evievm_app/src/features/product/presentation/screens/order_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/product_detail_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/search_products_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/shopping_cart_screen.dart';
@@ -55,6 +56,8 @@ class AppRouter {
         return const SearchProductsScreen();
       case ProductDetailScreen.router:
         return ProductDetailScreen(settings.arguments as ProductDetailScreenArgs);
+      case OrderScreen.router:
+        return OrderScreen(settings.arguments as dynamic);
 
       // Settings
       case LabSettingScreen.router:

@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/utils/app_colors.dart';
+import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/product/data/models/request/shopping_cart/upsert_cart_request_model.dart';
@@ -16,10 +17,12 @@ class ProductCounter extends StatelessWidget {
     super.key,
     required this.item,
     this.comfirmDelete = true,
+    this.showCounter = true,
   });
 
   final CartItemDto item;
   final bool comfirmDelete;
+  final bool showCounter;
 
   @override
   Widget build(BuildContext context) {
@@ -27,51 +30,63 @@ class ProductCounter extends StatelessWidget {
       spacing: 4.w,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CustomBlocListener<ShoppingCartBloc>(
-          listener: (state) {
-            if (state is DeleteCartItemsSuccess) {
-              shoppingCartBloc.add(OnGetShoppingCart());
-            }
-          },
-          child: _Button(
-            onPressed: () {
-              if (item.productNum == 1) {
-                if (!comfirmDelete) {
-                  shoppingCartBloc.add(OnDeleteCartItems(items: [item]));
-                  return;
-                }
-                showDialog(
-                  context: context,
-                  builder: (_) => DeleteCartItemsDialog(selected: [item]),
-                );
-                return;
-              }
-              shoppingCartBloc.add(
-                OnUpsertCart(
-                  requestModel: UpsertCartRequestModel(
-                    productOptionId: item.prouductOption.id,
-                    productNum: item.productNum - 1,
-                  ),
+        showCounter
+            ? CustomBlocListener<ShoppingCartBloc>(
+                listener: (state) {
+                  if (state is DeleteCartItemsSuccess) {
+                    shoppingCartBloc.add(OnGetShoppingCart());
+                  }
+                },
+                child: _Button(
+                  onPressed: () {
+                    if (item.productNum == 1) {
+                      if (!comfirmDelete) {
+                        shoppingCartBloc.add(OnDeleteCartItems(items: [item]));
+                        return;
+                      }
+                      showDialog(
+                        context: context,
+                        builder: (_) => DeleteCartItemsDialog(selected: [item]),
+                      );
+                      return;
+                    }
+                    shoppingCartBloc.add(
+                      OnUpsertCart(
+                        requestModel: UpsertCartRequestModel(
+                          productOptionId: item.prouductOption.id,
+                          productNum: item.productNum - 1,
+                        ),
+                      ),
+                    );
+                  },
+                  symbol: '-',
                 ),
-              );
-            },
-            symbol: '-',
-          ),
+              )
+            : SizedBox(width: 8.w),
+        Row(
+          children: [
+            Text(
+              item.productNum.toString(),
+              style: textTheme.bodyMedium.withWeight(showCounter ? FontWeight.normal : FontWeight.bold),
+            ),
+            if (!showCounter) ...[Text(' Sản phẩm', style: textTheme.bodyMedium)]
+          ],
         ),
-        Text(item.productNum.toString()),
-        _Button(
-          onPressed: () {
-            shoppingCartBloc.add(
-              OnUpsertCart(
-                requestModel: UpsertCartRequestModel(
-                  productOptionId: item.prouductOption.id,
-                  productNum: item.productNum + 1,
-                ),
-              ),
-            );
-          },
-          symbol: '+',
-        ),
+        showCounter
+            ? _Button(
+                onPressed: () {
+                  shoppingCartBloc.add(
+                    OnUpsertCart(
+                      requestModel: UpsertCartRequestModel(
+                        productOptionId: item.prouductOption.id,
+                        productNum: item.productNum + 1,
+                      ),
+                    ),
+                  );
+                },
+                symbol: '+',
+              )
+            : SizedBox(width: 8.w),
       ],
     );
   }

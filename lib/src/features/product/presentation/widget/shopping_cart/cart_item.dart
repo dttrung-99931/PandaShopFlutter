@@ -15,13 +15,28 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+enum CartItemMode {
+  cart,
+  order;
+
+  bool get showCheckBox {
+    return this == cart;
+  }
+
+  bool get showProductCounter {
+    return this == cart;
+  }
+}
+
 class CartItem extends StatelessWidget {
   const CartItem({
     super.key,
     required this.item,
+    this.mode = CartItemMode.cart,
   });
 
   final CartItemDto item;
+  final CartItemMode mode;
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +49,14 @@ class CartItem extends StatelessWidget {
       ),
       child: Row(
         children: [
-          CustomStatefullCheckbox(
-            initialCheck: item.isSelected,
-            shape: BoxShape.rectangle,
-            onCheckChanged: (isChecked) {
-              shoppingCartBloc.add(OnCheckCartItem(isChecked: isChecked, item: item));
-            },
-          ),
+          if (mode.showCheckBox)
+            CustomStatefullCheckbox(
+              initialCheck: item.isSelected,
+              shape: BoxShape.rectangle,
+              onCheckChanged: (isChecked) {
+                shoppingCartBloc.add(OnCheckCartItem(isChecked: isChecked, item: item));
+              },
+            ),
           IntrinsicHeight(
             child: ExtendedImage.network(
               item.product.thumbnailUrl,
@@ -80,7 +96,7 @@ class CartItem extends StatelessWidget {
                     children: [
                       // PriceWidget(item.product.price, isOriginalPrice: true),
                       PriceWidget(item.product.price),
-                      ProductCounter(item: item),
+                      ProductCounter(item: item, showCounter: mode.showProductCounter),
                     ],
                   ),
                   sh(4.h),
