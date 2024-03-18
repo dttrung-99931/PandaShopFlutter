@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/product/domain/dto/order/order_confirm_dto.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/price_widget.dart';
-import 'package:evievm_app/src/shared/widgets/sized_box.dart';
+import 'package:evievm_app/src/shared/widgets/section.dart';
+import 'package:evievm_app/src/shared/widgets/spacing_column.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -15,13 +17,29 @@ class SubtotalPrices extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 8.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      child: Section(
+        title: 'Tổng tiền',
+        titlePadding: EdgeInsets.only(top: 2.h, bottom: 4.h),
+        padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
+        child: SpacingColumn(
+          spacing: 4.h,
           children: [
-            _Row(title: 'sản phẩm đã chọn', value: Text(orderConfirm.total.toString())),
-            _Row(title: 'sản phẩm đã chọn', value: PriceWidget(orderConfirm.totalPrice)),
+            _Row(
+              title: 'Tạm tính: ',
+              value: PriceWidget(orderConfirm.subtotal),
+            ),
+            _Row(
+              title: 'Cước vận chuyển (nhanh): ',
+              value: PriceWidget(orderConfirm.shippingFee),
+            ),
+            _Row(
+              title: 'VAT (${orderConfirm.vatPercents}%): ',
+              value: PriceWidget(orderConfirm.vatPrice),
+            ),
+            _Row(
+              title: 'Tổng cộng: ',
+              value: PriceWidget(orderConfirm.totalPrice, isLarge: true),
+            ),
           ],
         ),
       ),
@@ -43,9 +61,9 @@ class _Row extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(title),
-        sw(8.w),
-        value,
+        Text(title, style: textTheme.bodyMedium),
+        const Spacer(),
+        SizedBox(height: 28.h, child: value),
       ],
     );
   }

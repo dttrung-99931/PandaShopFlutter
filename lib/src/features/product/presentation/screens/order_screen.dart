@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/utils/app_colors.dart';
+import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/theme.dart';
@@ -47,23 +48,23 @@ class _OrderScreenState extends State<OrderScreen> {
       body: CustomScrollView(
         slivers: [
           const _AppBar(),
-          CustomBlocBuilder<OrderBloc>(
-            isSliver: true,
-            buildForStates: const [GetOrderConfirmSuccess],
-            builder: (state) {
-              if (state is GetOrderConfirmSuccess) {
-                return CustomScrollView(
-                  // Make nested custom scroll view to group slivers
-                  shrinkWrap: true,
-                  slivers: [
-                    SubtotalPrices(orderConfirm: state.data),
-                    SliverSizedBox(height: 8.h),
-                    CartItemConfirmList(orderConfirm: state.data),
-                  ],
-                );
-              }
-              return const SliverToBoxAdapter(child: SizedBox.shrink());
-            },
+          SliverToBoxAdapter(
+            child: CustomBlocBuilder<OrderBloc>(
+              buildForStates: const [GetOrderConfirmSuccess],
+              builder: (state) {
+                if (state is GetOrderConfirmSuccess) {
+                  return CustomScrollView(
+                    shrinkWrap: true,
+                    slivers: [
+                      CartItemConfirmList(orderConfirm: state.data),
+                      SliverSizedBox(height: 8.h),
+                      SubtotalPrices(orderConfirm: state.data),
+                    ],
+                  );
+                }
+                return emptyWidget;
+              },
+            ),
           )
         ],
       ),
