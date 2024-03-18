@@ -39,7 +39,7 @@ class CartButton extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            Global.pushNamed(ShoppingCartScreen.router);
+            Global.pushNamedSafe(ShoppingCartScreen.router);
           },
         ),
         Positioned(

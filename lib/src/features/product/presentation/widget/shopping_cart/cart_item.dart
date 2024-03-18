@@ -1,11 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
+import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/product/domain/dto/shopping_cart_dto.dart';
 import 'package:evievm_app/src/features/product/presentation/bloc/shopping_cart/shopping_cart_bloc.dart';
+import 'package:evievm_app/src/features/product/presentation/screens/product_detail_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/price_widget.dart';
-import 'package:evievm_app/src/features/product/presentation/widget/product_detail/product_option.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/shopping_cart/cart_item_properties.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/shopping_cart/product_counter.dart';
 import 'package:evievm_app/src/shared/widgets/custom_statefull_checkbox.dart';
@@ -51,45 +52,53 @@ class CartItem extends StatelessWidget {
           ),
           sw(8.w),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                sh(2.h),
-                ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minHeight: 12.h * 2,
-                  ),
-                  child: Text(
-                    item.product.name,
-                    style: textTheme.bodyLarge?.withWeight(FontWeight.w500).overflowElipse().withColor(
-                          AppColors.black.withOpacity(.8),
-                        ),
-                    maxLines: 2,
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // PriceWidget(item.product.price, isOriginalPrice: true),
-                    PriceWidget(item.product.price),
-                    ProductCounter(item: item),
-                  ],
-                ),
-                sh(4.h),
-                CartItemProperties(item: item),
-                sh(12.h),
-                Row(
-                  children: [
-                    Icon(Icons.add_location_rounded, color: AppColors.blackLight.withOpacity(0.8), size: 16.r),
-                    sw(4.w),
-                    Text(
-                      'Shop Drunk ABC',
-                      style: textTheme.labelMedium?.withColor(AppColors.blackLight).overflowElipse(),
+            child: InkWell(
+              onTap: () {
+                Global.pushNamedSafe(
+                  ProductDetailScreen.router,
+                  args: ProductDetailScreenArgs(item.product.id),
+                );
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  sh(2.h),
+                  ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: 12.h * 2,
+                    ),
+                    child: Text(
+                      item.product.name,
+                      style: textTheme.bodyLarge?.withWeight(FontWeight.w500).overflowElipse().withColor(
+                            AppColors.black.withOpacity(.8),
+                          ),
                       maxLines: 2,
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // PriceWidget(item.product.price, isOriginalPrice: true),
+                      PriceWidget(item.product.price),
+                      ProductCounter(item: item),
+                    ],
+                  ),
+                  sh(4.h),
+                  CartItemProperties(item: item),
+                  sh(12.h),
+                  Row(
+                    children: [
+                      Icon(Icons.add_location_rounded, color: AppColors.blackLight.withOpacity(0.8), size: 16.r),
+                      sw(4.w),
+                      Text(
+                        'Shop Drunk ABC',
+                        style: textTheme.labelMedium?.withColor(AppColors.blackLight).overflowElipse(),
+                        maxLines: 2,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ],

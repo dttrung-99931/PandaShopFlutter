@@ -1,6 +1,7 @@
 import 'package:another_flushbar/flushbar_route.dart';
 import 'package:evievm_app/src/config/app_nav_observer.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class Global {
   static final globalKey = GlobalKey<NavigatorState>();
@@ -17,9 +18,9 @@ class Global {
     navigator.pop(dialogContext);
   }
 
-  static void pushNamed(String routeName, {Object? args}) {
+  static Future<T?> pushNamed<T extends Object?>(String routeName, {Object? args}) {
     hideAllSnackbars();
-    navigator.pushNamed(routeName, arguments: args);
+    return navigator.pushNamed(routeName, arguments: args);
   }
 
   static void hideAllSnackbars() {
@@ -32,5 +33,38 @@ class Global {
 
   static void pop() {
     navigator.pop();
+  }
+
+  static Future<T?> swapCurrentAndPrevRoute<T extends Object?>({
+    // Map<route name, udpated args>
+    Map<String, dynamic> updatedArgs = const {},
+  }) async {
+    if (AppNavObserver.previousRoute != null) {
+      String currentRoute = AppNavObserver.currentRoute;
+      String previousRoute = AppNavObserver.previousRoute!;
+      Object? currentRouteArgs = updatedArgs[currentRoute] ?? AppNavObserver.currentRouteArgs;
+      Object? previousRouteArgs = updatedArgs[previousRoute] ?? AppNavObserver.previousRouteArgs;
+      pop();
+      pop();
+      pushNamed(currentRoute, args: currentRouteArgs);
+      return pushNamed(previousRoute, args: previousRouteArgs);
+    }
+    return null;
+  }
+
+  // like pushNamed and make sure unique screen existing in stack when one of two screens go to each other many times
+  static Future<T?> pushNamedSafe<T extends Object?>(String routeName, {Object? args, bool showCommingSoon = true}) {
+    if (AppNavObserver.previousRoute != routeName) {
+      return Global.pushNamed(routeName, args: args);
+    } else {
+      return Global.swapCurrentAndPrevRoute(updatedArgs: {
+        routeName: args,
+      });
+    }
+  }
+
+  static void hideAllDialogs({List<String> ignoreDialogRoutes = const []}) {
+    Global.navigator.popUntil((route) =>
+        (route is! DialogRoute || ignoreDialogRoutes.contains(route.settings.name)) || (!Global.navigator.canPop()));
   }
 }
