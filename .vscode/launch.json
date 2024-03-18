@@ -43,7 +43,8 @@
             "args": [
                 "--flavor",
                 "dev"
-            ]
+            ],
+            "preLaunchTask": "git reverse 44444"
         },
         {
             "name": "dev home",
