@@ -9,6 +9,7 @@ import 'package:evievm_app/src/features/product/presentation/screens/product_det
 import 'package:evievm_app/src/features/product/presentation/widget/price_widget.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/shopping_cart/cart_item_properties.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/shopping_cart/product_counter.dart';
+import 'package:evievm_app/src/shared/widgets/color_container.dart';
 import 'package:evievm_app/src/shared/widgets/custom_statefull_checkbox.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:extended_image/extended_image.dart';
@@ -50,12 +51,15 @@ class CartItem extends StatelessWidget {
       child: Row(
         children: [
           if (mode.showCheckBox)
-            CustomStatefullCheckbox(
-              initialCheck: item.isSelected,
-              shape: BoxShape.rectangle,
-              onCheckChanged: (isChecked) {
-                shoppingCartBloc.add(OnCheckCartItem(isChecked: isChecked, item: item));
-              },
+            SizedBox(
+              height: 64.h,
+              child: CustomStatefullCheckbox(
+                initialCheck: item.isSelected,
+                shape: BoxShape.rectangle,
+                onCheckChanged: (isChecked) {
+                  shoppingCartBloc.add(OnCheckCartItem(isChecked: isChecked, item: item));
+                },
+              ),
             ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 2.w),

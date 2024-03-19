@@ -7,6 +7,7 @@ import 'package:evievm_app/src/shared/widgets/color_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:rxdart/rxdart.dart';
 
 class CustomStatefullCheckbox extends StatefulWidget {
   CustomStatefullCheckbox({
@@ -65,8 +66,9 @@ class _CustomStatefullCheckboxState extends State<CustomStatefullCheckbox> {
         });
         widget.onCheckChanged(_isChecked);
       },
+      behavior: HitTestBehavior.translucent,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 8.r, vertical: 8.r),
+        padding: EdgeInsets.symmetric(horizontal: 8.r, vertical: 16.r),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
