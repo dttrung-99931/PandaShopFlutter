@@ -57,13 +57,16 @@ class CartItem extends StatelessWidget {
                 shoppingCartBloc.add(OnCheckCartItem(isChecked: isChecked, item: item));
               },
             ),
-          IntrinsicHeight(
-            child: ExtendedImage.network(
-              item.product.thumbnailUrl,
-              width: 72.r,
-              height: 72.r,
-              fit: BoxFit.cover,
-              alignment: Alignment.center,
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 2.w),
+            child: IntrinsicHeight(
+              child: ExtendedImage.network(
+                item.product.thumbnailUrl,
+                width: 72.r,
+                height: 72.r,
+                fit: BoxFit.cover,
+                alignment: Alignment.center,
+              ),
             ),
           ),
           sw(8.w),
@@ -99,7 +102,7 @@ class CartItem extends StatelessWidget {
                       ProductCounter(item: item, showCounter: mode.showProductCounter),
                     ],
                   ),
-                  sh(4.h),
+                  sh(8.h),
                   CartItemProperties(item: item),
                   sh(12.h),
                   Row(
