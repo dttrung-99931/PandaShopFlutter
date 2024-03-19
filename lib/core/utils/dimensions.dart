@@ -26,7 +26,7 @@ class Dimensions {
   static EdgeInsets get marginHorizontal => EdgeInsets.symmetric(horizontal: 12.w);
   static EdgeInsets get marginVertical => EdgeInsets.symmetric(vertical: 12.w);
 
-  static double get productGridRatio => (10 / 16).r;
+  static double get productGridRatio => (10.w / 14.h).r;
 
   static double get borderOpacity => .8;
   static double get borderOpacityLight => .4;

@@ -4,6 +4,7 @@ import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_dto.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/product_detail_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/price_widget.dart';
+import 'package:evievm_app/src/shared/widgets/color_container.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
@@ -51,10 +52,13 @@ class ProductItem extends StatelessWidget {
             // TODO: hanlde responsive with other image sizes
             Expanded(
               flex: 5,
-              child: ExtendedImage.network(
-                product.thumbnailUrl,
-                fit: BoxFit.scaleDown,
-                // layoutInsets: EdgeInsets.all(2.r),
+              child: AspectRatio(
+                aspectRatio: 3 / 4,
+                child: ExtendedImage.network(
+                  alignment: Alignment.center,
+                  product.thumbnailUrl,
+                  fit: BoxFit.scaleDown,
+                ),
               ),
             ),
             const SizedBox(height: 12),
