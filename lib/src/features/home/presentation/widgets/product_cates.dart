@@ -71,7 +71,7 @@ class _ProductCates extends StatelessWidget {
           int toIndex = min(fromIndex + rows - 1, menuItemsCount - 1);
           return Column(
             mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               for (int menuIndex = fromIndex; menuIndex <= toIndex; menuIndex++)
                 _Item(cates: cates, menuIndex: menuIndex),
@@ -79,14 +79,14 @@ class _ProductCates extends StatelessWidget {
           );
         },
         separatorBuilder: (BuildContext context, int index) {
-          return SizedBox(width: 4.w);
+          return SizedBox(width: 8.r);
         },
       ),
     );
   }
 }
 
-double get _itemHeight => 72.h;
+double get _itemHeight => 84.h;
 
 class _Item extends StatelessWidget {
   const _Item({
@@ -101,8 +101,8 @@ class _Item extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: _itemHeight,
-      width: 64.w,
-      margin: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+      width: 92.w,
+      margin: EdgeInsets.fromLTRB(8.r, 8.r, 8.r, 0.r),
       padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 2.w),
       alignment: Alignment.center,
       decoration: BoxDecoration(
@@ -134,6 +134,7 @@ class _Item extends StatelessWidget {
               cates[menuIndex].name,
               style: textTheme.labelMedium?.copyWith(height: 1.3),
               maxLines: 2,
+              textAlign: TextAlign.center,
             ),
           ),
         ],

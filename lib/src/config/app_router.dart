@@ -17,6 +17,7 @@ import 'package:evievm_app/src/features/settings/presentation/screens/lab_settin
 import 'package:evievm_app/src/features/home/presentation/screens/home_screen.dart';
 import 'package:evievm_app/src/features/auth/presentation/screens/sign_up_step2_lab_info_input_screen.dart';
 import 'package:evievm_app/src/features/common/presentation/screens/splash_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppRouter {
   static String get initialRouter => SplashScreen.router;
@@ -70,7 +71,9 @@ class AppRouter {
     _configUIForScreen(settings);
     _initLazyBloc(settings);
     return MaterialPageRoute(
-      builder: (context) => _buildScreen(settings, context),
+      builder: (context) {
+        return _buildScreen(settings, context);
+      },
       settings: settings,
     );
   }
