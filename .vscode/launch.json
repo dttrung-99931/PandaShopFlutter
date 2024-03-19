@@ -40,6 +40,7 @@
             "type": "dart",
             "flutterMode": "debug",
             "program": "lib/main_dev.dart",
+            "preLaunchTask": "reverse-tcp",
             "args": [
                 "--flavor",
                 "dev"
@@ -51,6 +52,7 @@
             "type": "dart",
             "flutterMode": "debug",
             "program": "lib/main_dev_home.dart",
+            "preLaunchTask": "reverse-tcp-home",
             "args": [
                 "--flavor",
                 "dev"
