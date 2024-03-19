@@ -6,6 +6,7 @@ import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:evievm_app/src/features/auth/presentation/screens/login_screen.dart';
 import 'package:evievm_app/src/features/auth/presentation/screens/sign_up_step1_screen.dart';
+import 'package:evievm_app/src/features/product/domain/dto/shopping_cart_dto_ext.dart';
 import 'package:evievm_app/src/features/product/presentation/bloc/shopping_cart/shopping_cart_bloc.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/shopping_cart_screen.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
@@ -53,17 +54,18 @@ class CartButton extends StatelessWidget {
             ));
           },
         ),
-        Positioned(
-          top: 4.h,
-          right: 4.w,
-          child: CustomBlocBuilder<ShoppingCartBloc>(
-              buildCondition: (state) => state is ShoppingCartUpdated,
-              builder: (state) {
-                if (state is! ShoppingCartUpdated) {
-                  return emptyWidget;
-                }
-                return Container(
-                  padding: EdgeInsets.all(state.data.totalItems < 10 ? 4.r : 2.r),
+        CustomBlocBuilder<ShoppingCartBloc>(
+            buildCondition: (state) => state is ShoppingCartUpdated,
+            builder: (state) {
+              if (state is! ShoppingCartUpdated) {
+                return emptyWidget;
+              }
+              bool hasManyItems = state.data.total > 10;
+              return Positioned(
+                top: 4.h,
+                right: hasManyItems ? 4.w : 1.w,
+                child: Container(
+                  padding: EdgeInsets.all((hasManyItems ? 4 : 6).r),
                   decoration: BoxDecoration(
                     color: AppColors.white,
                     boxShadow: [BoxShadow(color: AppColors.grey, blurRadius: 4.r)],
@@ -71,11 +73,11 @@ class CartButton extends StatelessWidget {
                   ),
                   child: Text(
                     state.data.totalItems.toString(),
-                    style: textTheme.labelMedium?.withColor(AppColors.primary).bold(),
+                    style: textTheme.bodyMedium?.withColor(AppColors.primary).bold(),
                   ),
-                );
-              }),
-        ),
+                ),
+              );
+            }),
       ],
     );
   }
