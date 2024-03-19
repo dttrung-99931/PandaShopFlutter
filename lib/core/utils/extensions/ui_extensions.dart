@@ -5,6 +5,8 @@ extension ContextExt on BuildContext {
   Size get mediaQuerySize => mediaQuery.size;
   double get width => mediaQuerySize.width;
   double get height => mediaQuerySize.height;
+  double get bottomInssets => mediaQuery.viewInsets.bottom;
+  bool get isKeyboardShowing => bottomInssets > 0;
 }
 
 extension TextStyleExt on TextStyle? {

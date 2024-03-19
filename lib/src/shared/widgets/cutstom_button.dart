@@ -17,6 +17,7 @@ class CustomButton extends StatelessWidget {
   final double? width;
   final double? height;
   final Color backgroundColor;
+  final Color loadingColor;
   final EdgeInsets padding;
   final EdgeInsets margin;
   final double borderRadius;
@@ -36,6 +37,7 @@ class CustomButton extends StatelessWidget {
     this.borderRadius = 6,
     this.elevation = 5,
     this.backgroundColor = AppColors.primary,
+    this.loadingColor = AppColors.white,
     this.padding = const EdgeInsets.symmetric(vertical: 14.0, horizontal: 80),
     this.margin = EdgeInsets.zero,
     this.titleFontSize = 16,
@@ -91,7 +93,7 @@ class CustomButton extends StatelessWidget {
                 ? Stack(
                     children: [
                       buttonContent,
-                      Positioned.fill(child: LoadingWidget(size: 28.r)),
+                      Positioned.fill(child: LoadingWidget(size: 28.r, color: loadingColor)),
                     ],
                   )
                 : buttonContent,

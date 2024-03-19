@@ -142,29 +142,44 @@ class _TextInputState extends State<TextInput> {
               fillColor: widget.enabled ? EVMColors.white : EVMColors.lightGrey2,
               filled: true,
               suffixIconConstraints: const BoxConstraints(maxHeight: 30),
-              // suffixIcon: widget.passwordChar
-              //     ? InkWell(
-              //         child: SvgPicture.asset(!isSecure ? Assets.icon.eyeOpen : Assets.icon.eyeClose),
-              //         onTap: () {
-              //           setState(() {
-              //             isSecure = !isSecure;
-              //           });
-              //         })
-              //     : null,
+              suffixIcon: widget.passwordChar ? _pwdEye() : null,
               isDense: true,
               hintText: tr(widget.hintText ?? ''),
-
               enabledBorder: widget.border ?? _border,
               focusedBorder: _focusedBorder,
               border: widget.border ?? _border,
               disabledBorder: _border,
-
               hintStyle: (widget.hintStyle ?? widget.style ?? textTheme.bodyMedium!).withColor(EVMColors.hint),
               contentPadding: widget.contentPadding ?? EdgeInsets.symmetric(vertical: 14.h, horizontal: 12.w),
             ),
           ),
         ),
       ],
+    );
+  }
+
+  Padding _pwdEye() {
+    return Padding(
+      padding: EdgeInsets.only(right: 6.w),
+      child: InkWell(
+          child: Stack(
+            children: [
+              const Icon(Icons.remove_red_eye_outlined, color: AppColors.blackLight),
+              if (isSecure)
+                Transform.translate(
+                  offset: const Offset(0, -2),
+                  child: Text(
+                    '  /',
+                    style: textTheme.bodyLarge.withColor(AppColors.blackLight).bold(),
+                  ),
+                ),
+            ],
+          ),
+          onTap: () {
+            setState(() {
+              isSecure = !isSecure;
+            });
+          }),
     );
   }
 }

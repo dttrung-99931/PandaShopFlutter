@@ -10,6 +10,8 @@ import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:evievm_app/src/features/home/presentation/screens/home_screen.dart';
+import 'package:evievm_app/src/shared/widgets/common/app_custom_checkbox.dart';
+import 'package:evievm_app/src/shared/widgets/common/triangle_clip_path.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:evievm_app/src/shared/widgets/cutstom_button.dart';
 import 'package:evievm_app/src/shared/widgets/text_input.dart';
@@ -30,26 +32,7 @@ class LoginScreen extends StatelessWidget {
       backgroundColor: EVMColors.white,
       body: Stack(
         children: [
-          ClipPath(
-            clipper: _CustomClipPath(),
-            child: Container(
-              height: 128,
-              color: AppColors.primary,
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: RotatedBox(
-              quarterTurns: 2,
-              child: ClipPath(
-                clipper: _CustomClipPath(),
-                child: Container(
-                  height: 128,
-                  color: AppColors.primary,
-                ),
-              ),
-            ),
-          ),
+          const _Background(),
           SafeArea(
             child: Center(
               child: SingleChildScrollView(
@@ -59,84 +42,52 @@ class LoginScreen extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SizedBox(height: 8.h),
-                      CustomBlocBuilder<LoginBloc>(
-                        // Listen GetRememberLoginEmailSuccess to clear error message if there's error from scanner login screen
-                        buildForStates: const [LoginFailed, GetRememberLoginEmailSuccess],
-                        builder: (state) {
-                          return AnimatedSize(
-                            duration: 300.milliseconds,
-                            child: state is LoginFailed
-                                ? Text(
-                                    state.failure.displayMsg,
-                                    style: textTheme.bodyMedium!.copyWith(color: EVMColors.red),
-                                  )
-                                : const SizedBox.shrink(),
-                          );
+                      Text(
+                        'PanShop',
+                        style: textTheme.titleLarge
+                            .withColor(context.isKeyboardShowing ? AppColors.black : AppColors.primary)
+                            .withSize(40.sp),
+                      ),
+                      52.shb,
+                      const _PhoneInput(),
+                      16.shb,
+                      TextInput(
+                        hintText: 'Mật khẩu',
+                        controller: loginBloc.passwordEdtController,
+                        passwordChar: true,
+                        textInputAction: TextInputAction.done,
+                        onSubmited: (_) {
+                          _onLoginButtonPressed();
                         },
                       ),
-                      SizedBox(height: 12.h),
-                      CustomBlocListener<LoginBloc>(
-                        initialEvent: OnGetRememberLoginEmail(),
-                        listenForStates: const [GetRememberLoginEmailSuccess],
-                        listener: (state) {
-                          if (state is GetRememberLoginEmailSuccess && (state.email ?? '').isNotEmpty) {
-                            loginBloc.phoneEdtController.text = state.email!;
-                            loginBloc.rememberPhoneController.value = true;
-                          }
-                        },
-                        child: TextInput(
-                          hintText: 'Số điện thoại',
-                          controller: loginBloc.phoneEdtController,
-                          textInputType: TextInputType.phone,
+                      6.shb,
+                      const _RememberPhoneCheckBox(),
+                      4.shb,
+                      const _LoginButton(),
+                      TextButton(
+                        onPressed: () {},
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.symmetric(
+                            vertical: 4.h,
+                            horizontal: 12.w,
+                          ),
+                          minimumSize: Size.zero,
                         ),
-                      ),
-                      const SizedBox(height: 16.0),
-                      TextInput(hintText: 'Mật khẩu', controller: loginBloc.passwordEdtController, passwordChar: true),
-                      const SizedBox(height: 6.0),
-                      AnimatedBuilder(
-                          animation: loginBloc.rememberPhoneController,
-                          builder: (context, widget) {
-                            return _RememberPhoneCheckBox(
-                              onChanged: (bool isChecked) {
-                                loginBloc.rememberPhoneController.value = isChecked;
-                              },
-                              isChecked: loginBloc.rememberPhoneController.value,
-                            );
-                          }),
-                      const SizedBox(height: 4.0),
-                      CustomBlocConsumer<LoginBloc>(
-                        handleLoading: false,
-                        buildForStates: const [LoginSuccess, LoginFailed, ErrorState, LoadingState],
-                        listenForStates: const [LoginSuccess],
-                        listener: (state) {
-                          if (state is LoginSuccess) {
-                            Global.navigator.pushReplacementNamed(HomeScreen.router);
-                          }
-                        },
-                        builder: (state) {
-                          return CustomButton(
-                            width: double.infinity,
-                            margin: EdgeInsets.symmetric(vertical: 4.h, horizontal: 2.w),
-                            padding: EdgeInsets.symmetric(vertical: 12.h),
-                            onPressed: () {
-                              getIt<LoginBloc>().add(
-                                OnLogin(
-                                  loginBloc.phoneEdtController.text,
-                                  loginBloc.passwordEdtController.text,
-                                  loginBloc.rememberPhoneController.value,
-                                ),
-                              );
-                            },
-                            title: 'Đăng nhập',
-                            elevation: 0,
-                            isLoading: state is LoadingState,
-                          );
-                        },
+                        child: Text(
+                          tr('Quên mật khẩu'),
+                          style: textTheme.bodyLarge.withColor(
+                            AppColors.primary.shade300,
+                          ),
+                        ),
                       ),
                       TextButton(
                         onPressed: () {},
-                        child: Text(tr('Quên mật khẩu')),
+                        child: Text(
+                          tr('Đăng ký'),
+                          style: textTheme.titleSmall.withColor(
+                            AppColors.primary,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -150,61 +101,149 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-class _CustomClipPath extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
-    path.lineTo(0, 0);
-    path.lineTo(size.width, size.height);
-    path.lineTo(size.width, size.height);
-    path.lineTo(size.width, 0);
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
-  // oldClipper != this
+_onLoginButtonPressed() {
+  loginBloc.add(
+    OnLogin(
+      loginBloc.phoneEdtController.text,
+      loginBloc.passwordEdtController.text,
+      loginBloc.rememberPhoneController.value,
+    ),
+  );
 }
 
 class _RememberPhoneCheckBox extends StatelessWidget {
-  final void Function(bool isChecked) onChanged;
-  final bool isChecked;
-  const _RememberPhoneCheckBox({
-    Key? key,
-    required this.onChanged,
-    required this.isChecked,
-  }) : super(key: key);
+  const _RememberPhoneCheckBox();
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => onChanged(!isChecked),
-      child: Transform.translate(
-        offset: const Offset(-8, 0),
-        child: Row(
+    return AnimatedBuilder(
+        animation: loginBloc.rememberPhoneController,
+        builder: (context, widget) {
+          return AppCustomCheckBox(
+            onChanged: (bool isChecked) {
+              loginBloc.rememberPhoneController.value = isChecked;
+            },
+            isChecked: loginBloc.rememberPhoneController.value,
+            title: 'Nhớ số điện thoại',
+          );
+        });
+  }
+}
+
+class _PhoneInput extends StatelessWidget {
+  const _PhoneInput();
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomBlocListener<LoginBloc>(
+      initialEvent: OnGetRememberLoginEmail(),
+      listenForStates: const [GetRememberLoginEmailSuccess],
+      listener: (state) {
+        if (state is GetRememberLoginEmailSuccess && (state.email ?? '').isNotEmpty) {
+          loginBloc.phoneEdtController.text = state.email!;
+          loginBloc.rememberPhoneController.value = true;
+        }
+      },
+      child: TextInput(
+        hintText: 'Số điện thoại',
+        controller: loginBloc.phoneEdtController,
+        textInputType: TextInputType.phone,
+        textInputAction: TextInputAction.next,
+      ),
+    );
+  }
+}
+
+class _LoginButton extends StatelessWidget {
+  const _LoginButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomBlocConsumer<LoginBloc>(
+      handleLoading: false,
+      buildForStates: const [LoginSuccess, LoginFailed, ErrorState, LoadingState],
+      listenForStates: const [LoginSuccess],
+      listener: (state) {
+        if (state is LoginSuccess) {
+          Global.navigator.pushReplacementNamed(HomeScreen.router);
+        }
+      },
+      builder: (state) {
+        return CustomButton(
+          width: double.infinity,
+          margin: EdgeInsets.symmetric(vertical: 4.h, horizontal: 2.w),
+          padding: EdgeInsets.symmetric(vertical: 12.h),
+          onPressed: _onLoginButtonPressed,
+          title: 'Đăng nhập',
+          elevation: 0,
+          isLoading: state is LoadingState,
+        );
+      },
+    );
+  }
+}
+
+class _LoginFailedText extends StatelessWidget {
+  const _LoginFailedText();
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomBlocBuilder<LoginBloc>(
+      // Listen GetRememberLoginEmailSuccess to clear error message if there's error from scanner login screen
+      buildForStates: const [LoginFailed, GetRememberLoginEmailSuccess],
+      handleLoading: false,
+      builder: (state) {
+        return AnimatedSize(
+          duration: 300.milliseconds,
+          child: state is LoginFailed
+              ? Text(
+                  state.failure.displayMsg,
+                  style: textTheme.bodyMedium!.copyWith(color: EVMColors.red),
+                )
+              : const SizedBox.shrink(),
+        );
+      },
+    );
+  }
+}
+
+class _Background extends StatelessWidget {
+  const _Background();
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Column(
           children: [
-            SizedBox(
-              width: 40,
-              height: 40,
-              child: Checkbox(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                side: BorderSide(color: AppColors.border, width: 1),
-                fillColor: MaterialStateColor.resolveWith((states) => AppColors.primary),
-                value: isChecked,
-                onChanged: (isChecked) {
-                  onChanged(isChecked ?? false);
-                },
+            ClipPath(
+              clipper: TriangleClipPath(),
+              child: Container(
+                height: 128,
+                color: AppColors.primary,
               ),
             ),
-            Text(
-              tr('Nhớ số điện thoại'),
-              style: textTheme.bodyMedium,
-            ),
+            // 16.shb,
+            // Text(
+            //   'PanShop',
+            //   style: textTheme.titleLarge.withColor(AppColors.primary).withSize(40.sp),
+            // ),
           ],
         ),
-      ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: RotatedBox(
+            quarterTurns: 2,
+            child: ClipPath(
+              clipper: TriangleClipPath(),
+              child: Container(
+                height: 128,
+                color: AppColors.primary,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
