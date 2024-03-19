@@ -6,6 +6,7 @@ import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
+import 'package:evievm_app/src/features/common/presentation/screens/main_screen.dart';
 import 'package:evievm_app/src/features/home/presentation/screens/home_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/shopping_cart_screen.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_listener.dart';
@@ -39,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
       listener: (state) async {
         if (state is CheckLoginSuccess) {
           await delayMilis(delayedShowingMilis);
-          Global.navigator.pushReplacementNamed(HomeScreen.router);
+          Global.navigator.pushReplacementNamed(MainScreen.router);
         }
       },
       child: Scaffold(

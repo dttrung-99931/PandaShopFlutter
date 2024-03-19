@@ -1,4 +1,5 @@
 import 'package:evievm_app/src/features/auth/presentation/screens/login_screen.dart';
+import 'package:evievm_app/src/features/common/presentation/screens/main_screen.dart';
 import 'package:evievm_app/src/features/common/presentation/screens/splash_screen.dart';
 import 'package:evievm_app/src/features/home/presentation/screens/home_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/order_screen.dart';
@@ -19,11 +20,11 @@ class AppRouter {
 
       // Auth
       case LoginScreen.router:
-        return LoginScreen();
+        return const LoginScreen();
 
-      // Home
-      case HomeScreen.router:
-        return HomeScreen();
+      // Main
+      case MainScreen.router:
+        return const MainScreen();
 
       // Shopping cart
       case ShoppingCartScreen.router:

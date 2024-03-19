@@ -5,58 +5,58 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../shared/widgets/card_icon.dart';
 
-class HomeBottomNavBar extends StatefulWidget {
-  const HomeBottomNavBar({
+class AppBottomNavBar extends StatelessWidget {
+  const AppBottomNavBar({
     Key? key,
+    required this.selectedIndexNotifier,
   }) : super(key: key);
-
-  @override
-  State<HomeBottomNavBar> createState() => _HomeBottomNavBarState();
-}
-
-class _HomeBottomNavBarState extends State<HomeBottomNavBar> {
-  int _selectIndex = 0;
+  final ValueNotifier<int> selectedIndexNotifier;
+  int get _selectIndex => selectedIndexNotifier.value;
+  set _selectIndex(value) => selectedIndexNotifier.value = value;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        BottomNavigationBar(
-          items: const [
-            BottomNavigationBarItem(
-              backgroundColor: Colors.white,
-              icon: CardIcon(Icons.home_outlined),
-              label: "Trang chủ",
-            ),
-            BottomNavigationBarItem(
-              backgroundColor: Colors.white,
-              icon: CardIcon(Icons.shop_outlined),
-              label: "Bán hàng",
-            ),
-            BottomNavigationBarItem(
-              backgroundColor: Colors.white,
-              icon: CardIcon(Icons.notifications_outlined),
-              label: "Thông báo",
-            ),
-            BottomNavigationBarItem(
-              backgroundColor: Colors.white,
-              icon: CardIcon(Icons.account_box_outlined),
-              label: "Tài khoản",
-            ),
-          ],
-          selectedItemColor: AppColors.primary,
-          unselectedItemColor: AppColors.black.withOpacity(0.8),
-          showUnselectedLabels: true,
-          currentIndex: _selectIndex,
-          onTap: (index) {
-            _selectIndex = index;
-            setState(() {});
-          },
-          iconSize: 28.r,
-          selectedFontSize: 12,
-          unselectedFontSize: 12,
-          elevation: 10,
-        ),
+        ValueListenableBuilder(
+            valueListenable: selectedIndexNotifier,
+            builder: (_, __, ___) {
+              return BottomNavigationBar(
+                items: const [
+                  BottomNavigationBarItem(
+                    backgroundColor: Colors.white,
+                    icon: CardIcon(Icons.home_outlined),
+                    label: "Trang chủ",
+                  ),
+                  BottomNavigationBarItem(
+                    backgroundColor: Colors.white,
+                    icon: CardIcon(Icons.shop_outlined),
+                    label: "Bán hàng",
+                  ),
+                  BottomNavigationBarItem(
+                    backgroundColor: Colors.white,
+                    icon: CardIcon(Icons.notifications_outlined),
+                    label: "Thông báo",
+                  ),
+                  BottomNavigationBarItem(
+                    backgroundColor: Colors.white,
+                    icon: CardIcon(Icons.account_box_outlined),
+                    label: "Tài khoản",
+                  ),
+                ],
+                selectedItemColor: AppColors.primary,
+                unselectedItemColor: AppColors.black.withOpacity(0.8),
+                showUnselectedLabels: true,
+                currentIndex: _selectIndex,
+                onTap: (index) {
+                  _selectIndex = index;
+                },
+                iconSize: 28.r,
+                selectedFontSize: 12,
+                unselectedFontSize: 12,
+                elevation: 10,
+              );
+            }),
         // Make shadow
         Container(
           height: 1.h,
