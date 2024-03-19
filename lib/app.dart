@@ -41,7 +41,7 @@ class EvmApp extends StatelessWidget {
     return GestureDetector(
       onTap: removeCurrentFocus,
       child: ScreenUtilInit(
-        designSize: const Size(375, 812),
+        designSize: const Size(540, 960),
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (ctx, child) => MaterialApp(
@@ -61,12 +61,11 @@ class EvmApp extends StatelessWidget {
   }
 }
 
-
-// To fix CERTIFICATE_VERIFY_FAILED error 
+// To fix CERTIFICATE_VERIFY_FAILED error
 class PandaHttpOverrides extends HttpOverrides {
   @override
-  HttpClient createHttpClient(SecurityContext? context){
+  HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+      ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
   }
 }
