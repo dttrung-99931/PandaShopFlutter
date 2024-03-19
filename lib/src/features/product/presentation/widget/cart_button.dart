@@ -3,9 +3,13 @@ import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/theme.dart';
+import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
+import 'package:evievm_app/src/features/auth/presentation/screens/login_screen.dart';
+import 'package:evievm_app/src/features/auth/presentation/screens/sign_up_step1_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/bloc/shopping_cart/shopping_cart_bloc.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/shopping_cart_screen.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
+import 'package:evievm_app/src/shared/widgets/custom_bloc_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -39,7 +43,14 @@ class CartButton extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            Global.pushNamedSafe(ShoppingCartScreen.router);
+            loginBloc.add(OnDoCheckLogin(
+              onDidLogin: () {
+                Global.pushNamedSafe(ShoppingCartScreen.router);
+              },
+              onNotLogin: () {
+                Global.pushNamedSafe(LoginScreen.router);
+              },
+            ));
           },
         ),
         Positioned(

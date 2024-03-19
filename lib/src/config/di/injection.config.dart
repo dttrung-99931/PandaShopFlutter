@@ -16,9 +16,9 @@ import '../../features/auth/data/data_sources/auth_remote_data_soruce.dart'
 import '../../features/auth/data/repositories/auth_repo_impl.dart' as _i37;
 import '../../features/auth/domain/repositories/auth_repo.dart' as _i36;
 import '../../features/auth/domain/use_cases/check_login_usecase.dart' as _i9;
-import '../../features/auth/domain/use_cases/email_login_usecase.dart' as _i38;
 import '../../features/auth/domain/use_cases/get_remember_login_email_usecase.dart'
     as _i11;
+import '../../features/auth/domain/use_cases/login_usecase.dart' as _i38;
 import '../../features/auth/domain/use_cases/logout_usecase.dart' as _i12;
 import '../../features/auth/domain/use_cases/qr_barcode_reader_login_usecase.dart'
     as _i39;

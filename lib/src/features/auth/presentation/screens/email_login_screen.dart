@@ -114,7 +114,7 @@ class EmailLoginScreen extends StatelessWidget {
                           margin: const EdgeInsets.symmetric(vertical: 8.0),
                           onPressed: () {
                             getIt<LoginBloc>().add(
-                              OnEmailLogin(
+                              OnLogin(
                                 _emailEdtController.text,
                                 _passwordEdtController.text,
                                 _rememberLoginEmail.value,

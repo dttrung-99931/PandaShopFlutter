@@ -1,14 +1,15 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'login_bloc.dart';
 
-class OnEmailLogin extends LoadingEvent {
-  final String email;
+class OnLogin extends LoadingEvent {
+  final String phone;
   final String password;
   final bool rememberEmail;
 
-  OnEmailLogin(this.email, this.password, this.rememberEmail);
+  OnLogin(this.phone, this.password, this.rememberEmail);
 
   @override
-  List<Object?> get props => [email, password, rememberEmail];
+  List<Object?> get props => [phone, password, rememberEmail];
 }
 
 class OnQrBarcodeReaderLogin extends LoadingEvent {
@@ -21,6 +22,18 @@ class OnQrBarcodeReaderLogin extends LoadingEvent {
 }
 
 class OnCheckLogin extends BaseEventWithoutProps {}
+
+class OnDoCheckLogin extends BaseEvent {
+  final void Function()? onNotLogin;
+  final void Function()? onDidLogin;
+  OnDoCheckLogin({
+    this.onNotLogin,
+    this.onDidLogin,
+  });
+
+  @override
+  List<Object?> get props => [onNotLogin, onDidLogin];
+}
 
 class OnGetRememberLoginEmail extends BaseEventWithoutProps {}
 

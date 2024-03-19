@@ -19,30 +19,27 @@ class _AuthRepoteDatasource implements AuthRepoteDatasource {
   String? baseUrl;
 
   @override
-  Future<BaseResponse<LoginResponseModel?>> loginByEmail(param) async {
+  Future<BaseResponse<LoginResponseModel?>> login(param) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(param.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<LoginResponseModel>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<LoginResponseModel>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/api/auth/login',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+        .compose(
+          _dio.options,
+          '/v1/Users/login',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseResponse<LoginResponseModel?>.fromJson(
       _result.data!,
-      (json) => json == null
-          ? null
-          : LoginResponseModel.fromJson(json as Map<String, dynamic>),
+      (json) => json == null ? null : LoginResponseModel.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }
@@ -54,24 +51,21 @@ class _AuthRepoteDatasource implements AuthRepoteDatasource {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(param.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<LoginResponseModel>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<LoginResponseModel>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/api/auth/loginQR',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+        .compose(
+          _dio.options,
+          '/api/auth/loginQR',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseResponse<LoginResponseModel?>.fromJson(
       _result.data!,
-      (json) => json == null
-          ? null
-          : LoginResponseModel.fromJson(json as Map<String, dynamic>),
+      (json) => json == null ? null : LoginResponseModel.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }
@@ -83,24 +77,21 @@ class _AuthRepoteDatasource implements AuthRepoteDatasource {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(param.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<LoginResponseModel>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<LoginResponseModel>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/api/auth/loginBarcode',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+        .compose(
+          _dio.options,
+          '/api/auth/loginBarcode',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseResponse<LoginResponseModel?>.fromJson(
       _result.data!,
-      (json) => json == null
-          ? null
-          : LoginResponseModel.fromJson(json as Map<String, dynamic>),
+      (json) => json == null ? null : LoginResponseModel.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }
@@ -111,24 +102,21 @@ class _AuthRepoteDatasource implements AuthRepoteDatasource {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<UserProfileModel>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<UserProfileModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/api/profile/me',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+        .compose(
+          _dio.options,
+          '/api/profile/me',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseResponse<UserProfileModel?>.fromJson(
       _result.data!,
-      (json) => json == null
-          ? null
-          : UserProfileModel.fromJson(json as Map<String, dynamic>),
+      (json) => json == null ? null : UserProfileModel.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }
@@ -140,32 +128,28 @@ class _AuthRepoteDatasource implements AuthRepoteDatasource {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(param.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<UserProfileModel>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<UserProfileModel>>(Options(
       method: 'PUT',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/api/profile/me',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+        .compose(
+          _dio.options,
+          '/api/profile/me',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseResponse<UserProfileModel?>.fromJson(
       _result.data!,
-      (json) => json == null
-          ? null
-          : UserProfileModel.fromJson(json as Map<String, dynamic>),
+      (json) => json == null ? null : UserProfileModel.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
-        !(requestOptions.responseType == ResponseType.bytes ||
-            requestOptions.responseType == ResponseType.stream)) {
+        !(requestOptions.responseType == ResponseType.bytes || requestOptions.responseType == ResponseType.stream)) {
       if (T == String) {
         requestOptions.responseType = ResponseType.plain;
       } else {

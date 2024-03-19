@@ -6,6 +6,6 @@ class LoginResponseDto {
   LoginResponseDto({required this.accessToken});
 
   factory LoginResponseDto.fromModel(LoginResponseModel model) {
-    return LoginResponseDto(accessToken: model.accessToken);
+    return LoginResponseDto(accessToken: model.token);
   }
 }

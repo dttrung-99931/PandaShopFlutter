@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/theme.dart';
@@ -81,7 +82,7 @@ class _TextInputState extends State<TextInput> {
       );
 
   OutlineInputBorder get _focusedBorder => OutlineInputBorder(
-        borderSide: const BorderSide(color: EVMColors.primary, width: 2.5),
+        borderSide: const BorderSide(color: AppColors.primary, width: 2.5),
         borderRadius: BorderRadius.circular(widget.borderRadius),
       );
 
@@ -136,7 +137,7 @@ class _TextInputState extends State<TextInput> {
             obscureText: widget.passwordChar ? isSecure : false,
             controller: widget.controller,
             validator: widget.validator,
-            style: widget.style ?? textTheme.bodyMedium!.light(),
+            style: widget.style ?? textTheme.bodyLarge,
             decoration: InputDecoration(
               fillColor: widget.enabled ? EVMColors.white : EVMColors.lightGrey2,
               filled: true,
@@ -158,7 +159,7 @@ class _TextInputState extends State<TextInput> {
               border: widget.border ?? _border,
               disabledBorder: _border,
 
-              hintStyle: (widget.hintStyle ?? widget.style ?? textTheme.bodyMedium!).light().withColor(EVMColors.hint),
+              hintStyle: (widget.hintStyle ?? widget.style ?? textTheme.bodyMedium!).withColor(EVMColors.hint),
               contentPadding: widget.contentPadding ?? EdgeInsets.symmetric(vertical: 14.h, horizontal: 12.w),
             ),
           ),

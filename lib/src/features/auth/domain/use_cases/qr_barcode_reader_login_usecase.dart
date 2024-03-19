@@ -7,7 +7,7 @@ import 'package:evievm_app/core/use_case/use_case.dart';
 import 'package:evievm_app/src/features/auth/data/models/request/qr_barcode_request_model.dart';
 import 'package:evievm_app/src/features/auth/domain/login_response_dto.dart';
 import 'package:evievm_app/src/features/auth/domain/repositories/auth_repo.dart';
-import 'package:evievm_app/src/features/auth/domain/use_cases/email_login_usecase.dart';
+import 'package:evievm_app/src/features/auth/domain/use_cases/login_usecase.dart';
 
 import '../../data/models/response/login_response_model.dart';
 

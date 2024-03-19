@@ -32,7 +32,7 @@ extension TokenStrorage on Storage {
     await _preferences.remove(_KEY_TOKEN);
   }
 
-  String? get token => _TEST_USER_TOKEN;
+  String? get token => _preferences.getString(_KEY_TOKEN);
 }
 
 extension LoginEmailStrorage on Storage {

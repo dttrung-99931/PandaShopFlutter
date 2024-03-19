@@ -1,6 +1,6 @@
 import 'package:evievm_app/core/failures/failures.dart';
 import 'package:dartz/dartz.dart';
-import 'package:evievm_app/src/features/auth/data/models/request/email_login_request_model.dart';
+import 'package:evievm_app/src/features/auth/data/models/request/login_request_model.dart';
 import 'package:evievm_app/src/features/auth/data/models/request/qr_barcode_request_model.dart';
 import 'package:evievm_app/src/features/auth/data/models/response/login_response_model.dart';
 import 'package:evievm_app/src/features/auth/data/models/response/user_profile_model.dart';
@@ -16,10 +16,10 @@ class AuthRepoImpl extends AuthRepo {
   AuthRepoImpl(this.datasource);
 
   @override
-  Future<Either<Failure, LoginResponseModel>> loginByEmail(EmailLoginRequestModel param) async {
+  Future<Either<Failure, LoginResponseModel>> login(LoginRequestModel param) async {
     return handleNetwork(
       onRemote: handleServerErrors(
-        datasourceResponse: datasource.loginByEmail(param),
+        datasourceResponse: datasource.login(param),
       ),
     );
   }

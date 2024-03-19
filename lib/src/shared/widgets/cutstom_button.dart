@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
+import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/shared/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +35,7 @@ class CustomButton extends StatelessWidget {
     this.width,
     this.borderRadius = 6,
     this.elevation = 5,
-    this.backgroundColor = EVMColors.primary,
+    this.backgroundColor = AppColors.primary,
     this.padding = const EdgeInsets.symmetric(vertical: 14.0, horizontal: 80),
     this.margin = EdgeInsets.zero,
     this.titleFontSize = 16,
@@ -60,7 +62,7 @@ class CustomButton extends StatelessWidget {
     Widget buttonContent = child ??
         Text(
           tr(title!),
-          style: style,
+          style: style.withHeight(1.2),
           textAlign: TextAlign.center,
         );
     return Container(
