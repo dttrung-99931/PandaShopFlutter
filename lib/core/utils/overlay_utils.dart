@@ -84,3 +84,7 @@ void hideLoadingOverlay() {
     loge(e);
   }
 }
+
+void commingSoon() {
+  showSnackBar('Tính năng đang được phát triển');
+}

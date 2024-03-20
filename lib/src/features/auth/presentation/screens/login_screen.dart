@@ -9,6 +9,7 @@ import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
+import 'package:evievm_app/src/features/common/presentation/screens/main_screen.dart';
 import 'package:evievm_app/src/features/home/presentation/screens/home_screen.dart';
 import 'package:evievm_app/src/shared/widgets/common/app_custom_checkbox.dart';
 import 'package:evievm_app/src/shared/widgets/common/triangle_clip_path.dart';
@@ -165,7 +166,7 @@ class _LoginButton extends StatelessWidget {
       listenForStates: const [LoginSuccess],
       listener: (state) {
         if (state is LoginSuccess) {
-          Global.navigator.pushReplacementNamed(HomeScreen.router);
+          Global.popAllAndPushNamed(MainScreen.router);
         }
       },
       builder: (state) {

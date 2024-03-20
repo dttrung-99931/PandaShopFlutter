@@ -23,6 +23,11 @@ class Global {
     return navigator.pushNamed(routeName, arguments: args);
   }
 
+  static Future<T?> popAllAndPushNamed<T extends Object?>(String routeName) {
+    hideAllSnackbars();
+    return navigator.pushNamedAndRemoveUntil(routeName, (route) => false);
+  }
+
   static void hideAllSnackbars() {
     navigator.popUntil((route) => route is! FlushbarRoute);
   }

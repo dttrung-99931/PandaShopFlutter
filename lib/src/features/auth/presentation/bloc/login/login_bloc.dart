@@ -85,7 +85,10 @@ class LoginBloc extends BaseBloc {
     await handleUsecaseResult(
       usecaseResult: _logoutUseCase.call(noParam),
       emit: emit,
-      onSuccess: (result) => LogoutSuccess(),
+      onSuccess: (result) {
+        add(OnCheckLogin());
+        return LogoutSuccess();
+      },
     );
   }
 

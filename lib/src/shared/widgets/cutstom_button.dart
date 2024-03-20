@@ -38,7 +38,7 @@ class CustomButton extends StatelessWidget {
     this.elevation = 5,
     this.backgroundColor = AppColors.primary,
     this.loadingColor = AppColors.white,
-    this.padding = const EdgeInsets.symmetric(vertical: 14.0, horizontal: 80),
+    this.padding = const EdgeInsets.symmetric(vertical: 12.0, horizontal: 80),
     this.margin = EdgeInsets.zero,
     this.titleFontSize = 16,
     this.icon,

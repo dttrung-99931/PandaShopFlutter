@@ -54,29 +54,36 @@ class CartButton extends StatelessWidget {
             ));
           },
         ),
-        CustomBlocBuilder<ShoppingCartBloc>(
-            buildCondition: (state) => state is ShoppingCartUpdated,
-            builder: (state) {
-              if (state is! ShoppingCartUpdated) {
-                return emptyWidget;
+        CustomBlocBuilder<LoginBloc>(
+            buildForStates: const [CheckLoginSuccess],
+            builder: (loginState) {
+              if (loginState is LoginSuccess || (loginState is CheckLoginSuccess && loginState.isLoggedIn)) {
+                return CustomBlocBuilder<ShoppingCartBloc>(
+                    buildCondition: (state) => state is ShoppingCartUpdated,
+                    builder: (state) {
+                      if (state is! ShoppingCartUpdated) {
+                        return emptyWidget;
+                      }
+                      bool hasManyItems = state.data.total > 10;
+                      return Positioned(
+                        top: 4.h,
+                        right: hasManyItems ? 4.w : 1.w,
+                        child: Container(
+                          padding: EdgeInsets.all((hasManyItems ? 4 : 6).r),
+                          decoration: BoxDecoration(
+                            color: AppColors.white,
+                            boxShadow: [BoxShadow(color: AppColors.grey, blurRadius: 4.r)],
+                            shape: BoxShape.circle,
+                          ),
+                          child: Text(
+                            state.data.totalItems.toString(),
+                            style: textTheme.bodyMedium?.withColor(AppColors.primary).bold(),
+                          ),
+                        ),
+                      );
+                    });
               }
-              bool hasManyItems = state.data.total > 10;
-              return Positioned(
-                top: 4.h,
-                right: hasManyItems ? 4.w : 1.w,
-                child: Container(
-                  padding: EdgeInsets.all((hasManyItems ? 4 : 6).r),
-                  decoration: BoxDecoration(
-                    color: AppColors.white,
-                    boxShadow: [BoxShadow(color: AppColors.grey, blurRadius: 4.r)],
-                    shape: BoxShape.circle,
-                  ),
-                  child: Text(
-                    state.data.totalItems.toString(),
-                    style: textTheme.bodyMedium?.withColor(AppColors.primary).bold(),
-                  ),
-                ),
-              );
+              return emptyWidget;
             }),
       ],
     );
