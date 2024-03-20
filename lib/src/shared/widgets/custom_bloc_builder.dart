@@ -14,8 +14,9 @@ class CustomBlocBuilder<T extends BaseBloc> extends StatefulWidget {
   final bool handleLoading;
   final Type loadingStateType;
   final bool isSliver;
+  final T bloc;
 
-  const CustomBlocBuilder({
+  CustomBlocBuilder({
     super.key,
     this.buildForStates,
     required this.builder,
@@ -24,14 +25,21 @@ class CustomBlocBuilder<T extends BaseBloc> extends StatefulWidget {
     this.loadingStateType = LoadingState,
     this.isSliver = false,
     this.buildCondition,
-  });
+    T? bloc,
+  }) : bloc = bloc ?? getIt();
 
   @override
   State<CustomBlocBuilder<T>> createState() => _CustomBlocBuilderState<T>();
 }
 
 class _CustomBlocBuilderState<T extends BaseBloc> extends State<CustomBlocBuilder<T>> {
-  final T _bloc = getIt();
+  late T _bloc = widget.bloc;
+
+  @override
+  void didUpdateWidget(covariant CustomBlocBuilder<T> oldWidget) {
+    _bloc = widget.bloc;
+    super.didUpdateWidget(oldWidget);
+  }
 
   @override
   void initState() {

@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/app_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 final emptyConditions = ['', 0, []];
 bool isNullOrEmpty(dynamic obj) {
@@ -37,6 +38,12 @@ Future delayMilis(int milliseconds) async {
 Color? hexToColor(String? code) {
   if (code == null) return null;
   return Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
+}
+
+void doOnBuildUICompleted(void Function() action) {
+  SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+    action();
+  });
 }
 
 class Utils {

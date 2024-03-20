@@ -1,9 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evievm_app/core/utils/assets/assets.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-
 import 'package:evievm_app/core/utils/dimensions.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
@@ -12,10 +9,10 @@ import 'package:evievm_app/src/features/auth/presentation/bloc/sign_up/sign_up_b
 import 'package:evievm_app/src/features/auth/presentation/widgets/info_input.dart';
 import 'package:evievm_app/src/features/settings/data/models/lab_branch_model.dart';
 import 'package:evievm_app/src/features/settings/presentation/widgets/setting_menu.dart';
-import 'package:evievm_app/src/shared/widgets/evm_app_bar.dart';
-import 'package:evievm_app/src/shared/widgets/color_container.dart';
 import 'package:evievm_app/src/shared/widgets/custom_drop_down_button.dart';
 import 'package:evievm_app/src/shared/widgets/cutstom_button.dart';
+import 'package:evievm_app/src/shared/widgets/evm_app_bar.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class LabSettingScreen extends StatelessWidget {
@@ -378,7 +375,6 @@ class _LabInfoTab extends StatelessWidget {
               requireBackgroundColor: EVMColors.redDeep,
               isEditable: true,
               title: 'common.district',
-              defaultTextWhenNotEditable: _authBloc.selectedDistrict ?? '',
               inputWidth: 512,
               customInput: Padding(
                 padding: const EdgeInsets.only(right: 144),
@@ -410,7 +406,6 @@ class _LabInfoTab extends StatelessWidget {
               requireBackgroundColor: EVMColors.redDeep,
               isEditable: true,
               title: 'common.ward',
-              defaultTextWhenNotEditable: _authBloc.selectedWardName ?? '',
               customInput: CustomDropdownButton<String>(
                 onSelected: (wardName) {
                   _authBloc.selectedWardName = wardName;

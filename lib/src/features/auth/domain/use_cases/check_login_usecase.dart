@@ -12,7 +12,7 @@ class CheckLoginUseCase extends UseCase<bool, NoParams> {
 
   @override
   bool call(NoParams param) {
-    log('TOKEN: ${_storage.token}');
+    log('TOKEN: Bearer ${_storage.token}');
     return _storage.token != null;
   }
 }

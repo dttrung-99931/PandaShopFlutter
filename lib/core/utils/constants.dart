@@ -16,6 +16,8 @@ class Constatnts {
   static const switchTabAnimDuration = Duration(milliseconds: 150);
 
   static const int noLimit = -1;
+  static const int idEmpty = -1;
+  static const String codeEmpty = 'empty';
 }
 
 const emptyWidget = SizedBox.shrink();

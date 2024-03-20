@@ -14,6 +14,7 @@ class EVMDialog extends StatelessWidget {
     this.height,
     this.leading,
     this.onClose,
+    this.padding = EdgeInsets.zero,
     super.key,
   });
 
@@ -22,11 +23,13 @@ class EVMDialog extends StatelessWidget {
   final double width;
   final double? height;
   final Widget? leading;
+  final EdgeInsets? padding;
   final void Function()? onClose;
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      insetPadding: padding,
       backgroundColor: EVMColors.white,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8.w),
@@ -58,7 +61,7 @@ class EVMDialog extends StatelessWidget {
                   )
                 : const SizedBox(),
           ),
-          if (title != null) Text(tr(title!), style: textTheme.bodyMedium),
+          if (title != null) Text(tr(title!), style: textTheme.bodyLarge),
           Expanded(
             child: Align(
               alignment: Alignment.centerRight,

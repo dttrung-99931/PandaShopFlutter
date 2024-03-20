@@ -1,19 +1,27 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:easy_localization/easy_localization.dart';
+import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:flutter/material.dart';
 
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/shared/widgets/text_input.dart';
+import 'package:flutter/services.dart' as s;
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../shared/widgets/color_container.dart';
+enum TextType {
+  normal,
+  error,
+}
 
 class InfoInput extends StatelessWidget {
   final TextEditingController? controller;
   final String hint;
+  final String secondHint;
   final TextEditingController? secondController;
   final String title;
-  final String? bottomTextInputLabel;
+  final String? bottomText;
+  final TextType bottomTextType;
   final TextStyle titleStyle;
   final bool showBottomDivider;
   final bool showTopDivider;
@@ -27,23 +35,48 @@ class InfoInput extends StatelessWidget {
 
   /// Expand input if not present
   final double? inputWidth;
+  final double? secondInputWidth;
 
-  /// when [isEditable] = true then display [defaultTextWhenNotEditable] if [controller] = null
-  final String defaultTextWhenNotEditable;
+  /// when [isEditable] = false then display [textDisplayWhenNotEditable] if [controller] = null
+  final String textDisplayWhenNotEditable;
 
   final bool expandTrailing;
 
   final bool hasRightSpace;
 
   final int titleFlex;
+  final String? Function(String? text)? validator;
+  final String? Function(String? text)? secondValidator;
+  final void Function()? onTextFieldUnfocus;
+  final void Function()? onSecondaryTextFieldUnfocus;
+  final dynamic Function(String text)? onTextChanged;
+  final dynamic Function(String text)? onSecondaryTextChanged;
+  final TextInputType inputType;
+  final TextInputAction inputAction;
+  final bool isPasswordInput;
+  final AutovalidateMode autovalidateMode;
+  final bool enabled;
+  final CrossAxisAlignment columnCrossAxisAlignment;
+  final CrossAxisAlignment rowCrossAxisAlignment;
+  final double labelTopMargin;
+  final double trailingSpacing;
+  final double? textInputHeight;
+  late final ValueNotifier<bool> _shouldShowInputErr = ValueNotifier(initialShouldShowError);
+  late final ValueNotifier<bool> _shouldShowSecondInputErr = ValueNotifier(initialShouldShowError);
+  final List<s.TextInputFormatter>? inputFormatters;
+
+  /// Used to fix input error msg disappered when unfocus [SignUpStep2LabInfoInputScreen]
+  final bool initialShouldShowError;
 
   InfoInput({
     Key? key,
     this.controller,
     this.hint = '',
+    this.secondHint = '',
     this.secondController,
     required this.title,
-    this.bottomTextInputLabel,
+    this.bottomText,
+    this.bottomTextType = TextType.normal,
     this.showBottomDivider = false,
     this.showTopDivider = true,
     this.showRequiredLabel = true,
@@ -54,53 +87,139 @@ class InfoInput extends StatelessWidget {
     this.paddingLeft = 16,
     this.requireBackgroundColor = EVMColors.red,
     TextStyle? titleStyle,
-    this.defaultTextWhenNotEditable = '',
+    this.textDisplayWhenNotEditable = '',
     this.inputWidth,
+    this.secondInputWidth,
     this.expandTrailing = true,
-    this.hasRightSpace = true,
+    this.hasRightSpace = false,
     this.titleFlex = 6,
-  })  : titleStyle = titleStyle ?? textTheme.bodyMedium!,
+    this.validator,
+    this.secondValidator,
+    this.onTextFieldUnfocus,
+    this.onSecondaryTextFieldUnfocus,
+    this.inputAction = TextInputAction.next,
+    this.inputType = TextInputType.text,
+    this.isPasswordInput = false,
+    this.autovalidateMode = AutovalidateMode.onUserInteraction,
+    this.onTextChanged,
+    this.onSecondaryTextChanged,
+    this.enabled = true,
+    this.columnCrossAxisAlignment = CrossAxisAlignment.center,
+    this.rowCrossAxisAlignment = CrossAxisAlignment.start,
+    this.labelTopMargin = 0,
+    double? trailingSpacing,
+    this.textInputHeight,
+    this.inputFormatters,
+    this.initialShouldShowError = false,
+  })  : trailingSpacing = trailingSpacing ?? 16.w,
+        titleStyle = titleStyle ?? textTheme.bodyMedium!,
         assert(
-          controller != customInput,
+          // ignore: unrelated_type_equality_checks
+          controller != customInput, // both must not be null together
           'Either controller must be != null OR customInput != null',
         ),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var input = customInput ?? TextInput(hintText: tr(hint), controller: controller);
+    Widget input = customInput ??
+        ValueListenableBuilder<bool>(
+          valueListenable: _shouldShowInputErr,
+          builder: (_, showErr, __) {
+            return TextInput(
+              // inputFormatters: inputFormatters,
+              // onFocusChanged: (hasFocus) {
+              //   if (!hasFocus) {
+              //     _shouldShowInputErr.value = true;
+              //   }
+              // },
+              textInputType: inputType,
+              textInputAction: inputAction,
+              // isPasswordInput: isPasswordInput,
+              hintText: tr(hint),
+              controller: controller,
+              validator: validator,
+              // autovalidateMode: autovalidateMode,
+              // autoValidateOnUnfocus: true,
+              style: textTheme.bodyMedium,
+              onChange: (text) {
+                _shouldShowInputErr.value = true;
+                onTextChanged?.call(text);
+              },
+              enabled: enabled,
+              height: textInputHeight,
+              // errorFontSize: showErr ? null : 0,
+            );
+          },
+        );
+    Widget? secondInput = secondController != null
+        ? ValueListenableBuilder<bool>(
+            valueListenable: _shouldShowSecondInputErr,
+            builder: (_, showErr, __) {
+              return TextInput(
+                // inputFormatters: inputFormatters,
+                // onFocusChanged: (hasFocus) {
+                //   if (!hasFocus) {
+                //     _shouldShowSecondInputErr.value = true;
+                //   }
+                // },
+                textInputType: inputType,
+                textInputAction: inputAction,
+                // isPasswordInput: isPasswordInput,
+                hintText: secondHint,
+                controller: secondController,
+                validator: secondValidator,
+                // autovalidateMode: AutovalidateMode.onUserInteraction,
+                // autoValidateOnUnfocus: true,
+                style: textTheme.bodyMedium,
+                onChange: (text) {
+                  _shouldShowSecondInputErr.value = true;
+                  onSecondaryTextChanged?.call(text);
+                },
+                enabled: enabled,
+                // errorFontSize: showErr ? null : 0,
+              );
+            },
+          )
+        : null;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (showTopDivider) const Divider(color: EVMColors.blackLight),
         const SizedBox(height: 10),
         Row(
+          crossAxisAlignment: columnCrossAxisAlignment,
           children: [
             SizedBox(width: paddingLeft),
             Expanded(
               flex: titleFlex,
-              child: Row(
+              child: Column(
                 children: [
-                  Text(tr(title), style: titleStyle),
-                  const SizedBox(width: 20),
-                  if (showRequiredLabel)
-                    Container(
-                      decoration: BoxDecoration(
-                        color: requireBackgroundColor,
-                        borderRadius: BorderRadius.circular(3),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 3,
-                        horizontal: 6,
-                      ),
-                      child: Text(
-                        tr('auth.required'),
-                        style: textTheme.labelSmall?.copyWith(
-                          fontWeight: FontWeight.w700,
-                          color: EVMColors.white,
+                  sh(labelTopMargin),
+                  Row(
+                    children: [
+                      Text(tr(title), style: titleStyle),
+                      const SizedBox(width: 20),
+                      if (showRequiredLabel)
+                        Container(
+                          decoration: BoxDecoration(
+                            color: requireBackgroundColor,
+                            borderRadius: BorderRadius.circular(3),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 3,
+                            horizontal: 6,
+                          ),
+                          child: Text(
+                            tr('common.required'),
+                            style: textTheme.labelSmall?.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: EVMColors.white,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -111,12 +230,15 @@ class InfoInput extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
+                          crossAxisAlignment: rowCrossAxisAlignment,
                           children: [
                             inputWidth != null ? SizedBox(width: inputWidth, child: input) : Expanded(child: input),
                             if (secondController != null) const SizedBox(width: 16),
                             if (secondController != null)
-                              Expanded(child: TextInput(hintText: '', controller: secondController)),
-                            if (trailing != null) const SizedBox(width: 16),
+                              secondInputWidth != null
+                                  ? SizedBox(width: secondInputWidth, child: secondInput)
+                                  : Expanded(child: secondInput!),
+                            if (trailing != null) sw(trailingSpacing),
                             if (trailing != null) expandTrailing ? Expanded(child: trailing!) : trailing!,
                             SizedBox(width: paddingRight),
                           ],
@@ -126,7 +248,7 @@ class InfoInput extends StatelessWidget {
                   : Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Text(
-                        controller?.text ?? defaultTextWhenNotEditable,
+                        controller?.text ?? textDisplayWhenNotEditable,
                         style: textTheme.bodyMedium,
                       ),
                     ),
@@ -134,23 +256,26 @@ class InfoInput extends StatelessWidget {
             if (hasRightSpace) const ExpandedSizedBox(flex: 4),
           ],
         ),
-        if (bottomTextInputLabel != null)
+        if (bottomText != null)
           const SizedBox(
             height: 6.0,
           ),
-        if (bottomTextInputLabel != null)
+        if (bottomText != null)
           Row(
             children: [
               const SizedBox(width: 16),
-              const ExpandedSizedBox(flex: 6),
+              ExpandedSizedBox(flex: titleFlex),
+              if (bottomTextType == TextType.error) sw(12.w),
               Expanded(
                 flex: 14,
                 child: Text(
-                  tr(bottomTextInputLabel!),
-                  style: textTheme.bodyMedium?.copyWith(color: EVMColors.hint),
+                  tr(bottomText!),
+                  style: textTheme.labelMedium?.copyWith(
+                    color: bottomTextType == TextType.normal ? EVMColors.blackLight : EVMColors.redDeep,
+                  ),
                 ),
               ),
-              const ExpandedSizedBox(flex: 4),
+              if (hasRightSpace) const ExpandedSizedBox(flex: 4),
             ],
           ),
         const SizedBox(height: 10),
