@@ -9,6 +9,10 @@
             "group": {
                 "kind": "build",
                 "isDefault": true
+            },
+            "presentation": {
+                "reveal": "never",
+                "panel": "shared"
             }
         },
         {
@@ -19,6 +23,10 @@
             "group": {
                 "kind": "build",
                 "isDefault": true
+            },
+            "presentation": {
+                "reveal": "never",
+                "panel": "shared"
             }
         }
     ]
