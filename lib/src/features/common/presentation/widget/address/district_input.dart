@@ -56,7 +56,7 @@ class _DistrictInputState extends State<DistrictInput> {
   @override
   void initState() {
     super.initState();
-    addressMixin.selectedDistrict = AddressFieldDto.empty;
+    addressMixin.selectedDistrict = AddressFieldDto.emptyDistrict;
   }
 
   void _validate(bool isValidated) {
@@ -100,8 +100,8 @@ class _DistrictInputState extends State<DistrictInput> {
                   _validate(true);
                 });
               }
-              if (!state.data.any((element) => element.code == AddressFieldDto.empty.code)) {
-                state.data.insert(0, AddressFieldDto.empty);
+              if (!state.data.any((element) => element.code == AddressFieldDto.emptyDistrict.code)) {
+                state.data.insert(0, AddressFieldDto.emptyDistrict);
               }
               return CustomDropdownButton<AddressFieldDto>(
                 height: 56.h,
@@ -125,7 +125,8 @@ class _DistrictInputState extends State<DistrictInput> {
                     child: Text(
                       pref.name,
                       style: textTheme.bodyMedium?.copyWith(
-                        color: pref.code == AddressFieldDto.empty.code ? widget.hintColor : EVMColors.blackLight,
+                        color:
+                            pref.code == AddressFieldDto.emptyDistrict.code ? widget.hintColor : EVMColors.blackLight,
                       ),
                     ),
                   );

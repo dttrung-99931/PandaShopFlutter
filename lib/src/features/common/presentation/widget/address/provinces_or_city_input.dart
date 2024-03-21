@@ -57,7 +57,7 @@ class _ProvinceOrCityInputState extends State<ProvinceOrCityInput> {
   void initState() {
     super.initState();
     addressMixin.addressBloc.add(OnGetProvinceAndCities());
-    addressMixin.selectedProvOrCity = AddressFieldDto.empty;
+    addressMixin.selectedProvOrCity = AddressFieldDto.emptyProvOrCity;
   }
 
   void _validate(bool isValidated) {
@@ -101,8 +101,8 @@ class _ProvinceOrCityInputState extends State<ProvinceOrCityInput> {
                   _validate(true);
                 });
               }
-              if (!state.data.any((element) => element.code == AddressFieldDto.empty.code)) {
-                state.data.insert(0, AddressFieldDto.empty);
+              if (!state.data.any((element) => element.code == AddressFieldDto.emptyProvOrCity.code)) {
+                state.data.insert(0, AddressFieldDto.emptyProvOrCity);
               }
               return CustomDropdownButton<AddressFieldDto>(
                 height: 56.h,
@@ -113,7 +113,7 @@ class _ProvinceOrCityInputState extends State<ProvinceOrCityInput> {
                 // },
                 onSelected: (AddressFieldDto? provOrCity) {
                   addressMixin.selectedProvOrCity = provOrCity!;
-                  addressMixin.selectedDistrict = AddressFieldDto.empty;
+                  addressMixin.selectedDistrict = AddressFieldDto.emptyProvOrCity;
                   addressMixin.addressBloc.add(
                     OnGetDistricts(provinceOrCityCode: provOrCity.code),
                   );
@@ -128,7 +128,8 @@ class _ProvinceOrCityInputState extends State<ProvinceOrCityInput> {
                     child: Text(
                       pref.name,
                       style: textTheme.bodyMedium?.copyWith(
-                        color: pref.code == AddressFieldDto.empty.code ? widget.hintColor : EVMColors.blackLight,
+                        color:
+                            pref.code == AddressFieldDto.emptyProvOrCity.code ? widget.hintColor : EVMColors.blackLight,
                       ),
                     ),
                   );
