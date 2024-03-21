@@ -1,5 +1,4 @@
 import 'package:evievm_app/core/utils/constants.dart';
-import 'package:evievm_app/core/utils/dimensions.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/core/utils/log.dart';
 import 'package:evievm_app/core/utils/utils.dart';
@@ -9,7 +8,6 @@ import 'package:evievm_app/src/features/auth/presentation/widgets/info_input.dar
 import 'package:evievm_app/src/features/common/domain/dtos/address_field_dto.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/address/address_bloc.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/address/address_bloc_mixin.dart';
-import 'package:evievm_app/src/shared/widgets/color_container.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:evievm_app/src/shared/widgets/custom_drop_down_button.dart';
 import 'package:flutter/material.dart';
@@ -53,12 +51,13 @@ class ProvinceOrCityInput extends StatefulWidget {
 
 class _ProvinceOrCityInputState extends State<ProvinceOrCityInput> {
   bool _isValidated = false;
+  AddressBlocMixin get addressMixin => widget.addrBlocMixin;
 
   @override
   void initState() {
     super.initState();
-    widget.addrBlocMixin.addressBloc.add(OnGetProvinceAndCities());
-    widget.addrBlocMixin.selectedProvOrCity = AddressFieldDto.empty;
+    addressMixin.addressBloc.add(OnGetProvinceAndCities());
+    addressMixin.selectedProvOrCity = AddressFieldDto.empty;
   }
 
   void _validate(bool isValidated) {
@@ -76,11 +75,11 @@ class _ProvinceOrCityInputState extends State<ProvinceOrCityInput> {
       showTopDivider: widget.showTopDivider,
       isEditable: widget.isEditMode,
       title: widget.title,
-      textDisplayWhenNotEditable: widget.addrBlocMixin.selectedProvOrCity.name,
+      textDisplayWhenNotEditable: addressMixin.selectedProvOrCity.name,
       showRequiredLabel: widget.isRequired,
       bottomText: (_isValidated & widget.isRequired)
           ? Validate.validateRequiredCondition(
-              widget.addrBlocMixin.selectedProvOrCity.code != Constatnts.codeEmpty,
+              addressMixin.selectedProvOrCity.code != Constatnts.codeEmpty,
               fieldName: widget.title,
             )
           : null,
@@ -88,7 +87,7 @@ class _ProvinceOrCityInputState extends State<ProvinceOrCityInput> {
       customInput: Container(
         padding: EdgeInsets.only(right: widget.paddingRight),
         child: CustomBlocBuilder<AddressBloc>(
-            // bloc: widget.addrBlocMixin.addressBloc,
+            // bloc: addressMixin.addressBloc,
             buildForStates: const [GetProvincesAndCitiesSucess],
             handleLoading: false,
             builder: (state) {
@@ -96,26 +95,28 @@ class _ProvinceOrCityInputState extends State<ProvinceOrCityInput> {
                 return const SizedBox.shrink();
               }
               if (state.selected != null) {
-                widget.addrBlocMixin.selectedProvOrCity = state.selected!;
+                addressMixin.selectedProvOrCity = state.selected!;
                 state.selectedCode = null; // Clear selected, only init selected on first load
                 doOnBuildUICompleted(() {
                   _validate(true);
                 });
               }
-              if (!state.data.any((pref) => pref.code == AddressFieldDto.empty.code)) {
+              if (!state.data.any((element) => element.code == AddressFieldDto.empty.code)) {
                 state.data.insert(0, AddressFieldDto.empty);
               }
               return CustomDropdownButton<AddressFieldDto>(
                 height: 56.h,
                 enabled: widget.enabled,
-                selectedItem: widget.addrBlocMixin.selectedProvOrCity,
+                selectedItem: addressMixin.selectedProvOrCity,
                 // onDropDrownClosed: () {
                 //   _validate(true);
                 // },
                 onSelected: (AddressFieldDto? provOrCity) {
-                  widget.addrBlocMixin.selectedProvOrCity = provOrCity!;
-                  // widget.onSelectedChanged?.call();
-                  logd(widget.addrBlocMixin.selectedDistrict.name);
+                  addressMixin.selectedProvOrCity = provOrCity!;
+                  addressMixin.selectedDistrict = AddressFieldDto.empty;
+                  addressMixin.addressBloc.add(
+                    OnGetDistricts(provinceOrCityCode: provOrCity.code),
+                  );
                   doOnBuildUICompleted(() {
                     _validate(true);
                   });

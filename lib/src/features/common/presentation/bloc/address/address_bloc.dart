@@ -39,6 +39,7 @@ class AddressBloc extends BaseBloc {
   ) : super(InitialState()) {
     on<OnGetMyAddresses>(_onGetMyAddresses);
     on<OnGetProvinceAndCities>(_onGetProvinceAndCities);
+    on<OnGetDistricts>(_onGetDistricts);
   }
 
   Future<void> _onGetMyAddresses(OnGetMyAddresses event, Emitter<BaseState> emit) async {
@@ -57,6 +58,16 @@ class AddressBloc extends BaseBloc {
       emit: emit,
       onSuccess: (List<AddressFieldDto> result) {
         return GetProvincesAndCitiesSucess(result);
+      },
+    );
+  }
+
+  FutureOr<void> _onGetDistricts(OnGetDistricts event, Emitter<BaseState> emit) async {
+    await handleUsecaseResult(
+      usecaseResult: _getDistricts.call(event.provinceOrCityCode),
+      emit: emit,
+      onSuccess: (List<AddressFieldDto> result) {
+        return GetDistrictsSuccess(result, selectedCode: event.selectedCode);
       },
     );
   }

@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/src/features/common/presentation/bloc/address_input_bloc/address_input_bloc.dart';
+import 'package:evievm_app/src/features/common/presentation/widget/address/district_input.dart';
 import 'package:evievm_app/src/features/common/presentation/widget/address/provinces_or_city_input.dart';
 import 'package:evievm_app/src/shared/widgets/evm_dialog.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class AddAddrDialog extends StatelessWidget {
       child: Column(
         children: [
           ProvinceOrCityInput(addrBlocMixin: addressInputBloc),
+          DistrictInput(addrBlocMixin: addressInputBloc),
         ],
       ),
     );
