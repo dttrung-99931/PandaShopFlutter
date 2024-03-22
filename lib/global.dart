@@ -28,6 +28,15 @@ class Global {
     return navigator.pushNamedAndRemoveUntil(routeName, (route) => false);
   }
 
+  static void popUntilNamed<T extends Object?>(String routeName) {
+    navigator.popUntil(ModalRoute.withName(routeName));
+  }
+
+  // TODO: fix, currently not working
+  // static void popAllCurrentDialogs<T extends Object?>() {
+  //   navigator.popUntil((route) => route is MaterialPageRoute);
+  // }
+
   static void hideAllSnackbars() {
     navigator.popUntil((route) => route is! FlushbarRoute);
   }

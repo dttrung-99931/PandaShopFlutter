@@ -1,9 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/auth/presentation/widgets/info_input.dart';
+import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
 import 'package:evievm_app/src/features/common/domain/dtos/address_field_dto.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/address/address_bloc.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/address_input_bloc/address_input_bloc.dart';
@@ -12,13 +16,13 @@ import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_listener.dart';
 import 'package:evievm_app/src/shared/widgets/cutstom_button.dart';
 import 'package:evievm_app/src/shared/widgets/evm_dialog.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddAddrDialog extends StatefulWidget {
   const AddAddrDialog({
-    super.key,
-  });
+    Key? key,
+    this.onAddSuccessed,
+  }) : super(key: key);
+  final Function(AddressDto added)? onAddSuccessed;
 
   @override
   State<AddAddrDialog> createState() => _AddAddrDialogState();
@@ -44,6 +48,10 @@ class _AddAddrDialogState extends State<AddAddrDialog> {
     return CustomBlocListener<AddressInputBloc>(
       listener: (state) {
         if (state is SaveMyAddressSuccesss) {
+          widget.onAddSuccessed?.call(state.data);
+          // Pop AddAddressDialog
+          Global.pop();
+          // Pop Address drop down
           Global.pop();
         }
       },

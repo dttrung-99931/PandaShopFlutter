@@ -22,7 +22,7 @@ class AddressInputBloc extends BaseBloc with AddressBlocMixin {
   final SaveMyAddressUseCase _saveAddress;
 
   FutureOr<void> _onSaveMyAddress(OnSaveMyAddress event, Emitter<BaseState> emit) async {
-    handleUsecaseResult(
+    await handleUsecaseResult(
       usecaseResult: _saveAddress.call(SaveAddressRequestModel(
         provinceOrCity: selectedProvOrCity.name,
         provinceOrCityCode: selectedProvOrCity.code,

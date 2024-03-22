@@ -26,7 +26,7 @@ class CustomBlocListener<T extends BaseBloc> extends StatefulWidget {
 }
 
 class _CustomBlocListenerState<T extends BaseBloc> extends State<CustomBlocListener<T>> {
-  final T _bloc = getIt();
+  T _bloc = getIt();
 
   @override
   void initState() {
@@ -34,6 +34,12 @@ class _CustomBlocListenerState<T extends BaseBloc> extends State<CustomBlocListe
     if (widget.initialEvent != null) {
       _bloc.add(widget.initialEvent!);
     }
+  }
+
+  @override
+  void didUpdateWidget(covariant CustomBlocListener<T> oldWidget) {
+    _bloc = getIt();
+    super.didUpdateWidget(oldWidget);
   }
 
   @override

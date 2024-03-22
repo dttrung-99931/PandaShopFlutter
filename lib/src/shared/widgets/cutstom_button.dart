@@ -93,7 +93,7 @@ class CustomButton extends StatelessWidget {
                 ? Stack(
                     children: [
                       buttonContent,
-                      Positioned.fill(child: LoadingWidget(size: 28.r, color: loadingColor)),
+                      Positioned.fill(child: LoadingWidget(size: 24.r, color: loadingColor)),
                     ],
                   )
                 : buttonContent,
