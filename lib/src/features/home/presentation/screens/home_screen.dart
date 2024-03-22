@@ -7,12 +7,10 @@ import 'package:evievm_app/src/features/product/presentation/widget/product_slid
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../core/utils/app_colors.dart';
 import '../widgets/search_bar_and_banner.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key, required this.scrollController}) : super(key: key);
-  static const router = '/home';
   final ScrollController scrollController;
 
   @override

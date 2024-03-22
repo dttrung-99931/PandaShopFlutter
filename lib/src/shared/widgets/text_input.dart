@@ -82,7 +82,7 @@ class _TextInputState extends State<TextInput> {
       );
 
   OutlineInputBorder get _focusedBorder => OutlineInputBorder(
-        borderSide: const BorderSide(color: AppColors.primary, width: 2.5),
+        borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
         borderRadius: BorderRadius.circular(widget.borderRadius),
       );
 

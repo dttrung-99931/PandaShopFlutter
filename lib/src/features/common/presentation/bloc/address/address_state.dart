@@ -1,26 +1,41 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 part of 'address_bloc.dart';
 
-class GetMyAddressesSucess extends FullDataLoadedState<List<AddressDto>> {
-  GetMyAddressesSucess(super.data);
+class GetMyAddressesSucess extends ListLoadedState<AddressDto, int> {
+  GetMyAddressesSucess(super.data, {required super.selectedId});
+
+  @override
+  int getId(AddressDto element) {
+    return element.id;
+  }
 }
 
 class GetAddressessFieldsSuccess extends FullDataLoadedState<List<AddressFieldDto>> {
-  String? selectedCode;
-  AddressFieldDto? get selected => data.firstWhereOrNull((p0) => p0.code == selectedCode);
-  GetAddressessFieldsSuccess(super.data, {this.selectedCode});
+  GetAddressessFieldsSuccess(super.data, {required this.selectedCode});
+  String selectedCode;
+  AddressFieldDto get selected => data.firstWhere((p0) => p0.code == selectedCode);
+  bool get isValid => selectedCode != '';
 }
 
 class GetProvincesAndCitiesSucess extends GetAddressessFieldsSuccess {
-  GetProvincesAndCitiesSucess(super.data, {super.selectedCode});
+  GetProvincesAndCitiesSucess(super.data, {String? selectedCode})
+      : super(
+          selectedCode: selectedCode ?? AddressFieldDto.emptyProvOrCity.code,
+        );
 }
 
 class GetCommunesAndWardsSuccess extends GetAddressessFieldsSuccess {
-  GetCommunesAndWardsSuccess(super.data, {super.selectedCode});
+  GetCommunesAndWardsSuccess(super.data, {String? selectedCode})
+      : super(
+          selectedCode: selectedCode ?? AddressFieldDto.emptyComnuneOrWard.code,
+        );
 }
 
 class GetDistrictsSuccess extends GetAddressessFieldsSuccess {
-  GetDistrictsSuccess(super.data, {super.selectedCode});
+  GetDistrictsSuccess(super.data, {String? selectedCode})
+      : super(
+          selectedCode: selectedCode ?? AddressFieldDto.emptyDistrict.code,
+        );
 }
 
 

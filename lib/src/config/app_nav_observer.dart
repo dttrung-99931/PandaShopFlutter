@@ -14,11 +14,7 @@ class AppNavObserver extends NavigatorObserver {
   static String? get previousRoute => _routeStack.atOrNull(_routeStack.length - 2);
   static Object? get previousRouteArgs => _routeArgsStack.atOrNull(_routeArgsStack.length - 2);
 
-  final Map<String, Function()> disposeMap = {
-    HomeScreen.router: () {
-      // getIt.resetLazySingleton<StoredPhotoBloc>();
-    }
-  };
+  final Map<String, Function()> disposeMap = {};
 
   // Handle sth when new screen is pushed
   final Map<String, Function()> preRouteHanlderMap = {};

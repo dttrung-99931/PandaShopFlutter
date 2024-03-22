@@ -13,16 +13,16 @@ import '../../../core/interceptors/api_interceptor.dart' as _i8;
 import '../../../core/utils/storage.dart' as _i7;
 import '../../features/auth/data/data_sources/auth_remote_data_soruce.dart'
     as _i27;
-import '../../features/auth/data/repositories/auth_repo_impl.dart' as _i46;
-import '../../features/auth/domain/repositories/auth_repo.dart' as _i45;
+import '../../features/auth/data/repositories/auth_repo_impl.dart' as _i47;
+import '../../features/auth/domain/repositories/auth_repo.dart' as _i46;
 import '../../features/auth/domain/use_cases/check_login_usecase.dart' as _i9;
 import '../../features/auth/domain/use_cases/get_remember_login_email_usecase.dart'
     as _i11;
-import '../../features/auth/domain/use_cases/login_usecase.dart' as _i47;
+import '../../features/auth/domain/use_cases/login_usecase.dart' as _i48;
 import '../../features/auth/domain/use_cases/logout_usecase.dart' as _i12;
 import '../../features/auth/domain/use_cases/qr_barcode_reader_login_usecase.dart'
-    as _i48;
-import '../../features/auth/presentation/bloc/login/login_bloc.dart' as _i49;
+    as _i49;
+import '../../features/auth/presentation/bloc/login/login_bloc.dart' as _i50;
 import '../../features/auth/presentation/bloc/sign_up/sign_up_bloc.dart' as _i6;
 import '../../features/common/data/data_sources/address_data_soruce.dart'
     as _i21;
@@ -36,10 +36,12 @@ import '../../features/common/domain/use_cases/get_my_addresses_usecase.dart'
     as _i32;
 import '../../features/common/domain/use_cases/get_provinces_and_cities_usecase.dart'
     as _i36;
+import '../../features/common/domain/use_cases/save_my_address_usecase.dart'
+    as _i41;
 import '../../features/common/presentation/bloc/address/address_bloc.dart'
-    as _i43;
-import '../../features/common/presentation/bloc/address_input_bloc/address_input_bloc.dart'
     as _i44;
+import '../../features/common/presentation/bloc/address_input_bloc/address_input_bloc.dart'
+    as _i45;
 import '../../features/home/presentation/bloc/home_bloc.dart' as _i39;
 import '../../features/product/data/data_sources/ads/ads_data_soruce.dart'
     as _i24;
@@ -79,10 +81,10 @@ import '../../features/product/presentation/bloc/product_detail/product_option/p
 import '../../features/product/presentation/bloc/product_detail/product_option/product_option_bloc_communicaton.dart'
     as _i5;
 import '../../features/product/presentation/bloc/search/search_products_bloc.dart'
-    as _i41;
-import '../../features/product/presentation/bloc/shopping_cart/shopping_cart_bloc.dart'
     as _i42;
-import 'injection.dart' as _i50; // ignore_for_file: unnecessary_lambdas
+import '../../features/product/presentation/bloc/shopping_cart/shopping_cart_bloc.dart'
+    as _i43;
+import 'injection.dart' as _i51; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -172,36 +174,38 @@ Future<_i1.GetIt> $initGetIt(
       ));
   gh.lazySingleton<_i40.ProductDetailBloc>(
       () => _i40.ProductDetailBloc(get<_i34.GetProductDetailUseCase>()));
-  gh.lazySingleton<_i41.SearchProductsBloc>(() => _i41.SearchProductsBloc(
+  gh.lazySingleton<_i41.SaveMyAddressUseCase>(
+      () => _i41.SaveMyAddressUseCase(get<_i22.AddressRepo>()));
+  gh.lazySingleton<_i42.SearchProductsBloc>(() => _i42.SearchProductsBloc(
         get<_i16.SearchProductsUserCase>(),
         get<_i35.GetProductsUseCase>(),
       ));
-  gh.lazySingleton<_i42.ShoppingCartBloc>(() => _i42.ShoppingCartBloc(
+  gh.lazySingleton<_i43.ShoppingCartBloc>(() => _i43.ShoppingCartBloc(
         get<_i38.GetShoppingCartUseCase>(),
         get<_i20.UpsertCartItemUseCase>(),
         get<_i28.DeleteCartItemsUseCase>(),
       ));
-  gh.lazySingleton<_i43.AddressBloc>(() => _i43.AddressBloc(
+  gh.factory<_i44.AddressBloc>(() => _i44.AddressBloc(
         get<_i32.GetMyAddressesUseCase>(),
         get<_i36.GetProvincesAndCitiesUseCase>(),
         get<_i30.GetDistrictsUseCase>(),
         get<_i29.GetCommunesAndWardsUseCase>(),
       ));
-  gh.lazySingleton<_i44.AddressInputBloc>(
-      () => _i44.AddressInputBloc(get<_i32.GetMyAddressesUseCase>()));
-  gh.lazySingleton<_i45.AuthRepo>(
-      () => _i46.AuthRepoImpl(get<_i27.AuthRepoteDatasource>()));
-  gh.lazySingleton<_i47.EmailLoginUseCase>(() => _i47.EmailLoginUseCase(
-        get<_i45.AuthRepo>(),
+  gh.lazySingleton<_i45.AddressInputBloc>(
+      () => _i45.AddressInputBloc(get<_i41.SaveMyAddressUseCase>()));
+  gh.lazySingleton<_i46.AuthRepo>(
+      () => _i47.AuthRepoImpl(get<_i27.AuthRepoteDatasource>()));
+  gh.lazySingleton<_i48.EmailLoginUseCase>(() => _i48.EmailLoginUseCase(
+        get<_i46.AuthRepo>(),
         get<_i7.Storage>(),
       ));
-  gh.lazySingleton<_i48.QrBarcodeLoginUseCase>(() => _i48.QrBarcodeLoginUseCase(
-        get<_i45.AuthRepo>(),
-        get<_i47.EmailLoginUseCase>(),
+  gh.lazySingleton<_i49.QrBarcodeLoginUseCase>(() => _i49.QrBarcodeLoginUseCase(
+        get<_i46.AuthRepo>(),
+        get<_i48.EmailLoginUseCase>(),
       ));
-  gh.lazySingleton<_i49.LoginBloc>(() => _i49.LoginBloc(
-        get<_i47.EmailLoginUseCase>(),
-        get<_i48.QrBarcodeLoginUseCase>(),
+  gh.lazySingleton<_i50.LoginBloc>(() => _i50.LoginBloc(
+        get<_i48.EmailLoginUseCase>(),
+        get<_i49.QrBarcodeLoginUseCase>(),
         get<_i9.CheckLoginUseCase>(),
         get<_i12.LogoutUseCase>(),
         get<_i11.GetRememberLoginEmailUserCase>(),
@@ -210,7 +214,7 @@ Future<_i1.GetIt> $initGetIt(
 }
 
 class _$AppModuleDepedenciesProvider
-    extends _i50.AppModuleDepedenciesProvider {}
+    extends _i51.AppModuleDepedenciesProvider {}
 
 class _$ProductRemoteDatasourceProvider
     extends _i13.ProductRemoteDatasourceProvider {}

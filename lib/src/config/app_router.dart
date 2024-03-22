@@ -57,7 +57,7 @@ class AppRouter {
   }
 
   static void _configUIForScreen(RouteSettings settings) {
-    if (![HomeScreen.router].contains(settings.name)) {
+    if (![MainScreen.router].contains(settings.name)) {
       // Hide status bar
       // TODO: do not hide system nav bar
       // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);

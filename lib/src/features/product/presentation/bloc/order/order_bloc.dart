@@ -19,10 +19,10 @@ OrderBloc get orderBloc => getIt<OrderBloc>();
 @lazySingleton
 class OrderBloc extends BaseBloc {
   OrderBloc() : super(InitialState()) {
-    onLoad<OnGetOrderComfirm>(_onGetShoppingCart);
+    onLoad<OnGetOrderComfirm>(_onGetOrderConfirm);
   }
 
-  FutureOr<void> _onGetShoppingCart(OnGetOrderComfirm event, Emitter<BaseState> emit) async {
+  FutureOr<void> _onGetOrderConfirm(OnGetOrderComfirm event, Emitter<BaseState> emit) async {
     emit(GetOrderConfirmSuccess(OrderConfirmDto(items: event.items)));
   }
 }

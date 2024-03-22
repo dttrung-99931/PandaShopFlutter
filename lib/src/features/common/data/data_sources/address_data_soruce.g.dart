@@ -48,6 +48,33 @@ class _AddressDatasource implements AddressDatasource {
   }
 
   @override
+  Future<BaseResponse<AddressModel>> save(param) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(param.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<AddressModel>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/v1/Addresses',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseResponse<AddressModel>.fromJson(
+      _result.data!,
+      (json) => AddressModel.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
   Future<BaseResponse<List<AddressFieldModel>>> getProvincesAndCities() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

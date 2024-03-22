@@ -1,20 +1,22 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evievm_app/core/utils/assets/assets.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
+import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class EVMDialog extends StatelessWidget {
-  const EVMDialog({
+class AppDialog extends StatelessWidget {
+  const AppDialog({
     required this.width,
     required this.child,
     this.title,
     this.height,
     this.leading,
     this.onClose,
-    this.padding = EdgeInsets.zero,
+    this.margin = const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+    this.padding = const EdgeInsets.only(bottom: 8, left: 8, right: 8),
     super.key,
   });
 
@@ -23,13 +25,14 @@ class EVMDialog extends StatelessWidget {
   final double width;
   final double? height;
   final Widget? leading;
+  final EdgeInsets? margin;
   final EdgeInsets? padding;
   final void Function()? onClose;
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      insetPadding: padding,
+      insetPadding: margin,
       backgroundColor: EVMColors.white,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8.w),
@@ -40,7 +43,15 @@ class EVMDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               _buildTitle(context),
-              if (height == null) child else Expanded(child: child),
+              if (height == null)
+                Container(
+                  padding: padding,
+                  child: child,
+                )
+              else
+                Expanded(
+                  child: Container(padding: padding, child: child),
+                ),
             ],
           ),
         ),
@@ -50,7 +61,7 @@ class EVMDialog extends StatelessWidget {
 
   Widget _buildTitle(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(12.w),
+      padding: EdgeInsets.fromLTRB(16.r, 16.r, 16.r, 16.r),
       child: Row(
         children: [
           Expanded(
@@ -61,7 +72,7 @@ class EVMDialog extends StatelessWidget {
                   )
                 : const SizedBox(),
           ),
-          if (title != null) Text(tr(title!), style: textTheme.bodyLarge),
+          if (title != null) Text(tr(title!), style: textTheme.titleMedium),
           Expanded(
             child: Align(
               alignment: Alignment.centerRight,
@@ -70,7 +81,7 @@ class EVMDialog extends StatelessWidget {
                     () {
                       Navigator.of(context).pop();
                     },
-                child: SvgPicture.asset(Assets.ic.close, width: 28.w, height: 28.h),
+                child: SvgPicture.asset(Assets.ic.close, width: 28.r, height: 28.r),
               ),
             ),
           ),

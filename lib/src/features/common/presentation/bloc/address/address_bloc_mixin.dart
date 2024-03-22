@@ -7,14 +7,8 @@ import '../address/address_bloc.dart';
 
 // Mixin for bloc need address input
 mixin AddressBlocMixin on BaseBloc {
-  final nameController = TextEditingController();
-  final nameFuriganaController = TextEditingController();
-  final phoneController = TextEditingController();
-  final postalCodeController = TextEditingController();
-  final addressController = TextEditingController();
-  final buildingNameController = TextEditingController();
-  final faxController = TextEditingController();
-  final clinicCodeController = TextEditingController();
+  final houseNumRoadNameController = TextEditingController();
+  final addrNameController = TextEditingController();
   final addressBloc = getIt<AddressBloc>();
   AddressFieldDto selectedProvOrCity = AddressFieldDto.empty; // slected tỉnh
   AddressFieldDto selectedDistrict = AddressFieldDto.empty;

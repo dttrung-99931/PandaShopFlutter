@@ -6,11 +6,12 @@ import 'package:evievm_app/src/shared/widgets/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CustomBlocBuilder<T extends BaseBloc> extends StatefulWidget {
+// Like CustomBlocBuilder but builder has additional context param
+class CustomBlocBuilder2<T extends BaseBloc> extends StatefulWidget {
   final List<Type>? buildForStates;
   final bool Function(BaseState state)? buildCondition;
   final BaseEvent? initialEvent;
-  final Widget Function(BaseState state) builder;
+  final Widget Function(BaseState state, BuildContext context) builder;
   final bool handleLoading;
   final Type loadingStateType;
   final bool isSliver;
@@ -18,7 +19,7 @@ class CustomBlocBuilder<T extends BaseBloc> extends StatefulWidget {
   // true -> get bloc for BlocBuilder from context instead of getIt or param
   final bool useProvider;
 
-  CustomBlocBuilder({
+  CustomBlocBuilder2({
     super.key,
     this.buildForStates,
     required this.builder,
@@ -30,17 +31,17 @@ class CustomBlocBuilder<T extends BaseBloc> extends StatefulWidget {
     T? bloc,
     this.useProvider = false,
   })  : bloc = useProvider ? null : bloc ?? getIt(),
-        assert((useProvider && bloc == null) || true, 'bloc must be null when useProvider = true');
+        assert(useProvider || bloc == null, 'bloc must be null when useProvider = true');
 
   @override
-  State<CustomBlocBuilder<T>> createState() => _CustomBlocBuilderState<T>();
+  State<CustomBlocBuilder2<T>> createState() => _CustomBlocBuilder2State<T>();
 }
 
-class _CustomBlocBuilderState<T extends BaseBloc> extends State<CustomBlocBuilder<T>> {
+class _CustomBlocBuilder2State<T extends BaseBloc> extends State<CustomBlocBuilder2<T>> {
   late T? _bloc = widget.useProvider ? context.read<T>() : widget.bloc;
 
   @override
-  void didUpdateWidget(covariant CustomBlocBuilder<T> oldWidget) {
+  void didUpdateWidget(covariant CustomBlocBuilder2<T> oldWidget) {
     _bloc = widget.bloc;
     super.didUpdateWidget(oldWidget);
   }
@@ -69,7 +70,7 @@ class _CustomBlocBuilderState<T extends BaseBloc> extends State<CustomBlocBuilde
         if (widget.handleLoading && state.runtimeType == widget.loadingStateType) {
           return widget.isSliver ? const SliverToBoxAdapter(child: LoadingWidget()) : const LoadingWidget();
         }
-        return widget.builder(state);
+        return widget.builder(state, context);
         // throw 'State ${state.runtimeType} has been not handled UI';
       },
     );

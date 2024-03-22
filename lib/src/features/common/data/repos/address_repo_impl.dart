@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:evievm_app/core/failures/failures.dart';
 import 'package:evievm_app/src/features/common/data/data_sources/address_data_soruce.dart';
+import 'package:evievm_app/src/features/common/data/models/request/save_address_model.dart';
 import 'package:evievm_app/src/features/common/data/models/response/address_field_model.dart';
 import 'package:evievm_app/src/features/common/data/models/response/address_model.dart';
 import 'package:evievm_app/src/features/common/domain/repos/address_repo.dart';
@@ -44,6 +45,15 @@ class AddressRepoImpl extends AddressRepo {
     return handleNetwork(
       onRemote: handleServerErrors(
         datasourceResponse: datasource.getProvincesAndCities(),
+      ),
+    );
+  }
+
+  @override
+  Future<Either<Failure, AddressModel>> saveMyAddresses(SaveAddressRequestModel model) {
+    return handleNetwork(
+      onRemote: handleServerErrors(
+        datasourceResponse: datasource.save(model),
       ),
     );
   }

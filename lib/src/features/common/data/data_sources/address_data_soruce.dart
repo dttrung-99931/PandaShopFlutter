@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:evievm_app/core/model/base_response.dart';
+import 'package:evievm_app/src/features/common/data/models/request/save_address_model.dart';
 import 'package:evievm_app/src/features/common/data/models/response/address_field_model.dart';
 import 'package:evievm_app/src/features/common/data/models/response/address_model.dart';
 import 'package:injectable/injectable.dart';
@@ -19,6 +20,9 @@ abstract class AddressDatasourceProvider {
 abstract class AddressDatasource {
   @GET('/v1/Addresses')
   Future<BaseResponse<List<AddressModel>>> get();
+
+  @POST('/v1/Addresses')
+  Future<BaseResponse<AddressModel>> save(@Body() SaveAddressRequestModel param);
 
   @GET('/v1/Addresses/ProvincesAndCities')
   Future<BaseResponse<List<AddressFieldModel>>> getProvincesAndCities();

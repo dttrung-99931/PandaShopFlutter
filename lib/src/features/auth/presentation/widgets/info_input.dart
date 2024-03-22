@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:easy_localization/easy_localization.dart';
+import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:flutter/material.dart';
 
@@ -78,12 +79,12 @@ class InfoInput extends StatelessWidget {
     this.bottomText,
     this.bottomTextType = TextType.normal,
     this.showBottomDivider = false,
-    this.showTopDivider = true,
-    this.showRequiredLabel = true,
+    this.showTopDivider = false,
+    this.showRequiredLabel = false,
     this.customInput,
     this.trailing,
     this.isEditable = true,
-    this.paddingRight = 0,
+    this.paddingRight = 16,
     this.paddingLeft = 16,
     this.requireBackgroundColor = EVMColors.red,
     TextStyle? titleStyle,
@@ -92,7 +93,7 @@ class InfoInput extends StatelessWidget {
     this.secondInputWidth,
     this.expandTrailing = true,
     this.hasRightSpace = false,
-    this.titleFlex = 6,
+    this.titleFlex = 8,
     this.validator,
     this.secondValidator,
     this.onTextFieldUnfocus,
@@ -135,6 +136,9 @@ class InfoInput extends StatelessWidget {
               // },
               textInputType: inputType,
               textInputAction: inputAction,
+              border: OutlineInputBorder(
+                borderSide: BorderSide(color: AppColors.primary.shade400),
+              ),
               // isPasswordInput: isPasswordInput,
               hintText: tr(hint),
               controller: controller,
@@ -186,7 +190,7 @@ class InfoInput extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (showTopDivider) const Divider(color: EVMColors.blackLight),
-        const SizedBox(height: 10),
+        const SizedBox(height: 6),
         Row(
           crossAxisAlignment: columnCrossAxisAlignment,
           children: [
@@ -278,7 +282,7 @@ class InfoInput extends StatelessWidget {
               if (hasRightSpace) const ExpandedSizedBox(flex: 4),
             ],
           ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 6),
         if (showBottomDivider) const Divider(color: EVMColors.blackLight),
       ],
     );
