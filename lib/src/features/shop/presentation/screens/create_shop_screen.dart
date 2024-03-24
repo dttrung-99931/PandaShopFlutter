@@ -7,7 +7,6 @@ import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:evievm_app/src/features/auth/presentation/screens/login_screen.dart';
-import 'package:evievm_app/src/features/common/presentation/bloc/user/user_bloc.dart';
 import 'package:evievm_app/src/shared/widgets/app_alert_dialog.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:evievm_app/src/shared/widgets/cutstom_button.dart';
@@ -15,14 +14,14 @@ import 'package:evievm_app/src/shared/widgets/spacing_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AccountScreen extends StatefulWidget {
-  const AccountScreen({super.key});
+class CreateShopScreen extends StatefulWidget {
+  const CreateShopScreen({super.key});
 
   @override
-  State<AccountScreen> createState() => _AccountScreenState();
+  State<CreateShopScreen> createState() => _CreateShopScreenState();
 }
 
-class _AccountScreenState extends State<AccountScreen> {
+class _CreateShopScreenState extends State<CreateShopScreen> {
   @override
   void initState() {
     super.initState();
@@ -107,19 +106,6 @@ class _Items extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CustomBlocBuilder<UserBloc>(
-          buildForStates: const [GetUserDetailSuccess],
-          builder: (state) {
-            if (state is! GetUserDetailSuccess) {
-              return emptyWidget;
-            }
-            return _Item(
-              title: state.data.shop != null ? 'Chuyển qua shop' : 'Tạo shop của bạn',
-              onPressed: commingSoon,
-              icon: const Icon(Icons.home_outlined),
-            );
-          },
-        ),
         const _Item(
           title: 'Thông tin',
           onPressed: commingSoon,

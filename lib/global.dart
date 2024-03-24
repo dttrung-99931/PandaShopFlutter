@@ -1,7 +1,9 @@
 import 'package:another_flushbar/flushbar_route.dart';
 import 'package:evievm_app/src/config/app_nav_observer.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'src/features/common/domain/dtos/user_detail_dto.dart';
+import 'src/features/shop/domain/dtos/shop_response_dto.dart';
 
 class Global {
   static final globalKey = GlobalKey<NavigatorState>();
@@ -13,6 +15,14 @@ class Global {
   static List<OverlayEntry> overlayEntries = [];
 
   static const currencySymbol = 'đ';
+
+  static ShopResponseDto? get shop => _userDetail?.shop;
+  static UserDetailDto? _userDetail;
+  static UserDetailDto? get userDetail => _userDetail;
+  static bool get userDtatLoaded => _userDetail != null;
+  static void setUserDetail(UserDetailDto detail) {
+    _userDetail = detail;
+  }
 
   static void hideDialog(BuildContext dialogContext) {
     navigator.pop(dialogContext);

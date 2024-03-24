@@ -1,10 +1,8 @@
-import 'package:evievm_app/core/utils/dimensions.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_dto.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/product_detail_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/price_widget.dart';
-import 'package:evievm_app/src/shared/widgets/color_container.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
@@ -16,21 +14,25 @@ import '../../../../config/theme.dart';
 
 class ProductItem extends StatelessWidget {
   final ProductDto product;
+  final Function(ProductDto product)? onPressed;
 
   const ProductItem(
     this.product, {
+    this.onPressed,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Global.pushNamed(
-          ProductDetailScreen.router,
-          args: ProductDetailScreenArgs(product.id),
-        );
-      },
+      onTap: onPressed != null
+          ? onPressed?.call(product)
+          : () {
+              Global.pushNamed(
+                ProductDetailScreen.router,
+                args: ProductDetailScreenArgs(product.id),
+              );
+            },
       child: Container(
         // padding: const EdgeInsets.fromLTRB(18, 18, 18, 18),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),

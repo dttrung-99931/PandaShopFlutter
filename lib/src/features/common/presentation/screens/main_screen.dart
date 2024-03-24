@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/src/features/auth/presentation/screens/account_screen.dart';
+import 'package:evievm_app/src/features/common/presentation/bloc/user/user_bloc.dart';
 import 'package:evievm_app/src/features/home/presentation/screens/home_screen.dart';
 import 'package:evievm_app/src/features/home/presentation/widgets/bottom_nav_bar.dart';
 import 'package:evievm_app/src/features/noti/presentation/noti_screen.dart';
+import 'package:evievm_app/src/features/shop/presentation/screens/shop_screen.dart';
 import 'package:evievm_app/src/shared/widgets/common/keep_page_alive.dart';
 import 'package:evievm_app/src/shared/widgets/common/refresh_widget.dart';
 import 'package:evievm_app/src/shared/widgets/hidden_on_scroll_bottom_bar.dart';
@@ -24,7 +26,7 @@ class _MainScreenState extends State<MainScreen> {
   late PageController _pageController;
   late ValueNotifier<int> _currentPageIndex;
   late final _homeScrollController = ScrollController();
-  late final _storeScrollController = ScrollController();
+  late final _shopScrollController = ScrollController();
   late final _notiScrollController = ScrollController();
   late final _accountScrollController = ScrollController();
   ScrollController get _scrollController {
@@ -32,7 +34,7 @@ class _MainScreenState extends State<MainScreen> {
       case 0:
         return _homeScrollController;
       case 1:
-        return _storeScrollController;
+        return _shopScrollController;
       case 2:
         return _notiScrollController;
       case 3:
@@ -44,6 +46,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   void initState() {
+    userBloc.add(OnGetUserDetail());
     _pageController = PageController();
     _currentPageIndex = ValueNotifier(0);
     _currentPageIndex.addListener(() {
@@ -83,7 +86,7 @@ class _MainScreenState extends State<MainScreen> {
               case 1:
                 return KeepAlivePage(
                   child: RefreshChildBuilder(
-                    builder: (_) => const NotiScreen(),
+                    builder: (_) => ShopScreen(scrollController: _shopScrollController),
                   ),
                 );
               case 2:

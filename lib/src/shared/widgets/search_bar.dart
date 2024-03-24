@@ -12,6 +12,7 @@ class SearchBar extends StatelessWidget {
   final TextEditingController controller;
   final void Function(String? text)? onSearch;
   final void Function(String? text)? onTextChanged;
+  final String hint;
 
   SearchBar({
     Key? key,
@@ -20,6 +21,7 @@ class SearchBar extends StatelessWidget {
     this.autoFocus = false,
     this.onSearch,
     this.onTextChanged,
+    this.hint = 'Tên sản phẩm, tên shop...',
   })  : controller = controller ?? TextEditingController(),
         super(key: key);
 
@@ -59,7 +61,7 @@ class SearchBar extends StatelessWidget {
             minWidth: 36,
           ),
           isDense: true,
-          hintText: 'Tên sản phẩm, tên shop...',
+          hintText: hint,
           hintStyle: textTheme.bodyMedium?.copyWith(fontSize: 15, color: AppColors.black.withOpacity(.5)),
         ),
         style: textTheme.bodyMedium

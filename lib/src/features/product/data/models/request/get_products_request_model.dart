@@ -8,6 +8,7 @@ class GetProductsRequestModel {
   final int? categoryIdLV2;
   final int? categoryIdLV3;
   final String? orderBy;
+  final int? shopId;
 
   GetProductsRequestModel({
     this.categoryIdLV1,
@@ -15,6 +16,7 @@ class GetProductsRequestModel {
     this.categoryIdLV3,
     this.q,
     this.orderBy,
+    this.shopId,
   });
 
   Map<String, dynamic> toJson() => _$GetProductsRequestModelToJson(this);

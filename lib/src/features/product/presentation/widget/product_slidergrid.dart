@@ -9,11 +9,13 @@ import 'product_item.dart';
 class ProductSliverGrid extends StatelessWidget {
   final List<ProductDto> products;
   final EdgeInsets padding;
+  final Function(ProductDto product)? onPressed;
 
   const ProductSliverGrid(
     this.products, {
     super.key,
     this.padding = EdgeInsets.zero,
+    this.onPressed,
   });
 
   @override
@@ -26,7 +28,14 @@ class ProductSliverGrid extends StatelessWidget {
               childAspectRatio: Dimensions.productGridRatio,
               mainAxisSpacing: 8.r,
               crossAxisSpacing: 8.r,
-              children: [...products.map((product) => ProductItem(product))],
+              children: [
+                ...products.map(
+                  (product) => ProductItem(
+                    product,
+                    onPressed: onPressed,
+                  ),
+                )
+              ],
             ),
           )
         : const NotFound(isSliver: true);
