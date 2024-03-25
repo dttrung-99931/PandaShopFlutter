@@ -27,11 +27,16 @@ class AppImage extends StatelessWidget {
   const AppImage({
     Key? key,
     required this.image,
+    this.fit = BoxFit.scaleDown,
   }) : super(key: key);
   final BaseImageDto image;
+  final BoxFit fit;
 
   @override
   Widget build(BuildContext context) {
-    return ExtendedImage(image: image.imageProvider);
+    return ExtendedImage(
+      image: image.imageProvider,
+      fit: fit,
+    );
   }
 }

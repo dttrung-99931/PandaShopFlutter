@@ -30,7 +30,7 @@ dependencies:
   socket_io_client: ^2.0.2
   camera: ^0.10.5
   mobile_scanner: ^3.2.0
-  image_picker: ^1.0.1
+  file_picker: 5.3.1
 
   # --------------- UI ---------------
   cupertino_icons: ^1.0.2

@@ -60,24 +60,29 @@ abstract class BaseBloc extends Bloc<BaseEvent, BaseState> {
   /// Otherwise emit [ErrorState] by default. Use [onError] to build custom error state
   ///
   /// NOTE: must await this when call inside [on], [onLoad]. If not, a bloc emit error will be thrown
-  Future handleUsecaseResult<T>({
+  Future<T?> handleUsecaseResult<T>({
     required Future<Either<Failure, T>> usecaseResult,
     required void Function(BaseState) emit,
-    required BaseState? Function(T result) onSuccess,
+    BaseState? Function(T result)? onSuccess,
     ErrorState Function(Failure failure)? onError,
+    bool showErrorWhenFail = true,
   }) async {
     Either<Failure, T> either = await usecaseResult;
+    T? result;
     BaseState? state = either.fold(
       (Failure l) {
         ErrorState errorState = onError?.call(l) ?? ErrorState(l);
-        showSnackBar(errorState.failure.displayMsg, SnackType.fail);
         return errorState;
       },
-      (T r) => onSuccess(r),
+      (T res) {
+        result = res;
+        return onSuccess?.call(res);
+      },
     );
     if (state != null) {
       emit(state);
     }
+    return result;
   }
 
   void onInitialEvent() {}
