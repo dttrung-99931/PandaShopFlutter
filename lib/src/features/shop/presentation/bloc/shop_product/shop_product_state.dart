@@ -11,3 +11,5 @@ class GetShopProductCatesSucess extends FullDataLoadedState<List<ProductCategory
 class GetShopBannersSucess extends FullDataLoadedState<List<HomeBannerDto>> {
   GetShopBannersSucess(super.data);
 }
+
+class LoadingShopProductCates extends LoadingState {}

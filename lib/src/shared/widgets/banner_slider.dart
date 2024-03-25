@@ -1,10 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:evievm_app/src/shared/dtos/image_dto.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-
-import 'package:evievm_app/src/features/product/domain/dto/product_detail_dto.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BannerSlider extends StatelessWidget {

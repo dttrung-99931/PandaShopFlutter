@@ -1,4 +1,5 @@
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
+import 'package:evievm_app/src/shared/dtos/image_dto.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../data/models/response/product_detail_model.dart';
@@ -122,21 +123,6 @@ class ProductDetailDto {
 
   ProductOptionDto? findOption(Map<String, String> optionPropValMap) {
     return options.firstWhereOrNull((option) => mapEquals(optionPropValMap, option.propertyValuesMap));
-  }
-}
-
-class ImageDto {
-  final String link;
-  final String? description;
-
-  ImageDto({required this.link, required this.description});
-
-  factory ImageDto.fromModel(ImageModel model) {
-    return ImageDto(link: model.link, description: model.description);
-  }
-
-  static List<ImageDto> fromList(List<ImageModel> models) {
-    return models.map((e) => ImageDto.fromModel(e)).toList();
   }
 }
 

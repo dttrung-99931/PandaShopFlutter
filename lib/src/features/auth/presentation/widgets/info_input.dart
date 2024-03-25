@@ -68,6 +68,7 @@ class InfoInput extends StatelessWidget {
 
   /// Used to fix input error msg disappered when unfocus [SignUpStep2LabInfoInputScreen]
   final bool initialShouldShowError;
+  final bool showTitle;
 
   InfoInput({
     Key? key,
@@ -75,7 +76,7 @@ class InfoInput extends StatelessWidget {
     this.hint = '',
     this.secondHint = '',
     this.secondController,
-    required this.title,
+    this.title = '',
     this.bottomText,
     this.bottomTextType = TextType.normal,
     this.showBottomDivider = false,
@@ -112,6 +113,7 @@ class InfoInput extends StatelessWidget {
     this.textInputHeight,
     this.inputFormatters,
     this.initialShouldShowError = false,
+    this.showTitle = true,
   })  : trailingSpacing = trailingSpacing ?? 16.w,
         titleStyle = titleStyle ?? textTheme.bodyMedium!,
         assert(
@@ -195,38 +197,39 @@ class InfoInput extends StatelessWidget {
           crossAxisAlignment: columnCrossAxisAlignment,
           children: [
             SizedBox(width: paddingLeft),
-            Expanded(
-              flex: titleFlex,
-              child: Column(
-                children: [
-                  sh(labelTopMargin),
-                  Row(
-                    children: [
-                      Text(tr(title), style: titleStyle),
-                      const SizedBox(width: 20),
-                      if (showRequiredLabel)
-                        Container(
-                          decoration: BoxDecoration(
-                            color: requireBackgroundColor,
-                            borderRadius: BorderRadius.circular(3),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 3,
-                            horizontal: 6,
-                          ),
-                          child: Text(
-                            tr('common.required'),
-                            style: textTheme.labelSmall?.copyWith(
-                              fontWeight: FontWeight.w700,
-                              color: EVMColors.white,
+            if (showTitle)
+              Expanded(
+                flex: titleFlex,
+                child: Column(
+                  children: [
+                    sh(labelTopMargin),
+                    Row(
+                      children: [
+                        Text(tr(title), style: titleStyle),
+                        const SizedBox(width: 20),
+                        if (showRequiredLabel)
+                          Container(
+                            decoration: BoxDecoration(
+                              color: requireBackgroundColor,
+                              borderRadius: BorderRadius.circular(3),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 3,
+                              horizontal: 6,
+                            ),
+                            child: Text(
+                              tr('common.required'),
+                              style: textTheme.labelSmall?.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: EVMColors.white,
+                              ),
                             ),
                           ),
-                        ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
             Expanded(
               flex: 14,
               child: isEditable

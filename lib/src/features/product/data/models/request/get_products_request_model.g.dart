@@ -14,6 +14,7 @@ GetProductsRequestModel _$GetProductsRequestModelFromJson(
       categoryIdLV3: json['categoryIdLV3'] as int?,
       q: json['q'] as String?,
       orderBy: json['orderBy'] as String?,
+      shopId: json['shopId'] as int?,
     );
 
 Map<String, dynamic> _$GetProductsRequestModelToJson(
@@ -31,5 +32,6 @@ Map<String, dynamic> _$GetProductsRequestModelToJson(
   writeNotNull('categoryIdLV2', instance.categoryIdLV2);
   writeNotNull('categoryIdLV3', instance.categoryIdLV3);
   writeNotNull('orderBy', instance.orderBy);
+  writeNotNull('shopId', instance.shopId);
   return val;
 }

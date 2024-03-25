@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SliverToBoxAdapter(
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 8.r),
-                child: const ProductCates(),
+                child: const HomeProductCates(),
               ),
             ),
             SliverPadding(

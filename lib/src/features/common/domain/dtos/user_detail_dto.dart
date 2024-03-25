@@ -7,14 +7,12 @@ class UserDetailDto {
     required this.name,
     required this.phone,
     required this.email,
-    required this.password,
     required this.cartId,
     required this.shop,
   });
   final String name;
   final String phone;
   final String email;
-  final String password;
   final int cartId;
   final ShopResponseDto? shop;
 
@@ -23,7 +21,6 @@ class UserDetailDto {
       name: model.name,
       phone: model.phone,
       email: model.email,
-      password: model.password,
       cartId: model.cartId,
       shop: model.shop != null ? ShopResponseDto.fromModel(model.shop!) : null,
     );

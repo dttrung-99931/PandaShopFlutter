@@ -12,7 +12,7 @@ class BaseStateWithoutProps extends BaseState {
 
 class InitialState extends BaseStateWithoutProps {}
 
-class LoadingState extends BaseStateWithoutProps {}
+class LoadingState<T> extends BaseStateWithoutProps {}
 
 abstract class LoadingCompleteState extends BaseState {}
 

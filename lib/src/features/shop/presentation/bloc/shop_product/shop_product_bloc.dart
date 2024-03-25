@@ -29,7 +29,10 @@ ShopProductBloc get shopProductBloc => getIt<ShopProductBloc>();
 class ShopProductBloc extends BaseBloc {
   ShopProductBloc(this._getProducts, this._getProductCates, this._getHomeBanners) : super(InitialState()) {
     onLoad<OnGetShopProducts>(_onGetHomeProducts);
-    onLoad<OnGetShopProductCates>(_onGetHomeProductCates);
+    onLoad<OnGetShopProductCates>(
+      _onGetHomeProductCates,
+      loadingStateBuilder: (_) => LoadingShopProductCates(),
+    );
     on<OnGetShopBanners>(_onGetHomeBanners);
   }
   final GetProductsUseCase _getProducts;

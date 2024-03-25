@@ -26,7 +26,9 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onPressed != null
-          ? onPressed?.call(product)
+          ? () {
+              onPressed?.call(product);
+            }
           : () {
               Global.pushNamed(
                 ProductDetailScreen.router,

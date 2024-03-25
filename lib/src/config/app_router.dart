@@ -7,6 +7,7 @@ import 'package:evievm_app/src/features/product/presentation/screens/product_det
 import 'package:evievm_app/src/features/product/presentation/screens/search_products_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/shopping_cart_screen.dart';
 import 'package:evievm_app/src/features/settings/presentation/screens/lab_setting_screen.dart';
+import 'package:evievm_app/src/features/shop/presentation/screens/shop_product_detail_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -37,6 +38,10 @@ class AppRouter {
         return ProductDetailScreen(settings.arguments as ProductDetailScreenArgs);
       case OrderScreen.router:
         return OrderScreen(settings.arguments as dynamic);
+
+      // Shop
+      case ShopProductDetailScreen.router:
+        return ShopProductDetailScreen(settings.arguments as dynamic);
 
       // Settings
       case LabSettingScreen.router:
