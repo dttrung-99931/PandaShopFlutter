@@ -44,6 +44,7 @@ abstract class ListLoadedState<T, TId> extends FullDataLoadedState<List<T>> {
   T? get selected => data.firstWhereOrNull((element) => getId(element) == selectedId);
 
   TId getId(T element);
+  bool get isValid;
 
   ListLoadedState(super.data, {required this.selectedId});
 

@@ -1,8 +1,19 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
 import 'base_state.dart';
 
 abstract class BaseEvent extends Equatable {}
+
+class OnGetSelectData<T extends Object> extends BaseEvent {
+  final T? selectedId;
+  OnGetSelectData({
+    this.selectedId,
+  });
+
+  @override
+  List<Object?> get props => [selectedId];
+}
 
 class BaseEventWithoutProps extends BaseEvent {
   @override

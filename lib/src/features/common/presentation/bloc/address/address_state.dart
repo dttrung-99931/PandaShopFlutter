@@ -8,6 +8,9 @@ class GetMyAddressesSucess extends ListLoadedState<AddressDto, int> {
   int getId(AddressDto element) {
     return element.id;
   }
+
+  @override
+  bool get isValid => selectedId != Constatnts.idEmpty;
 }
 
 class GetAddressessFieldsSuccess extends FullDataLoadedState<List<AddressFieldDto>> {
