@@ -14,14 +14,14 @@ import 'package:evievm_app/src/features/product/domain/use_cases/get_product_cat
 import 'package:flutter/rendering.dart';
 import 'package:injectable/injectable.dart';
 
-part 'input_product_cate_event.dart';
-part 'input_product_cate_state.dart';
+part 'product_cate_input_event.dart';
+part 'product_cate_input_state.dart';
 
-InputProductCateBloc get inputProductCateBloc => getIt();
+ProductCateInputBloc get inputProductCateBloc => getIt();
 
 @lazySingleton
-class InputProductCateBloc extends BaseBloc with AddressBlocMixin {
-  InputProductCateBloc(this._getProductCates) : super(InitialState()) {
+class ProductCateInputBloc extends BaseBloc with AddressBlocMixin {
+  ProductCateInputBloc(this._getProductCates) : super(InitialState()) {
     on<OnGetProductCates>(_onGetProductCates);
     on<OnProductCateSelected>(_onSelectProductCate);
   }

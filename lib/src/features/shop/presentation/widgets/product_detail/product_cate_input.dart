@@ -1,5 +1,5 @@
 import 'package:evievm_app/src/features/product/domain/dto/product_category_dto.dart';
-import 'package:evievm_app/src/features/shop/presentation/bloc/input_product_cate/input_product_cate_bloc.dart';
+import 'package:evievm_app/src/features/shop/presentation/bloc/product_cate_input/product_cate_input_bloc.dart';
 import 'package:evievm_app/src/shared/widgets/common/custom_dropdown_input.dart';
 import 'package:evievm_app/src/shared/widgets/section.dart';
 import 'package:evievm_app/src/shared/widgets/spacing_column.dart';
@@ -29,7 +29,7 @@ class _ProductCateInputState extends State<ProductCateInput> {
       child: SpacingColumn(
         spacing: 4.h,
         children: [
-          CustomDropdownInput<ProductCategoryDto, int, GetProductCatesLv1Successs, InputProductCateBloc>(
+          CustomDropdownInput<ProductCategoryDto, int, GetProductCatesLv1Successs, ProductCateInputBloc>(
             title: 'Chọn nhóm sản phẩm',
             onSelected: (selected) {
               inputProductCateBloc.add(OnProductCateSelected(selected: selected));
@@ -38,7 +38,7 @@ class _ProductCateInputState extends State<ProductCateInput> {
               return selected.name;
             },
           ),
-          CustomDropdownInput<ProductCategoryDto, int, GetProductCatesLv2Successs, InputProductCateBloc>(
+          CustomDropdownInput<ProductCategoryDto, int, GetProductCatesLv2Successs, ProductCateInputBloc>(
             title: 'Chọn loại sản phẩm',
             onSelected: (selected) {
               inputProductCateBloc.add(OnProductCateSelected(selected: selected));
@@ -47,7 +47,7 @@ class _ProductCateInputState extends State<ProductCateInput> {
               return selected.name;
             },
           ),
-          CustomDropdownInput<ProductCategoryDto, int, GetProductCatesLv3Successs, InputProductCateBloc>(
+          CustomDropdownInput<ProductCategoryDto, int, GetProductCatesLv3Successs, ProductCateInputBloc>(
             title: 'Chọn phân loại',
             onSelected: (selected) {
               inputProductCateBloc.add(OnProductCateSelected(selected: selected));
