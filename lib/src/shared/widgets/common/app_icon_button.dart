@@ -6,19 +6,22 @@ import 'package:evievm_app/src/config/theme.dart';
 import 'package:flutter/material.dart';
 
 class AppIconButton extends StatelessWidget {
-  const AppIconButton({
+  AppIconButton({
     Key? key,
     required this.title,
     this.onPressed,
     required this.iconData,
     this.color = AppColors.white,
     this.size = 22,
-  }) : super(key: key);
+    double? fontSize,
+  })  : fontSize = fontSize ?? textTheme.bodySmall!.fontSize!,
+        super(key: key);
   final String title;
   final IconData iconData;
   final Function()? onPressed;
   final Color color;
   final double size;
+  final double fontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,7 @@ class AppIconButton extends StatelessWidget {
             Icon(iconData, color: color, size: size),
             Text(
               title,
-              style: textTheme.bodySmall.withColor(color),
+              style: textTheme.bodySmall.withColor(color).withSize(fontSize),
             ),
           ],
         ),

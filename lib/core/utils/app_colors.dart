@@ -69,4 +69,6 @@ class AppColors {
 
   // PRoduct
   static const sellNumber = Color(0xFF999999);
+
+  static const indicatorInactive = Color(0xFFB7B7B7);
 }

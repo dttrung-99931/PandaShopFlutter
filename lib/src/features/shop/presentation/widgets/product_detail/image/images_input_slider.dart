@@ -13,6 +13,7 @@ import 'package:evievm_app/src/shared/bloc/image_input/image_input_bloc.dart';
 import 'package:evievm_app/src/shared/enums/edit_action.dart';
 import 'package:evievm_app/src/shared/widgets/app_alert_dialog.dart';
 import 'package:evievm_app/src/shared/widgets/common/app_icon_button.dart';
+import 'package:evievm_app/src/shared/widgets/common/page_indicator.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_consumer.dart';
 import 'package:evievm_app/src/shared/widgets/image_slider.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,7 @@ class ImagesInputSlider extends StatefulWidget {
 
 class _ImagesInputSliderState extends State<ImagesInputSlider> {
   final PageController _controller = PageController();
+  int _selectedIndex = 0;
 
   @override
   void initState() {
@@ -53,21 +55,39 @@ class _ImagesInputSliderState extends State<ImagesInputSlider> {
         if (state is! ImagesInputUpdated) {
           return emptyWidget;
         }
-        return PageView.builder(
-          controller: _controller,
-          itemCount: max(1, state.data.length),
-          itemBuilder: (context, index) {
-            return state.data.isNotEmpty
-                ? Stack(
-                    children: [
-                      Positioned.fill(child: AppImage(image: state.data[index])),
-                      Positioned.fill(
-                        child: _EditOptions(imageIndex: index),
+        return Stack(
+          children: [
+            PageView.builder(
+              onPageChanged: (index) {
+                _selectedIndex = index;
+                setState(() {});
+              },
+              controller: _controller,
+              itemCount: max(1, state.data.length),
+              itemBuilder: (context, index) {
+                return state.data.isNotEmpty
+                    ? Stack(
+                        children: [
+                          Positioned.fill(
+                            child: AppImage(image: state.data[index]),
+                          ),
+                          Positioned.fill(
+                            child: _EditOptions(imageIndex: index),
+                          ),
+                        ],
                       )
-                    ],
-                  )
-                : const _AddImageButton();
-          },
+                    : const _AddImageButton();
+              },
+            ),
+            if (state.data.isNotEmpty)
+              Padding(
+                padding: EdgeInsets.only(bottom: 4.h),
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: PageIndicator(totalPages: state.data.length, currentPage: _selectedIndex),
+                ),
+              )
+          ],
         );
       },
     );
@@ -105,7 +125,7 @@ class _EditOptionsState extends State<_EditOptions> {
             color: AppColors.black.withOpacity(.1),
             alignment: Alignment.topRight,
             child: Container(
-              padding: EdgeInsets.all(4.r),
+              padding: EdgeInsets.all(2.r),
               decoration: BoxDecoration(
                 color: AppColors.grey.withOpacity(.5),
                 borderRadius: BorderRadius.circular(8.r),
@@ -115,6 +135,8 @@ class _EditOptionsState extends State<_EditOptions> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AppIconButton(
+                    size: 20.r,
+                    fontSize: 14.sp,
                     title: 'Xoá ảnh',
                     onPressed: () {
                       showDialog(
@@ -131,6 +153,8 @@ class _EditOptionsState extends State<_EditOptions> {
                   ),
                   16.swb,
                   AppIconButton(
+                    size: 20.r,
+                    fontSize: 14.sp,
                     title: 'Đổi ảnh',
                     onPressed: () {
                       imageInputBloc.add(OnChangeImage(index: widget.imageIndex));
@@ -139,6 +163,8 @@ class _EditOptionsState extends State<_EditOptions> {
                   ),
                   16.swb,
                   AppIconButton(
+                    size: 20.r,
+                    fontSize: 14.sp,
                     title: 'Thêm ảnh',
                     onPressed: () {
                       imageInputBloc.add(OnAddNewImage());
@@ -170,7 +196,7 @@ class _AddImageButton extends StatelessWidget {
         strokeCap: StrokeCap.butt,
         borderPadding: EdgeInsets.all(16.r),
         dashPattern: const [6, 2],
-        child: const Center(
+        child: Center(
           child: AppIconButton(
             title: 'Thêm ảnh sản phẩm',
             iconData: Icons.add,
