@@ -2,7 +2,7 @@
 part of 'image_input_bloc.dart';
 
 class OnInitImagesInput extends BaseEvent {
-  final List<BaseImageDto> images;
+  final List<ImageInputDto> images;
   OnInitImagesInput({
     required this.images,
   });
@@ -12,3 +12,21 @@ class OnInitImagesInput extends BaseEvent {
 }
 
 class OnAddNewImage extends BaseEventWithoutProps {}
+
+class OnChangeImage extends BaseEvent {
+  final int index;
+
+  OnChangeImage({required this.index});
+
+  @override
+  List<Object?> get props => [index];
+}
+
+class OnDeleteImage extends BaseEvent {
+  final int index;
+
+  OnDeleteImage({required this.index});
+
+  @override
+  List<Object?> get props => [index];
+}

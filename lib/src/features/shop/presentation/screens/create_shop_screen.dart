@@ -124,8 +124,8 @@ class _Items extends StatelessWidget {
               builder: (_) => AppAlertDialog(
                 title: 'Xác nhận đăng xuất?',
                 width: 360.w,
-                positiveLabel: 'Xác nhận',
-                onPositivePressed: () {
+                confirmLabel: 'Xác nhận',
+                onConfirm: () {
                   loginBloc.add(OnLogout());
                   Global.pop();
                 },

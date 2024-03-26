@@ -1,8 +1,6 @@
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
-import 'package:evievm_app/src/config/di/injection.dart';
-import 'package:evievm_app/src/features/product/presentation/bloc/product_detail/product_detail_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product_detail/shop_product_detail_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/widgets/product_detail/app_bar.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';

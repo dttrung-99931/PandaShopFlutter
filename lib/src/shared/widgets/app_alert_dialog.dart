@@ -3,6 +3,7 @@ import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/global.dart';
+import 'package:evievm_app/src/shared/widgets/color_container.dart';
 import 'package:evievm_app/src/shared/widgets/neutral_button.dart';
 import 'package:evievm_app/src/shared/widgets/positive_button.dart';
 import 'package:flutter/material.dart';
@@ -15,13 +16,13 @@ class AppAlertDialog extends StatelessWidget {
     this.title = '',
     this.message,
     this.content,
-    required this.width,
-    required this.positiveLabel,
+    this.width = 300,
+    this.confirmLabel = 'Xác nhận',
     this.negativeLabel,
-    this.neutralLabel = 'Hủy bỏ',
-    this.onPositivePressed,
+    this.cancelLabel = 'Hủy bỏ',
+    this.onConfirm,
     this.onNegativePressed,
-    this.onNeutralPressed,
+    this.onCancelPressed,
     this.primaryColor,
     this.isDoneIcon = false,
     super.key,
@@ -31,12 +32,12 @@ class AppAlertDialog extends StatelessWidget {
   final String? message;
   final Widget? content;
   final double width;
-  final String positiveLabel;
+  final String confirmLabel;
   final String? negativeLabel;
-  final String neutralLabel;
-  final void Function()? onPositivePressed;
+  final String cancelLabel;
+  final void Function()? onConfirm;
   final void Function()? onNegativePressed;
-  final void Function()? onNeutralPressed;
+  final void Function()? onCancelPressed;
   final Color? primaryColor;
   final bool isDoneIcon;
 
@@ -45,6 +46,7 @@ class AppAlertDialog extends StatelessWidget {
     final color = primaryColor ?? (isDoneIcon ? AppColors.green2 : AppColors.red);
     return Dialog(
       backgroundColor: AppColors.transparent,
+      alignment: Alignment.center,
       child: Stack(
         children: [
           Container(
@@ -81,8 +83,8 @@ class AppAlertDialog extends StatelessWidget {
                   children: [
                     Expanded(
                       child: NeutralButton(
-                        label: neutralLabel,
-                        onPressed: onNeutralPressed ?? () => Global.hideDialog(context),
+                        label: cancelLabel,
+                        onPressed: onCancelPressed ?? () => Global.hideDialog(context),
                       ),
                     ),
                     if (negativeLabel != null)
@@ -95,8 +97,11 @@ class AppAlertDialog extends StatelessWidget {
                       ),
                     Expanded(
                       child: PositiveButton(
-                        label: positiveLabel,
-                        onPressed: onPositivePressed,
+                        label: confirmLabel,
+                        onPressed: () {
+                          onConfirm?.call();
+                          Global.pop();
+                        },
                         color: color,
                       ),
                     ),

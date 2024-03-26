@@ -5,9 +5,12 @@ import 'dart:async';
 import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
+import 'package:evievm_app/core/base_bloc/bloc_communication.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_detail_dto.dart';
 import 'package:evievm_app/src/features/product/domain/use_cases/get_product_detail_usecase.dart';
+import 'package:evievm_app/src/features/shop/domain/dtos/image/image_input_dto.dart';
+import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product_detail/shop_product_detail_communicaton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 
@@ -21,9 +24,14 @@ class ShopProductDetailBloc extends BaseBloc {
   ShopProductDetailBloc(this._getProductDetail) : super(InitialState()) {
     on<OnInitShopProduct>(_onInitShopProduct);
   }
+  @override
+  BlocCommunication? get blocCommunication => getIt<ShopProductDetailCommunication>();
   final GetProductDetailUseCase _getProductDetail;
   final productNameController = TextEditingController();
   final productDescController = TextEditingController();
+
+  ProductDetailDto? productDetail;
+  List<ImageInputDto>? images;
 
   FutureOr<void> _onInitShopProduct(OnInitShopProduct event, Emitter<BaseState> emit) async {
     if (event.productId != null) {
@@ -35,6 +43,7 @@ class ShopProductDetailBloc extends BaseBloc {
             _init(result);
             emit(InitShopProductSuccess(productDetail: result));
           }
+          return null;
         },
       );
     } else {
@@ -44,6 +53,7 @@ class ShopProductDetailBloc extends BaseBloc {
   }
 
   void _init(ProductDetailDto? result) {
-    productNameController.text = 'Product name';
+    productDetail = result;
+    productNameController.text = result?.name ?? '';
   }
 }

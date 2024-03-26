@@ -1,16 +1,19 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
+import 'package:evievm_app/core/utils/utils.dart';
+import 'package:evievm_app/src/features/shop/domain/dtos/image/image_input_dto.dart';
 import 'package:evievm_app/src/shared/bloc/image_input/image_input_bloc.dart';
-import 'package:evievm_app/src/shared/dtos/image_dto.dart';
-import 'package:evievm_app/src/shared/widgets/color_container.dart';
+import 'package:evievm_app/src/shared/enums/edit_action.dart';
+import 'package:evievm_app/src/shared/widgets/app_alert_dialog.dart';
 import 'package:evievm_app/src/shared/widgets/common/app_icon_button.dart';
-import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
+import 'package:evievm_app/src/shared/widgets/custom_bloc_consumer.dart';
 import 'package:evievm_app/src/shared/widgets/image_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,13 +23,15 @@ class ImagesInputSlider extends StatefulWidget {
     Key? key,
     required this.initImages,
   }) : super(key: key);
-  final List<BaseImageDto> initImages;
+  final List<ImageInputDto> initImages;
 
   @override
   State<ImagesInputSlider> createState() => _ImagesInputSliderState();
 }
 
 class _ImagesInputSliderState extends State<ImagesInputSlider> {
+  final PageController _controller = PageController();
+
   @override
   void initState() {
     imageInputBloc.add(OnInitImagesInput(images: widget.initImages));
@@ -35,21 +40,29 @@ class _ImagesInputSliderState extends State<ImagesInputSlider> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomBlocBuilder<ImageInputBloc>(
+    return CustomBlocConsumer<ImageInputBloc>(
+      listener: (state) {
+        if (state is ImagesInputUpdated && state.action == EditAction.add) {
+          doOnBuildUICompleted(() {
+            _controller.jumpToPage(state.data.length - 1);
+          });
+        }
+      },
       buildForStates: const [ImagesInputUpdated],
       builder: (state) {
         if (state is! ImagesInputUpdated) {
           return emptyWidget;
         }
         return PageView.builder(
-          itemCount: state.data.length + 1,
+          controller: _controller,
+          itemCount: max(1, state.data.length),
           itemBuilder: (context, index) {
-            return index < state.data.length
+            return state.data.isNotEmpty
                 ? Stack(
                     children: [
                       Positioned.fill(child: AppImage(image: state.data[index])),
-                      const Positioned.fill(
-                        child: _EditImage(),
+                      Positioned.fill(
+                        child: _EditOptions(imageIndex: index),
                       )
                     ],
                   )
@@ -61,51 +74,83 @@ class _ImagesInputSliderState extends State<ImagesInputSlider> {
   }
 }
 
-class _EditImage extends StatefulWidget {
-  const _EditImage();
-
+class _EditOptions extends StatefulWidget {
+  const _EditOptions({required this.imageIndex});
+  final int imageIndex;
   @override
-  State<_EditImage> createState() => _EditImageState();
+  State<_EditOptions> createState() => _EditOptionsState();
 }
 
-class _EditImageState extends State<_EditImage> {
-  bool _isVisible = false;
+class _EditOptionsState extends State<_EditOptions> {
+  bool _isVisible = true;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
+      // Remove ripple effect on press
+      splashColor: AppColors.transparent,
       onTap: () {
         setState(() {
           _isVisible = !_isVisible;
         });
       },
-      child: _isVisible
-          ? BackdropFilter(
-              filter: ImageFilter.blur(
-                sigmaX: 1.0,
-                sigmaY: 1.0,
+      child: Visibility(
+        visible: _isVisible,
+        child: BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: 0.5,
+            sigmaY: 0.5,
+          ),
+          child: Container(
+            color: AppColors.black.withOpacity(.1),
+            alignment: Alignment.topRight,
+            child: Container(
+              padding: EdgeInsets.all(4.r),
+              decoration: BoxDecoration(
+                color: AppColors.grey.withOpacity(.5),
+                borderRadius: BorderRadius.circular(8.r),
               ),
-              child: Container(
-                color: AppColors.black.withOpacity(.1),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    AppIconButton(
-                      title: 'Đổi ảnh',
-                      onPressed: () {},
-                      iconData: Icons.edit,
-                    ),
-                    16.swb,
-                    AppIconButton(
-                      title: 'Xoá ảnh',
-                      onPressed: () {},
-                      iconData: Icons.delete,
-                    ),
-                  ],
-                ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AppIconButton(
+                    title: 'Xoá ảnh',
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (ctx) => AppAlertDialog(
+                          title: 'Xác nhận xóa ảnh',
+                          onConfirm: () {
+                            imageInputBloc.add(OnDeleteImage(index: widget.imageIndex));
+                          },
+                        ),
+                      );
+                    },
+                    iconData: Icons.delete,
+                  ),
+                  16.swb,
+                  AppIconButton(
+                    title: 'Đổi ảnh',
+                    onPressed: () {
+                      imageInputBloc.add(OnChangeImage(index: widget.imageIndex));
+                    },
+                    iconData: Icons.edit,
+                  ),
+                  16.swb,
+                  AppIconButton(
+                    title: 'Thêm ảnh',
+                    onPressed: () {
+                      imageInputBloc.add(OnAddNewImage());
+                    },
+                    iconData: Icons.add,
+                  ),
+                ],
               ),
-            )
-          : const SizedBox.expand(),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -125,10 +170,9 @@ class _AddImageButton extends StatelessWidget {
         strokeCap: StrokeCap.butt,
         borderPadding: EdgeInsets.all(16.r),
         dashPattern: const [6, 2],
-        child: Center(
+        child: const Center(
           child: AppIconButton(
             title: 'Thêm ảnh sản phẩm',
-            onPressed: () {},
             iconData: Icons.add,
             color: AppColors.blackLight,
           ),

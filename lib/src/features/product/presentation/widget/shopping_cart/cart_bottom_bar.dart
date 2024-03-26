@@ -116,9 +116,9 @@ class DeleteCartItemsDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppAlertDialog(
       title: 'Xác nhận xóa sản phẩm khỏi giỏ hàng',
-      positiveLabel: 'Xác nhận',
+      confirmLabel: 'Xác nhận',
       width: 400.w,
-      onPositivePressed: () {
+      onConfirm: () {
         shoppingCartBloc.add(OnDeleteCartItems(items: selected));
         Global.pop();
       },
