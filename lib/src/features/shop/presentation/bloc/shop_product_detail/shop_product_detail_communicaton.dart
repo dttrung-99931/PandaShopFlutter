@@ -1,4 +1,5 @@
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_cate_input/product_cate_input_bloc.dart';
+import 'package:evievm_app/src/features/shop/presentation/bloc/product_properties_input/product_properties_input_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product_detail/shop_product_detail_bloc.dart';
 import 'package:evievm_app/src/shared/bloc/image_input/image_input_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -15,7 +16,14 @@ class ShopProductDetailCommunication extends BlocCommunication<ShopProductDetail
       }
     });
     listenOtherBloc<ProductCateInputBloc>((state) {
-      if (state is GetProductCatesSelectSucess) {}
+      if (state is GetProductCatesSelectSucess && state.selected != null && state.selected!.level == 3) {
+        bloc.productCateLv3 = state.selected;
+      }
+    });
+    listenOtherBloc<ProductPropertiesInputBloc>((state) {
+      if (state is GetPropTemplateSuccess) {
+        bloc.propControllerMap = state.textControllerMap;
+      }
     });
   }
 }

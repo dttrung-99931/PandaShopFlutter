@@ -7,6 +7,7 @@ import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/base_bloc/bloc_communication.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
+import 'package:evievm_app/src/features/product/domain/dto/product_category_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_detail_dto.dart';
 import 'package:evievm_app/src/features/product/domain/use_cases/get_product_detail_usecase.dart';
 import 'package:evievm_app/src/features/shop/domain/dtos/image/image_input_dto.dart';
@@ -32,6 +33,9 @@ class ShopProductDetailBloc extends BaseBloc {
 
   ProductDetailDto? productDetail;
   List<ImageInputDto>? images;
+  ProductCategoryDto? productCateLv3; // Need select cate to lv3
+  // Map<property id, text edt controller>
+  Map<int, TextEditingController>? propControllerMap;
 
   FutureOr<void> _onInitShopProduct(OnInitShopProduct event, Emitter<BaseState> emit) async {
     if (event.productId != null) {
