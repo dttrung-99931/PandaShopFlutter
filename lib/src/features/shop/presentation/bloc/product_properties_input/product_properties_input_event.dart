@@ -9,3 +9,13 @@ class OnGetPropertyTemplateOfCate extends BaseEvent {
   @override
   List<Object?> get props => [cateId];
 }
+
+class OnOptionPropsUpdated extends BaseEvent {
+  final OptionPropsUpdated optionPropUpdated;
+  OnOptionPropsUpdated({
+    required this.optionPropUpdated,
+  });
+
+  @override
+  List<Object?> get props => [optionPropUpdated];
+}

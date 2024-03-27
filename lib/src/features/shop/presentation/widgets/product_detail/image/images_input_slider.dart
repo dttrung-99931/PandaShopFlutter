@@ -3,7 +3,6 @@
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:dotted_border/dotted_border.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
@@ -12,6 +11,7 @@ import 'package:evievm_app/src/features/shop/domain/dtos/image/image_input_dto.d
 import 'package:evievm_app/src/shared/bloc/image_input/image_input_bloc.dart';
 import 'package:evievm_app/src/shared/enums/edit_action.dart';
 import 'package:evievm_app/src/shared/widgets/app_alert_dialog.dart';
+import 'package:evievm_app/src/shared/widgets/common/adding_pannel.dart';
 import 'package:evievm_app/src/shared/widgets/common/app_icon_button.dart';
 import 'package:evievm_app/src/shared/widgets/common/page_indicator.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_consumer.dart';
@@ -186,24 +186,11 @@ class _AddImageButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
+    return AddingPannel(
+      onPressed: () {
         imageInputBloc.add(OnAddNewImage());
       },
-      child: DottedBorder(
-        radius: Radius.circular(8.r),
-        color: AppColors.blackLight,
-        strokeCap: StrokeCap.butt,
-        borderPadding: EdgeInsets.all(16.r),
-        dashPattern: const [6, 2],
-        child: Center(
-          child: AppIconButton(
-            title: 'Thêm ảnh sản phẩm',
-            iconData: Icons.add,
-            color: AppColors.blackLight,
-          ),
-        ),
-      ),
+      title: 'Thêm ảnh sản phẩm',
     );
   }
 }

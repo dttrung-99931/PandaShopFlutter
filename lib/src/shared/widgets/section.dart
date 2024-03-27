@@ -1,4 +1,5 @@
 import 'package:evievm_app/core/utils/evm_colors.dart';
+import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,6 +11,7 @@ class Section extends StatelessWidget {
   final String title;
   final EdgeInsets padding;
   final EdgeInsets titlePadding;
+  final double spacing;
 
   const Section({
     super.key,
@@ -17,6 +19,7 @@ class Section extends StatelessWidget {
     required this.child,
     this.padding = const EdgeInsets.all(12),
     this.titlePadding = EdgeInsets.zero,
+    this.spacing = 0,
   });
 
   @override
@@ -38,6 +41,7 @@ class Section extends StatelessWidget {
               ),
             ),
           ),
+          sh(spacing),
           Padding(padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 8.w), child: child),
         ],
       ),

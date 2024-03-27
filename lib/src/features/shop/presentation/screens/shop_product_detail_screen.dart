@@ -5,6 +5,7 @@ import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product_deta
 import 'package:evievm_app/src/features/shop/presentation/widgets/product_detail/app_bar.dart';
 import 'package:evievm_app/src/features/shop/presentation/widgets/product_detail/name_and_price.dart';
 import 'package:evievm_app/src/features/shop/presentation/widgets/product_detail/product_cate_input.dart';
+import 'package:evievm_app/src/features/shop/presentation/widgets/product_detail/product_options_input.dart';
 import 'package:evievm_app/src/features/shop/presentation/widgets/product_detail/product_propreties_input.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:evievm_app/src/shared/widgets/sliver/sliver_sized_box.dart';
@@ -63,6 +64,7 @@ class _ShopProductDetailScreenState extends State<ShopProductDetailScreen> {
                   SliverSizedBox(height: 2.h),
                   const SliverToBoxAdapter(child: ProductCateInput()),
                   const SliverToBoxAdapter(child: ProductPropertiesInput()),
+                  const SliverToBoxAdapter(child: ProductOptionsInput()),
                   // ShopProductNameAndPrice(productDetail: productDetail),
                   // ShopProductOptions(productDetail: productDetail),
                   // ShopProductDescriptionAndProperties(productDetail: productDetail),

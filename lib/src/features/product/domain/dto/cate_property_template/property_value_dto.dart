@@ -1,13 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:equatable/equatable.dart';
 import 'package:evievm_app/src/features/product/data/models/response/cate_property_template/property_values_model.dart';
 
-class PropertyValuesDto {
+class PropertyValuesDto extends Equatable {
   final String propertyName;
   final bool isRequired;
   final int id;
   final List<String> exampleValues;
 
-  PropertyValuesDto({
+  const PropertyValuesDto({
     required this.propertyName,
     required this.isRequired,
     required this.id,
@@ -22,4 +23,7 @@ class PropertyValuesDto {
       exampleValues: model.exampleValues,
     );
   }
+
+  @override
+  List<Object?> get props => [id];
 }

@@ -21,7 +21,7 @@ class ShopProductDetailCommunication extends BlocCommunication<ShopProductDetail
       }
     });
     listenOtherBloc<ProductPropertiesInputBloc>((state) {
-      if (state is GetPropTemplateSuccess) {
+      if (state is ProductPropsUpdated) {
         bloc.propControllerMap = state.textControllerMap;
       }
     });

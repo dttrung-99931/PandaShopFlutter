@@ -2,15 +2,20 @@
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/src/config/theme.dart';
+import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppChip extends StatelessWidget {
   AppChip({
     Key? key,
-    required this.isSelected,
+    this.isSelected = true,
     required this.label,
     this.isSelectable = true,
+    this.isOutlineColor = false,
+    this.showClose = false,
+    this.onIconPressed,
+    this.iconData = Icons.clear,
     Color? selectedColor,
     double? horizontalPadding,
     double? verticalPadding,
@@ -27,26 +32,56 @@ class AppChip extends StatelessWidget {
   final double horizontalPadding;
   final double verticalPadding;
   final double fontSize;
+  final bool isOutlineColor;
+  final Function()? onIconPressed;
+  final bool showClose;
+  final IconData iconData;
+  Color? get backgroundColor {
+    return isOutlineColor
+        ? null
+        : isSelected
+            ? selectedColor
+            : EVMColors.transparent;
+  }
+
+  Color? get textColor {
+    return isOutlineColor
+        ? null
+        : isSelected
+            ? AppColors.white
+            : Colors.black.withOpacity(isSelectable ? 1 : .36);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: isSelected ? selectedColor : EVMColors.transparent,
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(16.r),
+        border: isOutlineColor ? Border.all(color: selectedColor) : null,
       ),
       padding: EdgeInsets.symmetric(
         vertical: verticalPadding,
         horizontal: horizontalPadding,
       ),
-      child: Text(
-        label,
-        style: textTheme.bodyMedium?.copyWith(
-          fontSize: fontSize,
-          color: isSelected ? AppColors.white : Colors.black.withOpacity(isSelectable ? 1 : .36),
-          fontWeight: FontWeight.w500,
-        ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            label,
+            style: textTheme.bodyMedium?.copyWith(
+              fontSize: fontSize,
+              color: textColor,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          sw(4.w),
+          if (showClose)
+            InkWell(
+              onTap: onIconPressed,
+              child: Icon(iconData, size: 16.r),
+            ),
+        ],
       ),
     );
   }

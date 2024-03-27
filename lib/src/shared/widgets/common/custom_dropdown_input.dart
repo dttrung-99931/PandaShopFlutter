@@ -58,6 +58,7 @@ class _CustomDropdownInputState<TDto, TId, TState extends ListLoadedState<TDto, 
   @override
   Widget build(BuildContext context) {
     return InfoInput(
+      paddingLeft: 0,
       titleFlex: 10,
       inputWidth: widget.inputWidth,
       hasRightSpace: widget.hasRightSpace,
