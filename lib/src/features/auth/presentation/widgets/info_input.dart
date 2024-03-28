@@ -139,7 +139,7 @@ class InfoInput extends StatelessWidget {
               textInputType: inputType,
               textInputAction: inputAction,
               border: OutlineInputBorder(
-                borderSide: BorderSide(color: AppColors.primary.shade400),
+                borderSide: BorderSide(color: AppColors.border),
               ),
               // isPasswordInput: isPasswordInput,
               hintText: tr(hint),

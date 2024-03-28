@@ -67,7 +67,7 @@ class _CustomDropdownButtonState<T> extends State<CustomDropdownButton<T>> {
       child: DropdownButton<T>(
         value: _selectedItem,
         isExpanded: true,
-        iconEnabledColor: AppColors.primary,
+        iconEnabledColor: AppColors.border,
         iconDisabledColor: AppColors.divider,
         iconSize: 32.r,
         underline: const SizedBox.shrink(),

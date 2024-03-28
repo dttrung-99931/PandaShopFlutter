@@ -38,6 +38,9 @@ class TextInput extends StatefulWidget {
     this.style,
     this.hintStyle,
     this.border,
+    this.suffixIcon,
+    this.disableColor = EVMColors.lightGrey2,
+    this.borderColor = EVMColors.border,
   }) : super(key: key);
 
   final String? hintText;
@@ -66,6 +69,9 @@ class TextInput extends StatefulWidget {
   final TextStyle? style;
   final TextStyle? hintStyle;
   final InputBorder? border;
+  final Widget? suffixIcon;
+  final Color disableColor;
+  final Color borderColor;
 
   @override
   State<TextInput> createState() => _TextInputState();
@@ -77,7 +83,7 @@ class _TextInputState extends State<TextInput> {
   Timer? timer;
 
   OutlineInputBorder get _border => OutlineInputBorder(
-        borderSide: const BorderSide(color: EVMColors.border),
+        borderSide: BorderSide(color: widget.borderColor),
         borderRadius: BorderRadius.circular(widget.borderRadius),
       );
 
@@ -139,10 +145,10 @@ class _TextInputState extends State<TextInput> {
             validator: widget.validator,
             style: widget.style ?? textTheme.bodyLarge,
             decoration: InputDecoration(
-              fillColor: widget.enabled ? EVMColors.white : EVMColors.lightGrey2,
+              fillColor: widget.enabled ? EVMColors.white : widget.disableColor,
               filled: true,
               suffixIconConstraints: const BoxConstraints(maxHeight: 30),
-              suffixIcon: widget.passwordChar ? _pwdEye() : null,
+              suffixIcon: widget.suffixIcon ?? (widget.passwordChar ? _pwdEye() : null),
               isDense: true,
               hintText: tr(widget.hintText ?? ''),
               enabledBorder: widget.border ?? _border,

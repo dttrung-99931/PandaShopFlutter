@@ -57,3 +57,13 @@ class OnSetState<T extends BaseState> extends BaseEvent {
   @override
   List<Object?> get props => [state];
 }
+
+class OnSelect<T> extends BaseEvent {
+  final T? selected;
+  OnSelect({
+    required this.selected,
+  });
+
+  @override
+  List<Object?> get props => [selected];
+}

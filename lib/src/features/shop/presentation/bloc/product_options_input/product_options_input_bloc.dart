@@ -28,6 +28,7 @@ class ProductOptionsInputBloc extends BaseBloc with AddressBlocMixin {
     on<OnAddPropertyForOption>(_onAddPropertyForOption);
     on<OnRemovePropertyForOption>(_onRemovePropertyForOption);
     on<OnAddProductOption>(_onAddProductOption);
+    on<OnSelectProductOption>(_onSelect);
   }
   @override
   BlocCommunication? get blocCommunication => getIt<ProductOptionsInputCommunication>();
@@ -36,6 +37,7 @@ class ProductOptionsInputBloc extends BaseBloc with AddressBlocMixin {
   List<PropertyValuesDto> get optionProperties => List.unmodifiable(_optionProperties);
 
   final List<ProductOptionInputDto> _productOptionInputs = [];
+  ProductOptionInputDto? _selected;
 
   FutureOr<void> _onAddPropertyForOption(OnAddPropertyForOption event, Emitter<BaseState> emit) async {
     _optionProperties.add(event.prop);
@@ -56,9 +58,16 @@ class ProductOptionsInputBloc extends BaseBloc with AddressBlocMixin {
   }
 
   FutureOr<void> _onAddProductOption(OnAddProductOption event, Emitter<BaseState> emit) {
-    _productOptionInputs.add(
-      ProductOptionInputDto.fromProps(_optionProperties),
-    );
-    emit(ProductOptionsUpdated(_productOptionInputs));
+    ProductOptionInputDto option = ProductOptionInputDto.fromProps(_optionProperties);
+    _productOptionInputs.add(option);
+    if (_selected == null) {
+      add(OnSelectProductOption(selected: option));
+    }
+    emit(ProductOptionsUpdated(_productOptionInputs, selected: _selected));
+  }
+
+  FutureOr<void> _onSelect(OnSelectProductOption event, Emitter<BaseState> emit) {
+    _selected = event.selected;
+    emit(ProductOptionsUpdated(_productOptionInputs, selected: event.selected));
   }
 }

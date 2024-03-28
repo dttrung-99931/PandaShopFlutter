@@ -17,4 +17,6 @@ class OptionPropsUpdated extends BaseState {
 class ProductOptionsUpdated extends FullDataLoadedState<List<ProductOptionInputDto>> {
   ProductOptionsUpdated(super.data, {this.selected});
   final ProductOptionInputDto? selected;
+  @override
+  List<Object?> get props => [super.props, selected];
 }
