@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class AppIconButton extends StatelessWidget {
   AppIconButton({
     Key? key,
-    required this.title,
+    this.title,
     this.onPressed,
     required this.iconData,
     this.color = AppColors.white,
@@ -16,7 +16,7 @@ class AppIconButton extends StatelessWidget {
     double? fontSize,
   })  : fontSize = fontSize ?? textTheme.bodySmall!.fontSize!,
         super(key: key);
-  final String title;
+  final String? title;
   final IconData iconData;
   final Function()? onPressed;
   final Color color;
@@ -34,10 +34,11 @@ class AppIconButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(iconData, color: color, size: size),
-            Text(
-              title,
-              style: textTheme.bodySmall.withColor(color).withSize(fontSize),
-            ),
+            if (title != null)
+              Text(
+                title!,
+                style: textTheme.bodySmall.withColor(color).withSize(fontSize),
+              ),
           ],
         ),
       ),

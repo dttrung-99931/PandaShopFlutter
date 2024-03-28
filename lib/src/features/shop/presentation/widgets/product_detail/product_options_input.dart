@@ -1,16 +1,19 @@
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
+import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/auth/presentation/widgets/info_input.dart';
 import 'package:evievm_app/src/features/product/domain/dto/cate_property_template/property_value_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_option_input_dto.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_options_input/product_options_input_bloc.dart';
+import 'package:evievm_app/src/shared/widgets/color_container.dart';
 import 'package:evievm_app/src/shared/widgets/common/adding_pannel.dart';
 import 'package:evievm_app/src/shared/widgets/common/app_chip.dart';
 import 'package:evievm_app/src/shared/widgets/common/app_icon_button.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:evievm_app/src/shared/widgets/section.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
+import 'package:evievm_app/src/shared/widgets/spacing_column.dart';
 import 'package:evievm_app/src/shared/widgets/spacing_row.dart';
 import 'package:evievm_app/src/shared/widgets/text_input.dart';
 import 'package:flutter/material.dart';
@@ -84,31 +87,48 @@ class _ProductOptionsInputState extends State<ProductOptionsInput> {
                     }
                     return Column(
                       children: [
-                        SingleChildScrollView(
-                          child: SpacingRow(
-                            spacing: 4.w,
-                            children: state.data.mapList(
-                              (ProductOptionInputDto element) => Container(
-                                child: IntrinsicWidth(
-                                  child: TextInput(
-                                    // hasRightSpace: false,
-                                    // paddingLeft: 0,
-                                    // paddingRight: 0,
-                                    controller: element.nameTextController,
-                                    hintText: 'Tên tùy chọn',
+                        _ProductOptionsTab(optionInputs: state.data),
+                        CustomBlocBuilder<ProductOptionsInputBloc>(
+                            buildForStates: [Product],
+                            builder: (state) {
+                              if (state != Product)
+                                return SpacingColumn(
+                                  spacing: 4.h,
+                                  children: state.productProps.mapList(
+                                    (PropertyValuesDto element) => Row(
+                                      children: [
+                                        Expanded(
+                                          child: InfoInput(
+                                            titleFlex: 8,
+                                            title: element.propertyName,
+                                            controller: state.textControllerMap[element.id],
+                                          ),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            productOptionsInputBloc.add(OnAddPropertyForOption(prop: element));
+                                          },
+                                          style: TextButton.styleFrom(
+                                            padding: const EdgeInsets.symmetric(
+                                              vertical: 8.0,
+                                              horizontal: 0.0,
+                                            ),
+                                            minimumSize: Size.zero,
+                                          ),
+                                          child: Text('Đặt tùy chọn',
+                                              style: textTheme.bodySmall.withColor(AppColors.primary)),
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
+                                );
+                            })
                       ],
                     );
                   },
                 ),
               ),
               AppIconButton(
-                title: '',
                 iconData: Icons.add,
                 onPressed: () {
                   productOptionsInputBloc.add(OnAddProductOption());
@@ -118,6 +138,42 @@ class _ProductOptionsInputState extends State<ProductOptionsInput> {
             ],
           )
         ],
+      ),
+    );
+  }
+}
+
+class _ProductOptionsTab extends StatelessWidget {
+  const _ProductOptionsTab({required this.optionInputs});
+  final List<ProductOptionInputDto> optionInputs;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: SpacingRow(
+        spacing: 8.w,
+        children: optionInputs.mapList(
+          (ProductOptionInputDto element) => IntrinsicWidth(
+            child: TextInput(
+              height: 48.h,
+              style: textTheme.bodyMedium,
+              contentPadding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
+              disableColor: AppColors.white,
+              enabled: false,
+              controller: element.nameTextController..text = '32GB',
+              hintText: 'Tên tùy chọn',
+              suffixIcon: Padding(
+                padding: EdgeInsets.only(right: 1.w),
+                child: AppIconButton(
+                  iconData: Icons.edit,
+                  color: AppColors.blackLight,
+                  size: 20.r,
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
