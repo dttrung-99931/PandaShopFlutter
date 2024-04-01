@@ -39,6 +39,7 @@ class ShopProductDetailBloc extends BaseBloc {
   // Map<property id, text edt controller>
   Map<int, TextEditingController>? propControllerMap;
   List<ProductOptionInputDto>? optionInputs;
+  TextEditingController? descController;
 
   FutureOr<void> _onInitShopProduct(OnInitShopProduct event, Emitter<BaseState> emit) async {
     if (event.productId != null) {
@@ -62,6 +63,7 @@ class ShopProductDetailBloc extends BaseBloc {
   void _init(ProductDetailDto? result) {
     productDetail = result;
     productNameController.text = result?.name ?? '';
+    descController = TextEditingController(text: result?.description ?? '');
   }
 
   FutureOr<void> _onSaveProduct(OnSaveProduct event, Emitter<BaseState> emit) {

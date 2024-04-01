@@ -41,10 +41,12 @@ class TextInput extends StatefulWidget {
     this.suffixIcon,
     this.disableColor = EVMColors.lightGrey2,
     this.borderColor = EVMColors.border,
+    this.expandHeight = false,
   }) : super(key: key);
 
   final String? hintText;
-  final double? width, height;
+  final double? width;
+  final double? height;
   final Widget? title;
   final String? Function(String?)? validator;
   final TextEditingController? controller;
@@ -72,6 +74,7 @@ class TextInput extends StatefulWidget {
   final Widget? suffixIcon;
   final Color disableColor;
   final Color borderColor;
+  final bool expandHeight;
 
   @override
   State<TextInput> createState() => _TextInputState();
@@ -108,8 +111,10 @@ class _TextInputState extends State<TextInput> {
           width: widget.width ?? double.infinity,
           height: widget.height,
           child: TextFormField(
-            maxLines: widget.maxLines,
-            minLines: widget.minLines,
+            expands: widget.expandHeight,
+            maxLines: widget.expandHeight ? null : widget.maxLines,
+            minLines: widget.expandHeight ? null : widget.minLines,
+            textAlignVertical: TextAlignVertical.top,
             keyboardType: widget.textInputType,
             initialValue: widget.initText,
             focusNode: widget.focusNode,
