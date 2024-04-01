@@ -41,10 +41,17 @@ class TextInput extends StatefulWidget {
     this.suffixIcon,
     this.disableColor = EVMColors.lightGrey2,
     this.borderColor = EVMColors.border,
+    this.expandHeight = false,
+    this.autoDisposeFocusNode = true,
+    this.selectAllOnFocus = false,
+    this.autoValidateOnUnfocus = false,
+    this.onFocusChanged,
+    this.errorFontSize,
   }) : super(key: key);
 
   final String? hintText;
-  final double? width, height;
+  final double? width;
+  final double? height;
   final Widget? title;
   final String? Function(String?)? validator;
   final TextEditingController? controller;
@@ -72,6 +79,12 @@ class TextInput extends StatefulWidget {
   final Widget? suffixIcon;
   final Color disableColor;
   final Color borderColor;
+  final bool expandHeight;
+  final bool autoDisposeFocusNode;
+  final bool selectAllOnFocus;
+  final bool autoValidateOnUnfocus;
+  final Function(bool isFocused)? onFocusChanged;
+  final double? errorFontSize;
 
   @override
   State<TextInput> createState() => _TextInputState();
@@ -92,6 +105,36 @@ class _TextInputState extends State<TextInput> {
         borderRadius: BorderRadius.circular(widget.borderRadius),
       );
 
+  late final _focusNode = widget.focusNode ?? FocusNode();
+  late final _controller = widget.controller ?? TextEditingController();
+
+  final _key = GlobalKey<FormFieldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode.addListener(_onFoucusChanged);
+  }
+
+  @override
+  void dispose() {
+    _focusNode.removeListener(_onFoucusChanged);
+    if (widget.autoDisposeFocusNode) {
+      _focusNode.dispose();
+    }
+    super.dispose();
+  }
+
+  void _onFoucusChanged() {
+    if (!_focusNode.hasFocus && widget.autoValidateOnUnfocus) {
+      _key.currentState?.validate();
+    }
+    if (_focusNode.hasFocus && widget.selectAllOnFocus) {
+      _controller.selection = TextSelection(baseOffset: 0, extentOffset: _controller.text.length);
+    }
+    widget.onFocusChanged?.call(_focusNode.hasFocus);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -108,11 +151,14 @@ class _TextInputState extends State<TextInput> {
           width: widget.width ?? double.infinity,
           height: widget.height,
           child: TextFormField(
-            maxLines: widget.maxLines,
-            minLines: widget.minLines,
+            key: _key,
+            focusNode: _focusNode,
+            expands: widget.expandHeight,
+            maxLines: widget.expandHeight ? null : widget.maxLines,
+            minLines: widget.expandHeight ? null : widget.minLines,
+            textAlignVertical: TextAlignVertical.top,
             keyboardType: widget.textInputType,
             initialValue: widget.initText,
-            focusNode: widget.focusNode,
             enabled: widget.enabled,
             onTap: () {
               try {
@@ -145,6 +191,16 @@ class _TextInputState extends State<TextInput> {
             validator: widget.validator,
             style: widget.style ?? textTheme.bodyLarge,
             decoration: InputDecoration(
+              errorStyle: textTheme.labelMedium?.copyWith(
+                color: EVMColors.redDeep,
+                fontSize: widget.errorFontSize,
+                height: 1.0,
+              ),
+              errorBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: EVMColors.blackLight, width: 1),
+                borderRadius: BorderRadius.circular(widget.borderRadius),
+              ),
+              focusedErrorBorder: _focusedBorder,
               fillColor: widget.enabled ? EVMColors.white : widget.disableColor,
               filled: true,
               suffixIconConstraints: const BoxConstraints(maxHeight: 30),

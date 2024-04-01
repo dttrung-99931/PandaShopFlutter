@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:evievm_app/core/model/base_response.dart';
 import 'package:evievm_app/src/features/product/data/models/request/get_product_cates_request_model.dart';
 import 'package:evievm_app/src/features/product/data/models/request/get_products_request_model.dart';
+import 'package:evievm_app/src/features/product/data/models/request/image/base64_image_request_model.dart';
+import 'package:evievm_app/src/features/product/data/models/request/product/create_product_request_model.dart';
 import 'package:evievm_app/src/features/product/data/models/response/cate_property_template/property_template_model.dart';
 import 'package:evievm_app/src/features/product/data/models/response/product_category_model.dart';
 import 'package:evievm_app/src/features/product/data/models/response/short_product_model.dart';
@@ -38,4 +40,13 @@ abstract class ProductRemoteDatasource {
 
   @GET('/v1/Categories/{cateId}/Template')
   Future<BaseResponse<PropertyTemplateModel>> getPropertyTemplate(@Path() int cateId);
+
+  @POST('/v1/Products')
+  Future<BaseResponse<ShortProductModel>> createProduct(@Body() CreateProductRequestModel params);
+
+  @POST('/v1/Products/{productId}/Images')
+  Future<BaseResponse<dynamic>> createProductImages({
+    @Path() required productId,
+    @Body() required String body,
+  });
 }

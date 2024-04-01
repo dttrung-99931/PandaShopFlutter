@@ -6,6 +6,7 @@ import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/use_case/use_case.dart';
+import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/common/data/models/request/save_address_model.dart';
 import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
@@ -32,6 +33,7 @@ class UserBloc extends BaseBloc with AddressBlocMixin {
       usecaseResult: _getUserDetail.call(noParam),
       emit: emit,
       onSuccess: (UserDetailDto result) {
+        Global.setUserDetail(result);
         return GetUserDetailSuccess(result);
       },
     );

@@ -69,6 +69,7 @@ class InfoInput extends StatelessWidget {
   /// Used to fix input error msg disappered when unfocus [SignUpStep2LabInfoInputScreen]
   final bool initialShouldShowError;
   final bool showTitle;
+  final bool expandHeight;
 
   InfoInput({
     Key? key,
@@ -114,6 +115,7 @@ class InfoInput extends StatelessWidget {
     this.inputFormatters,
     this.initialShouldShowError = false,
     this.showTitle = true,
+    this.expandHeight = false,
   })  : trailingSpacing = trailingSpacing ?? 16.w,
         titleStyle = titleStyle ?? textTheme.bodyMedium!,
         assert(
@@ -131,15 +133,16 @@ class InfoInput extends StatelessWidget {
           builder: (_, showErr, __) {
             return TextInput(
               // inputFormatters: inputFormatters,
-              // onFocusChanged: (hasFocus) {
-              //   if (!hasFocus) {
-              //     _shouldShowInputErr.value = true;
-              //   }
-              // },
+              onFocusChanged: (hasFocus) {
+                if (!hasFocus) {
+                  _shouldShowInputErr.value = true;
+                }
+              },
+              autoValidateOnUnfocus: true,
               textInputType: inputType,
               textInputAction: inputAction,
               border: OutlineInputBorder(
-                borderSide: BorderSide(color: AppColors.primary.shade400),
+                borderSide: BorderSide(color: AppColors.border),
               ),
               // isPasswordInput: isPasswordInput,
               hintText: tr(hint),
@@ -154,7 +157,8 @@ class InfoInput extends StatelessWidget {
               },
               enabled: enabled,
               height: textInputHeight,
-              // errorFontSize: showErr ? null : 0,
+              errorFontSize: showErr ? 14.sp : 0,
+              expandHeight: expandHeight,
             );
           },
         );
@@ -164,11 +168,11 @@ class InfoInput extends StatelessWidget {
             builder: (_, showErr, __) {
               return TextInput(
                 // inputFormatters: inputFormatters,
-                // onFocusChanged: (hasFocus) {
-                //   if (!hasFocus) {
-                //     _shouldShowSecondInputErr.value = true;
-                //   }
-                // },
+                onFocusChanged: (hasFocus) {
+                  if (!hasFocus) {
+                    _shouldShowSecondInputErr.value = true;
+                  }
+                },
                 textInputType: inputType,
                 textInputAction: inputAction,
                 // isPasswordInput: isPasswordInput,
@@ -183,7 +187,7 @@ class InfoInput extends StatelessWidget {
                   onSecondaryTextChanged?.call(text);
                 },
                 enabled: enabled,
-                // errorFontSize: showErr ? null : 0,
+                errorFontSize: showErr ? 14.sp : 0,
               );
             },
           )

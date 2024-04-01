@@ -1,4 +1,5 @@
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_cate_input/product_cate_input_bloc.dart';
+import 'package:evievm_app/src/features/shop/presentation/bloc/product_options_input/product_options_input_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_properties_input/product_properties_input_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product_detail/shop_product_detail_bloc.dart';
 import 'package:evievm_app/src/shared/bloc/image_input/image_input_bloc.dart';
@@ -22,7 +23,12 @@ class ShopProductDetailCommunication extends BlocCommunication<ShopProductDetail
     });
     listenOtherBloc<ProductPropertiesInputBloc>((state) {
       if (state is ProductPropsUpdated) {
-        bloc.propControllerMap = state.textControllerMap;
+        bloc.propControllerMap = {...state.textControllerMap};
+      }
+    });
+    listenOtherBloc<ProductOptionsInputBloc>((state) {
+      if (state is ProductOptionsUpdated) {
+        bloc.optionInputs = [...state.data];
       }
     });
   }

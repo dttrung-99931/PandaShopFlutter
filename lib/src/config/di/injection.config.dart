@@ -13,16 +13,16 @@ import '../../../core/interceptors/api_interceptor.dart' as _i17;
 import '../../../core/utils/storage.dart' as _i16;
 import '../../features/auth/data/data_sources/auth_remote_data_soruce.dart'
     as _i46;
-import '../../features/auth/data/repositories/auth_repo_impl.dart' as _i74;
-import '../../features/auth/domain/repositories/auth_repo.dart' as _i73;
+import '../../features/auth/data/repositories/auth_repo_impl.dart' as _i76;
+import '../../features/auth/domain/repositories/auth_repo.dart' as _i75;
 import '../../features/auth/domain/use_cases/check_login_usecase.dart' as _i18;
 import '../../features/auth/domain/use_cases/get_remember_login_email_usecase.dart'
-    as _i21;
-import '../../features/auth/domain/use_cases/login_usecase.dart' as _i75;
-import '../../features/auth/domain/use_cases/logout_usecase.dart' as _i23;
+    as _i22;
+import '../../features/auth/domain/use_cases/login_usecase.dart' as _i77;
+import '../../features/auth/domain/use_cases/logout_usecase.dart' as _i24;
 import '../../features/auth/domain/use_cases/qr_barcode_reader_login_usecase.dart'
-    as _i76;
-import '../../features/auth/presentation/bloc/login/login_bloc.dart' as _i77;
+    as _i78;
+import '../../features/auth/presentation/bloc/login/login_bloc.dart' as _i79;
 import '../../features/auth/presentation/bloc/sign_up/sign_up_bloc.dart'
     as _i15;
 import '../../features/common/data/data_sources/address_data_soruce.dart'
@@ -33,27 +33,27 @@ import '../../features/common/data/repos/user_repo_impl.dart' as _i37;
 import '../../features/common/domain/repos/address_repo.dart' as _i39;
 import '../../features/common/domain/repos/user_repo.dart' as _i36;
 import '../../features/common/domain/use_cases/get_communes_and_ward_usecase.dart'
-    as _i48;
+    as _i50;
 import '../../features/common/domain/use_cases/get_district_usecase_usecase.dart'
-    as _i49;
-import '../../features/common/domain/use_cases/get_my_addresses_usecase.dart'
     as _i51;
+import '../../features/common/domain/use_cases/get_my_addresses_usecase.dart'
+    as _i53;
 import '../../features/common/domain/use_cases/get_provinces_and_cities_usecase.dart'
-    as _i56;
+    as _i58;
 import '../../features/common/domain/use_cases/save_my_address_usecase.dart'
-    as _i65;
+    as _i67;
 import '../../features/common/domain/use_cases/user/get_user_detail_usecase.dart'
-    as _i59;
+    as _i61;
 import '../../features/common/domain/use_cases/utils/pick_local_image_as_base64_use_case.dart'
     as _i25;
 import '../../features/common/domain/use_cases/utils/pick_local_image_use_case.dart'
     as _i4;
 import '../../features/common/presentation/bloc/address/address_bloc.dart'
-    as _i71;
+    as _i73;
 import '../../features/common/presentation/bloc/address_input_bloc/address_input_bloc.dart'
-    as _i72;
-import '../../features/common/presentation/bloc/user/user_bloc.dart' as _i70;
-import '../../features/home/presentation/bloc/home_bloc.dart' as _i60;
+    as _i74;
+import '../../features/common/presentation/bloc/user/user_bloc.dart' as _i72;
+import '../../features/home/presentation/bloc/home_bloc.dart' as _i62;
 import '../../features/product/data/data_sources/ads/ads_data_soruce.dart'
     as _i41;
 import '../../features/product/data/data_sources/product_remote_data_soruce.dart'
@@ -67,69 +67,73 @@ import '../../features/product/domain/repos/ads_repo.dart' as _i42;
 import '../../features/product/domain/repos/product_repo.dart' as _i27;
 import '../../features/product/domain/repos/shopping_cart_repo.dart' as _i32;
 import '../../features/product/domain/use_cases/cate_property_template/get_property_template_of_cate_usecase.dart'
-    as _i55;
+    as _i57;
+import '../../features/product/domain/use_cases/create_product_usecase.dart'
+    as _i48;
 import '../../features/product/domain/use_cases/get_home_banners_usecase.dart'
-    as _i50;
-import '../../features/product/domain/use_cases/get_product_cates_usecase.dart'
     as _i52;
-import '../../features/product/domain/use_cases/get_product_detail_usecase.dart'
-    as _i53;
-import '../../features/product/domain/use_cases/get_products_usecase.dart'
+import '../../features/product/domain/use_cases/get_product_cates_usecase.dart'
     as _i54;
+import '../../features/product/domain/use_cases/get_product_detail_usecase.dart'
+    as _i55;
+import '../../features/product/domain/use_cases/get_products_usecase.dart'
+    as _i56;
+import '../../features/product/domain/use_cases/image/create_product_image_usecase.dart'
+    as _i47;
 import '../../features/product/domain/use_cases/search_products_usecase.dart'
     as _i29;
 import '../../features/product/domain/use_cases/shopping_cart/delete_cart_items_usecase.dart'
-    as _i47;
+    as _i49;
 import '../../features/product/domain/use_cases/shopping_cart/get_shopping_cart_by_id_usecase.dart'
-    as _i57;
+    as _i59;
 import '../../features/product/domain/use_cases/shopping_cart/get_shopping_cart_usecase.dart'
-    as _i58;
+    as _i60;
 import '../../features/product/domain/use_cases/shopping_cart/upsert_cart_item_usecase.dart'
     as _i34;
 import '../../features/product/presentation/bloc/order/order_bloc.dart' as _i3;
 import '../../features/product/presentation/bloc/product_detail/product_detail_bloc.dart'
-    as _i63;
+    as _i65;
 import '../../features/product/presentation/bloc/product_detail/product_option/product_option_bloc.dart'
-    as _i5;
+    as _i6;
 import '../../features/product/presentation/bloc/product_detail/product_option/product_option_bloc_communicaton.dart'
     as _i7;
 import '../../features/product/presentation/bloc/search/search_products_bloc.dart'
-    as _i66;
+    as _i68;
 import '../../features/product/presentation/bloc/shopping_cart/shopping_cart_bloc.dart'
-    as _i69;
+    as _i71;
 import '../../features/shop/data/data_sources/shop_remote_data_soruce.dart'
     as _i30;
 import '../../features/shop/data/repositories/shop_repo_impl.dart' as _i45;
 import '../../features/shop/domain/repositories/shop_repo.dart' as _i44;
 import '../../features/shop/domain/use_cases/check_login_usecase.dart' as _i19;
 import '../../features/shop/domain/use_cases/get_remember_login_email_usecase.dart'
-    as _i22;
-import '../../features/shop/domain/use_cases/logout_usecase.dart' as _i24;
+    as _i21;
+import '../../features/shop/domain/use_cases/logout_usecase.dart' as _i23;
 import '../../features/shop/presentation/bloc/product_cate_input/product_cate_input_bloc.dart'
-    as _i62;
+    as _i64;
 import '../../features/shop/presentation/bloc/product_options_input/product_options_input_bloc.dart'
     as _i9;
 import '../../features/shop/presentation/bloc/product_options_input/product_options_input_communicaton.dart'
     as _i10;
 import '../../features/shop/presentation/bloc/product_properties_input/product_properties_input_bloc.dart'
-    as _i64;
+    as _i66;
 import '../../features/shop/presentation/bloc/product_properties_input/product_properties_input_communicaton.dart'
     as _i11;
 import '../../features/shop/presentation/bloc/shop/shop_bloc.dart' as _i14;
 import '../../features/shop/presentation/bloc/shop_product/shop_bloc_communicaton.dart'
     as _i12;
 import '../../features/shop/presentation/bloc/shop_product/shop_product_bloc.dart'
-    as _i67;
+    as _i69;
 import '../../features/shop/presentation/bloc/shop_product_detail/product_option/product_option_bloc.dart'
-    as _i6;
+    as _i5;
 import '../../features/shop/presentation/bloc/shop_product_detail/product_option/product_option_bloc_communicaton.dart'
     as _i8;
 import '../../features/shop/presentation/bloc/shop_product_detail/shop_product_detail_bloc.dart'
-    as _i68;
+    as _i70;
 import '../../features/shop/presentation/bloc/shop_product_detail/shop_product_detail_communicaton.dart'
     as _i13;
-import '../../shared/bloc/image_input/image_input_bloc.dart' as _i61;
-import 'injection.dart' as _i78; // ignore_for_file: unnecessary_lambdas
+import '../../shared/bloc/image_input/image_input_bloc.dart' as _i63;
+import 'injection.dart' as _i80; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -224,96 +228,103 @@ Future<_i1.GetIt> $initGetIt(
       () => _i45.AuthRepoImpl(get<_i30.ShopRemoteDatasource>()));
   gh.singleton<_i46.AuthRepoteDatasource>(authRepoteDatasourceProvider
       .provideAuthRepoteDatasource(get<_i20.Dio>()));
-  gh.lazySingleton<_i47.DeleteCartItemsUseCase>(
-      () => _i47.DeleteCartItemsUseCase(get<_i32.ShoppingCartRepo>()));
-  gh.lazySingleton<_i48.GetCommunesAndWardsUseCase>(
-      () => _i48.GetCommunesAndWardsUseCase(get<_i39.AddressRepo>()));
-  gh.lazySingleton<_i49.GetDistrictsUseCase>(
-      () => _i49.GetDistrictsUseCase(get<_i39.AddressRepo>()));
-  gh.lazySingleton<_i50.GetHomeBannersUseCase>(
-      () => _i50.GetHomeBannersUseCase(get<_i42.AdsRepo>()));
-  gh.lazySingleton<_i51.GetMyAddressesUseCase>(
-      () => _i51.GetMyAddressesUseCase(get<_i39.AddressRepo>()));
-  gh.lazySingleton<_i52.GetProductCatesUseCase>(
-      () => _i52.GetProductCatesUseCase(get<_i27.ProductRepo>()));
-  gh.lazySingleton<_i53.GetProductDetailUseCase>(
-      () => _i53.GetProductDetailUseCase(get<_i27.ProductRepo>()));
-  gh.lazySingleton<_i54.GetProductsUseCase>(
-      () => _i54.GetProductsUseCase(get<_i27.ProductRepo>()));
-  gh.lazySingleton<_i55.GetPropertyTemplateOfCateUseCase>(
-      () => _i55.GetPropertyTemplateOfCateUseCase(get<_i27.ProductRepo>()));
-  gh.lazySingleton<_i56.GetProvincesAndCitiesUseCase>(
-      () => _i56.GetProvincesAndCitiesUseCase(get<_i39.AddressRepo>()));
-  gh.lazySingleton<_i57.GetShoppingCartByIdUseCase>(
-      () => _i57.GetShoppingCartByIdUseCase(get<_i32.ShoppingCartRepo>()));
-  gh.lazySingleton<_i58.GetShoppingCartUseCase>(
-      () => _i58.GetShoppingCartUseCase(get<_i32.ShoppingCartRepo>()));
-  gh.lazySingleton<_i59.GetUserDetailUseCase>(
-      () => _i59.GetUserDetailUseCase(get<_i36.UserRepo>()));
-  gh.lazySingleton<_i60.HomeBloc>(() => _i60.HomeBloc(
-        get<_i54.GetProductsUseCase>(),
-        get<_i52.GetProductCatesUseCase>(),
-        get<_i50.GetHomeBannersUseCase>(),
+  gh.lazySingleton<_i47.CreateProductImagesUseCase>(
+      () => _i47.CreateProductImagesUseCase(get<_i27.ProductRepo>()));
+  gh.lazySingleton<_i48.CreateProductUseCase>(
+      () => _i48.CreateProductUseCase(get<_i27.ProductRepo>()));
+  gh.lazySingleton<_i49.DeleteCartItemsUseCase>(
+      () => _i49.DeleteCartItemsUseCase(get<_i32.ShoppingCartRepo>()));
+  gh.lazySingleton<_i50.GetCommunesAndWardsUseCase>(
+      () => _i50.GetCommunesAndWardsUseCase(get<_i39.AddressRepo>()));
+  gh.lazySingleton<_i51.GetDistrictsUseCase>(
+      () => _i51.GetDistrictsUseCase(get<_i39.AddressRepo>()));
+  gh.lazySingleton<_i52.GetHomeBannersUseCase>(
+      () => _i52.GetHomeBannersUseCase(get<_i42.AdsRepo>()));
+  gh.lazySingleton<_i53.GetMyAddressesUseCase>(
+      () => _i53.GetMyAddressesUseCase(get<_i39.AddressRepo>()));
+  gh.lazySingleton<_i54.GetProductCatesUseCase>(
+      () => _i54.GetProductCatesUseCase(get<_i27.ProductRepo>()));
+  gh.lazySingleton<_i55.GetProductDetailUseCase>(
+      () => _i55.GetProductDetailUseCase(get<_i27.ProductRepo>()));
+  gh.lazySingleton<_i56.GetProductsUseCase>(
+      () => _i56.GetProductsUseCase(get<_i27.ProductRepo>()));
+  gh.lazySingleton<_i57.GetPropertyTemplateOfCateUseCase>(
+      () => _i57.GetPropertyTemplateOfCateUseCase(get<_i27.ProductRepo>()));
+  gh.lazySingleton<_i58.GetProvincesAndCitiesUseCase>(
+      () => _i58.GetProvincesAndCitiesUseCase(get<_i39.AddressRepo>()));
+  gh.lazySingleton<_i59.GetShoppingCartByIdUseCase>(
+      () => _i59.GetShoppingCartByIdUseCase(get<_i32.ShoppingCartRepo>()));
+  gh.lazySingleton<_i60.GetShoppingCartUseCase>(
+      () => _i60.GetShoppingCartUseCase(get<_i32.ShoppingCartRepo>()));
+  gh.lazySingleton<_i61.GetUserDetailUseCase>(
+      () => _i61.GetUserDetailUseCase(get<_i36.UserRepo>()));
+  gh.lazySingleton<_i62.HomeBloc>(() => _i62.HomeBloc(
+        get<_i56.GetProductsUseCase>(),
+        get<_i54.GetProductCatesUseCase>(),
+        get<_i52.GetHomeBannersUseCase>(),
       ));
-  gh.lazySingleton<_i61.ImageInputBloc>(
-      () => _i61.ImageInputBloc(get<_i25.PickLocalImageAsBase64UseCase>()));
-  gh.lazySingleton<_i62.ProductCateInputBloc>(
-      () => _i62.ProductCateInputBloc(get<_i52.GetProductCatesUseCase>()));
-  gh.lazySingleton<_i63.ProductDetailBloc>(
-      () => _i63.ProductDetailBloc(get<_i53.GetProductDetailUseCase>()));
-  gh.lazySingleton<_i64.ProductPropertiesInputBloc>(() =>
-      _i64.ProductPropertiesInputBloc(
-          get<_i55.GetPropertyTemplateOfCateUseCase>()));
-  gh.lazySingleton<_i65.SaveMyAddressUseCase>(
-      () => _i65.SaveMyAddressUseCase(get<_i39.AddressRepo>()));
-  gh.lazySingleton<_i66.SearchProductsBloc>(() => _i66.SearchProductsBloc(
+  gh.lazySingleton<_i63.ImageInputBloc>(
+      () => _i63.ImageInputBloc(get<_i25.PickLocalImageAsBase64UseCase>()));
+  gh.lazySingleton<_i64.ProductCateInputBloc>(
+      () => _i64.ProductCateInputBloc(get<_i54.GetProductCatesUseCase>()));
+  gh.lazySingleton<_i65.ProductDetailBloc>(
+      () => _i65.ProductDetailBloc(get<_i55.GetProductDetailUseCase>()));
+  gh.lazySingleton<_i66.ProductPropertiesInputBloc>(() =>
+      _i66.ProductPropertiesInputBloc(
+          get<_i57.GetPropertyTemplateOfCateUseCase>()));
+  gh.lazySingleton<_i67.SaveMyAddressUseCase>(
+      () => _i67.SaveMyAddressUseCase(get<_i39.AddressRepo>()));
+  gh.lazySingleton<_i68.SearchProductsBloc>(() => _i68.SearchProductsBloc(
         get<_i29.SearchProductsUserCase>(),
-        get<_i54.GetProductsUseCase>(),
+        get<_i56.GetProductsUseCase>(),
       ));
-  gh.lazySingleton<_i67.ShopProductBloc>(() => _i67.ShopProductBloc(
-        get<_i54.GetProductsUseCase>(),
-        get<_i52.GetProductCatesUseCase>(),
-        get<_i50.GetHomeBannersUseCase>(),
+  gh.lazySingleton<_i69.ShopProductBloc>(() => _i69.ShopProductBloc(
+        get<_i56.GetProductsUseCase>(),
+        get<_i54.GetProductCatesUseCase>(),
+        get<_i52.GetHomeBannersUseCase>(),
       ));
-  gh.lazySingleton<_i68.ShopProductDetailBloc>(
-      () => _i68.ShopProductDetailBloc(get<_i53.GetProductDetailUseCase>()));
-  gh.lazySingleton<_i69.ShoppingCartBloc>(() => _i69.ShoppingCartBloc(
-        get<_i58.GetShoppingCartUseCase>(),
+  gh.lazySingleton<_i70.ShopProductDetailBloc>(() => _i70.ShopProductDetailBloc(
+        get<_i55.GetProductDetailUseCase>(),
+        get<_i48.CreateProductUseCase>(),
+        get<_i47.CreateProductImagesUseCase>(),
+      ));
+  gh.lazySingleton<_i71.ShoppingCartBloc>(() => _i71.ShoppingCartBloc(
+        get<_i60.GetShoppingCartUseCase>(),
         get<_i34.UpsertCartItemUseCase>(),
-        get<_i47.DeleteCartItemsUseCase>(),
+        get<_i49.DeleteCartItemsUseCase>(),
       ));
-  gh.lazySingleton<_i70.UserBloc>(
-      () => _i70.UserBloc(get<_i59.GetUserDetailUseCase>()));
-  gh.factory<_i71.AddressBloc>(() => _i71.AddressBloc(
-        get<_i51.GetMyAddressesUseCase>(),
-        get<_i56.GetProvincesAndCitiesUseCase>(),
-        get<_i49.GetDistrictsUseCase>(),
-        get<_i48.GetCommunesAndWardsUseCase>(),
+  gh.lazySingleton<_i72.UserBloc>(
+      () => _i72.UserBloc(get<_i61.GetUserDetailUseCase>()));
+  gh.factory<_i73.AddressBloc>(() => _i73.AddressBloc(
+        get<_i53.GetMyAddressesUseCase>(),
+        get<_i58.GetProvincesAndCitiesUseCase>(),
+        get<_i51.GetDistrictsUseCase>(),
+        get<_i50.GetCommunesAndWardsUseCase>(),
       ));
-  gh.lazySingleton<_i72.AddressInputBloc>(
-      () => _i72.AddressInputBloc(get<_i65.SaveMyAddressUseCase>()));
-  gh.lazySingleton<_i73.AuthRepo>(
-      () => _i74.AuthRepoImpl(get<_i46.AuthRepoteDatasource>()));
-  gh.lazySingleton<_i75.EmailLoginUseCase>(() => _i75.EmailLoginUseCase(
-        get<_i73.AuthRepo>(),
+  gh.lazySingleton<_i74.AddressInputBloc>(
+      () => _i74.AddressInputBloc(get<_i67.SaveMyAddressUseCase>()));
+  gh.lazySingleton<_i75.AuthRepo>(
+      () => _i76.AuthRepoImpl(get<_i46.AuthRepoteDatasource>()));
+  gh.lazySingleton<_i77.EmailLoginUseCase>(() => _i77.EmailLoginUseCase(
+        get<_i75.AuthRepo>(),
         get<_i16.Storage>(),
       ));
-  gh.lazySingleton<_i76.QrBarcodeLoginUseCase>(() => _i76.QrBarcodeLoginUseCase(
-        get<_i73.AuthRepo>(),
-        get<_i75.EmailLoginUseCase>(),
+  gh.lazySingleton<_i78.QrBarcodeLoginUseCase>(() => _i78.QrBarcodeLoginUseCase(
+        get<_i75.AuthRepo>(),
+        get<_i77.EmailLoginUseCase>(),
       ));
-  gh.lazySingleton<_i77.LoginBloc>(() => _i77.LoginBloc(
-        get<_i75.EmailLoginUseCase>(),
-        get<_i76.QrBarcodeLoginUseCase>(),
+  gh.lazySingleton<_i79.LoginBloc>(() => _i79.LoginBloc(
+        get<_i77.EmailLoginUseCase>(),
+        get<_i78.QrBarcodeLoginUseCase>(),
         get<_i18.CheckLoginUseCase>(),
-        get<_i23.LogoutUseCase>(),
-        get<_i21.GetRememberLoginEmailUserCase>(),
+        get<_i24.LogoutUseCase>(),
+        get<_i22.GetRememberLoginEmailUserCase>(),
       ));
   return get;
 }
 
 class _$AppModuleDepedenciesProvider
-    extends _i78.AppModuleDepedenciesProvider {}
+    extends _i80.AppModuleDepedenciesProvider {}
 
 class _$ProductRemoteDatasourceProvider
     extends _i26.ProductRemoteDatasourceProvider {}

@@ -7,7 +7,7 @@ class ProductDto {
   final String name;
   final double price;
   final double originalPrice;
-  final String thumbnailUrl;
+  final String? thumbnailUrl;
 
   ProductDto({
     required this.id,

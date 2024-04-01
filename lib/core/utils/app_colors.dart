@@ -13,13 +13,14 @@ class AppColors {
   static const black = Color.fromRGBO(0, 0, 0, 1);
 
   static final border = primary.withOpacity(Dimensions.borderOpacity);
+  static const borderDark = blackLight;
   static final borderLight = primary.withOpacity(Dimensions.borderOpacityLight);
   static final icon = primary.withOpacity(.8);
 
   static const red = Color(0xFFFC6356);
   static const redDeep = Color(0xFFED5555);
   static const lightRed = Color(0xFFFFFAFA);
-  static const lightGrey2 = Color(0xFFECEDF2);
+  static const lightGrey2 = Color.fromARGB(255, 66, 78, 136);
   static const blackLight = Color(0xFF5f5f5f);
   static const blue = Color(0xFF518CED);
   static const blue2 = Color(0xFF649CF8);

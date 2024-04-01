@@ -1,5 +1,6 @@
 import 'package:evievm_app/core/utils/overlay_utils.dart';
 import 'package:evievm_app/global.dart';
+import 'package:evievm_app/src/features/product/presentation/screens/product_detail_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/product_slidergrid.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product/shop_product_bloc.dart';
 import 'package:flutter/material.dart';
@@ -31,9 +32,16 @@ class _ShopProductSliverGridState extends State<ShopProductSliverGrid> {
         isSliver: true,
         builder: (state) {
           if (state is GetShopProductsSucess) {
-            return ProductSliverGrid(state.data, onPressed: (product) {
-              commingSoon();
-            });
+            return ProductSliverGrid(
+              state.data,
+              onPressed: (product) {
+                Global.pushNamed(ProductDetailScreen.router,
+                    args: ProductDetailScreenArgs(
+                      product.id,
+                      viewMode: ProductDetailViewMode.shopView,
+                    ));
+              },
+            );
           }
 
           return const SliverToBoxAdapter(

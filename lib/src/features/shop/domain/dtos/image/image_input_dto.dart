@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evievm_app/src/features/product/data/models/request/image/base64_image_request_model.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/src/painting/image_provider.dart';
 
@@ -58,6 +59,16 @@ class ImageInputDto extends BaseImageDto {
       based64Img: based64Img ?? this.based64Img,
       orderIndex: orderIndex ?? this.orderIndex,
       description: description ?? this.description,
+    );
+  }
+
+  Base64ImageRequestModel toRequestModel() {
+    return Base64ImageRequestModel(
+      id: null,
+      // Remove base 64 header 'data:image/jpg;base64,'
+      based64Img: based64Img.split('base64,').last,
+      orderIndex: orderIndex,
+      description: description,
     );
   }
 }

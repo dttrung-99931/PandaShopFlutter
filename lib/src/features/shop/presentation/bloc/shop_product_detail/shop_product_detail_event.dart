@@ -9,3 +9,5 @@ class OnInitShopProduct extends BaseEvent {
   @override
   List<Object?> get props => [productId];
 }
+
+class OnSaveProduct extends BaseEventWithoutProps {}

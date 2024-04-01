@@ -76,7 +76,10 @@ class _OrderScreenState extends State<OrderScreen> {
             ),
           ),
           SliverSizedBox(height: 8.h),
-          const SliverToBoxAdapter(child: AddressInput()),
+          SliverToBoxAdapter(
+              child: AddressInput(
+            onSelected: (AddressDto selected) {},
+          )),
           SliverSizedBox(height: 64.h),
         ],
       ),

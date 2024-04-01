@@ -16,9 +16,9 @@ import '../../../../../shared/widgets/custom_bloc_builder.dart';
 import '../../../../../shared/widgets/spacing_column.dart';
 
 class AddressInput extends StatefulWidget {
-  const AddressInput({
-    super.key,
-  });
+  const AddressInput({super.key, this.title = 'Địa chỉ', required this.onSelected});
+  final String title;
+  final Function(AddressDto selected) onSelected;
 
   @override
   State<AddressInput> createState() => _AddressInputState();
@@ -35,9 +35,15 @@ class _AddressInputState extends State<AddressInput> {
   }
 
   @override
+  void dispose() {
+    addressBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Section(
-      title: 'Địa chỉ',
+      title: widget.title,
       titlePadding: EdgeInsets.only(bottom: 8.h),
       child: CustomBlocBuilder<AddressBloc>(
         bloc: addressBloc,
@@ -89,7 +95,9 @@ class _AddressInputState extends State<AddressInput> {
                       ),
                     );
             },
-            onSelected: (AddressDto? item) {},
+            onSelected: (AddressDto? item) {
+              widget.onSelected(item!);
+            },
           );
         },
       ),

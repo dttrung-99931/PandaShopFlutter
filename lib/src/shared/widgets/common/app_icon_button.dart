@@ -14,7 +14,9 @@ class AppIconButton extends StatelessWidget {
     this.color = AppColors.white,
     this.size = 22,
     double? fontSize,
+    EdgeInsets? padding,
   })  : fontSize = fontSize ?? textTheme.bodySmall!.fontSize!,
+        padding = padding ?? const EdgeInsets.all(4.0),
         super(key: key);
   final String? title;
   final IconData iconData;
@@ -22,13 +24,14 @@ class AppIconButton extends StatelessWidget {
   final Color color;
   final double size;
   final double fontSize;
+  final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onPressed,
       child: Padding(
-        padding: const EdgeInsets.all(4.0),
+        padding: padding,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,

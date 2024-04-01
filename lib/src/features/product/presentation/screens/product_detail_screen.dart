@@ -17,11 +17,18 @@ import 'package:flutter/services.dart';
 
 import '../../../../../core/base_bloc/base_state.dart';
 
+enum ProductDetailViewMode { shopView, userView }
+
 class ProductDetailScreenArgs {
   final int productId;
   final int? selectedOptionId;
+  final ProductDetailViewMode viewMode;
 
-  ProductDetailScreenArgs(this.productId, {this.selectedOptionId});
+  ProductDetailScreenArgs(
+    this.productId, {
+    this.selectedOptionId,
+    this.viewMode = ProductDetailViewMode.userView,
+  });
 }
 
 class ProductDetailScreen extends StatefulWidget {
@@ -62,10 +69,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           builder: _productDetailBuilder,
         ),
       ),
-      bottomNavigationBar: HiddenOnSrollWidget(
-        scrollController: _scrollContorller,
-        child: const AddCartAndBuyBottomBar(),
-      ),
+      bottomNavigationBar: widget.args.viewMode == ProductDetailViewMode.userView
+          ? HiddenOnSrollWidget(
+              scrollController: _scrollContorller,
+              child: const AddCartAndBuyBottomBar(),
+            )
+          : null,
     );
   }
 
@@ -79,7 +88,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         controller: _scrollContorller,
         physics: const BouncingScrollPhysics(),
         slivers: [
-          ProductDetailAppBar(productDetail: productDetail),
+          ProductDetailAppBar(productDetail: productDetail, args: widget.args),
           ProductNameAndPrice(productDetail: productDetail),
           ProductOptions(productDetail: productDetail),
           ProductDescriptionAndProperties(productDetail: productDetail),

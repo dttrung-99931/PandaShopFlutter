@@ -7,8 +7,8 @@ class ShortProductModel {
   final int id;
   final String name;
   final double firstPrice;
-  final String thumbImgLink;
-  final String sentFrom;
+  final String? thumbImgLink;
+  final String? sentFrom;
   final int sellingNum;
   final int remainingNum;
   final double starNum;

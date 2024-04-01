@@ -4,12 +4,11 @@ import 'package:dartz/dartz.dart';
 import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/base_bloc/bloc_communication.dart';
+import 'package:evievm_app/core/base_bloc/bloc_validation_mixin.dart';
 import 'package:evievm_app/core/failures/failures.dart';
-import 'package:evievm_app/core/utils/utils.dart';
+import 'package:evievm_app/core/utils/overlay_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../utils/overlay_utils.dart';
 
 typedef EventHandlerType<T> = FutureOr<void> Function(
   T event,
@@ -18,11 +17,12 @@ typedef EventHandlerType<T> = FutureOr<void> Function(
 
 typedef TransformerType<T> = Stream<T> Function(Stream<T>, Stream<T> Function(T))?;
 
-abstract class BaseBloc extends Bloc<BaseEvent, BaseState> {
+abstract class BaseBloc extends Bloc<BaseEvent, BaseState> with BlocValidationMixin {
   BaseBloc(super.initialState) {
     blocCommunication?.startCommunication(this);
     on<BaseEvent>(onEveryEvent);
     on<OnSetState>(_onSetState);
+    setupOnValidations();
   }
 
   @override
@@ -72,6 +72,9 @@ abstract class BaseBloc extends Bloc<BaseEvent, BaseState> {
     BaseState? state = either.fold(
       (Failure l) {
         ErrorState errorState = onError?.call(l) ?? ErrorState(l);
+        if (showErrorWhenFail) {
+          showSnackBar(errorState.failure.displayMsg, SnackType.fail);
+        }
         return errorState;
       },
       (T res) {
