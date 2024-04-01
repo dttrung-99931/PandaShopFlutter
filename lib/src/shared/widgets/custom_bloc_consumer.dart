@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomBlocConsumer<T extends BaseBloc> extends StatefulWidget {
   final List<Type>? buildForStates;
-    final bool Function(BaseState state)? buildCondition;
+  final bool Function(BaseState state)? buildCondition;
   final List<Type>? listenForStates;
   final BaseEvent? initialEvent;
   final Widget Function(BaseState state) builder;
@@ -16,6 +16,7 @@ class CustomBlocConsumer<T extends BaseBloc> extends StatefulWidget {
   final bool handleLoading;
   final Type loadingStateType;
   final bool isSliver;
+  final bool buildForErrorState;
 
   const CustomBlocConsumer({
     super.key,
@@ -28,6 +29,7 @@ class CustomBlocConsumer<T extends BaseBloc> extends StatefulWidget {
     this.initialEvent,
     this.isSliver = false,
     this.buildCondition,
+    this.buildForErrorState = false,
   });
 
   @override
@@ -55,7 +57,8 @@ class _CustomBlocConsumerState<T extends BaseBloc> extends State<CustomBlocConsu
       // only build when
       buildWhen: (previous, current) {
         bool isOkType = widget.buildForStates != null
-            ? [widget.loadingStateType, ErrorState, ...widget.buildForStates!].contains(current.runtimeType)
+            ? [widget.loadingStateType, if (widget.buildForErrorState) ErrorState, ...widget.buildForStates!]
+                .contains(current.runtimeType)
             : true;
         bool isOkCondition = widget.buildCondition != null ? widget.buildCondition!(current) : true;
         return isOkType && isOkCondition;

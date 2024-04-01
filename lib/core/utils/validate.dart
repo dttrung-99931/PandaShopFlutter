@@ -135,14 +135,18 @@ class Validate {
 
   static String? validateRequired(String? str, {required String fieldName}) {
     if (str == null || str.isEmpty) {
-      return tr('messages.is_required', args: [fieldName.tr()]);
+      return tr('Nhập {}', args: [fieldName.tr()]);
+      // TODO: localization
+      // return tr('messages.is_required', args: [fieldName.tr()]);
     }
     return null;
   }
 
   static String? validateRequiredCondition(bool isValid, {required String fieldName}) {
     if (!isValid) {
-      return tr('messages.is_required', args: [fieldName.tr()]);
+      // TODO: localization
+      // return tr('messages.is_required', args: [fieldName.tr()]);
+      return tr('Nhập {}', args: [fieldName.tr()]);
     }
     return null;
   }

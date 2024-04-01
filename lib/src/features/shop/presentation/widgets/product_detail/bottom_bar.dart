@@ -1,8 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
+import 'package:evievm_app/core/utils/overlay_utils.dart';
+import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product/shop_product_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product_detail/shop_product_detail_bloc.dart';
+import 'package:evievm_app/src/shared/widgets/custom_bloc_consumer.dart';
+import 'package:evievm_app/src/shared/widgets/cutstom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -16,7 +21,7 @@ class ShopProductDetailBottomBar extends StatelessWidget {
       elevation: 8,
       margin: EdgeInsets.zero,
       child: SizedBox(
-        height: 60.h,
+        height: 52.h,
         child: const _SaveButton(),
       ),
     );
@@ -30,13 +35,30 @@ class _SaveButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: AppColors.primary,
-      child: TextButton(
-        onPressed: () {
-          shopProductBloc.add(OnSaveProduct());
+      child: CustomBlocConsumer<ShopProductDetailBloc>(
+        listenForStates: const [CreateProductError, CreateProductSuccess, ValidateDataState],
+        listener: (state) {
+          if (state is CreateProductSuccess) {
+            Global.pop();
+            showSnackBar('Tạo sản phẩm thành công', SnackType.success);
+            shopProductBloc.add(OnGetShopProducts());
+            return;
+          }
+
+          if (state is ValidateDataState && state.shouldShowError) {
+            showSnackBar('Vui lòng nhập đầy đủ thông tin', SnackType.fail);
+            return;
+          }
         },
-        child: Text(
-          "Lưu",
-          style: textTheme.bodyLarge?.copyWith(color: AppColors.white),
+        builder: (state) => CustomButton(
+          isLoading: state is LoadingState,
+          onPressed: () {
+            shopProductDetailBloc.add(OnSaveProduct());
+          },
+          child: Text(
+            "Lưu",
+            style: textTheme.bodyLarge?.copyWith(color: AppColors.white),
+          ),
         ),
       ),
     );

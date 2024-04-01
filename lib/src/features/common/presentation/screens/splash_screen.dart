@@ -38,10 +38,10 @@ class _SplashScreenState extends State<SplashScreen> {
       listener: (state) async {
         if (state is CheckLoginSuccess) {
           await delayMilis(delayedShowingMilis);
-          Global.navigator.pushReplacementNamed(
-            ShopProductDetailScreen.router,
-            arguments: ShopProductDetailScreenArgs(),
-          );
+          // Global.navigator.pushReplacementNamed(
+          //   ShopProductDetailScreen.router,
+          //   arguments: ShopProductDetailScreenArgs(),
+          Global.navigator.pushReplacementNamed(MainScreen.router);
         }
       },
       child: Scaffold(

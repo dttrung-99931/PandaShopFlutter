@@ -19,3 +19,16 @@ class InitShopProductSuccess extends LoadingCompleteState {
   @override
   List<Object?> get props => [productDetail];
 }
+
+class CreateProductSuccess extends LoadingCompleteState {
+  final ProductDto product;
+  CreateProductSuccess({
+    required this.product,
+  });
+  @override
+  List<Object?> get props => [product];
+}
+
+class CreateProductError extends ErrorState {
+  CreateProductError(super.failure);
+}

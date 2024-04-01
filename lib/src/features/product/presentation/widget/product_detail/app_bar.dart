@@ -1,18 +1,24 @@
 import 'package:evievm_app/core/utils/app_colors.dart';
-import 'package:evievm_app/core/utils/evm_colors.dart';
+import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_detail_dto.dart';
+import 'package:evievm_app/src/features/product/presentation/screens/product_detail_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/cart_button.dart';
+import 'package:evievm_app/src/features/shop/presentation/screens/shop_product_detail_screen.dart';
 import 'package:evievm_app/src/shared/widgets/back_button.dart';
 import 'package:evievm_app/src/shared/widgets/image_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductDetailAppBar extends StatelessWidget {
   final ProductDetailDto productDetail;
+  final ProductDetailScreenArgs args;
 
-  const ProductDetailAppBar({super.key, required this.productDetail});
+  const ProductDetailAppBar({
+    super.key,
+    required this.productDetail,
+    required this.args,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -42,16 +48,38 @@ class ProductDetailAppBar extends StatelessWidget {
       actionsIconTheme: const IconThemeData(
         color: AppColors.black,
       ),
-      actions: [
-        IconButton(
-          icon: const Icon(
-            Icons.share_outlined,
-            color: AppColors.primary,
-          ),
-          onPressed: () {},
-        ),
-        CartButton(size: 28.r)
-      ],
+      actions: _actionsButtons(),
     );
+  }
+
+  List<Widget> _actionsButtons() {
+    switch (args.viewMode) {
+      case ProductDetailViewMode.shopView:
+        return [
+          IconButton(
+            icon: const Icon(
+              Icons.edit,
+              color: AppColors.primary,
+            ),
+            onPressed: () {
+              Global.pushNamed(
+                ShopProductDetailScreen.router,
+                args: ShopProductDetailScreenArgs(productId: args.productId),
+              );
+            },
+          )
+        ];
+      case ProductDetailViewMode.userView:
+        return [
+          IconButton(
+            icon: const Icon(
+              Icons.share_outlined,
+              color: AppColors.primary,
+            ),
+            onPressed: () {},
+          ),
+          CartButton(size: 28.r)
+        ];
+    }
   }
 }

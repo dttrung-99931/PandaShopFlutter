@@ -61,3 +61,14 @@ class PartDataLoadedState<T> extends BaseState {
   @override
   List<Object?> get props => [data, isLast];
 }
+
+class ValidateDataState extends BaseState {
+  final bool isValid;
+  final bool showErrorMsg;
+  bool get shouldShowError => !isValid && showErrorMsg;
+
+  ValidateDataState(this.isValid, {this.showErrorMsg = false});
+
+  @override
+  List<Object?> get props => [isValid, now.toString(), showErrorMsg];
+}

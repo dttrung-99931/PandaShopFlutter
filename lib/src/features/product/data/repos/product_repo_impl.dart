@@ -1,6 +1,11 @@
+import 'dart:convert';
+
 import 'package:evievm_app/core/failures/failures.dart';
 import 'package:dartz/dartz.dart';
+import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/src/features/product/data/models/request/get_product_cates_request_model.dart';
+import 'package:evievm_app/src/features/product/data/models/request/image/base64_image_request_model.dart';
+import 'package:evievm_app/src/features/product/data/models/request/product/create_product_request_model.dart';
 import 'package:evievm_app/src/features/product/data/models/request/search_products_request_model.dart';
 import 'package:evievm_app/src/features/product/data/models/response/cate_property_template/property_template_model.dart';
 import 'package:evievm_app/src/features/product/data/models/response/product_category_model.dart';
@@ -60,6 +65,27 @@ class ProductRepoImpl extends ProductRepo {
     return handleNetwork(
       onRemote: handleServerErrors(
         datasourceResponse: datasource.getPropertyTemplate(templateId),
+      ),
+    );
+  }
+
+  @override
+  Future<Either<Failure, ShortProductModel>> createProduct(CreateProductRequestModel params) {
+    return handleNetwork(
+      onRemote: handleServerErrors(
+        datasourceResponse: datasource.createProduct(params),
+      ),
+    );
+  }
+
+  @override
+  Future<Either<Failure, dynamic>> createProductImages(ProductImagesParams params) {
+    return handleNetwork(
+      onRemote: handleServerErrors(
+        datasourceResponse: datasource.createProductImages(
+          productId: params.productId,
+          body: jsonEncode(params.images.mapList((element) => element.toJson())),
+        ),
       ),
     );
   }

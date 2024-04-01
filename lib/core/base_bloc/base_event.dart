@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+import 'package:evievm_app/core/utils/time_utils.dart';
 
 import 'base_state.dart';
 
@@ -66,4 +67,28 @@ class OnSelect<T> extends BaseEvent {
 
   @override
   List<Object?> get props => [selected];
+}
+
+class OnSetFormValidateCallBack extends BaseEvent {
+  final bool Function() formValidateCallBack;
+  OnSetFormValidateCallBack(this.formValidateCallBack);
+
+  @override
+  List<Object?> get props => [formValidateCallBack];
+}
+
+class OnUnsetFormValidateCallBack extends BaseEventWithoutProps {}
+
+enum ValidateType {
+  validateEdit,
+  validateCreate,
+}
+
+class OnValidateData extends BaseEvent {
+  final ValidateType type;
+  final bool showErrorMsg;
+  OnValidateData({this.type = ValidateType.validateCreate, this.showErrorMsg = false});
+
+  @override
+  List<Object?> get props => [type, now.toString(), showErrorMsg];
 }

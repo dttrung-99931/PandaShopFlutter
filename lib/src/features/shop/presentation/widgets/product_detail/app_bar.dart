@@ -1,5 +1,6 @@
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
+import 'package:evievm_app/core/utils/validate.dart';
 import 'package:evievm_app/src/features/auth/presentation/widgets/info_input.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_detail_dto.dart';
 import 'package:evievm_app/src/features/shop/domain/dtos/image/image_input_dto.dart';
@@ -42,6 +43,7 @@ class ShopProductDetailAppBar extends StatelessWidget {
         hint: 'Tên sản phẩm',
         titleFlex: 6,
         controller: shopProductDetailBloc.productNameController,
+        validator: (text) => Validate.validateRequired(text, fieldName: 'Tên sản phảm'),
       ),
       actionsIconTheme: const IconThemeData(
         color: AppColors.black,

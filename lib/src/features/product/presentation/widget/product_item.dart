@@ -1,3 +1,4 @@
+import 'package:evievm_app/core/utils/assets/assets.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_dto.dart';
@@ -58,11 +59,13 @@ class ProductItem extends StatelessWidget {
               flex: 5,
               child: AspectRatio(
                 aspectRatio: 3 / 4,
-                child: ExtendedImage.network(
-                  alignment: Alignment.center,
-                  product.thumbnailUrl,
-                  fit: BoxFit.scaleDown,
-                ),
+                child: product.thumbnailUrl != null
+                    ? ExtendedImage.network(
+                        alignment: Alignment.center,
+                        product.thumbnailUrl!,
+                        fit: BoxFit.scaleDown,
+                      )
+                    : Assets.img.noImage.build(),
               ),
             ),
             const SizedBox(height: 12),

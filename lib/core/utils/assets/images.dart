@@ -9,4 +9,5 @@ class _Image {
   final splash = '$_path/splash.png';
   final paymentGateways = '$_path/payment_gateways.svg';
   final creditCardGuide = '$_path/creadit_card_guide.png';
+  final noImage = '$_path/no_image.jpg';
 }

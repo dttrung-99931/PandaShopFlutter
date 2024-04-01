@@ -17,6 +17,7 @@ class CustomBlocBuilder<T extends BaseBloc> extends StatefulWidget {
   final T? bloc;
   // true -> get bloc for BlocBuilder from context instead of getIt or param
   final bool useProvider;
+  final bool buildForErrorState;
 
   CustomBlocBuilder({
     super.key,
@@ -27,6 +28,7 @@ class CustomBlocBuilder<T extends BaseBloc> extends StatefulWidget {
     this.loadingStateType = LoadingState,
     this.isSliver = false,
     this.buildCondition,
+    this.buildForErrorState = true,
     T? bloc,
     this.useProvider = false,
   })  : bloc = useProvider ? null : bloc ?? getIt(),
@@ -60,7 +62,8 @@ class _CustomBlocBuilderState<T extends BaseBloc> extends State<CustomBlocBuilde
       // only build when
       buildWhen: (previous, current) {
         bool isOkType = widget.buildForStates != null
-            ? [widget.loadingStateType, ErrorState, ...widget.buildForStates!].contains(current.runtimeType)
+            ? [widget.loadingStateType, if (widget.buildForErrorState) ErrorState, ...widget.buildForStates!]
+                .contains(current.runtimeType)
             : true;
         bool isOkCondition = widget.buildCondition != null ? widget.buildCondition!(current) : true;
         return isOkType && isOkCondition;
