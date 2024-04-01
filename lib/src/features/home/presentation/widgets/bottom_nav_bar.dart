@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/user/user_bloc.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
@@ -22,7 +23,7 @@ class AppBottomNavBar extends StatelessWidget {
     return CustomBlocBuilder<UserBloc>(
         buildForStates: const [GetUserDetailSuccess],
         builder: (state) {
-          if (state is! GetUserDetailSuccess) {
+          if (state is LoadingState) {
             return emptyWidget;
           }
           // Show main bottom app bar only after GetUserDetailSuccess
