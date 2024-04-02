@@ -6,7 +6,6 @@ import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:evievm_app/src/features/common/presentation/screens/main_screen.dart';
-import 'package:evievm_app/src/features/shop/presentation/screens/shop_product_detail_screen.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

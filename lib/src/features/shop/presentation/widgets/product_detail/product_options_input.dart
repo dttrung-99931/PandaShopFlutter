@@ -9,7 +9,6 @@ import 'package:evievm_app/src/features/auth/presentation/widgets/info_input.dar
 import 'package:evievm_app/src/features/product/domain/dto/cate_property_template/property_value_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_option_input_dto.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_options_input/product_options_input_bloc.dart';
-import 'package:evievm_app/src/shared/widgets/color_container.dart';
 import 'package:evievm_app/src/shared/widgets/common/app_chip.dart';
 import 'package:evievm_app/src/shared/widgets/common/app_icon_button.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';

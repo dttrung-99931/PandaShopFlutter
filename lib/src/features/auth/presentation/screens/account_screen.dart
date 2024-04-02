@@ -141,7 +141,6 @@ class _Items extends StatelessWidget {
                 confirmLabel: 'Xác nhận',
                 onConfirm: () {
                   loginBloc.add(OnLogout());
-                  Global.pop();
                 },
               ),
             );
