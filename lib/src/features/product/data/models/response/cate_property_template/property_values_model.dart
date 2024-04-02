@@ -9,11 +9,13 @@ class PropertyValuesModel {
   final int id;
   @JsonKey(name: 'values')
   final List<String> exampleValues;
+  final int propertyId;
   PropertyValuesModel({
     required this.propertyName,
     required this.isRequired,
     required this.id,
     required this.exampleValues,
+    required this.propertyId,
   });
 
   factory PropertyValuesModel.fromJson(Map<String, dynamic> json) => _$PropertyValuesModelFromJson(json);

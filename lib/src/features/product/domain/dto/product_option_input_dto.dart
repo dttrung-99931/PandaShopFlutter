@@ -36,8 +36,10 @@ class ProductOptionInputDto extends Equatable {
       name: nameTextController.text,
       price: parseDouble(priceController.text),
       properties: propTextControllerMap.entries.mapList(
-        (MapEntry<PropertyValuesDto, TextEditingController> element) =>
-            PropertyValueRequestModel(propertyId: element.key.id, value: element.value.text),
+        (MapEntry<PropertyValuesDto, TextEditingController> element) => PropertyValueRequestModel(
+          propertyId: element.key.propertyId,
+          value: element.value.text,
+        ),
       ),
     );
   }

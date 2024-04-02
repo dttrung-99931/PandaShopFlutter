@@ -7,6 +7,7 @@ import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/base_bloc/bloc_communication.dart';
 import 'package:evievm_app/core/utils/constants.dart';
+import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/core/utils/time_utils.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/address/address_bloc_mixin.dart';
@@ -15,6 +16,7 @@ import 'package:evievm_app/src/features/product/domain/dto/product_detail_dto.da
 import 'package:evievm_app/src/features/product/domain/dto/product_option_input_dto.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_options_input/product_options_input_communicaton.dart';
 import 'package:evievm_app/src/shared/enums/edit_action.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 part 'product_options_input_event.dart';
@@ -29,6 +31,7 @@ class ProductOptionsInputBloc extends BaseBloc with AddressBlocMixin {
     on<OnRemovePropertyForOption>(_onRemovePropertyForOption);
     on<OnAddProductOption>(_onAddProductOption);
     on<OnSelectProductOption>(_onSelect);
+    on<OnInitProductOptions>(_onInitProductOptions);
   }
   @override
   BlocCommunication? get blocCommunication => getIt<ProductOptionsInputCommunication>();
@@ -69,5 +72,33 @@ class ProductOptionsInputBloc extends BaseBloc with AddressBlocMixin {
   FutureOr<void> _onSelect(OnSelectProductOption event, Emitter<BaseState> emit) {
     _selected = event.selected;
     emit(ProductOptionsUpdated(_productOptionInputs, selected: event.selected));
+  }
+
+  FutureOr<void> _onInitProductOptions(OnInitProductOptions event, Emitter<BaseState> emit) async {
+    if (event.options.isEmpty) {
+      return;
+    }
+    _productOptionInputs.assignAll(
+      event.options.mapList(
+        (ProductOptionDto option) => ProductOptionInputDto(
+          id: option.id,
+          propTextControllerMap: Map.fromEntries(
+            option.propertyValues.mapList(
+              (element) => MapEntry(
+                element.toPropertyValues(),
+                TextEditingController(text: element.value),
+              ),
+            ),
+          ),
+        )
+          ..nameTextController.text = option.name ?? ''
+          ..priceController.text = option.price.toString(),
+      ),
+    );
+    _optionProperties.assignAll(
+      event.options.first.propertyValues.mapList((element) => element.toPropertyValues()),
+    );
+    _selected = _productOptionInputs.first;
+    emit(ProductOptionsUpdated(_productOptionInputs, selected: _selected));
   }
 }

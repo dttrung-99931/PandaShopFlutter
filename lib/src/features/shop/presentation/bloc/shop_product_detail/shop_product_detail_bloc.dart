@@ -134,8 +134,10 @@ class ShopProductDetailBloc extends BaseBloc {
 
   @override
   bool validateMoreData() {
-    return productCateLv3?.id != Constatnts.idEmpty &&
-        productAddress?.id != Constatnts.idEmpty &&
+    return productCateLv3 != null &&
+        productCateLv3!.id != Constatnts.idEmpty &&
+        productAddress != null &&
+        productAddress!.id != Constatnts.idEmpty &&
         images?.isNotEmpty == true;
   }
 

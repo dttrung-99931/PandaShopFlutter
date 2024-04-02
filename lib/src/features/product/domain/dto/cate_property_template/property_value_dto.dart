@@ -7,12 +7,14 @@ class PropertyValuesDto extends Equatable {
   final bool isRequired;
   final int id;
   final List<String> exampleValues;
+  final int propertyId;
 
   const PropertyValuesDto({
     required this.propertyName,
     required this.isRequired,
     required this.id,
     required this.exampleValues,
+    required this.propertyId,
   });
 
   factory PropertyValuesDto.fromModel(PropertyValuesModel model) {
@@ -21,6 +23,7 @@ class PropertyValuesDto extends Equatable {
       isRequired: model.isRequired,
       id: model.id,
       exampleValues: model.exampleValues,
+      propertyId: model.propertyId,
     );
   }
 

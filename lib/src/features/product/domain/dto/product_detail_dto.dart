@@ -1,4 +1,5 @@
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
+import 'package:evievm_app/src/features/product/domain/dto/cate_property_template/property_value_dto.dart';
 import 'package:evievm_app/src/shared/dtos/image_dto.dart';
 import 'package:flutter/foundation.dart';
 
@@ -165,6 +166,16 @@ class PropertyValueDto {
 
   static List<PropertyValueDto> fromList(List<PropertyValueModel> models) {
     return models.map((e) => PropertyValueDto.fromModel(e)).toList();
+  }
+
+  PropertyValuesDto toPropertyValues() {
+    return PropertyValuesDto(
+      propertyName: name,
+      isRequired: false, // TODO:
+      id: id,
+      exampleValues: const [], // TODO:
+      propertyId: propertyId,
+    );
   }
 }
 

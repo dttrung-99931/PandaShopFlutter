@@ -51,5 +51,8 @@ class ShopProductDetailCommunication extends BlocCommunication<ShopProductDetail
 
   void addInitEvents(ProductDetailDto? product) {
     inputProductCateBloc.add(OnGetSelectedProductCates(productCategoryId: product?.categoryId));
+    if (product?.options != null) {
+      productOptionsInputBloc.add(OnInitProductOptions(options: product!.options));
+    }
   }
 }

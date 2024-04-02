@@ -52,9 +52,6 @@ class _AddressInputState extends State<AddressInput> {
           if (state is! GetMyAddressesSucess) {
             return emptyWidget;
           }
-          if (!state.data.any((element) => element == AddressDto.add)) {
-            state.data.add(AddressDto.add);
-          }
           return CustomDropdownButton(
             selectedItem: state.selected,
             height: 64.h,

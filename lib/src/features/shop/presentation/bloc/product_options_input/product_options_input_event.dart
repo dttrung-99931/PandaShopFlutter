@@ -24,3 +24,12 @@ class OnAddProductOption extends BaseEventWithoutProps {}
 class OnSelectProductOption extends OnSelect<ProductOptionInputDto> {
   OnSelectProductOption({required super.selected});
 }
+
+class OnInitProductOptions extends BaseEvent {
+  final List<ProductOptionDto> options;
+  OnInitProductOptions({
+    required this.options,
+  });
+  @override
+  List<Object?> get props => [options];
+}
