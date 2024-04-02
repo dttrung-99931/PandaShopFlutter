@@ -10,4 +10,6 @@ class OnInitShopProduct extends BaseEvent {
   List<Object?> get props => [productId];
 }
 
-class OnSaveProduct extends BaseEventWithoutProps {}
+class OnCreateProduct extends BaseEventWithoutProps {}
+
+class OnUpdateProduct extends BaseEventWithoutProps {}

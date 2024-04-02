@@ -53,7 +53,7 @@ class _SaveButton extends StatelessWidget {
         builder: (state) => CustomButton(
           isLoading: state is LoadingState,
           onPressed: () {
-            shopProductDetailBloc.add(OnSaveProduct());
+            shopProductDetailBloc.add(OnCreateProduct());
           },
           child: Text(
             "Lưu",

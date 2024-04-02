@@ -62,7 +62,7 @@ class _CustomDropdownButtonState<T> extends State<CustomDropdownButton<T>> {
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.border),
         borderRadius: BorderRadius.circular(widget.borderRadius),
-        color: widget.backgroundColor,
+        color: widget.enabled ? widget.backgroundColor : AppColors.background,
       ),
       child: DropdownButton<T>(
         value: _selectedItem,

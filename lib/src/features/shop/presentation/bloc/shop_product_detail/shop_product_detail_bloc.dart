@@ -39,7 +39,8 @@ class ShopProductDetailBloc extends BaseBloc {
     this._createImages,
   ) : super(InitialState()) {
     on<OnInitShopProduct>(_onInitShopProduct);
-    on<OnSaveProduct>(_onSaveProduct);
+    on<OnCreateProduct>(_onCreateProduct);
+    on<OnUpdateProduct>(_onUpdateProduct);
   }
   @override
   ShopProductDetailCommunication? get blocCommunication => getIt<ShopProductDetailCommunication>();
@@ -83,7 +84,7 @@ class ShopProductDetailBloc extends BaseBloc {
     blocCommunication!.addInitEvents(result);
   }
 
-  FutureOr<void> _onSaveProduct(OnSaveProduct event, Emitter<BaseState> emit) async {
+  FutureOr<void> _onCreateProduct(OnCreateProduct event, Emitter<BaseState> emit) async {
     if (!handleValidate(emit, showErrMsg: true)) {
       return;
     }
@@ -131,6 +132,8 @@ class ShopProductDetailBloc extends BaseBloc {
       ),
     );
   }
+
+  FutureOr<void> _onUpdateProduct(OnUpdateProduct event, Emitter<BaseState> emit) {}
 
   @override
   bool validateMoreData() {
