@@ -16,6 +16,7 @@ ProductDetailModel _$ProductDetailModelFromJson(Map<String, dynamic> json) => Pr
       json['remainingNum'] as int,
       json['categoryId'] as int,
       json['shopId'] as int,
+      json['addressId'] as int,
       (json['propertyValues'] as List<dynamic>)
           .map((e) => PropertyValueModel.fromJson(e as Map<String, dynamic>))
           .toList(),

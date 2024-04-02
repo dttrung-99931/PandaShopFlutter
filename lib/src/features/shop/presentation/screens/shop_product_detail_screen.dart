@@ -6,7 +6,7 @@ import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
 import 'package:evievm_app/src/features/common/presentation/widget/address/address_input.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product_detail/shop_product_detail_bloc.dart';
-import 'package:evievm_app/src/features/shop/presentation/widgets/product_detail/address_input.dart';
+import 'package:evievm_app/src/features/shop/presentation/widgets/product_detail/product_address_input.dart';
 import 'package:evievm_app/src/features/shop/presentation/widgets/product_detail/app_bar.dart';
 import 'package:evievm_app/src/features/shop/presentation/widgets/product_detail/bottom_bar.dart';
 import 'package:evievm_app/src/features/shop/presentation/widgets/product_detail/name_and_price.dart';

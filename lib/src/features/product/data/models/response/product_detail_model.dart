@@ -13,12 +13,25 @@ class ProductDetailModel {
   final int remainingNum;
   final int categoryId;
   final int shopId;
+  final int addressId;
   final List<ImageModel> images;
   final List<PropertyValueModel> propertyValues;
   final List<ProductOptionModel> options;
 
-  ProductDetailModel(this.id, this.name, this.description, this.images, this.starNum, this.sellingNum,
-      this.remainingNum, this.categoryId, this.shopId, this.propertyValues, this.options);
+  ProductDetailModel(
+    this.id,
+    this.name,
+    this.description,
+    this.images,
+    this.starNum,
+    this.sellingNum,
+    this.remainingNum,
+    this.categoryId,
+    this.shopId,
+    this.addressId,
+    this.propertyValues,
+    this.options,
+  );
 
   factory ProductDetailModel.fromJson(Map<String, dynamic> json) => _$ProductDetailModelFromJson(json);
 }

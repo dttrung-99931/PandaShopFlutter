@@ -13,6 +13,7 @@ class ProductDetailDto {
   final List<PropertyValueDto> propertyValues;
   final List<ProductOptionDto> options;
   final int categoryId;
+  final int addressId;
 
   // Map<propertyName, all values of options of property>
   Map<String, Set<String>> get optionProperties {
@@ -111,6 +112,7 @@ class ProductDetailDto {
     required this.propertyValues,
     required this.options,
     required this.categoryId,
+    required this.addressId,
   });
 
   factory ProductDetailDto.fromModel(ProductDetailModel model) {
@@ -122,6 +124,7 @@ class ProductDetailDto {
       propertyValues: PropertyValueDto.fromList(model.propertyValues),
       options: ProductOptionDto.fromList(model.options),
       categoryId: model.categoryId,
+      addressId: model.addressId,
     );
   }
 

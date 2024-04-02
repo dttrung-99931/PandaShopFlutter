@@ -16,9 +16,15 @@ import '../../../../../shared/widgets/custom_bloc_builder.dart';
 import '../../../../../shared/widgets/spacing_column.dart';
 
 class AddressInput extends StatefulWidget {
-  const AddressInput({super.key, this.title = 'Địa chỉ', required this.onSelected});
+  const AddressInput({
+    super.key,
+    this.title = 'Địa chỉ',
+    required this.onSelected,
+    this.initSelectedId,
+  });
   final String title;
   final Function(AddressDto selected) onSelected;
+  final int? initSelectedId;
 
   @override
   State<AddressInput> createState() => _AddressInputState();
@@ -30,8 +36,16 @@ class _AddressInputState extends State<AddressInput> {
 
   @override
   void initState() {
-    addressBloc.add(OnGetMyAddresses());
+    addressBloc.add(OnGetMyAddresses(selectedId: widget.initSelectedId));
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant AddressInput oldWidget) {
+    if (oldWidget.initSelectedId != widget.initSelectedId) {
+      addressBloc.add(OnGetMyAddresses(selectedId: widget.initSelectedId));
+    }
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
