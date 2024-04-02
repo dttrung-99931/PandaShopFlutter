@@ -39,8 +39,9 @@ class PropertyValueModel {
   final int id;
   final String name;
   final String value;
+  final int propertyId;
 
-  PropertyValueModel(this.id, this.name, this.value);
+  PropertyValueModel(this.id, this.name, this.value, this.propertyId);
 
   factory PropertyValueModel.fromJson(Map<String, dynamic> json) => _$PropertyValueModelFromJson(json);
 }

@@ -40,3 +40,9 @@ class GetProductCatesLv2Successs extends GetProductCatesSelectSucess {
 class GetProductCatesLv3Successs extends GetProductCatesSelectSucess {
   GetProductCatesLv3Successs(super.data, {required super.selectedId});
 }
+
+class GetProductCateByIdSuccess extends FullDataLoadedState<ProductCategoryDto> {
+  GetProductCateByIdSuccess(
+    super.data,
+  );
+}

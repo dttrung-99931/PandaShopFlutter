@@ -1,15 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/time_utils.dart';
 
 import 'base_state.dart';
 
 abstract class BaseEvent extends Equatable {}
 
-class OnGetSelectData<T extends Object> extends BaseEvent {
-  final T? selectedId;
+class OnGetSelectData extends BaseEvent {
+  final int selectedId;
   OnGetSelectData({
-    this.selectedId,
+    this.selectedId = Constatnts.idEmpty,
   });
 
   @override

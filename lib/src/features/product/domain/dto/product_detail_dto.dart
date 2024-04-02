@@ -11,6 +11,7 @@ class ProductDetailDto {
   final List<ImageDto> images;
   final List<PropertyValueDto> propertyValues;
   final List<ProductOptionDto> options;
+  final int categoryId;
 
   // Map<propertyName, all values of options of property>
   Map<String, Set<String>> get optionProperties {
@@ -108,6 +109,7 @@ class ProductDetailDto {
     required this.images,
     required this.propertyValues,
     required this.options,
+    required this.categoryId,
   });
 
   factory ProductDetailDto.fromModel(ProductDetailModel model) {
@@ -118,6 +120,7 @@ class ProductDetailDto {
       images: model.images.map((e) => ImageDto.fromModel(e)).toList(),
       propertyValues: PropertyValueDto.fromList(model.propertyValues),
       options: ProductOptionDto.fromList(model.options),
+      categoryId: model.categoryId,
     );
   }
 
@@ -142,11 +145,22 @@ class PropertyValueDto {
   final int id;
   final String name;
   final String value;
+  final int propertyId;
 
-  PropertyValueDto({required this.id, required this.name, required this.value});
+  PropertyValueDto({
+    required this.id,
+    required this.name,
+    required this.value,
+    required this.propertyId,
+  });
 
   factory PropertyValueDto.fromModel(PropertyValueModel model) {
-    return PropertyValueDto(id: model.id, name: model.name, value: model.value);
+    return PropertyValueDto(
+      id: model.id,
+      name: model.name,
+      value: model.value,
+      propertyId: model.propertyId,
+    );
   }
 
   static List<PropertyValueDto> fromList(List<PropertyValueModel> models) {

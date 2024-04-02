@@ -1,4 +1,5 @@
 import 'package:evievm_app/src/config/di/injection.dart';
+import 'package:evievm_app/src/features/product/domain/dto/product_detail_dto.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_cate_input/product_cate_input_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_options_input/product_options_input_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_properties_input/product_properties_input_bloc.dart';
@@ -25,6 +26,11 @@ class ShopProductDetailCommunication extends BlocCommunication<ShopProductDetail
     listenOtherBloc<ProductPropertiesInputBloc>((state) {
       if (state is ProductPropsUpdated) {
         bloc.propControllerMap = {...state.textControllerMap};
+        if (bloc.productDetail != null) {
+          productPropsInputBloc.add(
+            OnFillInPropertyValues(propValues: bloc.productDetail!.propertyValues),
+          );
+        }
       }
     });
     listenOtherBloc<ProductOptionsInputBloc>((state) {
@@ -41,5 +47,9 @@ class ShopProductDetailCommunication extends BlocCommunication<ShopProductDetail
     getIt.resetLazySingleton<ProductOptionsInputBloc>();
     getIt.resetLazySingleton<ProductCateInputBloc>();
     getIt.resetLazySingleton<ImageInputBloc>();
+  }
+
+  void addInitEvents(ProductDetailDto? product) {
+    inputProductCateBloc.add(OnGetSelectedProductCates(productCategoryId: product?.categoryId));
   }
 }

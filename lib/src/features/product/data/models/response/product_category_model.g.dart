@@ -14,4 +14,5 @@ ProductCategoryModel _$ProductCategoryModelFromJson(
       json['imgLink'] as String?,
       json['templateId'] as int?,
       json['level'] as int,
+      json['parentId'] as int?,
     );

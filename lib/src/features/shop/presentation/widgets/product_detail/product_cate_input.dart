@@ -6,21 +6,8 @@ import 'package:evievm_app/src/shared/widgets/spacing_column.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ProductCateInput extends StatefulWidget {
+class ProductCateInput extends StatelessWidget {
   const ProductCateInput({super.key});
-
-  @override
-  State<ProductCateInput> createState() => _ProductCateInputState();
-}
-
-class _ProductCateInputState extends State<ProductCateInput> {
-  @override
-  void initState() {
-    super.initState();
-    inputProductCateBloc.add(OnGetProductCates(level: 1));
-    inputProductCateBloc.add(OnGetProductCates(level: 2));
-    inputProductCateBloc.add(OnGetProductCates(level: 3));
-  }
 
   @override
   Widget build(BuildContext context) {

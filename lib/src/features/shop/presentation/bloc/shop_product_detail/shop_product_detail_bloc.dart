@@ -42,7 +42,7 @@ class ShopProductDetailBloc extends BaseBloc {
     on<OnSaveProduct>(_onSaveProduct);
   }
   @override
-  BlocCommunication? get blocCommunication => getIt<ShopProductDetailCommunication>();
+  ShopProductDetailCommunication? get blocCommunication => getIt<ShopProductDetailCommunication>();
   final GetProductDetailUseCase _getProductDetail;
   final CreateProductUseCase _createProduct;
   final CreateProductImagesUseCase _createImages;
@@ -80,6 +80,7 @@ class ShopProductDetailBloc extends BaseBloc {
     productDetail = result;
     descController = TextEditingController(text: result?.description ?? '');
     productNameController = TextEditingController(text: result?.name ?? '');
+    blocCommunication!.addInitEvents(result);
   }
 
   FutureOr<void> _onSaveProduct(OnSaveProduct event, Emitter<BaseState> emit) async {

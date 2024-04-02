@@ -8,6 +8,7 @@ class ProductCategoryDto {
     required this.imgLink,
     required this.templateId,
     required this.level,
+    required this.parentId,
   });
   static ProductCategoryDto emptyLv1 = ProductCategoryDto(
     id: Constatnts.idEmpty,
@@ -15,6 +16,7 @@ class ProductCategoryDto {
     imgLink: '',
     templateId: Constatnts.idEmpty,
     level: 1,
+    parentId: Constatnts.idEmpty - 1,
   );
   static ProductCategoryDto emptyLv2 = ProductCategoryDto(
     id: Constatnts.idEmpty,
@@ -22,6 +24,7 @@ class ProductCategoryDto {
     imgLink: '',
     templateId: Constatnts.idEmpty,
     level: 2,
+    parentId: Constatnts.idEmpty - 1,
   );
   static ProductCategoryDto emptyLv3 = ProductCategoryDto(
     id: Constatnts.idEmpty,
@@ -29,6 +32,7 @@ class ProductCategoryDto {
     imgLink: '',
     templateId: Constatnts.idEmpty,
     level: 3,
+    parentId: Constatnts.idEmpty - 1,
   );
 
   final int id;
@@ -36,6 +40,7 @@ class ProductCategoryDto {
   final String? imgLink;
   final int? templateId;
   final int level;
+  final int? parentId;
 
   int? get categoryIdLV1 => level == 1 ? id : null;
   int? get categoryIdLV2 => level == 2 ? id : null;
@@ -48,6 +53,7 @@ class ProductCategoryDto {
       imgLink: model.imgLink,
       templateId: model.templateId,
       level: model.level,
+      parentId: model.parentId,
     );
   }
 }
