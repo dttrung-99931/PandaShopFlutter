@@ -2,6 +2,7 @@ import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
+import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
 import 'package:evievm_app/src/features/common/presentation/widget/address/address_input.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product_detail/shop_product_detail_bloc.dart';
@@ -50,6 +51,12 @@ class _ShopProductDetailScreenState extends ValidationState<ShopProductDetailScr
     shopProductDetailBloc.add(
       OnInitShopProduct(productId: widget.args.productId),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    getIt.resetLazySingleton<ShopProductDetailBloc>();
   }
 
   @override

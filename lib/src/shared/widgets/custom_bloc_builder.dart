@@ -39,11 +39,13 @@ class CustomBlocBuilder<T extends BaseBloc> extends StatefulWidget {
 }
 
 class _CustomBlocBuilderState<T extends BaseBloc> extends State<CustomBlocBuilder<T>> {
-  late T? _bloc = widget.useProvider ? context.read<T>() : widget.bloc;
+  late T? _bloc = _getBloc();
+
+  T? _getBloc() => widget.useProvider ? context.read<T>() : widget.bloc;
 
   @override
   void didUpdateWidget(covariant CustomBlocBuilder<T> oldWidget) {
-    _bloc = widget.bloc;
+    _bloc = _getBloc();
     super.didUpdateWidget(oldWidget);
   }
 
@@ -57,6 +59,9 @@ class _CustomBlocBuilderState<T extends BaseBloc> extends State<CustomBlocBuilde
 
   @override
   Widget build(BuildContext context) {
+    if (_bloc?.isClosed == true) {
+      _bloc = _getBloc();
+    }
     return BlocBuilder<T, BaseState>(
       bloc: _bloc,
       // only build when

@@ -39,4 +39,10 @@ mixin BlocValidationMixin on Bloc<BaseEvent, BaseState> {
   bool validate() {
     return (_formValidateCallBack?.call() ?? true) && validateMoreData();
   }
+
+  @override
+  Future<void> close() {
+    _formValidateCallBack = null;
+    return super.close();
+  }
 }

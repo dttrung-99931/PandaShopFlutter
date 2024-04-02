@@ -9,6 +9,7 @@ import 'package:evievm_app/core/failures/failures.dart';
 import 'package:evievm_app/core/utils/overlay_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 
 typedef EventHandlerType<T> = FutureOr<void> Function(
   T event,
@@ -92,5 +93,12 @@ abstract class BaseBloc extends Bloc<BaseEvent, BaseState> with BlocValidationMi
 
   FutureOr<void> _onSetState(OnSetState<BaseState> event, Emitter<BaseState> emit) {
     emit(event.state);
+  }
+
+  @override
+  void add(BaseEvent event) {
+    if (!isClosed) {
+      super.add(event);
+    }
   }
 }

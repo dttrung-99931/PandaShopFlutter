@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 
 // Communicate with other blocs
@@ -17,6 +18,7 @@ abstract class BlocCommunication<TBloc extends BaseBloc> {
     }));
   }
 
+  @mustCallSuper
   @disposeMethod
   void stopCommunication() {
     for (var sub in _subscriptions) {

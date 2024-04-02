@@ -5,18 +5,19 @@ import 'package:flutter/widgets.dart';
 
 abstract class ValidationState<T extends StatefulWidget, Bloc extends BaseBloc> extends State<T> {
   final formKey = GlobalKey<FormState>();
+  final bloc = getIt<Bloc>();
 
   @override
   void initState() {
     super.initState();
-    getIt<Bloc>().add(OnSetFormValidateCallBack(() {
+    bloc.add(OnSetFormValidateCallBack(() {
       return formKey.currentState?.validate() ?? false;
     }));
   }
 
   @override
   void dispose() {
-    getIt<Bloc>().add(OnUnsetFormValidateCallBack());
+    bloc.add(OnUnsetFormValidateCallBack());
     super.dispose();
   }
 }

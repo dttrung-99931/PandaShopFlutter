@@ -137,4 +137,10 @@ class ShopProductDetailBloc extends BaseBloc {
         productAddress?.id != Constatnts.idEmpty &&
         images?.isNotEmpty == true;
   }
+
+  @disposeMethod
+  @override
+  Future<void> close() {
+    return super.close();
+  }
 }

@@ -283,11 +283,14 @@ Future<_i1.GetIt> $initGetIt(
         get<_i54.GetProductCatesUseCase>(),
         get<_i52.GetHomeBannersUseCase>(),
       ));
-  gh.lazySingleton<_i70.ShopProductDetailBloc>(() => _i70.ShopProductDetailBloc(
-        get<_i55.GetProductDetailUseCase>(),
-        get<_i48.CreateProductUseCase>(),
-        get<_i47.CreateProductImagesUseCase>(),
-      ));
+  gh.lazySingleton<_i70.ShopProductDetailBloc>(
+    () => _i70.ShopProductDetailBloc(
+      get<_i55.GetProductDetailUseCase>(),
+      get<_i48.CreateProductUseCase>(),
+      get<_i47.CreateProductImagesUseCase>(),
+    ),
+    dispose: (i) => i.close(),
+  );
   gh.lazySingleton<_i71.ShoppingCartBloc>(() => _i71.ShoppingCartBloc(
         get<_i60.GetShoppingCartUseCase>(),
         get<_i34.UpsertCartItemUseCase>(),
