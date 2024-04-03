@@ -67,6 +67,7 @@ class _AddressInputState extends State<AddressInput> {
             return emptyWidget;
           }
           return CustomDropdownButton(
+            hintText: 'Chọn địa chỉ',
             selectedItem: state.selected,
             height: 64.h,
             dataItems: state.data,

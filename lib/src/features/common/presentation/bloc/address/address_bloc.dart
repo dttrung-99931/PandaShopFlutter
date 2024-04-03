@@ -49,7 +49,7 @@ class AddressBloc extends BaseBloc {
       usecaseResult: _getMyAddresses.call(noParam),
       emit: emit,
       onSuccess: (List<AddressDto> result) {
-        return GetMyAddressesSucess([AddressDto.add, ...result], selectedId: event.selectedId);
+        return GetMyAddressesSucess([...result, AddressDto.add], selectedId: event.selectedId);
       },
     );
   }

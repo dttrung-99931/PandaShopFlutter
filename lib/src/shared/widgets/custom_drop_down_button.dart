@@ -16,7 +16,6 @@ class CustomDropdownButton<T> extends StatefulWidget {
   final double? height;
   final Color? backgroundColor;
   final T? selectedItem;
-  final bool initSelectedItem;
   final List<T> disableItems;
 
   const CustomDropdownButton({
@@ -31,7 +30,6 @@ class CustomDropdownButton<T> extends StatefulWidget {
     this.height,
     this.backgroundColor,
     this.selectedItem,
-    this.initSelectedItem = true,
     this.disableItems = const [],
   }) : super(key: key);
 
@@ -44,8 +42,7 @@ class _CustomDropdownButtonState<T> extends State<CustomDropdownButton<T>> {
 
   @override
   void initState() {
-    _selectedItem =
-        widget.selectedItem ?? (widget.initSelectedItem && widget.dataItems.isNotEmpty ? widget.dataItems.first : null);
+    _selectedItem = widget.selectedItem;
     super.initState();
   }
 
