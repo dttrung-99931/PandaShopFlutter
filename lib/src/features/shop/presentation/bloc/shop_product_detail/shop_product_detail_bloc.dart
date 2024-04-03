@@ -87,7 +87,6 @@ class ShopProductDetailBloc extends BaseBloc {
     descController = TextEditingController(text: result?.description ?? '');
     productNameController = TextEditingController(text: result?.name ?? '');
     addressId = result?.addressId;
-    blocCommunication!.addInitEvents(result);
   }
 
   FutureOr<void> _onCreateProduct(OnCreateProduct event, Emitter<BaseState> emit) async {

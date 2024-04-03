@@ -5,8 +5,6 @@ import 'package:bloc/src/bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
-import 'package:evievm_app/core/base_bloc/bloc_communication.dart';
-import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/core/utils/time_utils.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
@@ -14,7 +12,6 @@ import 'package:evievm_app/src/features/common/presentation/bloc/address/address
 import 'package:evievm_app/src/features/product/domain/dto/cate_property_template/property_value_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_detail_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_option_input_dto.dart';
-import 'package:evievm_app/src/features/shop/presentation/bloc/product_options_input/product_options_input_communicaton.dart';
 import 'package:evievm_app/src/shared/enums/edit_action.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -33,8 +30,6 @@ class ProductOptionsInputBloc extends BaseBloc with AddressBlocMixin {
     on<OnSelectProductOption>(_onSelect);
     on<OnInitProductOptions>(_onInitProductOptions);
   }
-  @override
-  BlocCommunication? get blocCommunication => getIt<ProductOptionsInputCommunication>();
 
   final List<PropertyValuesDto> _optionProperties = [];
   List<PropertyValuesDto> get optionProperties => List.unmodifiable(_optionProperties);
@@ -46,7 +41,7 @@ class ProductOptionsInputBloc extends BaseBloc with AddressBlocMixin {
     _optionProperties.add(event.prop);
     emit(OptionPropsUpdated(
       _optionProperties,
-      prop: event.prop,
+      propList: [event.prop],
       propAction: EditAction.add,
     ));
   }
@@ -55,7 +50,7 @@ class ProductOptionsInputBloc extends BaseBloc with AddressBlocMixin {
     _optionProperties.removeWhere((element) => event.prop.id == element.id);
     emit(OptionPropsUpdated(
       _optionProperties,
-      prop: event.prop,
+      propList: [event.prop],
       propAction: EditAction.delete,
     ));
   }

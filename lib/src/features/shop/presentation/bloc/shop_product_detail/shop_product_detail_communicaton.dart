@@ -1,3 +1,4 @@
+import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_detail_dto.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_cate_input/product_cate_input_bloc.dart';
@@ -13,29 +14,48 @@ import '../../../../../../../core/base_bloc/bloc_communication.dart';
 class ShopProductDetailCommunication extends BlocCommunication<ShopProductDetailBloc> {
   @override
   void startCommunication(ShopProductDetailBloc bloc) {
+    super.startCommunication(bloc);
     listenOtherBloc<ImageInputBloc>((state) {
       if (state is ImagesInputUpdated) {
         bloc.images = [...state.data];
       }
     });
     listenOtherBloc<ProductCateInputBloc>((state) {
-      if (state is GetProductCatesSelectSucess && state.selected != null && state.selected!.level == 3) {
+      if (state is GetProductCatesSelectSucess &&
+          state.selected != null &&
+          state.selected!.level == 3 &&
+          state.selected?.id != Constatnts.idEmpty) {
         bloc.productCateLv3 = state.selected;
+        if (bloc.isCreateMode) {
+          productPropsInputBloc.add(OnGetPropertyTemplateOfCate(cateId: state.selectedId!));
+        }
       }
     });
     listenOtherBloc<ProductPropertiesInputBloc>((state) {
       if (state is ProductPropsUpdated) {
         bloc.propControllerMap = {...state.textControllerMap};
-        if (bloc.productDetail != null) {
-          productPropsInputBloc.add(
-            OnFillInPropertyValues(propValues: bloc.productDetail!.propertyValues),
-          );
-        }
       }
     });
     listenOtherBloc<ProductOptionsInputBloc>((state) {
       if (state is ProductOptionsUpdated) {
         bloc.optionInputs = [...state.data];
+      }
+      if (state is OptionPropsUpdated) {
+        productPropsInputBloc.add(OnOptionPropsUpdated(optionPropUpdated: state));
+      }
+    });
+    listenSelf((state) {
+      if (state is InitShopProductSuccess) {
+        ProductDetailDto? product = state.productDetail;
+        inputProductCateBloc.add(OnGetSelectedProductCates(productCategoryId: product?.categoryId));
+        if (product?.options != null) {
+          productOptionsInputBloc.add(OnInitProductOptions(options: product!.options));
+        }
+        if (product?.propertyValues.isNotEmpty == true) {
+          productPropsInputBloc.add(
+            OnInitPropertyValues(propValues: product!.propertyValues),
+          );
+        }
       }
     });
   }
@@ -47,12 +67,5 @@ class ShopProductDetailCommunication extends BlocCommunication<ShopProductDetail
     getIt.resetLazySingleton<ProductOptionsInputBloc>();
     getIt.resetLazySingleton<ProductCateInputBloc>();
     getIt.resetLazySingleton<ImageInputBloc>();
-  }
-
-  void addInitEvents(ProductDetailDto? product) {
-    inputProductCateBloc.add(OnGetSelectedProductCates(productCategoryId: product?.categoryId));
-    if (product?.options != null) {
-      productOptionsInputBloc.add(OnInitProductOptions(options: product!.options));
-    }
   }
 }

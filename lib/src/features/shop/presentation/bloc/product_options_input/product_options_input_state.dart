@@ -3,15 +3,15 @@ part of 'product_options_input_bloc.dart';
 
 class OptionPropsUpdated extends BaseState {
   OptionPropsUpdated(
-    this.optionProps, {
+    this.updatedOptionProps, {
     required this.propAction,
-    required this.prop,
+    required this.propList,
   });
-  final List<PropertyValuesDto> optionProps;
+  final List<PropertyValuesDto> updatedOptionProps;
   final EditAction propAction;
-  final PropertyValuesDto prop;
+  final List<PropertyValuesDto> propList;
   @override
-  List<Object?> get props => [optionProps, now.toString()];
+  List<Object?> get props => [updatedOptionProps, now.toString()];
 }
 
 class ProductOptionsUpdated extends FullDataLoadedState<List<ProductOptionInputDto>> {

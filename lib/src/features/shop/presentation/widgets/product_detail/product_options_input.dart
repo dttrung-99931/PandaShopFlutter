@@ -146,7 +146,7 @@ class _ProductOptionProps extends StatelessWidget {
           spacing: 8.w,
           runSpacing: 8.w,
           direction: Axis.horizontal,
-          children: state.optionProps.mapList(
+          children: state.updatedOptionProps.mapList(
             (PropertyValuesDto element) => AppChip(
               label: element.propertyName,
               isOutlineColor: true,

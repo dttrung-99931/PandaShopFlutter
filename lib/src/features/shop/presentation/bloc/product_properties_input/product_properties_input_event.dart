@@ -20,9 +20,9 @@ class OnOptionPropsUpdated extends BaseEvent {
   List<Object?> get props => [optionPropUpdated];
 }
 
-class OnFillInPropertyValues extends BaseEvent {
+class OnInitPropertyValues extends BaseEvent {
   final List<PropertyValueDto> propValues;
-  OnFillInPropertyValues({
+  OnInitPropertyValues({
     required this.propValues,
   });
 
