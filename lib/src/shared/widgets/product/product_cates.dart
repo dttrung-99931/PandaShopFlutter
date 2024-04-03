@@ -30,7 +30,7 @@ class ProductCates extends StatelessWidget {
         // plus 1 col if there's last odd items
         (menuItemsCount % rows != 0 ? 1 : 0);
     return Container(
-      height: _itemHeight * rows + 44.h,
+      height: _height * rows + 24.h,
       color: AppColors.white,
       child: ListView.separated(
         padding: const EdgeInsets.all(8),
@@ -56,7 +56,8 @@ class ProductCates extends StatelessWidget {
   }
 }
 
-double get _itemHeight => 84.h;
+double get _height => 102.r;
+double get _width => 116.r;
 
 class _Item extends StatelessWidget {
   const _Item({
@@ -69,45 +70,46 @@ class _Item extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: _itemHeight,
-      width: 92.w,
-      margin: EdgeInsets.fromLTRB(8.r, 8.r, 8.r, 0.r),
-      padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 2.w),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(2.r),
-        boxShadow: [
-          BoxShadow(
-            // offset: Offset(1, 3),
-            spreadRadius: 1,
-            color: AppColors.primary.withOpacity(.4),
-            blurRadius: 1,
-          )
-        ],
-      ),
-      child: Column(
-        children: [
-          cates[menuIndex].imgLink != null
-              ? ExtendedImage.network(
-                  cates[menuIndex].imgLink!,
-                  fit: BoxFit.contain,
-                  width: 28,
-                  height: 28,
-                )
-              : emptyWidget,
-          // const Spacer(),
-          sh(8.h),
-          Expanded(
-            child: Text(
-              cates[menuIndex].name,
-              style: textTheme.labelMedium?.copyWith(height: 1.3),
-              maxLines: 2,
-              textAlign: TextAlign.center,
+    return IntrinsicHeight(
+      child: Container(
+        width: _width,
+        margin: EdgeInsets.fromLTRB(8.r, 8.r, 8.r, 4.r),
+        padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 2.w),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(2.r),
+          boxShadow: [
+            BoxShadow(
+              // offset: Offset(1, 3),
+              spreadRadius: 1,
+              color: AppColors.primary.withOpacity(.4),
+              blurRadius: 1,
+            )
+          ],
+        ),
+        child: Column(
+          children: [
+            cates[menuIndex].imgLink != null
+                ? ExtendedImage.network(
+                    cates[menuIndex].imgLink!,
+                    fit: BoxFit.contain,
+                    width: 40.r,
+                    height: 40.r,
+                  )
+                : emptyWidget,
+            // const Spacer(),
+            sh(8.h),
+            Expanded(
+              child: Text(
+                cates[menuIndex].name,
+                style: textTheme.labelMedium?.copyWith(height: 1.3),
+                maxLines: 2,
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

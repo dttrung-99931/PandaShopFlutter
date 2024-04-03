@@ -1,8 +1,7 @@
-import 'package:evievm_app/core/utils/dimensions.dart';
 import 'package:evievm_app/global.dart';
-import 'package:evievm_app/src/shared/widgets/color_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../core/utils/app_colors.dart';
 import '../../config/theme.dart';
 
@@ -62,10 +61,9 @@ class SearchBar extends StatelessWidget {
           ),
           isDense: true,
           hintText: hint,
-          hintStyle: textTheme.bodyMedium?.copyWith(fontSize: 15, color: AppColors.black.withOpacity(.5)),
+          hintStyle: textTheme.bodyMedium?.copyWith(color: AppColors.black.withOpacity(.5)),
         ),
-        style: textTheme.bodyMedium
-            ?.copyWith(fontSize: 15, fontWeight: FontWeight.normal, color: AppColors.black.withOpacity(.9)),
+        style: textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.normal, color: AppColors.black.withOpacity(.9)),
         textAlignVertical: TextAlignVertical.center,
       ),
     );
