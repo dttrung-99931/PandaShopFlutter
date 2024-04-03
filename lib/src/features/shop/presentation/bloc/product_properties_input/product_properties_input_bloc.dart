@@ -62,12 +62,12 @@ class ProductPropertiesInputBloc extends BaseBloc with AddressBlocMixin {
     switch (event.optionPropUpdated.propAction) {
       case EditAction.add:
         _productProperties.removeWhere(
-          (PropertyValuesDto prop) =>
-              event.optionPropUpdated.propList.any((PropertyValuesDto element) => prop.id == element.id),
+          (PropertyValuesDto prop) => event.optionPropUpdated.propList
+              .any((PropertyValuesDto element) => prop.propertyId == element.propertyId),
         );
         _textControllerMap.removeWhere(
-          (key, value) => event.optionPropUpdated.propList.any(
-            (PropertyValuesDto element) => key == element.id,
+          (propId, _) => event.optionPropUpdated.propList.any(
+            (PropertyValuesDto element) => propId == element.propertyId,
           ),
         );
         break;
