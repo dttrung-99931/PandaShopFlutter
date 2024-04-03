@@ -14,6 +14,7 @@ import 'package:evievm_app/src/shared/widgets/hidden_on_scroll_bottom_bar.dart';
 import 'package:evievm_app/src/shared/widgets/not_found.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/base_bloc/base_state.dart';
 
@@ -71,6 +72,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       ),
       bottomNavigationBar: widget.args.viewMode == ProductDetailViewMode.userView
           ? HiddenOnSrollWidget(
+              height: 56.h,
               scrollController: _scrollContorller,
               child: const AddCartAndBuyBottomBar(),
             )
