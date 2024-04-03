@@ -6,6 +6,7 @@ import 'package:evievm_app/src/features/shop/presentation/widgets/product_cates.
 import 'package:evievm_app/src/features/shop/presentation/widgets/search_bar_and_banner.dart';
 import 'package:evievm_app/src/features/shop/presentation/widgets/shop_product_slidergrid.dart';
 import 'package:evievm_app/src/shared/widgets/sliver/sliver_session.dart';
+import 'package:evievm_app/src/shared/widgets/sliver/sliver_sized_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -26,8 +27,11 @@ class ShopScreen extends StatelessWidget {
             controller: scrollController,
             slivers: [
               ShopSearchBarAndBanner(size: size),
+              SliverSizedBox(height: 4.h),
               SliverSection(
+                padding: EdgeInsets.all(8.r),
                 title: 'Phân loại sản phẩm shop của bạn',
+                contentPadding: EdgeInsets.zero,
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 8.r),
                   child: const ShopProductCates(),
@@ -35,7 +39,7 @@ class ShopScreen extends StatelessWidget {
               ),
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 16.h),
+                  padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 8.h),
                   child: Text(
                     'Các cản phẩm',
                     style: textTheme.bodyLarge?.copyWith(
@@ -45,7 +49,10 @@ class ShopScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const ShopProductSliverGrid(),
+              SliverPadding(
+                padding: EdgeInsets.all(8.r),
+                sliver: const ShopProductSliverGrid(),
+              ),
             ],
           ),
           floatingActionButton: FloatingActionButton.small(

@@ -104,6 +104,7 @@ class _Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: AppColors.transparent,
       child: InkWell(
         borderRadius: BorderRadius.circular(16.r),
         onTap: onPressed,
@@ -114,11 +115,12 @@ class _Button extends StatelessWidget {
           ),
           margin: EdgeInsets.all(8.r),
           alignment: Alignment.center,
-          height: 24.r,
-          width: 24.r,
+          height: 28.r,
+          width: 28.r,
           child: Text(
             symbol,
-            style: textTheme.titleSmall?.withColor(AppColors.primary).withHeight(1.15),
+            style: textTheme.titleSmall?.withColor(AppColors.primary).withHeight(1.08),
+            textAlign: TextAlign.center,
           ),
         ),
       ),

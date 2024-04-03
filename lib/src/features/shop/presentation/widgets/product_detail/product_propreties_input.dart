@@ -48,7 +48,7 @@ class _ProductPropertiesInputState extends State<ProductPropertiesInput> {
                   children: [
                     Expanded(
                       child: InfoInput(
-                        titleFlex: 8,
+                        titleFlex: 10,
                         title: element.propertyName,
                         controller: state.textControllerMap[element.propertyId],
                         validator: (text) => Validate.validateRequired(text, fieldName: element.propertyName),

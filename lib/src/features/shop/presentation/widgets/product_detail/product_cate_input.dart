@@ -18,7 +18,7 @@ class ProductCateInput extends StatelessWidget {
         spacing: 4.h,
         children: [
           CustomDropdownInput<ProductCategoryDto, int, GetProductCatesLv1Successs, ProductCateInputBloc>(
-            title: 'Chọn nhóm sản phẩm',
+            title: 'Nhóm sản phẩm',
             onSelected: (selected) {
               inputProductCateBloc.add(OnProductCateSelected(selected: selected));
             },
@@ -26,9 +26,11 @@ class ProductCateInput extends StatelessWidget {
               return selected.name;
             },
             enabled: shopProductDetailBloc.productDetail == null,
+            hasRightSpace: false,
+            titleFlex: 9,
           ),
           CustomDropdownInput<ProductCategoryDto, int, GetProductCatesLv2Successs, ProductCateInputBloc>(
-            title: 'Chọn loại sản phẩm',
+            title: 'Loại sản phẩm',
             onSelected: (selected) {
               inputProductCateBloc.add(OnProductCateSelected(selected: selected));
             },
@@ -36,9 +38,10 @@ class ProductCateInput extends StatelessWidget {
               return selected.name;
             },
             enabled: shopProductDetailBloc.productDetail == null,
+            titleFlex: 9,
           ),
           CustomDropdownInput<ProductCategoryDto, int, GetProductCatesLv3Successs, ProductCateInputBloc>(
-            title: 'Chọn phân loại',
+            title: 'Phân loại',
             onSelected: (selected) {
               inputProductCateBloc.add(OnProductCateSelected(selected: selected));
             },
@@ -46,6 +49,7 @@ class ProductCateInput extends StatelessWidget {
               return selected.name;
             },
             enabled: shopProductDetailBloc.productDetail == null,
+            titleFlex: 9,
           ),
         ],
       ),

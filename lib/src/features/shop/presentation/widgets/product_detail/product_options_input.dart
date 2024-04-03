@@ -86,7 +86,7 @@ class _ProductOptionInputsTab extends StatelessWidget {
                   children: [
                     if (state.selected != null)
                       InfoInput(
-                        titleFlex: 6,
+                        titleFlex: 10,
                         title: 'Giá',
                         controller: state.selected!.priceController,
                         inputType: TextInputType.number,
@@ -98,7 +98,7 @@ class _ProductOptionInputsTab extends StatelessWidget {
                     if (state.selected != null)
                       ...state.selected!.propTextControllerMap.entries.mapList(
                         (MapEntry<PropertyValuesDto, TextEditingController> element) => InfoInput(
-                          titleFlex: 6,
+                          titleFlex: 10,
                           title: element.key.propertyName,
                           controller: element.value,
                           paddingRight: 8.w,

@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/constants.dart';
+import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/config/theme.dart';
@@ -94,15 +95,16 @@ class _AddressInputState extends State<AddressInput> {
                         ),
                       ),
                     )
-                  : Padding(
+                  : Container(
                       padding: EdgeInsets.symmetric(horizontal: 12.w),
                       child: SpacingColumn(
-                        spacing: 2.h,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          if (item.name.isNotEmpty)
+                          if (item.name.isNotEmpty) ...[
                             Text(item.name, style: textTheme.bodyLarge.withWeight(FontWeight.bold)),
-                          Text(item.address, style: textTheme.bodyMedium),
+                            2.shb,
+                          ],
+                          Expanded(child: Text(item.address, style: textTheme.bodyMedium)),
                         ],
                       ),
                     );

@@ -57,7 +57,7 @@ class ProductCates extends StatelessWidget {
 }
 
 double get _height => 102.r;
-double get _width => 116.r;
+double get _width => 100.r;
 
 class _Item extends StatelessWidget {
   const _Item({

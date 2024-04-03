@@ -12,7 +12,7 @@ class ProductCategoryDto {
   });
   static ProductCategoryDto emptyLv1 = ProductCategoryDto(
     id: Constatnts.idEmpty,
-    name: '- Chọn nhóm sản phẩm -',
+    name: '- Lựa chọn -',
     imgLink: '',
     templateId: Constatnts.idEmpty,
     level: 1,
@@ -20,7 +20,7 @@ class ProductCategoryDto {
   );
   static ProductCategoryDto emptyLv2 = ProductCategoryDto(
     id: Constatnts.idEmpty,
-    name: '- Chọn loại sản phẩm -',
+    name: '- Lựa chọn -',
     imgLink: '',
     templateId: Constatnts.idEmpty,
     level: 2,
@@ -28,7 +28,7 @@ class ProductCategoryDto {
   );
   static ProductCategoryDto emptyLv3 = ProductCategoryDto(
     id: Constatnts.idEmpty,
-    name: '- Chọn phân loại -',
+    name: '- Lựa chọn -',
     imgLink: '',
     templateId: Constatnts.idEmpty,
     level: 3,

@@ -26,6 +26,7 @@ class CustomDropdownInput<TDto, TId, TState extends ListLoadedState<TDto, TId>, 
     this.paddingRight = 16,
     this.enabled = true,
     required this.nameGetter,
+    this.titleFlex = 10,
     TBloc? bloc,
   }) : bloc = bloc ?? getIt();
 
@@ -41,6 +42,7 @@ class CustomDropdownInput<TDto, TId, TState extends ListLoadedState<TDto, TId>, 
   final Function(TDto selected) onSelected;
   final String Function(TDto selected) nameGetter;
   final TBloc bloc;
+  final int titleFlex;
 
   @override
   State<CustomDropdownInput> createState() => _CustomDropdownInputState<TDto, TId, TState, TBloc>();
@@ -60,7 +62,7 @@ class _CustomDropdownInputState<TDto, TId, TState extends ListLoadedState<TDto, 
   Widget build(BuildContext context) {
     return InfoInput(
       paddingLeft: 0,
-      titleFlex: 10,
+      titleFlex: widget.titleFlex,
       inputWidth: widget.inputWidth,
       hasRightSpace: widget.hasRightSpace,
       showTopDivider: widget.showTopDivider,

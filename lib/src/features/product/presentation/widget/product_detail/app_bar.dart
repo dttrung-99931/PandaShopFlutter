@@ -1,4 +1,5 @@
 import 'package:evievm_app/core/utils/app_colors.dart';
+import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/core/utils/overlay_utils.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/theme.dart';
@@ -99,13 +100,17 @@ class ProductDetailAppBar extends StatelessWidget {
       case ProductDetailViewMode.userView:
         return [
           IconButton(
-            icon: const Icon(
-              Icons.share_outlined,
-              color: AppColors.primary,
+            icon: Transform.translate(
+              offset: Offset(0, -4.h),
+              child: const Icon(
+                Icons.share_outlined,
+                color: AppColors.primary,
+              ),
             ),
             onPressed: () {},
           ),
-          CartButton(size: 32.r)
+          CartButton(size: 34.r),
+          2.swb,
         ];
     }
   }

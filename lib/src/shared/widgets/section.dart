@@ -11,6 +11,7 @@ class Section extends StatelessWidget {
   final String title;
   final EdgeInsets padding;
   final EdgeInsets titlePadding;
+  final EdgeInsets? contentPadding;
   final double spacing;
 
   const Section({
@@ -19,6 +20,7 @@ class Section extends StatelessWidget {
     required this.child,
     this.padding = const EdgeInsets.all(12),
     this.titlePadding = EdgeInsets.zero,
+    this.contentPadding,
     this.spacing = 0,
   });
 
@@ -42,7 +44,7 @@ class Section extends StatelessWidget {
             ),
           ),
           sh(spacing),
-          Padding(padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 8.w), child: child),
+          Padding(padding: contentPadding ?? EdgeInsets.symmetric(vertical: 4.h, horizontal: 8.w), child: child),
         ],
       ),
     );
