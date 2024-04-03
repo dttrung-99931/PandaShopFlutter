@@ -98,4 +98,13 @@ class ProductRepoImpl extends ProductRepo {
       ),
     );
   }
+
+  @override
+  Future<Either<Failure, dynamic>> deleteProduct(int productId) async {
+    return handleNetwork(
+      onRemote: handleServerErrors(
+        datasourceResponse: datasource.deleteProduct(productId),
+      ),
+    );
+  }
 }

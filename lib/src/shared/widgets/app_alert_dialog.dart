@@ -41,6 +41,20 @@ class AppAlertDialog extends StatelessWidget {
   final Color? primaryColor;
   final bool isDoneIcon;
 
+  static Future<T?> show<T extends Object>({
+    required BuildContext context,
+    required String title,
+    required void Function() onConfirm,
+  }) async {
+    return showDialog(
+      context: context,
+      builder: (context) => AppAlertDialog(
+        title: title,
+        onConfirm: onConfirm,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final color = primaryColor ?? (isDoneIcon ? AppColors.green2 : AppColors.red);
