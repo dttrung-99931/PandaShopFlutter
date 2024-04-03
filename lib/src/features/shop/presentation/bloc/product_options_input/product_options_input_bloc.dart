@@ -29,6 +29,7 @@ class ProductOptionsInputBloc extends BaseBloc with AddressBlocMixin {
     on<OnAddProductOption>(_onAddProductOption);
     on<OnSelectProductOption>(_onSelect);
     on<OnInitProductOptions>(_onInitProductOptions);
+    on<OnDeleteProductOption>(_onDeleteProductOption);
   }
 
   final List<PropertyValuesDto> _optionProperties = [];
@@ -36,6 +37,7 @@ class ProductOptionsInputBloc extends BaseBloc with AddressBlocMixin {
 
   final List<ProductOptionInputDto> _productOptionInputs = [];
   ProductOptionInputDto? _selected;
+  int get currentSelectIndex => _selected != null ? _productOptionInputs.indexOf(_selected!) : -1;
 
   FutureOr<void> _onAddPropertyForOption(OnAddPropertyForOption event, Emitter<BaseState> emit) async {
     _optionProperties.add(event.prop);
@@ -58,10 +60,8 @@ class ProductOptionsInputBloc extends BaseBloc with AddressBlocMixin {
   FutureOr<void> _onAddProductOption(OnAddProductOption event, Emitter<BaseState> emit) {
     ProductOptionInputDto option = ProductOptionInputDto.fromProps(_optionProperties);
     _productOptionInputs.add(option);
-    if (_selected == null) {
-      add(OnSelectProductOption(selected: option));
-    }
-    emit(ProductOptionsUpdated(_productOptionInputs, selected: _selected, editNameForSelected: false));
+    _selected = option;
+    emit(ProductOptionsUpdated(_productOptionInputs, selected: option, editNameForSelected: true));
   }
 
   FutureOr<void> _onSelect(OnSelectProductOption event, Emitter<BaseState> emit) {
@@ -98,6 +98,16 @@ class ProductOptionsInputBloc extends BaseBloc with AddressBlocMixin {
       event.options.first.propertyValues.mapList((element) => element.toPropertyValues()),
     );
     _selected = _productOptionInputs.first;
+    emit(ProductOptionsUpdated(_productOptionInputs, selected: _selected, editNameForSelected: false));
+  }
+
+  FutureOr<void> _onDeleteProductOption(OnDeleteProductOption event, Emitter<BaseState> emit) {
+    int newSelectIndex = currentSelectIndex;
+    _productOptionInputs.removeWhere((element) => element.id == event.productOptionId);
+    if (newSelectIndex >= _productOptionInputs.length) {
+      newSelectIndex--;
+    }
+    _selected = newSelectIndex >= 0 ? _productOptionInputs[newSelectIndex] : null;
     emit(ProductOptionsUpdated(_productOptionInputs, selected: _selected, editNameForSelected: false));
   }
 }

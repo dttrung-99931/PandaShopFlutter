@@ -9,6 +9,7 @@ import 'package:evievm_app/src/features/auth/presentation/widgets/info_input.dar
 import 'package:evievm_app/src/features/product/domain/dto/cate_property_template/property_value_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_option_input_dto.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_options_input/product_options_input_bloc.dart';
+import 'package:evievm_app/src/shared/widgets/app_alert_dialog.dart';
 import 'package:evievm_app/src/shared/widgets/common/app_chip.dart';
 import 'package:evievm_app/src/shared/widgets/common/app_icon_button.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
@@ -74,60 +75,61 @@ class _ProductOptionInputsTab extends StatelessWidget {
               editNameForSelected: state.editNameForSelected,
             ),
             sh(8.h),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColors.border),
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-              child: Column(
-                children: [
-                  if (state.selected != null)
-                    InfoInput(
-                      titleFlex: 6,
-                      title: 'Giá',
-                      controller: state.selected!.priceController,
-                      inputType: TextInputType.number,
-                      titleStyle: textTheme.bodyMedium.bold(),
-                      paddingRight: 8.w,
-                      validator: (text) => Validate.validateRequired(text, fieldName: 'Giá'),
-                    ),
-                  if (state.selected != null)
-                    ...state.selected!.propTextControllerMap.entries.mapList(
-                      (MapEntry<PropertyValuesDto, TextEditingController> element) => InfoInput(
+            if (state.selected != null)
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColors.border),
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                child: Column(
+                  children: [
+                    if (state.selected != null)
+                      InfoInput(
                         titleFlex: 6,
-                        title: element.key.propertyName,
-                        controller: element.value,
+                        title: 'Giá',
+                        controller: state.selected!.priceController,
+                        inputType: TextInputType.number,
+                        inputAction: TextInputAction.next,
+                        titleStyle: textTheme.bodyMedium.bold(),
                         paddingRight: 8.w,
+                        validator: (text) => Validate.validateRequired(text, fieldName: 'Giá'),
                       ),
-                    ),
-                  8.shb,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      CustomButton(
-                        elevation: 0,
-                        title: 'Xóa',
-                        backgroundColor: AppColors.red,
-                        height: 40.h,
-                        titleFontSize: 14.sp,
-                        onPressed: () {},
+                    if (state.selected != null)
+                      ...state.selected!.propTextControllerMap.entries.mapList(
+                        (MapEntry<PropertyValuesDto, TextEditingController> element) => InfoInput(
+                          titleFlex: 6,
+                          title: element.key.propertyName,
+                          controller: element.value,
+                          paddingRight: 8.w,
+                          inputAction: TextInputAction.next,
+                        ),
                       ),
-                      8.swb,
-                      CustomButton(
-                        elevation: 0,
-                        title: 'Lưu',
-                        height: 40.h,
-                        titleFontSize: 14.sp,
-                        onPressed: () {},
+                    8.shb,
+                    if (state.selected != null)
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: CustomButton(
+                          elevation: 0,
+                          title: 'Xóa',
+                          backgroundColor: AppColors.red,
+                          height: 40.h,
+                          titleFontSize: 14.sp,
+                          onPressed: () {
+                            AppAlertDialog.show(
+                              context: context,
+                              title: 'Xóa tùy chọn này?',
+                              onConfirm: () {
+                                productOptionsInputBloc.add(OnDeleteProductOption(productOptionId: state.selected!.id));
+                              },
+                            );
+                          },
+                        ),
                       ),
-                      8.swb,
-                    ],
-                  ),
-                  4.shb,
-                ],
-              ),
-            )
+                    12.swb,
+                  ],
+                ),
+              )
           ],
         );
       },
@@ -269,6 +271,7 @@ class _ProductOptionNameState extends State<_ProductOptionName> {
   Widget build(BuildContext context) {
     return IntrinsicWidth(
       child: TextInput(
+        textInputAction: TextInputAction.next,
         focusNode: _focusNode,
         style: textTheme.bodyMedium,
         contentPadding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),

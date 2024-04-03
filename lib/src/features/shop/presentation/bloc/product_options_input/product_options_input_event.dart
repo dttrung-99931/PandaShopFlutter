@@ -21,6 +21,15 @@ class OnRemovePropertyForOption extends BaseEvent {
 
 class OnAddProductOption extends BaseEventWithoutProps {}
 
+class OnDeleteProductOption extends BaseEvent {
+  final int productOptionId;
+  OnDeleteProductOption({
+    required this.productOptionId,
+  });
+  @override
+  List<Object?> get props => [productOptionId];
+}
+
 class OnSelectProductOption extends OnSelect<ProductOptionInputDto> {
   OnSelectProductOption({required super.selected, this.editNameForSelected = false});
   final bool editNameForSelected;
