@@ -1,11 +1,10 @@
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/global.dart';
-import 'package:evievm_app/src/features/home/presentation/widgets/product_cates.dart';
+import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/shop/presentation/screens/shop_product_detail_screen.dart';
 import 'package:evievm_app/src/features/shop/presentation/widgets/product_cates.dart';
 import 'package:evievm_app/src/features/shop/presentation/widgets/search_bar_and_banner.dart';
 import 'package:evievm_app/src/features/shop/presentation/widgets/shop_product_slidergrid.dart';
-import 'package:evievm_app/src/shared/widgets/section.dart';
 import 'package:evievm_app/src/shared/widgets/sliver/sliver_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,9 +33,19 @@ class ShopScreen extends StatelessWidget {
                   child: const ShopProductCates(),
                 ),
               ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 16.h),
+                  child: Text(
+                    'Các cản phẩm',
+                    style: textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.black,
+                    ),
+                  ),
+                ),
+              ),
               const ShopProductSliverGrid(),
-              // TODO: add title. got slider eror
-              // SliverToBoxAdapter(child: Section(title: 'Sản phẩm', child: ShopProductSliverGrid())),
             ],
           ),
           floatingActionButton: FloatingActionButton.small(

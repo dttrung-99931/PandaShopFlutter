@@ -26,7 +26,7 @@ class _ShopProductCatesState extends State<ShopProductCates> {
         if (state is! GetShopProductCatesSucess) {
           return const SizedBox();
         }
-        return ProductCates(cates: state.data.sublist(0, state.data.length ~/ 2));
+        return ProductCates(cates: state.data);
       },
     );
   }

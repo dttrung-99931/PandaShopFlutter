@@ -6,16 +6,14 @@ part of 'get_product_cates_request_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-GetProductCatesRequestModel _$GetProductCatesRequestModelFromJson(
-        Map<String, dynamic> json) =>
+GetProductCatesRequestModel _$GetProductCatesRequestModelFromJson(Map<String, dynamic> json) =>
     GetProductCatesRequestModel(
       level: json['level'] as int?,
       parentId: json['parentId'] as int?,
       q: json['q'] as int?,
     );
 
-Map<String, dynamic> _$GetProductCatesRequestModelToJson(
-    GetProductCatesRequestModel instance) {
+Map<String, dynamic> _$GetProductCatesRequestModelToJson(GetProductCatesRequestModel instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -27,5 +25,6 @@ Map<String, dynamic> _$GetProductCatesRequestModelToJson(
   writeNotNull('level', instance.level);
   writeNotNull('parentId', instance.parentId);
   writeNotNull('q', instance.q);
+  writeNotNull('shopId', instance.shopId);
   return val;
 }

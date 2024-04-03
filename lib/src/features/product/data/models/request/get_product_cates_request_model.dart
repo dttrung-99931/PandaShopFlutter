@@ -8,11 +8,14 @@ class GetProductCatesRequestModel {
   final int? level;
   final int? parentId;
   final int? q;
+  // Filter cate of shop that created products in
+  final int? shopId;
 
   GetProductCatesRequestModel({
     this.level,
     this.parentId,
     this.q,
+    this.shopId,
   });
 
   Map<String, dynamic> toJson() => _$GetProductCatesRequestModelToJson(this);

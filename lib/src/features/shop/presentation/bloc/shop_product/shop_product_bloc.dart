@@ -65,7 +65,7 @@ class ShopProductBloc extends BaseBloc {
 
   FutureOr<void> _onGetHomeProductCates(OnGetShopProductCates event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
-      usecaseResult: _getProductCates.call(GetProductCatesRequestModel(level: 3)),
+      usecaseResult: _getProductCates.call(GetProductCatesRequestModel(shopId: Global.shop?.id)),
       emit: emit,
       onSuccess: (List<ProductCategoryDto> result) {
         return GetShopProductCatesSucess(result);
