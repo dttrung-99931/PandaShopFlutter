@@ -110,7 +110,7 @@ class _MainScreenState extends State<MainScreen> {
       ),
       bottomNavigationBar: HiddenOnSrollWidget(
         scrollController: _scrollController,
-        height: 64.h,
+        height: 72.h,
         child: AppBottomNavBar(selectedIndexNotifier: _currentPageIndex),
       ),
     );

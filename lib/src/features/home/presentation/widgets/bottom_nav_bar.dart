@@ -33,31 +33,32 @@ class AppBottomNavBar extends StatelessWidget {
                   valueListenable: selectedIndexNotifier,
                   builder: (_, __, ___) {
                     return BottomNavigationBar(
-                      items: const [
+                      items: [
                         BottomNavigationBarItem(
                           backgroundColor: Colors.white,
-                          icon: CardIcon(Icons.home_outlined),
+                          icon: CardIcon.zeroPadding(Icons.home_outlined),
                           label: "Trang chủ",
                         ),
                         BottomNavigationBarItem(
                           backgroundColor: Colors.white,
-                          icon: CardIcon(Icons.shop_outlined),
+                          icon: CardIcon.zeroPadding(Icons.shop_outlined),
                           label: "Bán hàng",
                         ),
                         BottomNavigationBarItem(
                           backgroundColor: Colors.white,
-                          icon: CardIcon(Icons.notifications_outlined),
+                          icon: CardIcon.zeroPadding(Icons.notifications_outlined),
                           label: "Thông báo",
                         ),
                         BottomNavigationBarItem(
                           backgroundColor: Colors.white,
-                          icon: CardIcon(Icons.account_box_outlined),
+                          icon: CardIcon.zeroPadding(Icons.account_box_outlined),
                           label: "Tài khoản",
                         ),
                       ],
                       selectedItemColor: AppColors.primary,
                       unselectedItemColor: AppColors.black.withOpacity(0.8),
                       showUnselectedLabels: true,
+                      type: BottomNavigationBarType.fixed,
                       currentIndex: _selectIndex,
                       onTap: (index) {
                         _selectIndex = index;
