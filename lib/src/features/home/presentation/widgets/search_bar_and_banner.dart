@@ -57,7 +57,7 @@ class _SearchBarAndBannerState extends State<SearchBarAndBanner> {
         navigateToScreenOnPressed: SearchProductsScreen.router,
       ),
       actions: [
-        Center(child: CartButton(size: 28.r)),
+        Center(child: CartButton(size: 32.r)),
         sw(12.w),
       ],
     );

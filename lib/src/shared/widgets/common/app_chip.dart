@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
+import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class AppChip extends StatelessWidget {
     double? fontSize,
   })  : selectedColor = selectedColor ?? AppColors.primary.shade400,
         horizontalPadding = horizontalPadding ?? 12.h,
-        verticalPadding = verticalPadding ?? 4.h,
+        verticalPadding = verticalPadding ?? 8.h,
         fontSize = fontSize ?? textTheme.bodyMedium!.fontSize!,
         super(key: key);
   final bool isSelected;
@@ -64,16 +65,19 @@ class AppChip extends StatelessWidget {
         vertical: verticalPadding,
         horizontal: horizontalPadding,
       ),
+      alignment: Alignment.center,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             label,
-            style: textTheme.bodyMedium?.copyWith(
-              fontSize: fontSize,
-              color: textColor,
-              fontWeight: FontWeight.w500,
-            ),
+            style: textTheme.bodyMedium
+                ?.copyWith(
+                  fontSize: fontSize,
+                  color: textColor,
+                  fontWeight: FontWeight.w500,
+                )
+                .withHeight(1.1),
           ),
           sw(4.w),
           if (showClose)

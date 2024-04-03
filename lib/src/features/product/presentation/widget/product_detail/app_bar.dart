@@ -105,7 +105,7 @@ class ProductDetailAppBar extends StatelessWidget {
             ),
             onPressed: () {},
           ),
-          CartButton(size: 28.r)
+          CartButton(size: 32.r)
         ];
     }
   }
