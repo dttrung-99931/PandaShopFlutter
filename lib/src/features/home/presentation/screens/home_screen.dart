@@ -37,23 +37,31 @@ class _HomeScreenState extends State<HomeScreen> {
       top: false,
       child: PageStorage(
         bucket: _pageStorageBucket,
-        child: CustomScrollView(
-          controller: widget.scrollController,
-          slivers: [
-            SearchBarAndBanner(size: size),
-            SliverToBoxAdapter(
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 8.r),
-                child: const HomeProductCates(),
+        child: RefreshIndicator(
+          displacement: 20,
+          onRefresh: () async {
+            homeBloc.add(OnGetHomeBanners());
+            homeBloc.add(OnGetHomeProductCates());
+            homeBloc.add(OnGetHomeProducts());
+          },
+          child: CustomScrollView(
+            controller: widget.scrollController,
+            slivers: [
+              SearchBarAndBanner(size: size),
+              SliverToBoxAdapter(
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 8.r),
+                  child: const HomeProductCates(),
+                ),
               ),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-              sliver: ProductSliverGridBlocBuilder<HomeBloc>(
-                inititalEvent: OnGetHomeProducts(),
+              SliverPadding(
+                padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+                sliver: ProductSliverGridBlocBuilder<HomeBloc>(
+                  inititalEvent: OnGetHomeProducts(),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
