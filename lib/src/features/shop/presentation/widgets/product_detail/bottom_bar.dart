@@ -52,6 +52,7 @@ class _CreateButton extends StatelessWidget {
             Global.pop();
             showSnackBar('Tạo sản phẩm thành công', SnackType.success);
             shopProductBloc.add(OnGetShopProducts());
+            shopProductBloc.add(OnGetShopProductCates());
             return;
           }
 
@@ -90,6 +91,7 @@ class _UpdateButton extends StatelessWidget {
             showSnackBar('Cập nhật phẩm thành công', SnackType.success);
             productDetailBloc.add(OnGetProductDetail(shopProductDetailBloc.productDetail!.id));
             shopProductBloc.add(OnGetShopProducts());
+            shopProductBloc.add(OnGetShopProductCates());
             return;
           }
 

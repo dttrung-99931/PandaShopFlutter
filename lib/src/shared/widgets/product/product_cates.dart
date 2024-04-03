@@ -16,8 +16,12 @@ class ProductCates extends StatelessWidget {
     required this.cates,
   }) : super(key: key);
   int get menuItemsCount => cates.length;
-  final int maxRows = 2;
-  int get rows => cates.length ~/ maxRows >= 1 ? maxRows : max(1, maxRows - 1);
+  final int perRow = 5;
+  int get rows {
+    int r = (cates.length.toDouble() / perRow).ceil();
+    return cates.length ~/ perRow >= 1 ? r : max(1, r);
+  }
+
   final List<ProductCategoryDto> cates;
 
   @override

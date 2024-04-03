@@ -57,15 +57,17 @@ class ProductItem extends StatelessWidget {
             // TODO: hanlde responsive with other image sizes
             Expanded(
               flex: 5,
-              child: AspectRatio(
-                aspectRatio: 3 / 4,
-                child: product.thumbnailUrl != null
-                    ? ExtendedImage.network(
-                        alignment: Alignment.center,
-                        product.thumbnailUrl!,
-                        fit: BoxFit.scaleDown,
-                      )
-                    : Assets.img.noImage.build(),
+              child: Center(
+                child: AspectRatio(
+                  aspectRatio: 3 / 4,
+                  child: product.thumbnailUrl != null
+                      ? ExtendedImage.network(
+                          alignment: Alignment.center,
+                          product.thumbnailUrl!,
+                          fit: BoxFit.scaleDown,
+                        )
+                      : Assets.img.noImage.build(),
+                ),
               ),
             ),
             const SizedBox(height: 12),
