@@ -61,12 +61,16 @@ class ProductOptionsInputBloc extends BaseBloc with AddressBlocMixin {
     if (_selected == null) {
       add(OnSelectProductOption(selected: option));
     }
-    emit(ProductOptionsUpdated(_productOptionInputs, selected: _selected));
+    emit(ProductOptionsUpdated(_productOptionInputs, selected: _selected, editNameForSelected: false));
   }
 
   FutureOr<void> _onSelect(OnSelectProductOption event, Emitter<BaseState> emit) {
     _selected = event.selected;
-    emit(ProductOptionsUpdated(_productOptionInputs, selected: event.selected));
+    emit(ProductOptionsUpdated(
+      _productOptionInputs,
+      selected: event.selected,
+      editNameForSelected: event.editNameForSelected,
+    ));
   }
 
   FutureOr<void> _onInitProductOptions(OnInitProductOptions event, Emitter<BaseState> emit) async {
@@ -94,6 +98,6 @@ class ProductOptionsInputBloc extends BaseBloc with AddressBlocMixin {
       event.options.first.propertyValues.mapList((element) => element.toPropertyValues()),
     );
     _selected = _productOptionInputs.first;
-    emit(ProductOptionsUpdated(_productOptionInputs, selected: _selected));
+    emit(ProductOptionsUpdated(_productOptionInputs, selected: _selected, editNameForSelected: false));
   }
 }

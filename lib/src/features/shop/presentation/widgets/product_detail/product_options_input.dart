@@ -64,11 +64,15 @@ class _ProductOptionInputsTab extends StatelessWidget {
       buildForStates: const [ProductOptionsUpdated],
       builder: (state) {
         if (state is! ProductOptionsUpdated) {
-          return const _ProductOptionsTab(optionInputs: []);
+          return const _ProductOptionsTab(optionInputs: [], editNameForSelected: false);
         }
         return Column(
           children: [
-            _ProductOptionsTab(optionInputs: state.data, selected: state.selected),
+            _ProductOptionsTab(
+              optionInputs: state.data,
+              selected: state.selected,
+              editNameForSelected: state.editNameForSelected,
+            ),
             sh(8.h),
             Container(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
@@ -163,9 +167,14 @@ class _ProductOptionProps extends StatelessWidget {
 }
 
 class _ProductOptionsTab extends StatelessWidget {
-  const _ProductOptionsTab({required this.optionInputs, this.selected});
+  const _ProductOptionsTab({
+    required this.optionInputs,
+    required this.editNameForSelected,
+    this.selected,
+  });
   final List<ProductOptionInputDto> optionInputs;
   final ProductOptionInputDto? selected;
+  final bool editNameForSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -180,6 +189,7 @@ class _ProductOptionsTab extends StatelessWidget {
                 (ProductOptionInputDto element) => _ProductOptionName(
                   isSelected: element == selected,
                   option: element,
+                  initFocusEditName: element == selected && editNameForSelected,
                 ),
               ),
             ),
@@ -208,20 +218,34 @@ class _ProductOptionName extends StatefulWidget {
   const _ProductOptionName({
     required this.option,
     required this.isSelected,
-    this.initEnabledEdit = false,
+    this.initFocusEditName = false,
   });
 
   final ProductOptionInputDto option;
   final bool isSelected;
-  final bool initEnabledEdit;
+  final bool initFocusEditName;
 
   @override
   State<_ProductOptionName> createState() => _ProductOptionNameState();
 }
 
 class _ProductOptionNameState extends State<_ProductOptionName> {
-  late bool _enableEdit = widget.initEnabledEdit;
+  late bool _enableEdit = widget.initFocusEditName;
   late final FocusNode _focusNode = FocusNode(canRequestFocus: _enableEdit)..addListener(_onFocusChanged);
+
+  @override
+  void initState() {
+    _handleInitFocus();
+    super.initState();
+  }
+
+  void _handleInitFocus() {
+    _enableEdit = widget.initFocusEditName;
+    _focusNode.canRequestFocus = widget.initFocusEditName;
+    if (widget.initFocusEditName) {
+      _focusNode.requestFocus();
+    }
+  }
 
   void _onFocusChanged() {
     if (!_focusNode.hasFocus) {
@@ -231,8 +255,7 @@ class _ProductOptionNameState extends State<_ProductOptionName> {
 
   @override
   void didUpdateWidget(covariant _ProductOptionName oldWidget) {
-    _enableEdit = widget.initEnabledEdit;
-    _focusNode.canRequestFocus = _enableEdit;
+    _handleInitFocus();
     super.didUpdateWidget(oldWidget);
   }
 
@@ -262,8 +285,9 @@ class _ProductOptionNameState extends State<_ProductOptionName> {
           size: 20.r,
           // padding: EdgeInsets.zero,
           onPressed: () {
-            _focusNode.canRequestFocus = true;
-            _focusNode.requestFocus();
+            productOptionsInputBloc.add(
+              OnSelectProductOption(selected: widget.option, editNameForSelected: true),
+            );
           },
         ),
       ),

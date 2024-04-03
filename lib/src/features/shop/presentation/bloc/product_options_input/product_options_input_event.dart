@@ -22,7 +22,8 @@ class OnRemovePropertyForOption extends BaseEvent {
 class OnAddProductOption extends BaseEventWithoutProps {}
 
 class OnSelectProductOption extends OnSelect<ProductOptionInputDto> {
-  OnSelectProductOption({required super.selected});
+  OnSelectProductOption({required super.selected, this.editNameForSelected = false});
+  final bool editNameForSelected;
 }
 
 class OnInitProductOptions extends BaseEvent {
