@@ -1,12 +1,11 @@
 import 'package:evievm_app/src/features/auth/presentation/screens/login_screen.dart';
+import 'package:evievm_app/src/features/auth/presentation/screens/sign_up_screen.dart';
 import 'package:evievm_app/src/features/common/presentation/screens/main_screen.dart';
 import 'package:evievm_app/src/features/common/presentation/screens/splash_screen.dart';
-import 'package:evievm_app/src/features/home/presentation/screens/home_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/order_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/product_detail_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/search_products_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/shopping_cart_screen.dart';
-import 'package:evievm_app/src/features/settings/presentation/screens/lab_setting_screen.dart';
 import 'package:evievm_app/src/features/shop/presentation/screens/shop_product_detail_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +21,8 @@ class AppRouter {
       // Auth
       case LoginScreen.router:
         return const LoginScreen();
+      case SignUpScreen.router:
+        return const SignUpScreen();
 
       // Main
       case MainScreen.router:
@@ -42,10 +43,6 @@ class AppRouter {
       // Shop
       case ShopProductDetailScreen.router:
         return ShopProductDetailScreen(settings.arguments as dynamic);
-
-      // Settings
-      case LabSettingScreen.router:
-        return const LabSettingScreen();
     }
     return const SizedBox.shrink();
   }

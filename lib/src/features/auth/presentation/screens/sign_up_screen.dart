@@ -5,29 +5,24 @@ import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
-import 'package:evievm_app/core/utils/overlay_utils.dart';
 import 'package:evievm_app/global.dart';
-import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
-import 'package:evievm_app/src/features/auth/presentation/screens/sign_up_screen.dart';
+import 'package:evievm_app/src/features/auth/presentation/bloc/sign_up/sign_up_bloc.dart';
+import 'package:evievm_app/src/features/auth/presentation/screens/login_screen.dart';
 import 'package:evievm_app/src/features/common/presentation/screens/main_screen.dart';
-import 'package:evievm_app/src/features/home/presentation/screens/home_screen.dart';
-import 'package:evievm_app/src/shared/widgets/common/app_custom_checkbox.dart';
 import 'package:evievm_app/src/shared/widgets/common/triangle_clip_path.dart';
-import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:evievm_app/src/shared/widgets/cutstom_button.dart';
 import 'package:evievm_app/src/shared/widgets/text_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../shared/widgets/custom_bloc_consumer.dart';
-import '../../../../shared/widgets/custom_bloc_listener.dart';
 
-class LoginScreen extends StatelessWidget {
-  static const router = '/login';
+class SignUpScreen extends StatelessWidget {
+  static const router = '/signup';
 
-  const LoginScreen({Key? key}) : super(key: key);
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -56,39 +51,31 @@ class LoginScreen extends StatelessWidget {
                       16.shb,
                       TextInput(
                         hintText: 'Mật khẩu',
-                        controller: loginBloc.passwordEdtController,
+                        controller: signUpBloc.passwordEdtController,
                         passwordChar: true,
                         textInputAction: TextInputAction.done,
                         onSubmited: (_) {
-                          _onLoginButtonPressed();
+                          _onSignUpButtonPressed();
                         },
                       ),
-                      6.shb,
-                      const _RememberPhoneCheckBox(),
-                      4.shb,
-                      const _LoginButton(),
-                      TextButton(
-                        onPressed: commingSoon,
-                        style: TextButton.styleFrom(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 4.h,
-                            horizontal: 12.w,
-                          ),
-                          minimumSize: Size.zero,
-                        ),
-                        child: Text(
-                          tr('Quên mật khẩu'),
-                          style: textTheme.bodyLarge.withColor(
-                            AppColors.primary.shade300,
-                          ),
-                        ),
+                      16.shb,
+                      TextInput(
+                        hintText: 'Nhập lại mật khẩu',
+                        controller: signUpBloc.passwordConfirmEdtController,
+                        passwordChar: true,
+                        textInputAction: TextInputAction.done,
+                        onSubmited: (_) {
+                          _onSignUpButtonPressed();
+                        },
                       ),
+                      20.shb,
+                      const _SignUpButton(),
                       TextButton(
                         onPressed: () {
-                          Global.pushReplacementNamed(SignUpScreen.router);
+                          Global.pushReplacementNamed(LoginScreen.router);
                         },
                         child: Text(
-                          tr('Đăng ký'),
+                          tr('Đăng nhập'),
                           style: textTheme.titleSmall.withColor(
                             AppColors.primary,
                           ),
@@ -106,33 +93,13 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-_onLoginButtonPressed() {
-  loginBloc.add(
-    OnLogin(
-      loginBloc.phoneEdtController.text,
-      loginBloc.passwordEdtController.text,
-      loginBloc.rememberPhoneController.value,
+_onSignUpButtonPressed() {
+  signUpBloc.add(
+    OnSignUp(
+      signUpBloc.phoneEdtController.text,
+      signUpBloc.passwordEdtController.text,
     ),
   );
-}
-
-class _RememberPhoneCheckBox extends StatelessWidget {
-  const _RememberPhoneCheckBox();
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-        animation: loginBloc.rememberPhoneController,
-        builder: (context, widget) {
-          return AppCustomCheckBox(
-            onChanged: (bool isChecked) {
-              loginBloc.rememberPhoneController.value = isChecked;
-            },
-            isChecked: loginBloc.rememberPhoneController.value,
-            title: 'Nhớ số điện thoại',
-          );
-        });
-  }
 }
 
 class _PhoneInput extends StatelessWidget {
@@ -140,31 +107,21 @@ class _PhoneInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomBlocListener<LoginBloc>(
-      initialEvent: OnGetRememberLoginEmail(),
-      listenForStates: const [GetRememberLoginEmailSuccess],
-      listener: (state) {
-        if (state is GetRememberLoginEmailSuccess && (state.email ?? '').isNotEmpty) {
-          loginBloc.phoneEdtController.text = state.email!;
-          loginBloc.rememberPhoneController.value = true;
-        }
-      },
-      child: TextInput(
-        hintText: 'Số điện thoại',
-        controller: loginBloc.phoneEdtController,
-        textInputType: TextInputType.phone,
-        textInputAction: TextInputAction.next,
-      ),
+    return TextInput(
+      hintText: 'Số điện thoại',
+      controller: signUpBloc.phoneEdtController,
+      textInputType: TextInputType.phone,
+      textInputAction: TextInputAction.next,
     );
   }
 }
 
-class _LoginButton extends StatelessWidget {
-  const _LoginButton();
+class _SignUpButton extends StatelessWidget {
+  const _SignUpButton();
 
   @override
   Widget build(BuildContext context) {
-    return CustomBlocConsumer<LoginBloc>(
+    return CustomBlocConsumer<SignUpBloc>(
       handleLoading: false,
       buildForStates: const [LoginSuccess, LoginFailed, ErrorState, LoadingState],
       listenForStates: const [LoginSuccess],
@@ -178,34 +135,10 @@ class _LoginButton extends StatelessWidget {
           width: double.infinity,
           margin: EdgeInsets.symmetric(vertical: 4.h, horizontal: 2.w),
           padding: EdgeInsets.symmetric(vertical: 12.h),
-          onPressed: _onLoginButtonPressed,
-          title: 'Đăng nhập',
+          onPressed: _onSignUpButtonPressed,
+          title: 'Đăng ký',
           elevation: 0,
           isLoading: state is LoadingState,
-        );
-      },
-    );
-  }
-}
-
-class _LoginFailedText extends StatelessWidget {
-  const _LoginFailedText();
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomBlocBuilder<LoginBloc>(
-      // Listen GetRememberLoginEmailSuccess to clear error message if there's error from scanner login screen
-      buildForStates: const [LoginFailed, GetRememberLoginEmailSuccess],
-      handleLoading: false,
-      builder: (state) {
-        return AnimatedSize(
-          duration: 300.milliseconds,
-          child: state is LoginFailed
-              ? Text(
-                  state.failure.displayMsg,
-                  style: textTheme.bodyMedium!.copyWith(color: EVMColors.red),
-                )
-              : const SizedBox.shrink(),
         );
       },
     );
