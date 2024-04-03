@@ -29,6 +29,12 @@ class CreateProductSuccess extends LoadingCompleteState {
   List<Object?> get props => [product];
 }
 
+class UpdateProductSuccess extends LoadingCompleteStateWithoutProps {}
+
 class CreateProductError extends ErrorState {
   CreateProductError(super.failure);
+}
+
+class UpdateProductError extends ErrorState {
+  UpdateProductError(super.failure);
 }

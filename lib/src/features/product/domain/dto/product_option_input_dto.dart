@@ -33,6 +33,7 @@ class ProductOptionInputDto extends Equatable {
 
   ProductOptionRequestModel toRequestModel() {
     return ProductOptionRequestModel(
+      id: id,
       name: nameTextController.text,
       price: parseDouble(priceController.text),
       properties: propTextControllerMap.entries.mapList(

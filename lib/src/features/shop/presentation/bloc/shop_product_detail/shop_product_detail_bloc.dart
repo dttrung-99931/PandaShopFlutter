@@ -21,6 +21,7 @@ import 'package:evievm_app/src/features/product/domain/repos/product_repo.dart';
 import 'package:evievm_app/src/features/product/domain/use_cases/create_product_usecase.dart';
 import 'package:evievm_app/src/features/product/domain/use_cases/get_product_detail_usecase.dart';
 import 'package:evievm_app/src/features/product/domain/use_cases/image/create_product_image_usecase.dart';
+import 'package:evievm_app/src/features/product/domain/use_cases/update_product_usecase.dart';
 import 'package:evievm_app/src/features/shop/domain/dtos/image/image_input_dto.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product_detail/shop_product_detail_communicaton.dart';
 import 'package:flutter/cupertino.dart';
@@ -37,6 +38,7 @@ class ShopProductDetailBloc extends BaseBloc {
     this._getProductDetail,
     this._createProduct,
     this._createImages,
+    this._updateProduct,
   ) : super(InitialState()) {
     on<OnInitShopProduct>(_onInitShopProduct);
     on<OnCreateProduct>(_onCreateProduct);
@@ -47,8 +49,11 @@ class ShopProductDetailBloc extends BaseBloc {
   final GetProductDetailUseCase _getProductDetail;
   final CreateProductUseCase _createProduct;
   final CreateProductImagesUseCase _createImages;
+  final UpdateProductUseCase _updateProduct;
 
   ProductDetailDto? productDetail;
+  bool get isCreateMode => productDetail == null;
+
   List<ImageInputDto>? images;
   ProductCategoryDto? productCateLv3; // Need select cate to lv3
   // Map<property id, text edt controller>
@@ -56,7 +61,7 @@ class ShopProductDetailBloc extends BaseBloc {
   List<ProductOptionInputDto>? optionInputs;
   TextEditingController? descController;
   TextEditingController? productNameController;
-  AddressDto? productAddress;
+  int? addressId;
 
   FutureOr<void> _onInitShopProduct(OnInitShopProduct event, Emitter<BaseState> emit) async {
     if (event.productId != null) {
@@ -81,6 +86,7 @@ class ShopProductDetailBloc extends BaseBloc {
     productDetail = result;
     descController = TextEditingController(text: result?.description ?? '');
     productNameController = TextEditingController(text: result?.name ?? '');
+    addressId = result?.addressId;
     blocCommunication!.addInitEvents(result);
   }
 
@@ -118,29 +124,70 @@ class ShopProductDetailBloc extends BaseBloc {
 
   CreateProductRequestModel _getCreateModel() {
     return CreateProductRequestModel(
+      id: productDetail?.id,
       name: productNameController?.text ?? '',
       description: descController?.text ?? '',
       sellingNum: 1,
       categoryId: productCateLv3!.id,
       shopId: Global.userDetail!.shop!.id,
-      addressId: productAddress!.id, // TODO:
+      addressId: addressId!, // TODO:
       productOptions: (optionInputs ?? []).mapList((ProductOptionInputDto element) => element.toRequestModel()),
       properties: (propControllerMap ?? {}).entries.mapList(
         (MapEntry<int, TextEditingController> element) {
-          return PropertyValueRequestModel(propertyId: element.key, value: element.value.text);
+          return PropertyValueRequestModel(
+            propertyId: element.key,
+            value: element.value.text,
+          );
         },
       ),
     );
   }
 
-  FutureOr<void> _onUpdateProduct(OnUpdateProduct event, Emitter<BaseState> emit) {}
+  FutureOr<void> _onUpdateProduct(OnUpdateProduct event, Emitter<BaseState> emit) async {
+    if (!handleValidate(emit, showErrMsg: true)) {
+      return;
+    }
+
+    dynamic result = await handleUsecaseResult(
+      usecaseResult: _updateProduct.call(_getCreateModel()),
+      emit: emit,
+      onError: (failure) {
+        return UpdateProductError(failure);
+      },
+    );
+
+    if (result is UpdateProductError) {
+      return;
+    }
+
+    if (!isNullOrEmpty(images)) {
+      // TODO: update images
+      // await handleUsecaseResult(
+      //   usecaseResult: _createImages.call(
+      //     ProductImagesParams(
+      //       productId: updated.id,
+      //       images: images!.mapList((ImageInputDto element) => element.toRequestModel()),
+      //     ),
+      //   ),
+      //   emit: emit,
+      //   onSuccess: (dynamic _) {
+      //     return CreateProductSuccess(product: updated);
+      //   },
+      //   onError: (failure) {
+      //     // TODO: create state for image errror
+      //     return CreateProductError(failure);
+      //   },
+      // );
+    }
+    emit(UpdateProductSuccess());
+  }
 
   @override
   bool validateMoreData() {
     return productCateLv3 != null &&
         productCateLv3!.id != Constatnts.idEmpty &&
-        productAddress != null &&
-        productAddress!.id != Constatnts.idEmpty &&
+        addressId != null &&
+        addressId != Constatnts.idEmpty &&
         images?.isNotEmpty == true;
   }
 

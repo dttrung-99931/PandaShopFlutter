@@ -55,7 +55,7 @@ class ProductPropertiesInputBloc extends BaseBloc with AddressBlocMixin {
       onSuccess: (PropertyTemplateDto result) {
         _textControllerMap.clear();
         for (PropertyValuesDto element in result.properties) {
-          _textControllerMap[element.id] = TextEditingController();
+          _textControllerMap[element.propertyId] = TextEditingController();
         }
         _productProperties = result.properties;
         return productPropsUpdated;

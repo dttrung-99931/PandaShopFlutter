@@ -22,6 +22,7 @@ abstract class ProductRepo extends BaseRepo {
   Future<Either<Failure, List<ProductCategoryModel>>> getProductCates(GetProductCatesRequestModel params);
   Future<Either<Failure, PropertyTemplateModel>> getPropertyTemplate(int templateId);
   Future<Either<Failure, ShortProductModel>> createProduct(CreateProductRequestModel params);
+  Future<Either<Failure, dynamic>> updateProduct(CreateProductRequestModel params);
 
   Future<Either<Failure, dynamic>> createProductImages(ProductImagesParams params);
 }

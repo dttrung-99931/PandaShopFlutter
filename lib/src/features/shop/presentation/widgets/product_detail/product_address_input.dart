@@ -23,7 +23,7 @@ class ProductAddressInput extends StatelessWidget {
           title: 'Sản phẩm gửi từ',
           initSelectedId: state.productDetail?.addressId,
           onSelected: (AddressDto selected) {
-            shopProductDetailBloc.productAddress = selected;
+            shopProductDetailBloc.addressId = selected.id;
           },
         );
       },

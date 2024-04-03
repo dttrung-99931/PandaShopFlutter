@@ -44,6 +44,9 @@ abstract class ProductRemoteDatasource {
   @POST('/v1/Products')
   Future<BaseResponse<ShortProductModel>> createProduct(@Body() CreateProductRequestModel params);
 
+  @PUT('/v1/Products/{id}')
+  Future<BaseResponse> updateProduct(@Path() int id, @Body() CreateProductRequestModel params);
+
   @POST('/v1/Products/{productId}/Images')
   Future<BaseResponse<dynamic>> createProductImages({
     @Path() required productId,

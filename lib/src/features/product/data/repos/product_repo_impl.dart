@@ -89,4 +89,13 @@ class ProductRepoImpl extends ProductRepo {
       ),
     );
   }
+
+  @override
+  Future<Either<Failure, dynamic>> updateProduct(CreateProductRequestModel params) {
+    return handleNetwork(
+      onRemote: handleServerErrors(
+        datasourceResponse: datasource.updateProduct(params.id!, params),
+      ),
+    );
+  }
 }
