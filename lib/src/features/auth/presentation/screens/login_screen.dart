@@ -57,7 +57,7 @@ class LoginScreen extends StatelessWidget {
                       TextInput(
                         hintText: 'Mật khẩu',
                         controller: loginBloc.passwordEdtController,
-                        passwordChar: true,
+                        isPasswordInput: true,
                         textInputAction: TextInputAction.done,
                         onSubmited: (_) {
                           _onLoginButtonPressed();
@@ -170,7 +170,7 @@ class _LoginButton extends StatelessWidget {
       listenForStates: const [LoginSuccess],
       listener: (state) {
         if (state is LoginSuccess) {
-          Global.popAllAndPushNamed(MainScreen.router);
+          onLoginSuccess();
         }
       },
       builder: (state) {
@@ -187,6 +187,8 @@ class _LoginButton extends StatelessWidget {
     );
   }
 }
+
+Future<Object?> onLoginSuccess() => Global.popAllAndPushNamed(MainScreen.router);
 
 class _LoginFailedText extends StatelessWidget {
   const _LoginFailedText();

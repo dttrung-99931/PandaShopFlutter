@@ -23,14 +23,14 @@ class Validate {
     if (enableNullOrEmpty && isNullOrEmpty(phone)) {
       return null;
     }
-    if (isNullOrEmpty(phone)) {
-      return 'messages.enter_phone'.tr();
-    }
-    if (!isNumeric(phone ?? '0')) {
-      return 'messages.only_enter_number_temp'.tr(args: ['common.phone_num'.tr()]);
-    }
+    // if (isNullOrEmpty(phone)) {
+    //   return 'messages.enter_phone'.tr();
+    // }
+    // if (!isNumeric(phone ?? '0')) {
+    //   return 'messages.only_enter_number_temp'.tr(args: ['common.phone_num'.tr()]);
+    // }
     if (!isValidPhone(phone!)) {
-      return 'messages.invalid_phone'.tr();
+      return 'SĐT không hợp lệ';
     }
     return null;
   }
@@ -51,11 +51,11 @@ class Validate {
     // }
 
     if (isNullOrEmpty(pass)) {
-      return 'messages.enter_pwd'.tr();
+      return 'Nhập mật khẩu'.tr();
     }
 
     if (!isValidPass(pass!)) {
-      return 'messages.pass_must_have_8-16_chars'.tr();
+      return 'Mật khẩu không hợp lệ'.tr();
     }
 
     return null;
@@ -92,7 +92,8 @@ class Validate {
 
   static String? confirmPass({required String pass, required String confirmPass}) {
     if (pass != confirmPass) {
-      return 'messages.comfirm_pass_not_match'.tr();
+      // return 'messages.comfirm_pass_not_match'.tr();
+      return 'Mật khẩu không khớp';
     }
     return null;
   }

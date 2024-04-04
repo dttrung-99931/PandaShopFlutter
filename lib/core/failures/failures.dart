@@ -25,8 +25,11 @@ class NetworkFailure extends Failure {
 }
 
 class ServerError extends Failure {
-  final Map<String, dynamic>? errors;
-  ServerError([String msg = 'server error', this.errors]) : super(msg);
+  final int statusCode;
+  ServerError({
+    required this.statusCode,
+    String msg = 'server error',
+  }) : super(msg);
 }
 
 // unexpected error

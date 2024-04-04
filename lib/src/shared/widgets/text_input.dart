@@ -16,7 +16,7 @@ class TextInput extends StatefulWidget {
     this.width,
     this.controller,
     Key? key,
-    this.passwordChar = false,
+    this.isPasswordInput = false,
     this.onChange,
     this.onSubmited,
     this.onEditingComplete,
@@ -47,6 +47,7 @@ class TextInput extends StatefulWidget {
     this.autoValidateOnUnfocus = false,
     this.onFocusChanged,
     this.errorFontSize,
+    this.autovalidateMode = AutovalidateMode.disabled,
   }) : super(key: key);
 
   final String? hintText;
@@ -55,7 +56,7 @@ class TextInput extends StatefulWidget {
   final Widget? title;
   final String? Function(String?)? validator;
   final TextEditingController? controller;
-  final bool passwordChar;
+  final bool isPasswordInput;
   final Function(String)? onChange;
   final Function(String)? onSubmited;
   final Function()? onEditingComplete;
@@ -85,6 +86,7 @@ class TextInput extends StatefulWidget {
   final bool autoValidateOnUnfocus;
   final Function(bool isFocused)? onFocusChanged;
   final double? errorFontSize;
+  final AutovalidateMode autovalidateMode;
 
   @override
   State<TextInput> createState() => _TextInputState();
@@ -160,6 +162,39 @@ class _TextInputState extends State<TextInput> {
             keyboardType: widget.textInputType,
             initialValue: widget.initText,
             enabled: widget.enabled,
+            textInputAction: widget.textInputAction,
+            onFieldSubmitted: widget.onSubmited,
+            readOnly: widget.readOnly,
+            onEditingComplete: widget.onEditingComplete,
+            obscureText: widget.isPasswordInput ? isSecure : false,
+            controller: widget.controller,
+            validator: widget.validator,
+            style: widget.style ?? textTheme.bodyLarge,
+            autovalidateMode: widget.autovalidateMode,
+            decoration: InputDecoration(
+              errorStyle: textTheme.labelMedium?.copyWith(
+                color: EVMColors.redDeep,
+                fontSize: widget.errorFontSize,
+                height: 1.0,
+              ),
+              errorBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: EVMColors.blackLight, width: 1),
+                borderRadius: BorderRadius.circular(widget.borderRadius),
+              ),
+              focusedErrorBorder: _focusedBorder,
+              fillColor: widget.enabled ? EVMColors.white : widget.disableColor,
+              filled: true,
+              suffixIconConstraints: const BoxConstraints(maxHeight: 30),
+              suffixIcon: widget.suffixIcon ?? (widget.isPasswordInput ? _pwdEye() : null),
+              isDense: true,
+              hintText: tr(widget.hintText ?? ''),
+              enabledBorder: widget.border ?? _border,
+              focusedBorder: _focusedBorder,
+              border: widget.border ?? _border,
+              disabledBorder: _border,
+              hintStyle: (widget.hintStyle ?? widget.style ?? textTheme.bodyMedium!).withColor(EVMColors.hint),
+              contentPadding: widget.contentPadding ?? EdgeInsets.symmetric(vertical: 14.h, horizontal: 12.w),
+            ),
             onTap: () {
               try {
                 widget.onTap!();
@@ -167,9 +202,6 @@ class _TextInputState extends State<TextInput> {
                 log('$e');
               }
             },
-            textInputAction: widget.textInputAction,
-            onFieldSubmitted: widget.onSubmited,
-            readOnly: widget.readOnly,
             onChanged: (val) {
               if (widget.onChange != null) widget.onChange!(val);
 
@@ -185,35 +217,6 @@ class _TextInputState extends State<TextInput> {
                 });
               }
             },
-            onEditingComplete: widget.onEditingComplete,
-            obscureText: widget.passwordChar ? isSecure : false,
-            controller: widget.controller,
-            validator: widget.validator,
-            style: widget.style ?? textTheme.bodyLarge,
-            decoration: InputDecoration(
-              errorStyle: textTheme.labelMedium?.copyWith(
-                color: EVMColors.redDeep,
-                fontSize: widget.errorFontSize,
-                height: 1.0,
-              ),
-              errorBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: EVMColors.blackLight, width: 1),
-                borderRadius: BorderRadius.circular(widget.borderRadius),
-              ),
-              focusedErrorBorder: _focusedBorder,
-              fillColor: widget.enabled ? EVMColors.white : widget.disableColor,
-              filled: true,
-              suffixIconConstraints: const BoxConstraints(maxHeight: 30),
-              suffixIcon: widget.suffixIcon ?? (widget.passwordChar ? _pwdEye() : null),
-              isDense: true,
-              hintText: tr(widget.hintText ?? ''),
-              enabledBorder: widget.border ?? _border,
-              focusedBorder: _focusedBorder,
-              border: widget.border ?? _border,
-              disabledBorder: _border,
-              hintStyle: (widget.hintStyle ?? widget.style ?? textTheme.bodyMedium!).withColor(EVMColors.hint),
-              contentPadding: widget.contentPadding ?? EdgeInsets.symmetric(vertical: 14.h, horizontal: 12.w),
-            ),
           ),
         ),
       ],

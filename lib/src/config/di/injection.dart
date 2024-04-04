@@ -25,7 +25,7 @@ abstract class AppModuleDepedenciesProvider {
     var baseOptions = BaseOptions(
       baseUrl: AppConfig.config.apiUrl,
       validateStatus: (status) {
-        return [200, 201, 204, 404, 422].contains(status);
+        return [200, 201, 204, 404, 422, 401, 409].contains(status);
       },
     );
     final dio = Dio(baseOptions);
@@ -33,7 +33,7 @@ abstract class AppModuleDepedenciesProvider {
     if (AppConfig.config.logCurl) {
       dio.interceptors.add(CurlLoggerDioInterceptor(printOnSuccess: true));
     }
-    (dio.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate =(HttpClient httpClient) {
+    (dio.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate = (HttpClient httpClient) {
       httpClient.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
       return httpClient;
     };

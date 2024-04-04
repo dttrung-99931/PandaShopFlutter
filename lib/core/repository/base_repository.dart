@@ -34,13 +34,25 @@ abstract class BaseRepo {
         return Right(response.data as T);
       }
 
-      return Left(ServerError('Server error code ${response.statusCode}'.tr())..log());
+      return Left(
+        ServerError(
+          msg: response.message ?? '',
+          statusCode: response.statusCode,
+        )..log(),
+      );
     } on DioError catch (e) {
       loge('$e\n${e.response?.data}');
-      return Left(ServerError(e.response?.data['message'])..log());
+      return Left(
+        ServerError(
+          msg: e.response?.data['message'] ?? '',
+          statusCode: e.response?.statusCode ?? 0,
+        )..log(),
+      );
     } catch (e) {
       loge(e.toString());
-      return Left(UnexpectedFailure()..log(moreDetailedStackTrace: e is TypeError ? e.stackTrace : null));
+      return Left(
+        UnexpectedFailure()..log(moreDetailedStackTrace: e is TypeError ? e.stackTrace : null),
+      );
     }
   }
 }

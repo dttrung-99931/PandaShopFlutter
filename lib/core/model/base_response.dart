@@ -7,8 +7,9 @@ class BaseResponse<T> {
   final T data;
   final bool success;
   final int statusCode;
+  final String? message;
 
-  BaseResponse(this.data, this.success, this.statusCode);
+  BaseResponse(this.data, this.success, this.statusCode, this.message);
 
   factory BaseResponse.fromJson(Map<String, dynamic> json, T Function(Object? json) fromJsonT) =>
       _$BaseResponseFromJson(json, fromJsonT);

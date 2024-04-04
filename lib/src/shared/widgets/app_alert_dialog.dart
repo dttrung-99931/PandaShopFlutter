@@ -45,10 +45,12 @@ class AppAlertDialog extends StatelessWidget {
     required BuildContext context,
     required String title,
     required void Function() onConfirm,
+    bool isPositive = false,
   }) async {
     return showDialog(
       context: context,
       builder: (context) => AppAlertDialog(
+        primaryColor: isPositive ? AppColors.primary : AppColors.red,
         title: title,
         onConfirm: onConfirm,
       ),

@@ -1,12 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
-import 'package:evievm_app/src/shared/widgets/sized_box.dart';
-import 'package:flutter/material.dart';
-
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/src/config/theme.dart';
+import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:evievm_app/src/shared/widgets/text_input.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' as s;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -70,6 +69,8 @@ class InfoInput extends StatelessWidget {
   final bool initialShouldShowError;
   final bool showTitle;
   final bool expandHeight;
+  final dynamic Function(String)? onSubmited;
+  final double verticalPadding;
 
   InfoInput({
     Key? key,
@@ -116,6 +117,8 @@ class InfoInput extends StatelessWidget {
     this.initialShouldShowError = false,
     this.showTitle = true,
     this.expandHeight = false,
+    this.onSubmited,
+    this.verticalPadding = 6,
   })  : trailingSpacing = trailingSpacing ?? 16.w,
         titleStyle = titleStyle ?? textTheme.bodyMedium!,
         assert(
@@ -124,6 +127,30 @@ class InfoInput extends StatelessWidget {
           'Either controller must be != null OR customInput != null',
         ),
         super(key: key);
+
+  factory InfoInput.onlyInput({
+    required String hint,
+    required TextEditingController controller,
+    TextInputType inputType = TextInputType.text,
+    TextInputAction inputAction = TextInputAction.next,
+    String? Function(String? text)? validator,
+    Function(String? text)? onSubmited,
+    bool isPasswordInput = false,
+  }) {
+    return InfoInput(
+      controller: controller,
+      inputType: inputType,
+      inputAction: inputAction,
+      validator: validator,
+      hint: hint,
+      onSubmited: onSubmited,
+      isPasswordInput: isPasswordInput,
+      paddingLeft: 0,
+      paddingRight: 0,
+      showTitle: false,
+      verticalPadding: 2.h,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -139,17 +166,16 @@ class InfoInput extends StatelessWidget {
                 }
               },
               autoValidateOnUnfocus: true,
+              autovalidateMode: autovalidateMode,
               textInputType: inputType,
               textInputAction: inputAction,
               border: OutlineInputBorder(
                 borderSide: BorderSide(color: AppColors.border),
               ),
-              // isPasswordInput: isPasswordInput,
+              isPasswordInput: isPasswordInput,
               hintText: tr(hint),
               controller: controller,
               validator: validator,
-              // autovalidateMode: autovalidateMode,
-              // autoValidateOnUnfocus: true,
               style: textTheme.bodyMedium,
               onChange: (text) {
                 _shouldShowInputErr.value = true;
@@ -159,6 +185,7 @@ class InfoInput extends StatelessWidget {
               height: textInputHeight,
               errorFontSize: showErr ? 14.sp : 0,
               expandHeight: expandHeight,
+              onSubmited: onSubmited,
             );
           },
         );
@@ -196,7 +223,7 @@ class InfoInput extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (showTopDivider) const Divider(color: EVMColors.blackLight),
-        const SizedBox(height: 6),
+        SizedBox(height: verticalPadding),
         Row(
           crossAxisAlignment: columnCrossAxisAlignment,
           children: [
@@ -289,7 +316,7 @@ class InfoInput extends StatelessWidget {
               if (hasRightSpace) const ExpandedSizedBox(flex: 4),
             ],
           ),
-        const SizedBox(height: 6),
+        SizedBox(height: verticalPadding),
         if (showBottomDivider) const Divider(color: EVMColors.blackLight),
       ],
     );

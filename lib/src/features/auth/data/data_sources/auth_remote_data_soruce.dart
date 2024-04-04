@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:evievm_app/core/model/base_response.dart';
 import 'package:evievm_app/src/features/auth/data/models/request/login_request_model.dart';
+import 'package:evievm_app/src/features/auth/data/models/request/sign_up_request_model.dart';
 import 'package:evievm_app/src/features/auth/data/models/response/login_response_model.dart';
+import 'package:evievm_app/src/features/common/data/models/response/user/user_detail_model.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -35,4 +37,7 @@ abstract class AuthRepoteDatasource {
 
   @PUT('/api/profile/me')
   Future<BaseResponse<UserProfileModel?>> updateProfile(@Body() UserProfileRequestModel param);
+
+  @POST('/v1/Users')
+  Future<BaseResponse<UserDetailModel?>> signUp(@Body() SignUpRequestModel params);
 }

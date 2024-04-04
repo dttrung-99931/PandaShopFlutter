@@ -14,6 +14,7 @@ BaseResponse<T> _$BaseResponseFromJson<T>(
       fromJsonT(json['data']),
       json['success'] as bool,
       json['statusCode'] as int,
+      json['message'] as String?,
     );
 
 Map<String, dynamic> _$BaseResponseToJson<T>(
@@ -24,4 +25,5 @@ Map<String, dynamic> _$BaseResponseToJson<T>(
       'data': toJsonT(instance.data),
       'success': instance.success,
       'statusCode': instance.statusCode,
+      'message': instance.message,
     };
