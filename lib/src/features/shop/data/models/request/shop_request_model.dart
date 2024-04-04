@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 part 'shop_request_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ShopRequestModel {
-  final int id;
+  final int? id;
   final String name;
 
   ShopRequestModel({

@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/constants.dart';
-import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/core/utils/overlay_utils.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/theme.dart';
@@ -9,8 +8,8 @@ import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.
 import 'package:evievm_app/src/features/auth/presentation/screens/login_screen.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/user/user_bloc.dart';
 import 'package:evievm_app/src/shared/widgets/app_alert_dialog.dart';
+import 'package:evievm_app/src/shared/widgets/common/unregister_widget.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
-import 'package:evievm_app/src/shared/widgets/cutstom_button.dart';
 import 'package:evievm_app/src/shared/widgets/spacing_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -55,21 +54,7 @@ class _AccountScreenState extends State<AccountScreen> {
                               child: _Items(),
                             ),
                           )
-                        : Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              16.shb,
-                              Text('Bạn chưa đăng nhập!', style: textTheme.bodyLarge),
-                              16.shb,
-                              CustomButton(
-                                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 32),
-                                title: 'Đăng nhập',
-                                onPressed: () {
-                                  Global.pushNamed(LoginScreen.router);
-                                },
-                              ),
-                            ],
-                          );
+                        : const NotLoginWidget();
                   },
                 ),
               ),
@@ -77,6 +62,23 @@ class _AccountScreenState extends State<AccountScreen> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class NotLoginWidget extends StatelessWidget {
+  const NotLoginWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return UnregisterWidget(
+      title: 'Bạn chưa đăng nhập!',
+      buttonTitle: 'Đăng nhập',
+      onPressed: () {
+        Global.pushNamed(LoginScreen.router);
+      },
     );
   }
 }

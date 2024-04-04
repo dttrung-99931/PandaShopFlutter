@@ -81,6 +81,7 @@ class _AddressInputState extends State<AddressInput> {
                           context: context,
                           builder: (context) => AddAddrDialog(
                             onAddSuccessed: (added) {
+                              widget.onSelected.call(added);
                               addressBloc.add(OnGetMyAddresses(selectedId: added.id));
                             },
                           ),

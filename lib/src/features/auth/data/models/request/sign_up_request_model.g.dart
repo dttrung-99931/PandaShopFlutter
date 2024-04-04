@@ -10,7 +10,7 @@ SignUpRequestModel _$SignUpRequestModelFromJson(Map<String, dynamic> json) =>
     SignUpRequestModel(
       name: json['name'] as String,
       phone: json['phone'] as String,
-      email: json['email'] as String? ?? '',
+      email: json['email'] as String? ?? 'example@gmail.com',
       password: json['password'] as String,
     );
 

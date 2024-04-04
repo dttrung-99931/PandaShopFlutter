@@ -6,6 +6,7 @@ part 'user_detail_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class UserDetailModel {
+  final int id;
   final String name;
   final String phone;
   final String email;
@@ -13,6 +14,7 @@ class UserDetailModel {
   final ShopResponseModel? shop;
 
   UserDetailModel(
+    this.id,
     this.name,
     this.phone,
     this.email,

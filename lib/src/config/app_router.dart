@@ -6,6 +6,7 @@ import 'package:evievm_app/src/features/product/presentation/screens/order_scree
 import 'package:evievm_app/src/features/product/presentation/screens/product_detail_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/search_products_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/shopping_cart_screen.dart';
+import 'package:evievm_app/src/features/shop/presentation/screens/register_shop_screen.dart';
 import 'package:evievm_app/src/features/shop/presentation/screens/shop_product_detail_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -43,6 +44,8 @@ class AppRouter {
       // Shop
       case ShopProductDetailScreen.router:
         return ShopProductDetailScreen(settings.arguments as dynamic);
+      case RegisterShopScreen.router:
+        return const RegisterShopScreen();
     }
     return const SizedBox.shrink();
   }

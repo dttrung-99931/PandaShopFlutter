@@ -4,12 +4,14 @@ import 'package:evievm_app/src/features/shop/domain/dtos/shop_response_dto.dart'
 
 class UserDetailDto {
   UserDetailDto({
+    required this.id,
     required this.name,
     required this.phone,
     required this.email,
     required this.cartId,
     required this.shop,
   });
+  final int id;
   final String name;
   final String phone;
   final String email;
@@ -18,6 +20,7 @@ class UserDetailDto {
 
   factory UserDetailDto.fromModel(UserDetailModel model) {
     return UserDetailDto(
+      id: model.id,
       name: model.name,
       phone: model.phone,
       email: model.email,
