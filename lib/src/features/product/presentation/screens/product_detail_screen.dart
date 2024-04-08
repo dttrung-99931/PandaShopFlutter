@@ -1,10 +1,10 @@
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
-import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product_detail_dto.dart';
 import 'package:evievm_app/src/features/product/presentation/bloc/product_detail/product_detail_bloc.dart';
-import 'package:evievm_app/src/features/product/presentation/widget/add_cart_and_buy_bottom_bar.dart';
+import 'package:evievm_app/src/features/product/presentation/widget/product_detail/bottom_bar/bottom_bar.dart';
+import 'package:evievm_app/src/features/product/presentation/widget/product_detail/bottom_bar/user_bottom_bar.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/product_detail/app_bar.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/product_detail/description_and_propreties.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/product_detail/name_and_price.dart';
@@ -13,7 +13,6 @@ import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:evievm_app/src/shared/widgets/hidden_on_scroll_bottom_bar.dart';
 import 'package:evievm_app/src/shared/widgets/not_found.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/base_bloc/base_state.dart';
@@ -70,13 +69,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           builder: _productDetailBuilder,
         ),
       ),
-      bottomNavigationBar: widget.args.viewMode == ProductDetailViewMode.userView
-          ? HiddenOnSrollWidget(
-              height: 56.h,
-              scrollController: _scrollContorller,
-              child: const AddCartAndBuyBottomBar(),
-            )
-          : null,
+      bottomNavigationBar: ProductDetailBottomBar(args: widget.args, scrollController: _scrollContorller),
     );
   }
 

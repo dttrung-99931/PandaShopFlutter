@@ -23,7 +23,7 @@ import 'package:evievm_app/src/shared/widgets/utils/validation_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../product/presentation/widget/add_cart_and_buy_bottom_bar.dart';
+import '../../../product/presentation/widget/product_detail/bottom_bar/user_bottom_bar.dart';
 
 class ShopProductDetailScreenArgs {
   final int? productId; // = null mean create mode. Otherwise edit mode
@@ -104,7 +104,7 @@ class _ShopProductDetailScreenState extends ValidationState<ShopProductDetailScr
       bottomNavigationBar: HiddenOnSrollWidget(
         scrollController: _scrollContorller,
         height: 52.h,
-        child: const ShopProductDetailBottomBar(),
+        child: const ProductCreationBottomBar(),
       ),
     );
   }

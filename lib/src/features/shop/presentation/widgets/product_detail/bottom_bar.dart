@@ -14,8 +14,8 @@ import 'package:evievm_app/src/shared/widgets/cutstom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ShopProductDetailBottomBar extends StatelessWidget {
-  const ShopProductDetailBottomBar({
+class ProductCreationBottomBar extends StatelessWidget {
+  const ProductCreationBottomBar({
     Key? key,
   }) : super(key: key);
   @override

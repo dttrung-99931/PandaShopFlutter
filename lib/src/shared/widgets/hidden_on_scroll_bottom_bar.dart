@@ -5,14 +5,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class HiddenOnSrollWidget extends StatefulWidget {
   final ScrollController scrollController;
   final Widget child;
-  final double height;
+  final double? height;
   final int animateDurationInMinlis;
 
   const HiddenOnSrollWidget({
     required this.scrollController,
     required this.child,
     Key? key,
-    this.height = kBottomNavigationBarHeight,
+    this.height,
     this.animateDurationInMinlis = 500,
   }) : super(key: key);
 
