@@ -8,10 +8,11 @@ import 'package:evievm_app/src/features/product/presentation/widget/product/pric
 import 'package:evievm_app/src/features/shop/domain/dtos/product_inventory/product_inventory_dto.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_inventory/product_inventory_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop/shop_bloc.dart';
+import 'package:evievm_app/src/features/shop/presentation/widgets/product_inventory/product_inventory_addition_dialog.dart';
+import 'package:evievm_app/src/shared/widgets/common/app_floating_action_btn.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:evievm_app/src/shared/widgets/product/image_on_item.dart';
 import 'package:evievm_app/src/shared/widgets/product/product_properties_widget.dart';
-import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:evievm_app/src/shared/widgets/utils/validation_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -44,15 +45,21 @@ class _ProductInventoryScreenState extends ValidationState<ProductInventoryScree
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.background,
-      body: CustomScrollView(
+      body: const CustomScrollView(
         slivers: [
           _AppBar(),
           _Body(),
         ],
       ),
-      // bottomNavigationBar: CartBottomBar(),
+      floatingActionButton: AppFloatingActionButton(
+        title: 'Nhập sản phẩmpphẩmp',
+        color: AppColors.primary,
+        onPressed: () {
+          ProductInventoryAdditionDialog.show(context);
+        },
+      ),
     );
   }
 }
