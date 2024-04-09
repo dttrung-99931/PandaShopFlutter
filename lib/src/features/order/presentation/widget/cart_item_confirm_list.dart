@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:evievm_app/src/features/product/domain/dto/order/order_confirm_dto.dart';
+import 'package:evievm_app/src/features/order/domain/dto/order_confirm_dto.dart';
 import 'package:evievm_app/src/features/shopping_cart/domain/dto/shopping_cart_dto.dart';
 import 'package:evievm_app/src/features/shopping_cart/presentation/widget/cart_item.dart';
 import 'package:flutter/material.dart';

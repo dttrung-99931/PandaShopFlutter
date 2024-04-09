@@ -2,7 +2,7 @@ import 'package:evievm_app/src/features/auth/presentation/screens/login_screen.d
 import 'package:evievm_app/src/features/auth/presentation/screens/sign_up_screen.dart';
 import 'package:evievm_app/src/features/common/presentation/screens/main_screen.dart';
 import 'package:evievm_app/src/features/common/presentation/screens/splash_screen.dart';
-import 'package:evievm_app/src/features/product/presentation/screens/order_screen.dart';
+import 'package:evievm_app/src/features/order/presentation/screens/order_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/product_detail_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/search_products_screen.dart';
 import 'package:evievm_app/src/features/shop/presentation/screens/register_shop_screen.dart';
