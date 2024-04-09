@@ -13,7 +13,6 @@ ProductDetailModel _$ProductDetailModelFromJson(Map<String, dynamic> json) => Pr
       (json['images'] as List<dynamic>).map((e) => ImageModel.fromJson(e as Map<String, dynamic>)).toList(),
       (json['starNum'] as num).toDouble(),
       json['sellingNum'] as int,
-      json['remainingNum'] as int,
       json['categoryId'] as int,
       json['shopId'] as int,
       json['addressId'] as int,

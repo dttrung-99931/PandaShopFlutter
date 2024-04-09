@@ -10,7 +10,6 @@ class ProductDetailModel {
   final String description;
   final double starNum;
   final int sellingNum;
-  final int remainingNum;
   final int categoryId;
   final int shopId;
   final int addressId;
@@ -25,7 +24,6 @@ class ProductDetailModel {
     this.images,
     this.starNum,
     this.sellingNum,
-    this.remainingNum,
     this.categoryId,
     this.shopId,
     this.addressId,
