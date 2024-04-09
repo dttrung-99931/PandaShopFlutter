@@ -4,7 +4,7 @@ import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/product/data/models/request/shopping_cart/upsert_cart_request_model.dart';
-import 'package:evievm_app/src/features/product/domain/dto/shopping_cart_dto.dart';
+import 'package:evievm_app/src/features/product/domain/dto/shopping_cart/shopping_cart_dto.dart';
 import 'package:evievm_app/src/features/product/presentation/bloc/shopping_cart/shopping_cart_bloc.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/shopping_cart/cart_bottom_bar.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_listener.dart';

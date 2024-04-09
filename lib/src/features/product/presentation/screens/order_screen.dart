@@ -6,8 +6,8 @@ import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/address/address_bloc.dart';
-import 'package:evievm_app/src/features/common/presentation/widget/address/address_input.dart';
-import 'package:evievm_app/src/features/product/domain/dto/shopping_cart_dto.dart';
+import 'package:evievm_app/src/features/common/presentation/widgets/address/address_input.dart';
+import 'package:evievm_app/src/features/product/domain/dto/shopping_cart/shopping_cart_dto.dart';
 import 'package:evievm_app/src/features/product/presentation/bloc/order/order_bloc.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/order/cart_item_confirm_list.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/order/order_bottom_bar.dart';
@@ -20,7 +20,7 @@ import 'package:evievm_app/src/shared/widgets/spacing_column.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../common/presentation/widget/address/add_address_dialog.dart';
+import '../../../common/presentation/widgets/address/add_address_dialog.dart';
 
 class OrderScreenArgs {
   final List<CartItemDto> items;

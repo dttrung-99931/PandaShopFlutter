@@ -4,12 +4,12 @@ import 'dart:async';
 import 'package:evievm_app/core/utils/bloc_concurrency.dart';
 import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/core/utils/utils.dart';
-import 'package:evievm_app/src/features/product/data/models/request/get_products_request_model.dart';
-import 'package:evievm_app/src/features/product/data/models/request/search_products_request_model.dart';
-import 'package:evievm_app/src/features/product/domain/dto/product_category_dto.dart';
-import 'package:evievm_app/src/features/product/domain/dto/search_product_dto.dart';
-import 'package:evievm_app/src/features/product/domain/use_cases/get_products_usecase.dart';
-import 'package:evievm_app/src/features/product/domain/use_cases/search_products_usecase.dart';
+import 'package:evievm_app/src/features/product/data/models/request/product/get_products_request_model.dart';
+import 'package:evievm_app/src/features/product/data/models/request/product/search_products_request_model.dart';
+import 'package:evievm_app/src/features/product/domain/dto/product/product_category_dto.dart';
+import 'package:evievm_app/src/features/product/domain/dto/product/search_product_dto.dart';
+import 'package:evievm_app/src/features/product/domain/use_cases/product/get_products_usecase.dart';
+import 'package:evievm_app/src/features/product/domain/use_cases/product/search_products_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -19,7 +19,7 @@ import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 
 import '../../../../home/presentation/bloc/home_bloc.dart';
-import '../../../domain/dto/product_dto.dart';
+import '../../../domain/dto/product/product_dto.dart';
 
 part 'search_products_event.dart';
 part 'search_products_state.dart';

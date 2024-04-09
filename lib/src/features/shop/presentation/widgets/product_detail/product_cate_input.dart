@@ -1,4 +1,4 @@
-import 'package:evievm_app/src/features/product/domain/dto/product_category_dto.dart';
+import 'package:evievm_app/src/features/product/domain/dto/product/product_category_dto.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_cate_input/product_cate_input_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product_detail/shop_product_detail_bloc.dart';
 import 'package:evievm_app/src/shared/widgets/common/custom_dropdown_input.dart';

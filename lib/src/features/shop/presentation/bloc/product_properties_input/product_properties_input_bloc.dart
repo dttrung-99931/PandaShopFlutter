@@ -10,7 +10,7 @@ import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/address/address_bloc_mixin.dart';
 import 'package:evievm_app/src/features/product/domain/dto/cate_property_template/property_template_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/cate_property_template/property_value_dto.dart';
-import 'package:evievm_app/src/features/product/domain/dto/product_detail_dto.dart';
+import 'package:evievm_app/src/features/product/domain/dto/product/product_detail_dto.dart';
 import 'package:evievm_app/src/features/product/domain/use_cases/cate_property_template/get_property_template_of_cate_usecase.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_options_input/product_options_input_bloc.dart';
 import 'package:evievm_app/src/shared/enums/edit_action.dart';

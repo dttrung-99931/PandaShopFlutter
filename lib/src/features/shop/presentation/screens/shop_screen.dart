@@ -5,9 +5,9 @@ import 'package:evievm_app/src/features/auth/presentation/screens/account_screen
 import 'package:evievm_app/src/features/common/presentation/bloc/user/user_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/screens/register_shop_screen.dart';
 import 'package:evievm_app/src/features/shop/presentation/screens/shop_product_detail_screen.dart';
-import 'package:evievm_app/src/features/shop/presentation/widgets/product_cates.dart';
-import 'package:evievm_app/src/features/shop/presentation/widgets/search_bar_and_banner.dart';
-import 'package:evievm_app/src/features/shop/presentation/widgets/shop_product_slidergrid.dart';
+import 'package:evievm_app/src/features/shop/presentation/widgets/shop/product_cates.dart';
+import 'package:evievm_app/src/features/shop/presentation/widgets/shop/search_bar_and_banner.dart';
+import 'package:evievm_app/src/features/shop/presentation/widgets/shop/shop_product_slidergrid.dart';
 import 'package:evievm_app/src/shared/widgets/common/unregister_widget.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:evievm_app/src/shared/widgets/sliver/sliver_session.dart';

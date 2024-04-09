@@ -3,7 +3,7 @@ import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.
 import 'package:evievm_app/src/features/home/presentation/bloc/home_bloc.dart';
 import 'package:evievm_app/src/features/home/presentation/widgets/product_cates.dart';
 import 'package:evievm_app/src/features/product/presentation/bloc/shopping_cart/shopping_cart_bloc.dart';
-import 'package:evievm_app/src/features/product/presentation/widget/product_slidergrid_bloc_builder.dart';
+import 'package:evievm_app/src/features/product/presentation/widget/product/product_slidergrid_bloc_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

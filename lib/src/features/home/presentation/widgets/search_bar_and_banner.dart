@@ -1,7 +1,7 @@
 import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/src/features/home/presentation/bloc/home_bloc.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/search_products_screen.dart';
-import 'package:evievm_app/src/features/product/presentation/widget/cart_button.dart';
+import 'package:evievm_app/src/features/product/presentation/widget/product/cart_button.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:flutter/material.dart';

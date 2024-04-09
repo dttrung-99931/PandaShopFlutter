@@ -1,18 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:evievm_app/core/model/base_response.dart';
-import 'package:evievm_app/src/features/product/data/models/request/get_product_cates_request_model.dart';
-import 'package:evievm_app/src/features/product/data/models/request/get_products_request_model.dart';
+import 'package:evievm_app/src/features/product/data/models/request/product/get_product_cates_request_model.dart';
+import 'package:evievm_app/src/features/product/data/models/request/product/get_products_request_model.dart';
 import 'package:evievm_app/src/features/product/data/models/request/image/base64_image_request_model.dart';
 import 'package:evievm_app/src/features/product/data/models/request/product/create_product_request_model.dart';
 import 'package:evievm_app/src/features/product/data/models/response/cate_property_template/property_template_model.dart';
-import 'package:evievm_app/src/features/product/data/models/response/product_category_model.dart';
-import 'package:evievm_app/src/features/product/data/models/response/short_product_model.dart';
+import 'package:evievm_app/src/features/product/data/models/response/product/product_category_model.dart';
+import 'package:evievm_app/src/features/product/data/models/response/product/short_product_model.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../models/request/search_products_request_model.dart';
-import '../models/response/product_detail_model.dart';
-import '../models/response/search_product_model.dart';
+import '../models/request/product/search_products_request_model.dart';
+import '../models/response/product/product_detail_model.dart';
+import '../models/response/product/search_product_model.dart';
 
 part 'product_remote_data_soruce.g.dart';
 

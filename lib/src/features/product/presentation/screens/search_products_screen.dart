@@ -5,7 +5,7 @@ import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/home/presentation/bloc/home_bloc.dart';
 import 'package:evievm_app/src/features/product/presentation/bloc/search/search_products_bloc.dart';
-import 'package:evievm_app/src/features/product/presentation/widget/product_slidergrid.dart';
+import 'package:evievm_app/src/features/product/presentation/widget/product/product_slidergrid.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_consumer.dart';
 import 'package:evievm_app/src/shared/widgets/search_bar.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
@@ -14,7 +14,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/base_bloc/base_state.dart';
 import '../../../../shared/widgets/back_button.dart';
-import '../widget/search_products_suggestions.dart';
+import '../widget/product/search_products_suggestions.dart';
 
 class SearchProductsScreen extends StatefulWidget {
   static const router = '/searchProducts';

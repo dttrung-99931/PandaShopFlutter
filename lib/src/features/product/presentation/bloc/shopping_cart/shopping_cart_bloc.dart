@@ -8,7 +8,7 @@ import 'package:evievm_app/core/utils/bloc_concurrency.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/product/data/models/request/shopping_cart/upsert_cart_request_model.dart';
-import 'package:evievm_app/src/features/product/domain/dto/shopping_cart_dto.dart';
+import 'package:evievm_app/src/features/product/domain/dto/shopping_cart/shopping_cart_dto.dart';
 import 'package:evievm_app/src/features/product/domain/use_cases/shopping_cart/delete_cart_items_usecase.dart';
 import 'package:evievm_app/src/features/product/domain/use_cases/shopping_cart/get_shopping_cart_usecase.dart';
 import 'package:evievm_app/src/features/product/domain/use_cases/shopping_cart/upsert_cart_item_usecase.dart';

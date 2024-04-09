@@ -1,4 +1,4 @@
-import 'package:evievm_app/src/features/product/data/models/response/product_detail_model.dart';
+import 'package:evievm_app/src/features/product/data/models/response/product/product_detail_model.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 

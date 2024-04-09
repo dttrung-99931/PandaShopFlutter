@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/src/config/theme.dart';
-import 'package:evievm_app/src/features/product/domain/dto/product_category_dto.dart';
+import 'package:evievm_app/src/features/product/domain/dto/product/product_category_dto.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';

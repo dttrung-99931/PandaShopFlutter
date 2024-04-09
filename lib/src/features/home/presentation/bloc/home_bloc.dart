@@ -4,20 +4,20 @@ import 'dart:async';
 import 'package:bloc/src/bloc.dart';
 import 'package:evievm_app/core/use_case/use_case.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
-import 'package:evievm_app/src/features/product/data/models/request/get_product_cates_request_model.dart';
-import 'package:evievm_app/src/features/product/data/models/request/get_products_request_model.dart';
+import 'package:evievm_app/src/features/product/data/models/request/product/get_product_cates_request_model.dart';
+import 'package:evievm_app/src/features/product/data/models/request/product/get_products_request_model.dart';
 import 'package:evievm_app/src/features/product/domain/dto/home/home_banner_dto.dart';
-import 'package:evievm_app/src/features/product/domain/dto/product_category_dto.dart';
+import 'package:evievm_app/src/features/product/domain/dto/product/product_category_dto.dart';
 import 'package:evievm_app/src/features/product/domain/use_cases/get_home_banners_usecase.dart';
-import 'package:evievm_app/src/features/product/domain/use_cases/get_product_cates_usecase.dart';
-import 'package:evievm_app/src/features/product/domain/use_cases/get_products_usecase.dart';
+import 'package:evievm_app/src/features/product/domain/use_cases/product/get_product_cates_usecase.dart';
+import 'package:evievm_app/src/features/product/domain/use_cases/product/get_products_usecase.dart';
 import 'package:injectable/injectable.dart';
 
 import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 
-import '../../../product/domain/dto/product_dto.dart';
+import '../../../product/domain/dto/product/product_dto.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
