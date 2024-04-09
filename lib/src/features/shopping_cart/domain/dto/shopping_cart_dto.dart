@@ -2,11 +2,10 @@
 import 'package:equatable/equatable.dart';
 
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
-import 'package:evievm_app/src/features/product/data/models/response/shopping_cart/shopping_cart_model.dart';
+import 'package:evievm_app/src/features/product/domain/dto/product/product_detail_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_dto.dart';
+import 'package:evievm_app/src/features/shopping_cart/data/models/response/shopping_cart/shopping_cart_model.dart';
 import 'package:evievm_app/src/shared/models/selectable.dart';
-
-import '../product/product_detail_dto.dart';
 
 class ShoppingCartDto extends Equatable {
   const ShoppingCartDto({

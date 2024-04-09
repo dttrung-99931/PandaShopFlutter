@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
-import 'package:evievm_app/src/features/product/domain/dto/shopping_cart/shopping_cart_dto.dart';
+import 'package:evievm_app/src/features/shopping_cart/domain/dto/shopping_cart_dto.dart';
 
 class OrderConfirmDto extends Equatable {
   final List<CartItemDto> items;

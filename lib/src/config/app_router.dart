@@ -5,9 +5,9 @@ import 'package:evievm_app/src/features/common/presentation/screens/splash_scree
 import 'package:evievm_app/src/features/product/presentation/screens/order_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/product_detail_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/search_products_screen.dart';
-import 'package:evievm_app/src/features/product/presentation/screens/shopping_cart_screen.dart';
 import 'package:evievm_app/src/features/shop/presentation/screens/register_shop_screen.dart';
 import 'package:evievm_app/src/features/shop/presentation/screens/shop_product_detail_screen.dart';
+import 'package:evievm_app/src/features/shopping_cart/presentation/screens/shopping_cart_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {

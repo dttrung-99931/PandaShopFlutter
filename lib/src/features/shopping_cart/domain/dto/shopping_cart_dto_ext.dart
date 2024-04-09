@@ -1,5 +1,5 @@
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
-import 'package:evievm_app/src/features/product/domain/dto/shopping_cart/shopping_cart_dto.dart';
+import 'package:evievm_app/src/features/shopping_cart/domain/dto/shopping_cart_dto.dart';
 
 extension ShoppingCartDtoExt on ShoppingCartDto {
   double get totalPriceOfSelected => selected.sumDouble((element) => element.productNum * element.product.price);

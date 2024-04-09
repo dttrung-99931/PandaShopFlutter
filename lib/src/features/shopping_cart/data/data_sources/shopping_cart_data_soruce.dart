@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:evievm_app/core/model/base_response.dart';
-import 'package:evievm_app/src/features/product/data/models/request/shopping_cart/upsert_cart_request_model.dart';
-import 'package:evievm_app/src/features/product/data/models/response/shopping_cart/shopping_cart_model.dart';
+import 'package:evievm_app/src/features/shopping_cart/data/models/request/shopping_cart/upsert_cart_request_model.dart';
+import 'package:evievm_app/src/features/shopping_cart/data/models/response/shopping_cart/shopping_cart_model.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 

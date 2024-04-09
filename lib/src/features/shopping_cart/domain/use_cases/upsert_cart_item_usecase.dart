@@ -3,8 +3,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:evievm_app/core/failures/failures.dart';
 import 'package:evievm_app/core/use_case/use_case.dart';
-import 'package:evievm_app/src/features/product/data/models/request/shopping_cart/upsert_cart_request_model.dart';
-import 'package:evievm_app/src/features/product/domain/repos/shopping_cart_repo.dart';
+import 'package:evievm_app/src/features/shopping_cart/data/models/request/shopping_cart/upsert_cart_request_model.dart';
+import 'package:evievm_app/src/features/shopping_cart/domain/repos/shopping_cart_repo.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
