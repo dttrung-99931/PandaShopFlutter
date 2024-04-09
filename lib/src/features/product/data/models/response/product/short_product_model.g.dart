@@ -6,7 +6,8 @@ part of 'short_product_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ShortProductModel _$ShortProductModelFromJson(Map<String, dynamic> json) => ShortProductModel(
+ShortProductModel _$ShortProductModelFromJson(Map<String, dynamic> json) =>
+    ShortProductModel(
       json['id'] as int,
       json['name'] as String,
       (json['firstPrice'] as num).toDouble(),
@@ -17,7 +18,8 @@ ShortProductModel _$ShortProductModelFromJson(Map<String, dynamic> json) => Shor
       (json['starNum'] as num).toDouble(),
     );
 
-Map<String, dynamic> _$ShortProductModelToJson(ShortProductModel instance) => <String, dynamic>{
+Map<String, dynamic> _$ShortProductModelToJson(ShortProductModel instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'firstPrice': instance.firstPrice,

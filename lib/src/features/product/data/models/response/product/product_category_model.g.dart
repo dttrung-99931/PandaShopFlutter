@@ -6,7 +6,9 @@ part of 'product_category_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ProductCategoryModel _$ProductCategoryModelFromJson(Map<String, dynamic> json) => ProductCategoryModel(
+ProductCategoryModel _$ProductCategoryModelFromJson(
+        Map<String, dynamic> json) =>
+    ProductCategoryModel(
       json['id'] as int,
       json['name'] as String,
       json['imgLink'] as String?,

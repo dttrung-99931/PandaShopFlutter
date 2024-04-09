@@ -1,19 +1,17 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/utils/app_colors.dart';
-import 'package:evievm_app/core/utils/assets/assets.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/theme.dart';
-import 'package:evievm_app/src/features/shopping_cart/domain/dto/shopping_cart_dto.dart';
-import 'package:evievm_app/src/features/shopping_cart/presentation/bloc/shopping_cart_bloc.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/product_detail_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/product/price_widget.dart';
-import 'package:evievm_app/src/features/shopping_cart/presentation/widget/cart_item_properties.dart';
+import 'package:evievm_app/src/features/shopping_cart/domain/dto/shopping_cart_dto.dart';
+import 'package:evievm_app/src/features/shopping_cart/presentation/bloc/shopping_cart_bloc.dart';
+import 'package:evievm_app/src/shared/widgets/product/product_properties_widget.dart';
 import 'package:evievm_app/src/features/shopping_cart/presentation/widget/product_counter.dart';
-import 'package:evievm_app/src/shared/widgets/color_container.dart';
 import 'package:evievm_app/src/shared/widgets/custom_statefull_checkbox.dart';
+import 'package:evievm_app/src/shared/widgets/product/image_on_item.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -65,15 +63,7 @@ class CartItem extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 4.w),
             child: IntrinsicHeight(
-              child: item.product.thumbnailUrl != null
-                  ? ExtendedImage.network(
-                      item.product.thumbnailUrl!,
-                      // width: 72.r,
-                      height: 72.r,
-                      fit: BoxFit.cover,
-                      alignment: Alignment.center,
-                    )
-                  : Assets.img.noImage.build(),
+              child: ImageOnItem(imageLink: item.product.thumbnailUrl),
             ),
           ),
           sw(8.w),
@@ -110,7 +100,7 @@ class CartItem extends StatelessWidget {
                     ],
                   ),
                   sh(8.h),
-                  CartItemProperties(item: item),
+                  ProductPropertiesWidget(properties: item.prouductOption.propertyValues),
                   sh(12.h),
                   Row(
                     children: [

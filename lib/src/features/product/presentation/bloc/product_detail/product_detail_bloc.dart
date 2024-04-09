@@ -19,6 +19,8 @@ ProductDetailBloc get productDetailBloc => getIt<ProductDetailBloc>();
 @lazySingleton
 class ProductDetailBloc extends BaseBloc {
   final GetProductDetailUseCase _getProductDetailUsecase;
+  late ProductDetailDto _productDetail;
+  ProductDetailDto get productDetail => _productDetail;
 
   ProductDetailBloc(this._getProductDetailUsecase) : super(InitialState()) {
     onLoad<OnGetProductDetail>(
@@ -32,6 +34,9 @@ class ProductDetailBloc extends BaseBloc {
       usecaseResult: _getProductDetailUsecase.call(event.id),
       emit: emit,
       onSuccess: (ProductDetailDto? result) {
+        if (result != null) {
+          _productDetail = result;
+        }
         return GetProductDetailSucess(result, selectedOptionId: event.selectedOptionId);
       },
     );

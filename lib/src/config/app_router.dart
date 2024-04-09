@@ -5,6 +5,7 @@ import 'package:evievm_app/src/features/common/presentation/screens/splash_scree
 import 'package:evievm_app/src/features/order/presentation/screens/order_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/product_detail_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/search_products_screen.dart';
+import 'package:evievm_app/src/features/shop/presentation/screens/product_inventory_screen.dart';
 import 'package:evievm_app/src/features/shop/presentation/screens/register_shop_screen.dart';
 import 'package:evievm_app/src/features/shop/presentation/screens/shop_product_detail_screen.dart';
 import 'package:evievm_app/src/features/shopping_cart/presentation/screens/shopping_cart_screen.dart';
@@ -46,6 +47,8 @@ class AppRouter {
         return ShopProductDetailScreen(settings.arguments as dynamic);
       case RegisterShopScreen.router:
         return const RegisterShopScreen();
+      case ProductInventoryScreen.router:
+        return ProductInventoryScreen(settings.arguments as dynamic);
     }
     return const SizedBox.shrink();
   }
