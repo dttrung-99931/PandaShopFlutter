@@ -187,6 +187,7 @@ class ProductOptionDto {
   final String? name;
   final List<PropertyValueDto> propertyValues;
   final double price;
+  final int remainingNum;
 
   Map<String, String> get propertyValuesMap {
     Map<String, String> map = {};
@@ -201,6 +202,7 @@ class ProductOptionDto {
     required this.name,
     required this.propertyValues,
     required this.price,
+    required this.remainingNum,
   });
 
   factory ProductOptionDto.fromModel(ProductOptionModel model) {
@@ -209,6 +211,7 @@ class ProductOptionDto {
       name: model.name,
       propertyValues: PropertyValueDto.fromList(model.propertyValues),
       price: model.price,
+      remainingNum: model.remainingNum,
     );
   }
 

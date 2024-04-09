@@ -43,4 +43,5 @@ ProductOptionModel _$ProductOptionModelFromJson(Map<String, dynamic> json) => Pr
           .map((e) => PropertyValueModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       (json['price'] as num).toDouble(),
+      json['remainingNum'] as int,
     );

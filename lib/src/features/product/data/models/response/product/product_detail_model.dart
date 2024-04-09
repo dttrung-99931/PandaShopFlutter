@@ -65,12 +65,14 @@ class ProductOptionModel {
   final String? name;
   final List<PropertyValueModel> propertyValues;
   final double price;
+  final int remainingNum;
 
   ProductOptionModel(
     this.id,
     this.name,
     this.propertyValues,
     this.price,
+    this.remainingNum,
   );
 
   factory ProductOptionModel.fromJson(Map<String, dynamic> json) => _$ProductOptionModelFromJson(json);

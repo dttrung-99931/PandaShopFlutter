@@ -1,8 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/utils/app_colors.dart';
+import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/theme.dart';
+import 'package:evievm_app/src/features/product/presentation/bloc/product_detail/product_option/product_option_bloc.dart';
+import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,7 +23,17 @@ class ShopProductDetailBottomBar extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(6.toString(), style: textTheme.bodyLarge.bold()),
+              CustomBlocBuilder<ProductOptionBloc>(
+                  buildForStates: const [OptionSelectedChanged],
+                  builder: (state) {
+                    if (state is! OptionSelectedChanged) {
+                      return emptyWidget;
+                    }
+                    return Text(
+                      state.selectedOption?.remainingNum.toString() ?? '0',
+                      style: textTheme.bodyLarge.bold(),
+                    );
+                  }),
               sw(4.w),
               Text('sản phẩm trong kho', style: textTheme.bodyLarge),
             ],
