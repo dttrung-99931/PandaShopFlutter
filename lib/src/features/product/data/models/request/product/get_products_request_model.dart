@@ -1,3 +1,4 @@
+import 'package:evievm_app/global.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'get_products_request_model.g.dart';
 
@@ -18,6 +19,16 @@ class GetProductsRequestModel {
     this.orderBy,
     this.shopId,
   });
+
+  factory GetProductsRequestModel.shopProducts({String? q}) {
+    if (Global.shop == null) {
+      throw 'User is not shop user';
+    }
+    return GetProductsRequestModel(
+      shopId: Global.shop?.id,
+      orderBy: 'desc',
+    );
+  }
 
   Map<String, dynamic> toJson() => _$GetProductsRequestModelToJson(this);
 }

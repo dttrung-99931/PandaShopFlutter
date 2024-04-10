@@ -19,23 +19,25 @@ class _WarehouseRemoteDatasource implements WarehouseRemoteDatasource {
   String? baseUrl;
 
   @override
-  Future<BaseResponse<ProductInventoryModel>> getProductInventory({required productId}) async {
+  Future<BaseResponse<ProductInventoryModel>> getProductInventory(
+      {required productId}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<ProductInventoryModel>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<ProductInventoryModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-        .compose(
-          _dio.options,
-          '/v1/ProductInventory/${productId}',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .compose(
+              _dio.options,
+              '/v1/ProductInventory/${productId}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseResponse<ProductInventoryModel>.fromJson(
       _result.data!,
       (json) => ProductInventoryModel.fromJson(json as Map<String, dynamic>),
@@ -45,7 +47,8 @@ class _WarehouseRemoteDatasource implements WarehouseRemoteDatasource {
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
-        !(requestOptions.responseType == ResponseType.bytes || requestOptions.responseType == ResponseType.stream)) {
+        !(requestOptions.responseType == ResponseType.bytes ||
+            requestOptions.responseType == ResponseType.stream)) {
       if (T == String) {
         requestOptions.responseType = ResponseType.plain;
       } else {

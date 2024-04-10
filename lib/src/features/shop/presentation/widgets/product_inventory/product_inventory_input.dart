@@ -1,5 +1,8 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:evievm_app/core/utils/app_colors.dart';
-import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
@@ -7,22 +10,24 @@ import 'package:evievm_app/core/utils/validate.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/auth/presentation/widgets/info_input.dart';
 import 'package:evievm_app/src/features/product/domain/dto/cate_property_template/property_value_dto.dart';
+import 'package:evievm_app/src/features/product/domain/dto/product/product_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_option_input_dto.dart';
+import 'package:evievm_app/src/features/shop/domain/dtos/product_inventory/product_inventory_inp_dto.dart';
+import 'package:evievm_app/src/features/shop/presentation/bloc/product_inventory/product_inventory_input/product_inventory_input_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_options_input/product_options_input_bloc.dart';
 import 'package:evievm_app/src/shared/widgets/app_alert_dialog.dart';
-import 'package:evievm_app/src/shared/widgets/common/app_chip.dart';
 import 'package:evievm_app/src/shared/widgets/common/app_icon_button.dart';
+import 'package:evievm_app/src/shared/widgets/common/custom_dropdown_input.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:evievm_app/src/shared/widgets/cutstom_button.dart';
 import 'package:evievm_app/src/shared/widgets/section.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:evievm_app/src/shared/widgets/spacing_row.dart';
 import 'package:evievm_app/src/shared/widgets/text_input.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductInventoryInput extends StatefulWidget {
-  const ProductInventoryInput({super.key});
+  const ProductInventoryInput(this.inventoryInput, {super.key});
+  final ProductInventoryInpDto inventoryInput;
 
   @override
   State<ProductInventoryInput> createState() => _ProductInventoryInputState();
@@ -32,6 +37,7 @@ class _ProductInventoryInputState extends State<ProductInventoryInput> {
   @override
   void initState() {
     super.initState();
+    productInventoryInpBloc.add(OnGetShopProdsToSelect());
   }
 
   @override
@@ -42,14 +48,18 @@ class _ProductInventoryInputState extends State<ProductInventoryInput> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          sh(4.h),
-          const Text('Thông số tùy chọn'),
-          sh(16.h),
-          const _ProductOptionProps(),
+          _ProductSelect(
+            onSelected: (ProductDto selected) {
+              productInventoryInpBloc.add(OnInventoryProdSelected(
+                productInventoryInpId: widget.inventoryInput.id,
+                selectedProduct: selected,
+              ));
+            },
+          ),
           sh(16.h),
           const Text('Tùy chọn'),
-          sh(12.h),
-          const _ProductOptionInputsTab()
+          // sh(12.h),
+          // const _ProductOptionInputsTab(),
         ],
       ),
     );
@@ -137,32 +147,20 @@ class _ProductOptionInputsTab extends StatelessWidget {
   }
 }
 
-class _ProductOptionProps extends StatelessWidget {
-  const _ProductOptionProps();
+class _ProductSelect extends StatelessWidget {
+  const _ProductSelect({
+    Key? key,
+    required this.onSelected,
+  }) : super(key: key);
+  final Function(ProductDto selected) onSelected;
 
   @override
   Widget build(BuildContext context) {
-    return CustomBlocBuilder<ProductOptionsInputBloc>(
-      buildForStates: const [OptionPropsUpdated],
-      builder: (state) {
-        if (state is! OptionPropsUpdated) {
-          return emptyWidget;
-        }
-        return Wrap(
-          spacing: 8.w,
-          runSpacing: 8.w,
-          direction: Axis.horizontal,
-          children: state.updatedOptionProps.mapList(
-            (PropertyValuesDto element) => AppChip(
-              label: element.propertyName,
-              isOutlineColor: true,
-              showClose: true,
-              onIconPressed: () {
-                productOptionsInputBloc.add(OnRemovePropertyForOption(prop: element));
-              },
-            ),
-          ),
-        );
+    return CustomDropdownInput<ProductDto, int, GetShopProductsToSelectSucess, ProductInventoryInputBloc>(
+      title: 'Chọn sản phẩm nhập kho',
+      onSelected: onSelected,
+      nameGetter: (ProductDto selected) {
+        return selected.name;
       },
     );
   }

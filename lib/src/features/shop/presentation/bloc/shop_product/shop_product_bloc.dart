@@ -34,7 +34,7 @@ class ShopProductBloc extends BaseBloc {
     this._getHomeBanners,
     this._deleteProduct,
   ) : super(InitialState()) {
-    onLoad<OnGetShopProducts>(_onGetHomeProducts);
+    onLoad<OnGetShopProducts>(_onGetShopProducts);
     onLoad<OnGetShopProductCates>(
       _onGetHomeProductCates,
       loadingStateBuilder: (_) => LoadingShopProductCates(),
@@ -50,12 +50,9 @@ class ShopProductBloc extends BaseBloc {
   @override
   ShopProductCommunication? get blocCommunication => getIt();
 
-  Future<void> _onGetHomeProducts(OnGetShopProducts event, Emitter<BaseState> emit) async {
+  Future<void> _onGetShopProducts(OnGetShopProducts event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
-      usecaseResult: _getProducts.call(GetProductsRequestModel(
-        shopId: Global.shop?.id,
-        orderBy: 'desc',
-      )),
+      usecaseResult: _getProducts.call(GetProductsRequestModel.shopProducts()),
       emit: emit,
       onSuccess: (List<ProductDto> result) {
         return GetShopProductsSucess(result);

@@ -2,16 +2,16 @@
 
 import 'package:evievm_app/src/features/shop/domain/dtos/product_inventory/product_batch_input_dto.dart';
 
-class ProductInventoryInputDto {
-  static int _idGen = -1;
+class ProductInventoryInpDto {
+  static int _idGen = 0;
   final int id;
-  final int productId;
+  int? productId;
   final List<ProductBatchInputDto> productBatches;
   final DateTime? date;
 
-  ProductInventoryInputDto({
+  ProductInventoryInpDto({
     required this.productId,
     required this.productBatches,
     this.date,
-  }) : id = _idGen - 1;
+  }) : id = _idGen--;
 }
