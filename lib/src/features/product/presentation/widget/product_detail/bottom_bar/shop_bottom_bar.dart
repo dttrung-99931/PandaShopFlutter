@@ -21,31 +21,30 @@ class ShopProductDetailBottomBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 8.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            children: [
-              CustomBlocBuilder<ProductOptionBloc>(
-                buildForStates: const [OptionSelectedChanged],
-                builder: (state) {
-                  if (state is! OptionSelectedChanged) {
-                    return emptyWidget;
-                  }
-                  return Text(
-                    state.selectedOption?.remainingNum.toString() ?? '0',
-                    style: textTheme.bodyLarge.bold(),
-                  );
-                },
-              ),
-              sw(4.w),
-              Text('sản phẩm trong kho', style: textTheme.bodyLarge),
-            ],
-          ),
-          2.shb,
-          const ViewProductInventoryBotton(),
-        ],
-      ),
+      child: CustomBlocBuilder<ProductOptionBloc>(
+          buildForStates: const [OptionSelectedChanged],
+          builder: (state) {
+            if (state is! OptionSelectedChanged) {
+              return emptyWidget;
+            }
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      state.selectedOption?.remainingNum.toString() ?? '0',
+                      style: textTheme.bodyLarge.bold(),
+                    ),
+                    sw(4.w),
+                    Text('sản phẩm trong kho', style: textTheme.bodyLarge),
+                  ],
+                ),
+                2.shb,
+                const ViewProductInventoryBotton(),
+              ],
+            );
+          }),
     );
   }
 }
