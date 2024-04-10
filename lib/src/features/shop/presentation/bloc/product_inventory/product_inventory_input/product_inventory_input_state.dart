@@ -4,9 +4,13 @@ class ProductInventoryInpsUpdated extends FullDataLoadedState<List<ProductInvent
   ProductInventoryInpsUpdated(super.data);
 }
 
-class GetShopProductsToSelectSucess extends ListLoadedState<ProductDto, int> {
-  GetShopProductsToSelectSucess(super.data, {required super.selectedId});
-
+class GetProdsToSelectSucess extends ListLoadedState<ProductDto, int> {
+  GetProdsToSelectSucess(
+    super.data, {
+    required this.productInventoryInpId,
+    required super.selectedId,
+  });
+  final int? productInventoryInpId;
   @override
   int getId(ProductDto element) {
     return element.id;

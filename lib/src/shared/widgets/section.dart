@@ -8,7 +8,7 @@ import '../../config/theme.dart';
 
 class Section extends StatelessWidget {
   final Widget child;
-  final String title;
+  final String? title;
   final EdgeInsets padding;
   final EdgeInsets titlePadding;
   final EdgeInsets? contentPadding;
@@ -16,8 +16,8 @@ class Section extends StatelessWidget {
 
   const Section({
     super.key,
-    required this.title,
     required this.child,
+    this.title,
     this.padding = const EdgeInsets.all(12),
     this.titlePadding = EdgeInsets.zero,
     this.contentPadding,
@@ -33,16 +33,17 @@ class Section extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Padding(
-            padding: titlePadding,
-            child: Text(
-              title,
-              style: textTheme.bodyLarge?.copyWith(
-                fontWeight: FontWeight.w600,
-                color: EVMColors.black,
+          if (title != null)
+            Padding(
+              padding: titlePadding,
+              child: Text(
+                title!,
+                style: textTheme.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: EVMColors.black,
+                ),
               ),
             ),
-          ),
           sh(spacing),
           Padding(padding: contentPadding ?? EdgeInsets.symmetric(vertical: 4.h, horizontal: 8.w), child: child),
         ],

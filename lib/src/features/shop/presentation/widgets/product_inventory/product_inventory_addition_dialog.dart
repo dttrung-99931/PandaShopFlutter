@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/base_bloc/base_state.dart';
+import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
@@ -35,17 +36,14 @@ class ProductInventoryAdditionDialog extends StatefulWidget {
 }
 
 class _ProductInventoryAdditionDialogState extends State<ProductInventoryAdditionDialog> {
-  final addressInputBloc = getIt<AddressInputBloc>();
-
   @override
   void initState() {
-    addressInputBloc.addressBloc.add(OnInitInputAddress(addressBlocMixin: addressInputBloc));
     super.initState();
   }
 
   @override
   void dispose() {
-    getIt.resetLazySingleton<AddressInputBloc>();
+    getIt.resetLazySingleton<ProductInventoryInputBloc>();
     super.dispose();
   }
 
@@ -83,9 +81,15 @@ class _ProductInventoryAdditionDialogState extends State<ProductInventoryAdditio
                     return emptyWidget;
                   }
                   return Column(
-                    children: state.data.mapList(
-                      (ProductInventoryInpDto element) => ProductInventoryInput(element),
-                    ),
+                    children: state.data
+                        .mapList<Widget>(
+                          (ProductInventoryInpDto element) => ProductInventoryInput(element),
+                        )
+                        .addBetweenEvery(Divider(
+                          indent: 28.w,
+                          endIndent: 28.w,
+                          color: AppColors.divider,
+                        )),
                   );
                 },
               ),

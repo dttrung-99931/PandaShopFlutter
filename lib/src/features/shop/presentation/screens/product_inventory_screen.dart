@@ -47,7 +47,7 @@ class _ProductInventoryScreenState extends ValidationState<ProductInventoryScree
 
   @override
   void dispose() {
-    getIt.resetLazySingleton<ProductInventoryInputBloc>();
+    getIt.resetLazySingleton<ProductInventoryBloc>();
     super.dispose();
   }
 

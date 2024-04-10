@@ -12,20 +12,22 @@ class OnProductBatchAdded extends BaseEvent {
   List<Object?> get props => [productBatch];
 }
 
-class OnGetShopProdsToSelect extends BaseEvent {
+class OnGetProdsToSelect extends BaseEvent {
+  final int productInventoryInpId;
   final String? q;
-  OnGetShopProdsToSelect({
+  OnGetProdsToSelect({
+    required this.productInventoryInpId,
     this.q,
   });
 
   @override
-  List<Object?> get props => [q];
+  List<Object?> get props => [q, productInventoryInpId];
 }
 
-class OnInventoryProdSelected extends BaseEvent {
+class OnProdSelected extends BaseEvent {
   final int productInventoryInpId;
   final ProductDto selectedProduct;
-  OnInventoryProdSelected({
+  OnProdSelected({
     required this.productInventoryInpId,
     required this.selectedProduct,
   });

@@ -52,7 +52,7 @@ class AppColors {
   static const green2 = Color(0xFF51C17D);
   static const green3 = Color(0xFF5FE392);
   static const greenDark = Color(0xFF34C759);
-  static const divider = Color(0xFFCDD5E5);
+  static const divider = grey;
 
   // page indicator
   static const indicatorBackground = Color(0xFFB9B9B9);

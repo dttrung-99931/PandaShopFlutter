@@ -6,9 +6,9 @@ import 'package:injectable/injectable.dart';
 import '../../../../../../../core/base_bloc/bloc_communication.dart';
 
 @lazySingleton
-class ProductInventoryInputCommunication extends BlocCommunication<ProductBatchInputBloc> {
+class ProductInventoryInputCommunication extends BlocCommunication<ProductInventoryInputBloc> {
   @override
-  void startCommunication(ProductBatchInputBloc bloc) {
+  void startCommunication(ProductInventoryInputBloc bloc) {
     super.startCommunication(bloc);
     listenOtherBloc<ProductBatchInputBloc>((state) {
       if (state is ProductBatchAdded) {

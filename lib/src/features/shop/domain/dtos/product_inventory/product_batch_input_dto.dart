@@ -4,9 +4,10 @@ class ProductBatchInputDto {
   static int _idGen = 0;
 
   int? id;
+  final int productId;
   final int productInventoryInputId;
-  final String? productOptionId;
-  final String? warehouseInputId;
+  int? productOptionId;
+  final int? warehouseInputId;
   final String? number;
   final DateTime? manufactureDate;
   final DateTime? expireDate;
@@ -14,6 +15,7 @@ class ProductBatchInputDto {
 
   ProductBatchInputDto({
     required this.productInventoryInputId,
+    required this.productId,
     this.productOptionId,
     this.warehouseInputId,
     this.number,
@@ -21,4 +23,26 @@ class ProductBatchInputDto {
     this.expireDate,
     this.arriveDate,
   }) : id = _idGen--;
+
+  ProductBatchInputDto copyWith({
+    int? productId,
+    int? productInventoryInputId,
+    int? productOptionId,
+    int? warehouseInputId,
+    String? number,
+    DateTime? manufactureDate,
+    DateTime? expireDate,
+    DateTime? arriveDate,
+  }) {
+    return ProductBatchInputDto(
+      productId: productId ?? this.productId,
+      productInventoryInputId: productInventoryInputId ?? this.productInventoryInputId,
+      productOptionId: productOptionId ?? this.productOptionId,
+      warehouseInputId: warehouseInputId ?? this.warehouseInputId,
+      number: number ?? this.number,
+      manufactureDate: manufactureDate ?? this.manufactureDate,
+      expireDate: expireDate ?? this.expireDate,
+      arriveDate: arriveDate ?? this.arriveDate,
+    );
+  }
 }

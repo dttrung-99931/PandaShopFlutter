@@ -1,29 +1,26 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
-import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
-import 'package:evievm_app/core/utils/validate.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/auth/presentation/widgets/info_input.dart';
-import 'package:evievm_app/src/features/product/domain/dto/cate_property_template/property_value_dto.dart';
+import 'package:evievm_app/src/features/product/domain/dto/product/product_detail_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_option_input_dto.dart';
+import 'package:evievm_app/src/features/shop/domain/dtos/product_inventory/product_batch_input_dto.dart';
 import 'package:evievm_app/src/features/shop/domain/dtos/product_inventory/product_inventory_inp_dto.dart';
+import 'package:evievm_app/src/features/shop/presentation/bloc/product_inventory/product_inventory_input/product_batch_input/product_batch_input_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_inventory/product_inventory_input/product_inventory_input_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_options_input/product_options_input_bloc.dart';
-import 'package:evievm_app/src/shared/widgets/app_alert_dialog.dart';
+import 'package:evievm_app/src/shared/widgets/common/adding_pannel.dart';
 import 'package:evievm_app/src/shared/widgets/common/app_icon_button.dart';
 import 'package:evievm_app/src/shared/widgets/common/custom_dropdown_input.dart';
-import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
-import 'package:evievm_app/src/shared/widgets/cutstom_button.dart';
 import 'package:evievm_app/src/shared/widgets/section.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:evievm_app/src/shared/widgets/spacing_row.dart';
 import 'package:evievm_app/src/shared/widgets/text_input.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductInventoryInput extends StatefulWidget {
   const ProductInventoryInput(this.inventoryInput, {super.key});
@@ -37,27 +34,32 @@ class _ProductInventoryInputState extends State<ProductInventoryInput> {
   @override
   void initState() {
     super.initState();
-    productInventoryInpBloc.add(OnGetShopProdsToSelect());
   }
 
   @override
   Widget build(BuildContext context) {
     return Section(
-      title: 'Tủy chọn sản phẩm',
-      spacing: 8.h,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _ProductSelect(
-            onSelected: (ProductDto selected) {
-              productInventoryInpBloc.add(OnInventoryProdSelected(
-                productInventoryInpId: widget.inventoryInput.id,
-                selectedProduct: selected,
+          _InventoryProductSelect(productInventoryInpId: widget.inventoryInput.id),
+          16.shb,
+          ...widget.inventoryInput.productBatches.mapList(
+            (element) => _InventoryProductOptionSelect(productBatch: element),
+          ),
+          16.shb,
+          AddingPannel(
+            height: 100.h,
+            title: 'Nhập thêm tuỳ chọn',
+            onPressed: () {
+              productBatchInpBloc.add(OnAddProductBatchInput(
+                productId: widget.inventoryInput.productId!,
+                productInventoryId: widget.inventoryInput.id,
               ));
             },
           ),
-          sh(16.h),
-          const Text('Tùy chọn'),
+          16.shb,
+
           // sh(12.h),
           // const _ProductOptionInputsTab(),
         ],
@@ -66,99 +68,42 @@ class _ProductInventoryInputState extends State<ProductInventoryInput> {
   }
 }
 
-class _ProductOptionInputsTab extends StatelessWidget {
-  const _ProductOptionInputsTab();
+class _InventoryProductSelect extends StatefulWidget {
+  const _InventoryProductSelect({
+    Key? key,
+    required this.productInventoryInpId,
+  }) : super(key: key);
+  final int productInventoryInpId;
 
   @override
-  Widget build(BuildContext context) {
-    return CustomBlocBuilder<ProductOptionsInputBloc>(
-      buildForStates: const [ProductOptionsUpdated],
-      builder: (state) {
-        if (state is! ProductOptionsUpdated) {
-          return const _ProductOptionsTab(optionInputs: [], editNameForSelected: false);
-        }
-        return Column(
-          children: [
-            _ProductOptionsTab(
-              optionInputs: state.data,
-              selected: state.selected,
-              editNameForSelected: state.editNameForSelected,
-            ),
-            sh(8.h),
-            if (state.selected != null)
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.border),
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-                child: Column(
-                  children: [
-                    if (state.selected != null)
-                      InfoInput(
-                        titleFlex: 10,
-                        title: 'Giá',
-                        controller: state.selected!.priceController,
-                        inputType: TextInputType.number,
-                        inputAction: TextInputAction.next,
-                        titleStyle: textTheme.bodyMedium.bold(),
-                        paddingRight: 8.w,
-                        validator: (text) => Validate.validateRequired(text, fieldName: 'Giá'),
-                      ),
-                    if (state.selected != null)
-                      ...state.selected!.propTextControllerMap.entries.mapList(
-                        (MapEntry<PropertyValuesDto, TextEditingController> element) => InfoInput(
-                          titleFlex: 10,
-                          title: element.key.propertyName,
-                          controller: element.value,
-                          paddingRight: 8.w,
-                          inputAction: TextInputAction.next,
-                        ),
-                      ),
-                    8.shb,
-                    if (state.selected != null)
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: CustomButton(
-                          elevation: 0,
-                          title: 'Xóa',
-                          backgroundColor: AppColors.red,
-                          height: 40.h,
-                          titleFontSize: 14.sp,
-                          onPressed: () {
-                            AppAlertDialog.show(
-                              context: context,
-                              title: 'Xóa tùy chọn này?',
-                              onConfirm: () {
-                                productOptionsInputBloc.add(OnDeleteProductOption(productOptionId: state.selected!.id));
-                              },
-                            );
-                          },
-                        ),
-                      ),
-                    12.swb,
-                  ],
-                ),
-              )
-          ],
-        );
-      },
-    );
-  }
+  State<_InventoryProductSelect> createState() => _InventoryProductSelectState();
 }
 
-class _ProductSelect extends StatelessWidget {
-  const _ProductSelect({
-    Key? key,
-    required this.onSelected,
-  }) : super(key: key);
-  final Function(ProductDto selected) onSelected;
+class _InventoryProductSelectState extends State<_InventoryProductSelect> {
+  @override
+  void initState() {
+    productInventoryInpBloc.add(
+      OnGetProdsToSelect(
+        productInventoryInpId: widget.productInventoryInpId,
+      ),
+    );
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return CustomDropdownInput<ProductDto, int, GetShopProductsToSelectSucess, ProductInventoryInputBloc>(
-      title: 'Chọn sản phẩm nhập kho',
-      onSelected: onSelected,
+    return CustomDropdownInput<ProductDto, int, GetProdsToSelectSucess, ProductInventoryInputBloc>(
+      title: 'Sản phẩm nhập',
+      onSelected: (ProductDto selected) {
+        productInventoryInpBloc.add(OnProdSelected(
+          productInventoryInpId: widget.productInventoryInpId,
+          selectedProduct: selected,
+        ));
+      },
+      buildCondition: (state) {
+        return state is GetProdsToSelectSucess && state.productInventoryInpId == widget.productInventoryInpId;
+      },
       nameGetter: (ProductDto selected) {
         return selected.name;
       },
@@ -166,50 +111,41 @@ class _ProductSelect extends StatelessWidget {
   }
 }
 
-class _ProductOptionsTab extends StatelessWidget {
-  const _ProductOptionsTab({
-    required this.optionInputs,
-    required this.editNameForSelected,
-    this.selected,
-  });
-  final List<ProductOptionInputDto> optionInputs;
-  final ProductOptionInputDto? selected;
-  final bool editNameForSelected;
+class _InventoryProductOptionSelect extends StatefulWidget {
+  const _InventoryProductOptionSelect({
+    Key? key,
+    required this.productBatch,
+  }) : super(key: key);
+  final ProductBatchInputDto productBatch;
+
+  @override
+  State<_InventoryProductOptionSelect> createState() => _InventoryProductOptionSelectState();
+}
+
+class _InventoryProductOptionSelectState extends State<_InventoryProductOptionSelect> {
+  @override
+  void initState() {
+    productBatchInpBloc.add(
+      OnGetProdOptionsToSelect(productBatchnInpId: widget.productBatch.id!),
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: SpacingRow(
-              spacing: 8.w,
-              children: optionInputs.mapList(
-                (ProductOptionInputDto element) => _ProductOptionName(
-                  isSelected: element == selected,
-                  option: element,
-                  initFocusEditName: element == selected && editNameForSelected,
-                ),
-              ),
-            ),
-          ),
-        ),
-        sw(8.w),
-        DecoratedBox(
-          decoration: BoxDecoration(
-            border: Border.all(color: AppColors.border),
-            borderRadius: BorderRadius.circular(8.r),
-          ),
-          child: AppIconButton(
-            iconData: Icons.add,
-            onPressed: () {
-              productOptionsInputBloc.add(OnAddProductOption());
-            },
-            color: AppColors.blackLight,
-          ),
-        )
-      ],
+    return CustomDropdownInput<ProductOptionDto, int, GetProductOptsToSelectSucess, ProductBatchInputBloc>(
+      title: 'Tuỳ chọn',
+      onSelected: (ProductOptionDto selected) {
+        productBatchInpBloc.add(
+          OnProdOptionSelected(productBatchInpId: widget.productBatch.id!, selectedOption: selected),
+        );
+      },
+      buildCondition: (state) {
+        return state is GetProductOptsToSelectSucess && state.productBatchInpId == widget.productBatch.id;
+      },
+      nameGetter: (ProductOptionDto selected) {
+        return selected.name ?? selected.propertyValues.mapList((element) => element.value).join(' ');
+      },
     );
   }
 }

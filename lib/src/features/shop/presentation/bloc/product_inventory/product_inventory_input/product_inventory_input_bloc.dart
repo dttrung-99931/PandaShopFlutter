@@ -4,13 +4,17 @@ import 'dart:async';
 import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
+import 'package:evievm_app/core/base_bloc/bloc_communication.dart';
 import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/product/data/models/request/product/get_products_request_model.dart';
+import 'package:evievm_app/src/features/product/domain/dto/product/product_detail_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_dto.dart';
+import 'package:evievm_app/src/features/product/domain/use_cases/product/get_product_detail_usecase.dart';
 import 'package:evievm_app/src/features/product/domain/use_cases/product/get_products_usecase.dart';
 import 'package:evievm_app/src/features/shop/domain/dtos/product_inventory/product_batch_input_dto.dart';
 import 'package:evievm_app/src/features/shop/domain/dtos/product_inventory/product_inventory_inp_dto.dart';
+import 'package:evievm_app/src/features/shop/presentation/bloc/product_inventory/product_inventory_input/product_inventory_input_communicaton.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -25,10 +29,13 @@ class ProductInventoryInputBloc extends BaseBloc {
     this._getProducts,
   ) : super(InitialState()) {
     on<OnAddInventoryInput>(_onAddInventoryInput);
-    on<OnGetShopProdsToSelect>(_onGetShopProdsToSelect);
+    on<OnGetProdsToSelect>(_onGetProdsToSelect);
     on<OnProductBatchAdded>(_onProductBatchAdded);
-    on<OnInventoryProdSelected>(_onInventoryProdSelected);
+    on<OnProdSelected>(_onProdSelected);
   }
+  @override
+  BlocCommunication<BaseBloc>? get blocCommunication => getIt<ProductInventoryInputCommunication>();
+
   final GetProductsUseCase _getProducts;
   final List<ProductInventoryInpDto> _inputs = [];
   List<ProductDto>? _cacheShopProducts;
@@ -39,32 +46,50 @@ class ProductInventoryInputBloc extends BaseBloc {
     emit(ProductInventoryInpsUpdated([..._inputs]));
   }
 
-  FutureOr<void> _onGetShopProdsToSelect(OnGetShopProdsToSelect event, Emitter<BaseState> emit) async {
+  FutureOr<void> _onGetProdsToSelect(OnGetProdsToSelect event, Emitter<BaseState> emit) async {
     if (_cacheShopProducts != null) {
-      emit(GetShopProductsToSelectSucess(_cacheShopProducts!, selectedId: null));
+      emit(GetProdsToSelectSucess(
+        _cacheShopProducts!,
+        selectedId: null,
+        productInventoryInpId: event.productInventoryInpId,
+      ));
       return;
     }
     await handleUsecaseResult(
       usecaseResult: _getProducts.call(GetProductsRequestModel.shopProducts()),
       emit: emit,
       onSuccess: (List<ProductDto> result) {
-        return GetShopProductsToSelectSucess(_cacheShopProducts = result, selectedId: null);
+        return GetProdsToSelectSucess(
+          _cacheShopProducts = result,
+          selectedId: null,
+          productInventoryInpId: event.productInventoryInpId,
+        );
       },
     );
   }
 
   FutureOr<void> _onProductBatchAdded(OnProductBatchAdded event, Emitter<BaseState> emit) {
-    _getInput(event.productBatch.productInventoryInputId).productBatches.add(event.productBatch);
+    _getInventoryInput(event.productBatch.productInventoryInputId).productBatches.add(event.productBatch);
     emit(ProductInventoryInpsUpdated([..._inputs]));
   }
 
-  ProductInventoryInpDto _getInput(int productInventoryId) {
+  void _updateInventoryInput(int productInventoryId, {required Function(ProductInventoryInpDto inventoryInp) updater}) {
+    ProductInventoryInpDto inventoryInp = _inputs.firstWhere((element) => element.id == productInventoryId);
+    updater(inventoryInp);
+  }
+
+  ProductInventoryInpDto _getInventoryInput(int productInventoryId) {
     return _inputs.firstWhere((element) => element.id == productInventoryId);
   }
 
-  FutureOr<void> _onInventoryProdSelected(OnInventoryProdSelected event, Emitter<BaseState> emit) {
-    _getInput(event.productInventoryInpId).productId = event.selectedProduct.id;
-    emit(ProductInventoryInpsUpdated([..._inputs]));
+  FutureOr<void> _onProdSelected(OnProdSelected event, Emitter<BaseState> emit) {
+    _updateInventoryInput(
+      event.productInventoryInpId,
+      updater: (inventoryInp) {
+        inventoryInp.productId = event.selectedProduct.id;
+      },
+    );
+    // emit(ProductInventoryInpsUpdated([..._inputs]));
   }
 
   @disposeMethod
