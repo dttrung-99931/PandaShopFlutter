@@ -8,9 +8,12 @@ import '../../../../../../../core/base_bloc/bloc_communication.dart';
 class ShopProductCommunication extends BlocCommunication<ShopProductBloc> {
   @override
   void startCommunication(ShopProductBloc bloc) {
+    super.startCommunication(bloc);
     listenOtherBloc<UserBloc>((state) {
       if (state is GetUserDetailSuccess) {
-        bloc.add(OnGetShopProducts());
+        if (state.data.shop != null) {
+          bloc.add(OnGetShopProducts());
+        }
       }
     });
   }
