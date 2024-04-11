@@ -2,7 +2,7 @@
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_detail_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_dto.dart';
-import 'package:evievm_app/src/features/shop/data/models/response/product_inventory/product_inventory_model.dart';
+import 'package:evievm_app/src/features/shop/data/models/response/warehouse/product_inventory_model.dart';
 
 class ProductInventoryDto {
   ProductInventoryDto({

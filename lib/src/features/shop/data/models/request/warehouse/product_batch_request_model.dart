@@ -3,12 +3,12 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'product_batch_request_model.g.dart';
 
-@JsonSerializable(includeIfNull: false)
+@JsonSerializable(includeIfNull: false, createToJson: false)
 class ProductBatchRequestModel {
   final int? id;
-  final String productOptionId;
-  final String warehouseInputId;
-  final String number;
+  final int productOptionId;
+  final int warehouseInputId;
+  final int number;
   final DateTime manufactureDate;
   final DateTime expireDate;
   final DateTime? arriveDate;

@@ -3,6 +3,8 @@ part of 'product_inventory_input_bloc.dart';
 
 class OnAddInventoryInput extends BaseEventWithoutProps {}
 
+class OnCreateProductInventory extends BaseEventWithoutProps {}
+
 class OnProductBatchAdded extends BaseEvent {
   final ProductBatchInputDto productBatch;
   OnProductBatchAdded({
@@ -34,4 +36,18 @@ class OnProdSelected extends BaseEvent {
 
   @override
   List<Object?> get props => [productInventoryInpId, selectedProduct];
+}
+
+class OnGetWarehousesToSelect extends BaseEvent {
+  final int? selectedId;
+  OnGetWarehousesToSelect({
+    required this.selectedId,
+  });
+
+  @override
+  List<Object?> get props => [selectedId];
+}
+
+class OnWarehouseSelected extends OnSelect<WarehouseDto> {
+  OnWarehouseSelected({required super.selected});
 }

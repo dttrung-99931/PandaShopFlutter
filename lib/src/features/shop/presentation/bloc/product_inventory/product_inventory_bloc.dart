@@ -10,7 +10,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../domain/dtos/product_inventory/product_inventory_dto.dart';
+import '../../../domain/dtos/warehouse/product_inventory_dto.dart';
 
 part 'product_inventory_event.dart';
 part 'product_inventory_state.dart';

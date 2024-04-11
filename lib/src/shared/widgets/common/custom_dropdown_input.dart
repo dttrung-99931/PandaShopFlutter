@@ -1,8 +1,6 @@
 import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
-import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
-import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/auth/presentation/widgets/info_input.dart';
@@ -28,8 +26,11 @@ class CustomDropdownInput<TDto, TId, TState extends ListLoadedState<TDto, TId>, 
     required this.nameGetter,
     this.titleFlex = 10,
     this.buildCondition,
+    this.boldTitle = false,
     TBloc? bloc,
-  }) : bloc = bloc ?? getIt();
+    double? height,
+  })  : bloc = bloc ?? getIt(),
+        height = height ?? 56.h;
 
   final bool isEditMode;
   final bool isRequired;
@@ -45,6 +46,8 @@ class CustomDropdownInput<TDto, TId, TState extends ListLoadedState<TDto, TId>, 
   final TBloc bloc;
   final int titleFlex;
   final bool Function(BaseState staet)? buildCondition;
+  final bool boldTitle;
+  final double height;
 
   @override
   State<CustomDropdownInput> createState() => _CustomDropdownInputState<TDto, TId, TState, TBloc>();
@@ -63,6 +66,9 @@ class _CustomDropdownInputState<TDto, TId, TState extends ListLoadedState<TDto, 
   @override
   Widget build(BuildContext context) {
     return InfoInput(
+      titleStyle: textTheme.bodyMedium!.copyWith(
+        fontWeight: widget.boldTitle ? FontWeight.w500 : FontWeight.normal,
+      ),
       paddingLeft: 0,
       titleFlex: widget.titleFlex,
       inputWidth: widget.inputWidth,
@@ -95,7 +101,7 @@ class _CustomDropdownInputState<TDto, TId, TState extends ListLoadedState<TDto, 
             //   });
             // }
             return CustomDropdownButton<TDto>(
-              height: 56.h,
+              height: widget.height,
               enabled: widget.enabled,
               selectedItem: state.selected,
               onSelected: (TDto? field) {

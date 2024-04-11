@@ -7,14 +7,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../config/theme.dart';
 
 class Section extends StatelessWidget {
+  static final EdgeInsets defaultMargin = EdgeInsets.only(top: 4.h, left: 4.w, right: 4.w);
   final Widget child;
   final String? title;
   final EdgeInsets padding;
+  final EdgeInsets margin;
   final EdgeInsets titlePadding;
   final EdgeInsets? contentPadding;
   final double spacing;
+  final BoxDecoration? decoration;
 
-  const Section({
+  Section({
     super.key,
     required this.child,
     this.title,
@@ -22,13 +25,15 @@ class Section extends StatelessWidget {
     this.titlePadding = EdgeInsets.zero,
     this.contentPadding,
     this.spacing = 0,
-  });
+    this.decoration,
+    EdgeInsets? margin,
+  }) : margin = margin ?? defaultMargin;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: EVMColors.white,
-      margin: EdgeInsets.only(top: 4.h, left: 4.w, right: 4.w),
+      decoration: decoration ?? const BoxDecoration(color: EVMColors.white),
+      margin: margin,
       padding: padding,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

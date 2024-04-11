@@ -6,7 +6,7 @@ import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/product/price_widget.dart';
-import 'package:evievm_app/src/features/shop/domain/dtos/product_inventory/product_inventory_dto.dart';
+import 'package:evievm_app/src/features/shop/domain/dtos/warehouse/product_inventory_dto.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_inventory/product_inventory_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_inventory/product_inventory_input/product_inventory_input_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop/shop_bloc.dart';
@@ -65,7 +65,11 @@ class _ProductInventoryScreenState extends ValidationState<ProductInventoryScree
         title: 'Nhập sản phẩmpphẩmp',
         color: AppColors.primary,
         onPressed: () {
-          ProductInventoryAdditionDialog.show(context);
+          ProductInventoryAdditionDialog(
+            onAddSuccessed: () {
+              productInventoryBloc.add(OnGetProductInventory(productId: widget.args.productId));
+            },
+          ).show(context);
         },
       ),
     );
@@ -104,7 +108,7 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomBlocBuilder<ProductInventoryBloc>(
       isSliver: true,
-      buildCondition: (state) => state is GetProductInventorySuccess,
+      buildForStates: const [GetProductInventorySuccess],
       builder: (state) {
         if (state is GetProductInventorySuccess) {
           return SliverList(
