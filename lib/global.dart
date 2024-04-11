@@ -19,10 +19,12 @@ class Global {
   static ShopResponseDto? get shop => _userDetail?.shop;
   static UserDetailDto? _userDetail;
   static UserDetailDto? get userDetail => _userDetail;
-  static bool get userDtatLoaded => _userDetail != null;
+  static bool get userDataLoaded => _userDetail != null;
   static void setUserDetail(UserDetailDto detail) {
     _userDetail = detail;
   }
+
+  static ValueNotifier<int> mainPageIndexNotifier = ValueNotifier(0);
 
   static void hideDialog(BuildContext dialogContext) {
     navigator.pop(dialogContext);

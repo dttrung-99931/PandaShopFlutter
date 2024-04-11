@@ -36,6 +36,9 @@ class _HiddenOnSrollWidgetState extends State<HiddenOnSrollWidget> {
   }
 
   void _onScroll() {
+    if (!widget.scrollController.hasClients) {
+      return;
+    }
     var direction = widget.scrollController.position.userScrollDirection;
     if (direction == ScrollDirection.reverse && _visible.value) {
       _visible.value = false;

@@ -117,7 +117,13 @@ class _Items extends StatelessWidget {
             }
             return _Item(
               title: state.data.shop != null ? 'Chuyển qua shop' : 'Tạo shop của bạn',
-              onPressed: commingSoon,
+              onPressed: () {
+                if (state.data.shop != null) {
+                  // TODO:
+                } else {
+                  Global.mainPageIndexNotifier.value = 1; // Switch to shop page on main screen
+                }
+              },
               icon: const Icon(Icons.home_outlined),
             );
           },

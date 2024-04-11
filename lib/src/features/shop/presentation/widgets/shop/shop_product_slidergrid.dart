@@ -18,7 +18,7 @@ class ShopProductSliverGrid extends StatefulWidget {
 class _ShopProductSliverGridState extends State<ShopProductSliverGrid> {
   @override
   void initState() {
-    if (Global.userDtatLoaded) {
+    if (Global.userDataLoaded) {
       shopProductBloc.add(OnGetShopProducts());
     }
     // TODO: create listen bloc state
