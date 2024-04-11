@@ -106,7 +106,8 @@ class _ProductSelectState extends State<_ProductSelect> {
   @override
   Widget build(BuildContext context) {
     return CustomDropdownInput<ProductDto, int, GetProdsToSelectSucess, ProductInventoryInputBloc>(
-      title: 'Sản phẩm nhập',
+      title: 'Sản phẩm',
+      titleFlex: 7,
       boldTitle: true,
       onSelected: (ProductDto selected) {
         productInventoryInpBloc.add(OnProdSelected(

@@ -7,11 +7,8 @@ import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/core/utils/overlay_utils.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
-import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
-import 'package:evievm_app/src/features/common/presentation/bloc/address_input_bloc/address_input_bloc.dart';
 import 'package:evievm_app/src/features/shop/domain/dtos/warehouse/product_inventory_inp_dto.dart';
 import 'package:evievm_app/src/features/shop/domain/dtos/warehouse/warehouse_dto.dart';
-import 'package:evievm_app/src/features/shop/presentation/bloc/product_inventory/product_inventory_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_inventory/product_inventory_input/product_inventory_input_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/widgets/product_inventory/product_inventory_input.dart';
 import 'package:evievm_app/src/shared/widgets/common/adding_pannel.dart';
@@ -156,6 +153,7 @@ class _WarehouseSelectState extends State<_WarehouseSelect> {
   Widget build(BuildContext context) {
     return CustomDropdownInput<WarehouseDto, int, GetWarehousesSuccess, ProductInventoryInputBloc>(
       title: 'Kho nhập',
+      titleFlex: 6,
       boldTitle: true,
       onSelected: (WarehouseDto selected) {
         productInventoryInpBloc.add(OnWarehouseSelected(selected: selected));
