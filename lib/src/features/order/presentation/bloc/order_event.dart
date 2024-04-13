@@ -10,3 +10,14 @@ class OnGetOrderComfirm extends BaseEvent {
   @override
   List<Object?> get props => [items];
 }
+
+class OnChangeDeliveryMethod extends BaseEvent {
+  final DeliveryMethodDto deliveryMethod;
+  final ShopDto shop;
+  OnChangeDeliveryMethod({
+    required this.deliveryMethod,
+    required this.shop,
+  });
+  @override
+  List<Object?> get props => throw UnimplementedError();
+}

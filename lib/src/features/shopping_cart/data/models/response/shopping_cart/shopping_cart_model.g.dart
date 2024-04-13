@@ -16,10 +16,14 @@ ShoppingCartModel _$ShoppingCartModelFromJson(Map<String, dynamic> json) =>
 
 CartItemModel _$CartItemModelFromJson(Map<String, dynamic> json) =>
     CartItemModel(
+      id: json['id'] as int,
       productNum: json['productNum'] as int,
       productOption: ProductOptionModel.fromJson(
           json['productOption'] as Map<String, dynamic>),
       shortProduct: ShortProductModel.fromJson(
           json['shortProduct'] as Map<String, dynamic>),
-      id: json['id'] as int,
+      shop: ShopResponseModel.fromJson(json['shop'] as Map<String, dynamic>),
+      deliveryMethods: (json['deliveryMethods'] as List<dynamic>)
+          .map((e) => DeliveryMethodModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );

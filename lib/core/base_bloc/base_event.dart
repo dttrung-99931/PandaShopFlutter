@@ -70,6 +70,16 @@ class OnSelect<T> extends BaseEvent {
   List<Object?> get props => [selected];
 }
 
+class OnGetListSelect extends BaseEvent {
+  final int? selectedId;
+  OnGetListSelect({
+    required this.selectedId,
+  });
+
+  @override
+  List<Object?> get props => [selectedId];
+}
+
 class OnSetFormValidateCallBack extends BaseEvent {
   final bool Function() formValidateCallBack;
   OnSetFormValidateCallBack(this.formValidateCallBack);

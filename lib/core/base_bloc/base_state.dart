@@ -1,5 +1,6 @@
 import 'package:evievm_app/core/failures/failures.dart';
 import 'package:equatable/equatable.dart';
+import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/core/utils/time_utils.dart';
 
@@ -44,7 +45,7 @@ abstract class ListLoadedState<T, TId> extends FullDataLoadedState<List<T>> {
   T? get selected => data.firstWhereOrNull((element) => getId(element) == selectedId);
 
   TId getId(T element);
-  bool get isValid;
+  bool get isValid => selectedId != null && selectedId != Constatnts.idEmpty;
 
   ListLoadedState(super.data, {required this.selectedId});
 

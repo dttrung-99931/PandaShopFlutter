@@ -1,9 +1,9 @@
 import 'package:another_flushbar/flushbar_route.dart';
 import 'package:evievm_app/src/config/app_nav_observer.dart';
+import 'package:evievm_app/src/features/shop/domain/dtos/shop_response_dto.dart';
 import 'package:flutter/material.dart';
 
 import 'src/features/common/domain/dtos/user_detail_dto.dart';
-import 'src/features/shop/domain/dtos/shop_response_dto.dart';
 
 class Global {
   static final globalKey = GlobalKey<NavigatorState>();
@@ -16,7 +16,7 @@ class Global {
 
   static const currencySymbol = 'đ';
 
-  static ShopResponseDto? get shop => _userDetail?.shop;
+  static ShopDto? get shop => _userDetail?.shop;
   static UserDetailDto? _userDetail;
   static UserDetailDto? get userDetail => _userDetail;
   static bool get userDataLoaded => _userDetail != null;

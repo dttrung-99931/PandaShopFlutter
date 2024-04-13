@@ -2,8 +2,10 @@
 import 'package:equatable/equatable.dart';
 
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
+import 'package:evievm_app/src/features/product/domain/dto/product/delivery_method_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_detail_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_dto.dart';
+import 'package:evievm_app/src/features/shop/domain/dtos/shop_response_dto.dart';
 import 'package:evievm_app/src/features/shopping_cart/data/models/response/shopping_cart/shopping_cart_model.dart';
 import 'package:evievm_app/src/shared/models/selectable.dart';
 
@@ -39,22 +41,28 @@ class CartItemDto extends Selectable {
   final int productNum;
   final ProductOptionDto prouductOption;
   final ProductDto product;
+  final ShopDto shop;
+  final List<DeliveryMethodDto> deliveryMethods;
   final int id;
 
   CartItemDto({
+    required this.id,
     required this.productNum,
     required this.prouductOption,
     required this.product,
-    required this.id,
+    required this.shop,
+    required this.deliveryMethods,
     super.isSelected,
   });
 
   factory CartItemDto.fromModel(CartItemModel model) {
     return CartItemDto(
+      id: model.id,
       productNum: model.productNum,
       prouductOption: ProductOptionDto.fromModel(model.productOption),
       product: ProductDto.fromModel(model.shortProduct),
-      id: model.id,
+      shop: ShopDto.fromModel(model.shop),
+      deliveryMethods: model.deliveryMethods.mapList((element) => DeliveryMethodDto.fromModel(element)),
     );
   }
 
@@ -63,14 +71,18 @@ class CartItemDto extends Selectable {
 
   CartItemDto copyWith({
     int? productNum,
-    ProductOptionDto? proudctOption,
+    ProductOptionDto? prouductOption,
     ProductDto? product,
+    ShopDto? shop,
+    List<DeliveryMethodDto>? deliveryMethods,
     int? id,
   }) {
     return CartItemDto(
       productNum: productNum ?? this.productNum,
-      prouductOption: proudctOption ?? this.prouductOption,
+      prouductOption: prouductOption ?? this.prouductOption,
       product: product ?? this.product,
+      shop: shop ?? this.shop,
+      deliveryMethods: deliveryMethods ?? this.deliveryMethods,
       id: id ?? this.id,
     );
   }

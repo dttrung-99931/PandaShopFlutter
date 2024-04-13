@@ -149,6 +149,8 @@ extension IterableExt<T> on Iterable<T> {
   double sumDouble(double Function(T element) getValue) {
     return fold(0, (double total, element) => (total + getValue(element)));
   }
+
+  T? get lastOrNull => lastWhereOrNull((p0) => true);
 }
 
 extension IterableIterableExt<T> on Iterable<Iterable<T>> {

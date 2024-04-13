@@ -5,22 +5,16 @@ import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
-import 'package:evievm_app/src/features/common/presentation/bloc/address/address_bloc.dart';
 import 'package:evievm_app/src/features/common/presentation/widgets/address/address_input.dart';
-import 'package:evievm_app/src/features/shopping_cart/domain/dto/shopping_cart_dto.dart';
 import 'package:evievm_app/src/features/order/presentation/bloc/order_bloc.dart';
-import 'package:evievm_app/src/features/order/presentation/widget/cart_item_confirm_list.dart';
 import 'package:evievm_app/src/features/order/presentation/widget/order_bottom_bar.dart';
+import 'package:evievm_app/src/features/order/presentation/widget/order_confirm_list.dart';
 import 'package:evievm_app/src/features/order/presentation/widget/subtotal_price.dart';
+import 'package:evievm_app/src/features/shopping_cart/domain/dto/shopping_cart_dto.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
-import 'package:evievm_app/src/shared/widgets/custom_drop_down_button.dart';
-import 'package:evievm_app/src/shared/widgets/section.dart';
 import 'package:evievm_app/src/shared/widgets/sliver/sliver_sized_box.dart';
-import 'package:evievm_app/src/shared/widgets/spacing_column.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../common/presentation/widgets/address/add_address_dialog.dart';
 
 class OrderScreenArgs {
   final List<CartItemDto> items;
@@ -65,7 +59,7 @@ class _OrderScreenState extends State<OrderScreen> {
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     slivers: [
-                      CartItemConfirmList(orderConfirm: state.data),
+                      OrderConfirmList(orderConfirm: state.data),
                       SliverSizedBox(height: 8.h),
                       SubtotalPrices(orderConfirm: state.data),
                     ],
@@ -80,7 +74,7 @@ class _OrderScreenState extends State<OrderScreen> {
               child: AddressInput(
             onSelected: (AddressDto selected) {},
           )),
-          SliverSizedBox(height: 64.h),
+          SliverSizedBox(height: 8.h),
         ],
       ),
       bottomNavigationBar: const OrderBottomBar(),

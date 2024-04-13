@@ -8,19 +8,24 @@ class ImageOnItem extends StatelessWidget {
   const ImageOnItem({
     Key? key,
     required this.imageLink,
+    this.width,
   }) : super(key: key);
   final String? imageLink;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
     return imageLink != null
         ? ExtendedImage.network(
+            width: width,
             imageLink!,
             // width: 72.r,
             height: 72.r,
             fit: BoxFit.cover,
             alignment: Alignment.center,
           )
-        : Assets.img.noImage.build();
+        : Assets.img.noImage.build(
+            width: width,
+          );
   }
 }

@@ -16,7 +16,7 @@ class UserDetailDto {
   final String phone;
   final String email;
   final int cartId;
-  final ShopResponseDto? shop;
+  final ShopDto? shop;
 
   factory UserDetailDto.fromModel(UserDetailModel model) {
     return UserDetailDto(
@@ -25,7 +25,7 @@ class UserDetailDto {
       phone: model.phone,
       email: model.email,
       cartId: model.cartId,
-      shop: model.shop != null ? ShopResponseDto.fromModel(model.shop!) : null,
+      shop: model.shop != null ? ShopDto.fromModel(model.shop!) : null,
     );
   }
 }
