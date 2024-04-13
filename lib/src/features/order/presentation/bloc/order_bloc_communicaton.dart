@@ -4,6 +4,7 @@ import 'package:evievm_app/src/features/order/presentation/bloc/order_bloc.dart'
 import 'package:injectable/injectable.dart';
 
 import '../../../../../../../core/base_bloc/bloc_communication.dart';
+import 'payment_method_inp/payment_method_inp_bloc.dart';
 
 @lazySingleton
 class OrderBlocCommunication extends BlocCommunication<OrderBloc> {
@@ -13,6 +14,11 @@ class OrderBlocCommunication extends BlocCommunication<OrderBloc> {
     listenOtherBloc<DeliveryMethodInpBloc>((state) {
       if (state is GetShopOrderDeliveryMethodsSuccess && state.selected != null) {
         bloc.add(OnChangeDeliveryMethod(deliveryMethod: state.selected!, shop: state.shop));
+      }
+    });
+    listenOtherBloc<PaymentMethodInpBloc>((state) {
+      if (state is GetPaymentMethodsSuccess && state.selected != null) {
+        bloc.add(OnChangePaymentMethod(paymentMethod: state.selected!));
       }
     });
   }

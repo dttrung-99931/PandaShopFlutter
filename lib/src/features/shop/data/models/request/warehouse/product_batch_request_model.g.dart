@@ -6,7 +6,8 @@ part of 'product_batch_request_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Map<String, dynamic> _$ProductBatchRequestModelToJson(ProductBatchRequestModel instance) {
+Map<String, dynamic> _$ProductBatchRequestModelToJson(
+    ProductBatchRequestModel instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {

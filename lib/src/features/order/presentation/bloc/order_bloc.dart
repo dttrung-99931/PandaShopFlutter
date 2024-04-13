@@ -9,6 +9,7 @@ import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/order/domain/dto/order_confirm_dto.dart';
 import 'package:evievm_app/src/features/order/presentation/bloc/order_bloc_communicaton.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/delivery_method_dto.dart';
+import 'package:evievm_app/src/features/product/domain/dto/product/payement_method_dto.dart';
 import 'package:evievm_app/src/features/shop/domain/dtos/shop_response_dto.dart';
 import 'package:evievm_app/src/features/shopping_cart/domain/dto/shopping_cart_dto.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +26,8 @@ OrderBloc get orderBloc => getIt<OrderBloc>();
 class OrderBloc extends BaseBloc {
   OrderBloc() : super(InitialState()) {
     onLoad<OnGetOrderComfirm>(_onGetOrderConfirm);
-    onLoad<OnChangeDeliveryMethod>(_onChangeDeliveryMethod);
+    on<OnChangeDeliveryMethod>(_onChangeDeliveryMethod);
+    on<OnChangePaymentMethod>(_onChangePaymentMethod);
   }
   @override
   BlocCommunication? get blocCommunication => getIt<OrderBlocCommunication>();
@@ -50,6 +52,12 @@ class OrderBloc extends BaseBloc {
     int index = _orderConfirm!.shopOrdersComfirms.indexWhere((element) => element.shop == shop);
     if (index != -1) {
       _orderConfirm?.shopOrdersComfirms[index] = updater(_orderConfirm!.shopOrdersComfirms[index]);
+    }
+  }
+
+  FutureOr<void> _onChangePaymentMethod(OnChangePaymentMethod event, Emitter<BaseState> emit) {
+    if (_orderConfirm != null) {
+      _orderConfirm = _orderConfirm?.copyWith(selectedPayemntMethod: event.paymentMethod);
     }
   }
 }

@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/delivery_method_dto.dart';
+import 'package:evievm_app/src/features/product/domain/dto/product/payement_method_dto.dart';
 import 'package:evievm_app/src/features/shop/domain/dtos/shop_response_dto.dart';
 import 'package:evievm_app/src/features/shopping_cart/domain/dto/shopping_cart_dto.dart';
 
@@ -11,9 +12,11 @@ part 'order_confirm_ext.dart';
 class OrderConfirmDto extends Equatable {
   final List<CartItemDto> items;
   final List<ShopOrderComfirmDto> shopOrdersComfirms;
+  final PaymentMethodDto? selectedPayemntMethod;
 
   OrderConfirmDto({
     required this.items,
+    this.selectedPayemntMethod,
   }) : shopOrdersComfirms = items.groupBy((p0) => p0.shop).entries.mapList(
               (MapEntry<ShopDto, List<CartItemDto>> entry) => ShopOrderComfirmDto(
                 items: entry.value,
@@ -23,6 +26,16 @@ class OrderConfirmDto extends Equatable {
 
   @override
   List<Object?> get props => [items, shopOrdersComfirms];
+
+  OrderConfirmDto copyWith({
+    List<CartItemDto>? items,
+    PaymentMethodDto? selectedPayemntMethod,
+  }) {
+    return OrderConfirmDto(
+      items: items ?? this.items,
+      selectedPayemntMethod: selectedPayemntMethod ?? this.selectedPayemntMethod,
+    );
+  }
 }
 
 class ShopOrderComfirmDto extends Equatable {

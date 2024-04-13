@@ -19,5 +19,14 @@ class OnChangeDeliveryMethod extends BaseEvent {
     required this.shop,
   });
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [deliveryMethod, shop];
+}
+
+class OnChangePaymentMethod extends BaseEvent {
+  final PaymentMethodDto paymentMethod;
+  OnChangePaymentMethod({
+    required this.paymentMethod,
+  });
+  @override
+  List<Object?> get props => [paymentMethod];
 }
