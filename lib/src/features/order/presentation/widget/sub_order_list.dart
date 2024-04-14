@@ -59,25 +59,25 @@ class SubOrder extends StatelessWidget {
             onSelected: (AddressDto selected) {},
           ),
           4.shb,
-          _PaymentMethodSelect(shopOrderConfirm: item),
+          _DeliveryMethodSelect(shopOrderConfirm: item),
         ],
       ),
     );
   }
 }
 
-class _PaymentMethodSelect extends StatefulWidget {
-  const _PaymentMethodSelect({
+class _DeliveryMethodSelect extends StatefulWidget {
+  const _DeliveryMethodSelect({
     Key? key,
     required this.shopOrderConfirm,
   }) : super(key: key);
   final SubOrderDto shopOrderConfirm;
 
   @override
-  State<_PaymentMethodSelect> createState() => _PaymentMethodSelectState();
+  State<_DeliveryMethodSelect> createState() => _DeliveryMethodSelectState();
 }
 
-class _PaymentMethodSelectState extends State<_PaymentMethodSelect> {
+class _DeliveryMethodSelectState extends State<_DeliveryMethodSelect> {
   @override
   void initState() {
     deliveryMethodInpBloc.add(OnGetShopOrderDeliveryMethods(

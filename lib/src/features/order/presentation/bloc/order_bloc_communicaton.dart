@@ -26,6 +26,7 @@ class OrderBlocCommunication extends BlocCommunication<OrderBloc> {
   @override
   void stopCommunication() {
     getIt.resetLazySingleton<DeliveryMethodInpBloc>();
+    getIt.resetLazySingleton<PaymentMethodInpBloc>();
     super.stopCommunication();
   }
 }
