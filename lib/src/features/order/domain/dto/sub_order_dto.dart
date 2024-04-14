@@ -7,18 +7,18 @@ import 'package:evievm_app/src/features/product/domain/dto/product/payement_meth
 import 'package:evievm_app/src/features/shop/domain/dtos/shop_response_dto.dart';
 import 'package:evievm_app/src/features/shopping_cart/domain/dto/shopping_cart_dto.dart';
 
-part 'order_confirm_ext.dart';
+part 'sub_order_ext.dart';
 
 class OrderConfirmDto extends Equatable {
   final List<CartItemDto> items;
-  final List<ShopOrderComfirmDto> shopOrdersComfirms;
+  final List<SubOrderDto> shopOrdersComfirms;
   final PaymentMethodDto? selectedPayemntMethod;
 
   OrderConfirmDto({
     required this.items,
     this.selectedPayemntMethod,
   }) : shopOrdersComfirms = items.groupBy((p0) => p0.shop).entries.mapList(
-              (MapEntry<ShopDto, List<CartItemDto>> entry) => ShopOrderComfirmDto(
+              (MapEntry<ShopDto, List<CartItemDto>> entry) => SubOrderDto(
                 items: entry.value,
                 shop: entry.key,
               ),
@@ -38,13 +38,13 @@ class OrderConfirmDto extends Equatable {
   }
 }
 
-class ShopOrderComfirmDto extends Equatable {
+class SubOrderDto extends Equatable {
   final List<CartItemDto> items;
   final List<DeliveryMethodDto> availableDeliveryMethods;
   final ShopDto shop;
   final DeliveryMethodDto? selectedDelivery;
 
-  ShopOrderComfirmDto({
+  SubOrderDto({
     required this.items,
     required this.shop,
     this.selectedDelivery,
@@ -56,13 +56,13 @@ class ShopOrderComfirmDto extends Equatable {
   @override
   List<Object?> get props => [shop];
 
-  ShopOrderComfirmDto copyWith({
+  SubOrderDto copyWith({
     List<CartItemDto>? items,
     List<DeliveryMethodDto>? availableDeliveryMethods,
     ShopDto? shop,
     DeliveryMethodDto? selectedDelivery,
   }) {
-    return ShopOrderComfirmDto(
+    return SubOrderDto(
       items: items ?? this.items,
       shop: shop ?? this.shop,
       selectedDelivery: selectedDelivery ?? this.selectedDelivery,

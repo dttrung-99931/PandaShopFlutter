@@ -23,6 +23,8 @@ class _PaymentMethodSelectState extends State<PaymentMethodSelect> {
   @override
   Widget build(BuildContext context) {
     return CustomDropdownInput<PaymentMethodDto, int, GetPaymentMethodsSuccess, PaymentMethodInpBloc>(
+      titleFontWeight: FontWeight.bold,
+      direction: Axis.vertical,
       title: 'Phương thức thanh toán',
       onSelected: (PaymentMethodDto selected) {
         paymentMethodInpBloc.add(OnPaymentMethodSelected(

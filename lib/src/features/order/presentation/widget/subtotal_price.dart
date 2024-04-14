@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/src/config/theme.dart';
-import 'package:evievm_app/src/features/order/domain/dto/order_confirm_dto.dart';
+import 'package:evievm_app/src/features/order/domain/dto/sub_order_dto.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/product/price_widget.dart';
 import 'package:evievm_app/src/shared/widgets/section.dart';
 import 'package:evievm_app/src/shared/widgets/spacing_column.dart';
@@ -19,8 +19,6 @@ class SubtotalPrices extends StatelessWidget {
     return SliverToBoxAdapter(
       child: Section(
         title: 'Tổng tiền',
-        titlePadding: EdgeInsets.only(top: 2.h, bottom: 4.h),
-        padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
         child: SpacingColumn(
           spacing: 4.h,
           children: [

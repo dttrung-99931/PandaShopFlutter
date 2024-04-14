@@ -10,6 +10,7 @@ import 'package:evievm_app/src/features/common/presentation/bloc/address/address
 import 'package:evievm_app/src/features/common/presentation/widgets/address/add_address_dialog.dart';
 import 'package:evievm_app/src/shared/widgets/custom_drop_down_button.dart';
 import 'package:evievm_app/src/shared/widgets/section.dart';
+import 'package:evievm_app/src/shared/widgets/utils/color_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -22,10 +23,12 @@ class AddressInput extends StatefulWidget {
     this.title = 'Địa chỉ',
     required this.onSelected,
     this.initSelectedId,
+    this.padding,
   });
   final String title;
   final Function(AddressDto selected) onSelected;
   final int? initSelectedId;
+  final EdgeInsets? padding;
 
   @override
   State<AddressInput> createState() => _AddressInputState();
@@ -58,6 +61,7 @@ class _AddressInputState extends State<AddressInput> {
   @override
   Widget build(BuildContext context) {
     return Section(
+      padding: widget.padding ?? const EdgeInsets.all(12),
       title: widget.title,
       titlePadding: EdgeInsets.only(bottom: 8.h),
       child: CustomBlocBuilder<AddressBloc>(
@@ -102,6 +106,7 @@ class _AddressInputState extends State<AddressInput> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           if (item.name.isNotEmpty) ...[
+                            2.shb,
                             Text(item.name, style: textTheme.bodyLarge.withWeight(FontWeight.bold)),
                             2.shb,
                           ],

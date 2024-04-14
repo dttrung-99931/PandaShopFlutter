@@ -6,7 +6,7 @@ import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/base_bloc/bloc_communication.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
-import 'package:evievm_app/src/features/order/domain/dto/order_confirm_dto.dart';
+import 'package:evievm_app/src/features/order/domain/dto/sub_order_dto.dart';
 import 'package:evievm_app/src/features/order/presentation/bloc/order_bloc_communicaton.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/delivery_method_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/payement_method_dto.dart';
@@ -48,7 +48,7 @@ class OrderBloc extends BaseBloc {
     }
   }
 
-  void _updateShopOrder(ShopDto shop, ShopOrderComfirmDto Function(ShopOrderComfirmDto shopOrder) updater) {
+  void _updateShopOrder(ShopDto shop, SubOrderDto Function(SubOrderDto shopOrder) updater) {
     int index = _orderConfirm!.shopOrdersComfirms.indexWhere((element) => element.shop == shop);
     if (index != -1) {
       _orderConfirm?.shopOrdersComfirms[index] = updater(_orderConfirm!.shopOrdersComfirms[index]);

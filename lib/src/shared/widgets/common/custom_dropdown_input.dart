@@ -1,6 +1,7 @@
 import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
+import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/auth/presentation/widgets/info_input.dart';
@@ -26,7 +27,8 @@ class CustomDropdownInput<TDto, TId, TState extends ListLoadedState<TDto, TId>, 
     required this.nameGetter,
     this.titleFlex = 10,
     this.buildCondition,
-    this.boldTitle = false,
+    this.direction = Axis.horizontal,
+    this.titleFontWeight = FontWeight.normal,
     TBloc? bloc,
     double? height,
   })  : bloc = bloc ?? getIt(),
@@ -46,8 +48,9 @@ class CustomDropdownInput<TDto, TId, TState extends ListLoadedState<TDto, TId>, 
   final TBloc bloc;
   final int titleFlex;
   final bool Function(BaseState staet)? buildCondition;
-  final bool boldTitle;
   final double height;
+  final Axis direction;
+  final FontWeight titleFontWeight;
 
   @override
   State<CustomDropdownInput> createState() => _CustomDropdownInputState<TDto, TId, TState, TBloc>();
@@ -66,8 +69,9 @@ class _CustomDropdownInputState<TDto, TId, TState extends ListLoadedState<TDto, 
   @override
   Widget build(BuildContext context) {
     return InfoInput(
+      direction: widget.direction,
       titleStyle: textTheme.bodyMedium!.copyWith(
-        fontWeight: widget.boldTitle ? FontWeight.w500 : FontWeight.normal,
+        fontWeight: widget.titleFontWeight,
       ),
       paddingLeft: 0,
       titleFlex: widget.titleFlex,

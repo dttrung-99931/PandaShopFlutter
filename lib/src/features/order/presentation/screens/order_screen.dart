@@ -8,7 +8,7 @@ import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
 import 'package:evievm_app/src/features/common/presentation/widgets/address/address_input.dart';
 import 'package:evievm_app/src/features/order/presentation/bloc/order_bloc.dart';
 import 'package:evievm_app/src/features/order/presentation/widget/order_bottom_bar.dart';
-import 'package:evievm_app/src/features/order/presentation/widget/order_confirm_list.dart';
+import 'package:evievm_app/src/features/order/presentation/widget/sub_order_list.dart';
 import 'package:evievm_app/src/features/order/presentation/widget/payment_method_select.dart';
 import 'package:evievm_app/src/features/order/presentation/widget/subtotal_price.dart';
 import 'package:evievm_app/src/features/shopping_cart/domain/dto/shopping_cart_dto.dart';
@@ -61,12 +61,7 @@ class _OrderScreenState extends State<OrderScreen> {
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     slivers: [
-                      OrderConfirmList(orderConfirm: state.data),
-                      SliverSizedBox(height: 4.h),
-                      SliverToBoxAdapter(
-                          child: AddressInput(
-                        onSelected: (AddressDto selected) {},
-                      )),
+                      SubOrderList(orderConfirm: state.data),
                       SliverSizedBox(height: 4.h),
                       SubtotalPrices(orderConfirm: state.data),
                       SliverSizedBox(height: 4.h),

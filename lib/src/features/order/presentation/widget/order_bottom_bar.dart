@@ -1,6 +1,6 @@
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/theme.dart';
-import 'package:evievm_app/src/features/order/presentation/widget/order_confirm_button.dart';
+import 'package:evievm_app/src/features/order/presentation/widget/order_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -19,7 +19,7 @@ class OrderBottomBar extends StatelessWidget {
           children: const [
             _BackButton(),
             Expanded(
-              child: OrderConfirmButton(),
+              child: OrderButton(),
             ),
           ],
         ),

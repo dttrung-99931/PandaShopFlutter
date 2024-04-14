@@ -108,7 +108,7 @@ class _ProductSelectState extends State<_ProductSelect> {
     return CustomDropdownInput<ProductDto, int, GetProdsToSelectSucess, ProductInventoryInputBloc>(
       title: 'Sản phẩm',
       titleFlex: 7,
-      boldTitle: true,
+      titleFontWeight: FontWeight.w600,
       onSelected: (ProductDto selected) {
         productInventoryInpBloc.add(OnProdSelected(
           productInventoryInpId: widget.productInventoryInpId,

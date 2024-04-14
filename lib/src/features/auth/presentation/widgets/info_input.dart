@@ -2,6 +2,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
+import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:evievm_app/src/shared/widgets/text_input.dart';
@@ -71,6 +72,8 @@ class InfoInput extends StatelessWidget {
   final bool expandHeight;
   final dynamic Function(String)? onSubmited;
   final double verticalPadding;
+  final Axis direction;
+  final double spacing;
 
   InfoInput({
     Key? key,
@@ -119,13 +122,19 @@ class InfoInput extends StatelessWidget {
     this.expandHeight = false,
     this.onSubmited,
     this.verticalPadding = 6,
+    this.direction = Axis.horizontal,
+    double? spacing,
   })  : trailingSpacing = trailingSpacing ?? 16.w,
-        titleStyle = titleStyle ?? textTheme.bodyMedium!,
+        titleStyle = titleStyle ??
+            textTheme.bodyMedium!.copyWith(
+              fontWeight: direction == Axis.horizontal ? FontWeight.normal : FontWeight.w600,
+            ),
         assert(
           // ignore: unrelated_type_equality_checks
           controller != customInput, // both must not be null together
           'Either controller must be != null OR customInput != null',
         ),
+        spacing = spacing ?? (direction == Axis.horizontal ? 0 : 12.h),
         super(key: key);
 
   factory InfoInput.onlyInput({
@@ -152,9 +161,84 @@ class InfoInput extends StatelessWidget {
     );
   }
 
+  bool get isHorizontal => direction == Axis.horizontal;
+
   @override
   Widget build(BuildContext context) {
-    Widget input = customInput ??
+    Widget inputContent = isEditable
+        ? _inputContent(_input(), _secondInput())
+        : Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Text(
+              controller?.text ?? textDisplayWhenNotEditable,
+              style: textTheme.bodyMedium,
+            ),
+          );
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (showTopDivider) const Divider(color: EVMColors.blackLight),
+        SizedBox(height: verticalPadding),
+        Flex(
+          direction: direction,
+          crossAxisAlignment: columnCrossAxisAlignment,
+          children: [
+            SizedBox(width: paddingLeft),
+            if (showTitle)
+              isHorizontal
+                  ? Expanded(
+                      flex: titleFlex,
+                      child: _title(),
+                    )
+                  : _title(),
+            isHorizontal ? spacing.swb : spacing.shb,
+            isHorizontal ? Expanded(flex: 14, child: inputContent) : inputContent,
+            if (hasRightSpace) const ExpandedSizedBox(flex: 4),
+          ],
+        ),
+        if (bottomText != null) const SizedBox(height: 6.0),
+        if (bottomText != null) _bottomText(),
+        SizedBox(height: verticalPadding),
+        if (showBottomDivider) const Divider(color: EVMColors.blackLight),
+      ],
+    );
+  }
+
+  Widget? _secondInput() {
+    return secondController != null
+        ? ValueListenableBuilder<bool>(
+            valueListenable: _shouldShowSecondInputErr,
+            builder: (_, showErr, __) {
+              return TextInput(
+                // inputFormatters: inputFormatters,
+                onFocusChanged: (hasFocus) {
+                  if (!hasFocus) {
+                    _shouldShowSecondInputErr.value = true;
+                  }
+                },
+                textInputType: inputType,
+                textInputAction: inputAction,
+                // isPasswordInput: isPasswordInput,
+                hintText: secondHint,
+                controller: secondController,
+                validator: secondValidator,
+                // autovalidateMode: AutovalidateMode.onUserInteraction,
+                // autoValidateOnUnfocus: true,
+                style: textTheme.bodyMedium,
+                onChange: (text) {
+                  _shouldShowSecondInputErr.value = true;
+                  onSecondaryTextChanged?.call(text);
+                },
+                enabled: enabled,
+                errorFontSize: showErr ? 14.sp : 0,
+              );
+            },
+          )
+        : null;
+  }
+
+  Widget _input() {
+    return customInput ??
         ValueListenableBuilder<bool>(
           valueListenable: _shouldShowInputErr,
           builder: (_, showErr, __) {
@@ -189,135 +273,78 @@ class InfoInput extends StatelessWidget {
             );
           },
         );
-    Widget? secondInput = secondController != null
-        ? ValueListenableBuilder<bool>(
-            valueListenable: _shouldShowSecondInputErr,
-            builder: (_, showErr, __) {
-              return TextInput(
-                // inputFormatters: inputFormatters,
-                onFocusChanged: (hasFocus) {
-                  if (!hasFocus) {
-                    _shouldShowSecondInputErr.value = true;
-                  }
-                },
-                textInputType: inputType,
-                textInputAction: inputAction,
-                // isPasswordInput: isPasswordInput,
-                hintText: secondHint,
-                controller: secondController,
-                validator: secondValidator,
-                // autovalidateMode: AutovalidateMode.onUserInteraction,
-                // autoValidateOnUnfocus: true,
-                style: textTheme.bodyMedium,
-                onChange: (text) {
-                  _shouldShowSecondInputErr.value = true;
-                  onSecondaryTextChanged?.call(text);
-                },
-                enabled: enabled,
-                errorFontSize: showErr ? 14.sp : 0,
-              );
-            },
-          )
-        : null;
+  }
+
+  Row _bottomText() {
+    return Row(
+      children: [
+        const SizedBox(width: 16),
+        ExpandedSizedBox(flex: titleFlex),
+        if (bottomTextType == TextType.error) sw(12.w),
+        Expanded(
+          flex: 14,
+          child: Text(
+            tr(bottomText!),
+            style: textTheme.labelMedium?.copyWith(
+              color: bottomTextType == TextType.normal ? EVMColors.blackLight : EVMColors.redDeep,
+            ),
+          ),
+        ),
+        if (hasRightSpace) const ExpandedSizedBox(flex: 4),
+      ],
+    );
+  }
+
+  Column _inputContent(Widget input, Widget? secondInput) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (showTopDivider) const Divider(color: EVMColors.blackLight),
-        SizedBox(height: verticalPadding),
         Row(
-          crossAxisAlignment: columnCrossAxisAlignment,
+          crossAxisAlignment: rowCrossAxisAlignment,
           children: [
-            SizedBox(width: paddingLeft),
-            if (showTitle)
-              Expanded(
-                flex: titleFlex,
-                child: Column(
-                  children: [
-                    sh(labelTopMargin),
-                    Row(
-                      children: [
-                        Text(tr(title), style: titleStyle),
-                        const SizedBox(width: 20),
-                        if (showRequiredLabel)
-                          Container(
-                            decoration: BoxDecoration(
-                              color: requireBackgroundColor,
-                              borderRadius: BorderRadius.circular(3),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 3,
-                              horizontal: 6,
-                            ),
-                            child: Text(
-                              tr('common.required'),
-                              style: textTheme.labelSmall?.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color: EVMColors.white,
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            Expanded(
-              flex: 14,
-              child: isEditable
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          crossAxisAlignment: rowCrossAxisAlignment,
-                          children: [
-                            inputWidth != null ? SizedBox(width: inputWidth, child: input) : Expanded(child: input),
-                            if (secondController != null) const SizedBox(width: 16),
-                            if (secondController != null)
-                              secondInputWidth != null
-                                  ? SizedBox(width: secondInputWidth, child: secondInput)
-                                  : Expanded(child: secondInput!),
-                            if (trailing != null) sw(trailingSpacing),
-                            if (trailing != null) expandTrailing ? Expanded(child: trailing!) : trailing!,
-                            SizedBox(width: paddingRight),
-                          ],
-                        ),
-                      ],
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Text(
-                        controller?.text ?? textDisplayWhenNotEditable,
-                        style: textTheme.bodyMedium,
-                      ),
-                    ),
-            ),
-            if (hasRightSpace) const ExpandedSizedBox(flex: 4),
+            inputWidth != null ? SizedBox(width: inputWidth, child: input) : Expanded(child: input),
+            if (secondController != null) const SizedBox(width: 16),
+            if (secondController != null)
+              secondInputWidth != null
+                  ? SizedBox(width: secondInputWidth, child: secondInput)
+                  : Expanded(child: secondInput!),
+            if (trailing != null) sw(trailingSpacing),
+            if (trailing != null) expandTrailing ? Expanded(child: trailing!) : trailing!,
+            SizedBox(width: paddingRight),
           ],
         ),
-        if (bottomText != null)
-          const SizedBox(
-            height: 6.0,
-          ),
-        if (bottomText != null)
-          Row(
-            children: [
-              const SizedBox(width: 16),
-              ExpandedSizedBox(flex: titleFlex),
-              if (bottomTextType == TextType.error) sw(12.w),
-              Expanded(
-                flex: 14,
+      ],
+    );
+  }
+
+  Column _title() {
+    return Column(
+      children: [
+        sh(labelTopMargin),
+        Row(
+          children: [
+            Text(tr(title), style: titleStyle),
+            const SizedBox(width: 20),
+            if (showRequiredLabel)
+              Container(
+                decoration: BoxDecoration(
+                  color: requireBackgroundColor,
+                  borderRadius: BorderRadius.circular(3),
+                ),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 3,
+                  horizontal: 6,
+                ),
                 child: Text(
-                  tr(bottomText!),
-                  style: textTheme.labelMedium?.copyWith(
-                    color: bottomTextType == TextType.normal ? EVMColors.blackLight : EVMColors.redDeep,
+                  tr('common.required'),
+                  style: textTheme.labelSmall?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: EVMColors.white,
                   ),
                 ),
               ),
-              if (hasRightSpace) const ExpandedSizedBox(flex: 4),
-            ],
-          ),
-        SizedBox(height: verticalPadding),
-        if (showBottomDivider) const Divider(color: EVMColors.blackLight),
+          ],
+        ),
       ],
     );
   }

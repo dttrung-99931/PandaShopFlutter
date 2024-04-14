@@ -154,7 +154,7 @@ class _WarehouseSelectState extends State<_WarehouseSelect> {
     return CustomDropdownInput<WarehouseDto, int, GetWarehousesSuccess, ProductInventoryInputBloc>(
       title: 'Kho nhập',
       titleFlex: 6,
-      boldTitle: true,
+      titleFontWeight: FontWeight.w600,
       onSelected: (WarehouseDto selected) {
         productInventoryInpBloc.add(OnWarehouseSelected(selected: selected));
       },

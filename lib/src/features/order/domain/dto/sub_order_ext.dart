@@ -1,4 +1,4 @@
-part of 'order_confirm_dto.dart';
+part of 'sub_order_dto.dart';
 
 extension OrderConfirmDtoExt on OrderConfirmDto {
   int get totalItems => items.length;
