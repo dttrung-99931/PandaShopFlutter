@@ -179,7 +179,7 @@ class _Item extends StatelessWidget {
         child: Container(
           decoration: const BoxDecoration(color: AppColors.white),
           padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 24.w),
-          margin: EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
+          margin: EdgeInsets.symmetric(vertical: 6.h, horizontal: 8.w),
           child: SpacingRow(
             spacing: 16.w,
             children: [
