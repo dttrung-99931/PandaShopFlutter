@@ -5,6 +5,7 @@ import 'package:evievm_app/core/utils/assets/assets.dart';
 import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
+import 'package:evievm_app/src/features/auth/presentation/screens/login_screen.dart';
 import 'package:evievm_app/src/features/common/presentation/screens/main_screen.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_listener.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,8 @@ class _SplashScreenState extends State<SplashScreen> {
           //   ShopProductDetailScreen.router,
           //   arguments: ShopProductDetailScreenArgs(),
           Global.navigator.pushReplacementNamed(MainScreen.router);
+        } else {
+          Global.navigator.pushReplacementNamed(LoginScreen.router);
         }
       },
       child: Scaffold(

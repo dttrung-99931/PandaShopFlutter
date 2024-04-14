@@ -2,6 +2,7 @@
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/constants.dart';
+import 'package:evievm_app/core/utils/message_utils.dart';
 import 'package:evievm_app/core/utils/overlay_utils.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/theme.dart';
@@ -57,7 +58,7 @@ class _CreateButton extends StatelessWidget {
           }
 
           if (state is ValidateDataState && state.shouldShowError) {
-            showSnackBar('Vui lòng nhập đầy đủ thông tin', SnackType.fail);
+            showFillEnoughtInfoMsg();
             return;
           }
         },

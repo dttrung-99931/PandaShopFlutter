@@ -3,12 +3,12 @@ import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
 import 'package:evievm_app/src/features/common/presentation/widgets/address/address_input.dart';
-import 'package:evievm_app/src/features/order/domain/dto/sub_order_dto.dart';
+import 'package:evievm_app/src/features/order/domain/dto/order_inp_dto.dart';
 import 'package:evievm_app/src/features/order/presentation/bloc/delivery_method_inp/delivery_method_inp_bloc.dart';
+import 'package:evievm_app/src/features/order/presentation/bloc/order_bloc.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/delivery_method_dto.dart';
 import 'package:evievm_app/src/features/shopping_cart/domain/dto/shopping_cart_dto.dart';
 import 'package:evievm_app/src/features/shopping_cart/presentation/widget/cart_item.dart';
-import 'package:evievm_app/src/shared/widgets/color_container.dart';
 import 'package:evievm_app/src/shared/widgets/common/custom_dropdown_input.dart';
 import 'package:evievm_app/src/shared/widgets/section.dart';
 import 'package:flutter/material.dart';
@@ -19,16 +19,16 @@ class SubOrderList extends StatelessWidget {
     super.key,
     required this.orderConfirm,
   });
-  final OrderConfirmDto orderConfirm;
+  final CreateOrderDto orderConfirm;
   List<CartItemDto> get items => orderConfirm.items;
 
   @override
   Widget build(BuildContext context) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
-        childCount: orderConfirm.shopOrdersComfirms.length,
+        childCount: orderConfirm.subOrders.length,
         (context, index) {
-          return SubOrder(item: orderConfirm.shopOrdersComfirms[index]);
+          return SubOrder(suborder: orderConfirm.subOrders[index]);
         },
       ),
     );
@@ -36,30 +36,32 @@ class SubOrderList extends StatelessWidget {
 }
 
 class SubOrder extends StatelessWidget {
-  const SubOrder({
-    super.key,
-    required this.item,
-  });
+  const SubOrder({super.key, required this.suborder});
 
-  final SubOrderDto item;
+  final SubOrderInputDto suborder;
 
   @override
   Widget build(BuildContext context) {
     return Section(
-      title: item.shop.name,
+      title: suborder.shop.name,
       child: Column(
         children: [
-          ...item.items.mapList((cartItem) => CartItem(
+          ...suborder.items.mapList((cartItem) => CartItem(
                 item: cartItem,
                 mode: CartItemMode.order,
               )),
           4.shb,
           AddressInput(
             padding: const EdgeInsets.symmetric(horizontal: 4),
-            onSelected: (AddressDto selected) {},
+            onSelected: (AddressDto selected) {
+              orderBloc.add(OnChangeAddress(
+                address: selected,
+                shop: suborder.shop,
+              ));
+            },
           ),
           4.shb,
-          _DeliveryMethodSelect(shopOrderConfirm: item),
+          _DeliveryMethodSelect(subOrder: suborder),
         ],
       ),
     );
@@ -69,9 +71,9 @@ class SubOrder extends StatelessWidget {
 class _DeliveryMethodSelect extends StatefulWidget {
   const _DeliveryMethodSelect({
     Key? key,
-    required this.shopOrderConfirm,
+    required this.subOrder,
   }) : super(key: key);
-  final SubOrderDto shopOrderConfirm;
+  final SubOrderInputDto subOrder;
 
   @override
   State<_DeliveryMethodSelect> createState() => _DeliveryMethodSelectState();
@@ -82,7 +84,7 @@ class _DeliveryMethodSelectState extends State<_DeliveryMethodSelect> {
   void initState() {
     deliveryMethodInpBloc.add(OnGetShopOrderDeliveryMethods(
       selectedId: null,
-      shopOrderConfirm: widget.shopOrderConfirm,
+      subOrder: widget.subOrder,
     ));
     super.initState();
   }
@@ -99,11 +101,11 @@ class _DeliveryMethodSelectState extends State<_DeliveryMethodSelect> {
         onSelected: (DeliveryMethodDto selected) {
           deliveryMethodInpBloc.add(OnDeliveryMethodSelected(
             selected: selected,
-            shopOrderConfirm: widget.shopOrderConfirm,
+            shopOrderConfirm: widget.subOrder,
           ));
         },
         buildCondition: (state) {
-          return state is GetShopOrderDeliveryMethodsSuccess && state.shop == widget.shopOrderConfirm.shop;
+          return state is GetShopOrderDeliveryMethodsSuccess && state.shop == widget.subOrder.shop;
         },
         nameGetter: (DeliveryMethodDto selected) {
           return selected.name;

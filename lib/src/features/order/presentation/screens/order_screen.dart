@@ -43,7 +43,7 @@ class _OrderScreenState extends State<OrderScreen> {
   @override
   void initState() {
     super.initState();
-    orderBloc.add(OnGetOrderComfirm(items: widget.args.items));
+    orderBloc.add(OnCreateOrderInput(items: widget.args.items));
   }
 
   @override

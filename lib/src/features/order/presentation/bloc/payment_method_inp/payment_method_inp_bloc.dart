@@ -7,10 +7,8 @@ import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/use_case/use_case.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
-import 'package:evievm_app/src/features/order/domain/dto/sub_order_dto.dart';
 import 'package:evievm_app/src/features/order/domain/use_cases/get_payment_methods_usecase.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/payement_method_dto.dart';
-import 'package:evievm_app/src/features/shop/domain/dtos/shop_response_dto.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -25,7 +23,7 @@ class PaymentMethodInpBloc extends BaseBloc {
     this._getPaymentMethods,
   ) : super(InitialState()) {
     on<OnGetPayementMethods>(_onOnGetPaymentMethods);
-    on<OnPaymentMethodSelected>(_onDeliveryMethodSelected);
+    on<OnPaymentMethodSelected>(_onPaymentMethodSelected);
   }
   final GetPaymentMethodsUseCase _getPaymentMethods;
   List<PaymentMethodDto>? _paymentMethods;
@@ -34,7 +32,7 @@ class PaymentMethodInpBloc extends BaseBloc {
     if (_paymentMethods != null) {
       emit(GetPaymentMethodsSuccess(
         _paymentMethods!,
-        selectedId: event.selectedId,
+        selectedId: event.selectedId ?? _paymentMethods?.firstOrNull?.id,
       ));
       return;
     }
@@ -49,5 +47,10 @@ class PaymentMethodInpBloc extends BaseBloc {
         });
   }
 
-  FutureOr<void> _onDeliveryMethodSelected(OnPaymentMethodSelected event, Emitter<BaseState> emit) {}
+  FutureOr<void> _onPaymentMethodSelected(OnPaymentMethodSelected event, Emitter<BaseState> emit) {
+    emit(GetPaymentMethodsSuccess(
+      _paymentMethods!,
+      selectedId: event.selected?.id,
+    ));
+  }
 }

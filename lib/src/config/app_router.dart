@@ -3,6 +3,7 @@ import 'package:evievm_app/src/features/auth/presentation/screens/sign_up_screen
 import 'package:evievm_app/src/features/common/presentation/screens/main_screen.dart';
 import 'package:evievm_app/src/features/common/presentation/screens/splash_screen.dart';
 import 'package:evievm_app/src/features/order/presentation/screens/order_screen.dart';
+import 'package:evievm_app/src/features/order/presentation/screens/successful_order_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/product_detail_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/search_products_screen.dart';
 import 'package:evievm_app/src/features/shop/presentation/screens/product_inventory_screen.dart';
@@ -41,6 +42,8 @@ class AppRouter {
         return ProductDetailScreen(settings.arguments as ProductDetailScreenArgs);
       case OrderScreen.router:
         return OrderScreen(settings.arguments as dynamic);
+      case SuccessfulOrderScreen.router:
+        return const SuccessfulOrderScreen();
 
       // Shop
       case ShopProductDetailScreen.router:

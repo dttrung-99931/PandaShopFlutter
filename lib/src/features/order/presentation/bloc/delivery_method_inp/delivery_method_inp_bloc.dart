@@ -6,7 +6,7 @@ import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
-import 'package:evievm_app/src/features/order/domain/dto/sub_order_dto.dart';
+import 'package:evievm_app/src/features/order/domain/dto/order_inp_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/delivery_method_dto.dart';
 import 'package:evievm_app/src/features/shop/domain/dtos/shop_response_dto.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,18 +28,18 @@ class DeliveryMethodInpBloc extends BaseBloc {
 
   FutureOr<void> _onGetShopOrderDeliveryMethods(OnGetShopOrderDeliveryMethods event, Emitter<BaseState> emit) async {
     emit(GetShopOrderDeliveryMethodsSuccess(
-      event.shopOrderConfirm.availableDeliveryMethods,
+      event.subOrder.availableDeliveryMethods,
       selectedId: event.selectedId ??
           // TODO: fix chosse default selected
-          event.shopOrderConfirm.availableDeliveryMethods.lastOrNull?.id,
-      shop: event.shopOrderConfirm.shop,
+          event.subOrder.availableDeliveryMethods.lastOrNull?.id,
+      shop: event.subOrder.shop,
     ));
   }
 
   FutureOr<void> _onDeliveryMethodSelected(OnDeliveryMethodSelected event, Emitter<BaseState> emit) {
     add(OnGetShopOrderDeliveryMethods(
       selectedId: event.selected?.id,
-      shopOrderConfirm: event.shopOrderConfirm,
+      subOrder: event.shopOrderConfirm,
     ));
   }
 }

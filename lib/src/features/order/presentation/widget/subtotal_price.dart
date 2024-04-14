@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/src/config/theme.dart';
-import 'package:evievm_app/src/features/order/domain/dto/sub_order_dto.dart';
+import 'package:evievm_app/src/features/order/domain/dto/order_inp_dto.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/product/price_widget.dart';
 import 'package:evievm_app/src/shared/widgets/section.dart';
 import 'package:evievm_app/src/shared/widgets/spacing_column.dart';
@@ -12,7 +12,7 @@ class SubtotalPrices extends StatelessWidget {
     Key? key,
     required this.orderConfirm,
   }) : super(key: key);
-  final OrderConfirmDto orderConfirm;
+  final CreateOrderDto orderConfirm;
 
   @override
   Widget build(BuildContext context) {

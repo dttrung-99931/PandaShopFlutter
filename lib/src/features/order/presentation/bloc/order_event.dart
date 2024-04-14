@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'order_bloc.dart';
 
-class OnGetOrderComfirm extends BaseEvent {
-  OnGetOrderComfirm({
+class OnCreateOrderInput extends BaseEvent {
+  OnCreateOrderInput({
     required this.items,
   });
   final List<CartItemDto> items;
@@ -29,4 +29,17 @@ class OnChangePaymentMethod extends BaseEvent {
   });
   @override
   List<Object?> get props => [paymentMethod];
+}
+
+class OnCreateOrder extends BaseEventWithoutProps {}
+
+class OnChangeAddress extends BaseEvent {
+  final AddressDto address;
+  final ShopDto shop;
+  OnChangeAddress({
+    required this.address,
+    required this.shop,
+  });
+  @override
+  List<Object?> get props => [address, shop];
 }

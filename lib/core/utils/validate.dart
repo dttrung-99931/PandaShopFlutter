@@ -155,6 +155,10 @@ class Validate {
   static TextInputFormatter get code39InputFormatter {
     return FilteringTextInputFormatter.allow(RegExp(r'[A-Z0-9 -]'));
   }
+
+  static bool isValidId(int? id) {
+    return [null, Constatnts.idEmpty].contains(id) == false;
+  }
 }
 
 class DecimalTextInputFormatter extends TextInputFormatter {

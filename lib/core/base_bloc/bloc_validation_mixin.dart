@@ -15,7 +15,7 @@ mixin BlocValidationMixin on Bloc<BaseEvent, BaseState> {
   }
 
   Future<void> _onValidateData(OnValidateData event, Emitter<BaseState> emit) async {
-    handleValidate(emit);
+    handleValidate(emit, showErrMsg: event.showErrorMsg);
   }
 
   bool validateMoreData() {

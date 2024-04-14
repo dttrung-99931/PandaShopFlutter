@@ -1,6 +1,6 @@
-part of 'sub_order_dto.dart';
+part of 'order_inp_dto.dart';
 
-extension OrderConfirmDtoExt on OrderConfirmDto {
+extension CreateOrderDtoExt on CreateOrderDto {
   int get totalItems => items.length;
   double get shippingFee => 26000;
   double get subtotal => items.sumDouble((element) => element.productNum * element.product.price);
