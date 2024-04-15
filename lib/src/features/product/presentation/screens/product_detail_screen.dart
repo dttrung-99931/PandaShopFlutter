@@ -9,6 +9,7 @@ import 'package:evievm_app/src/features/product/presentation/widget/product_deta
 import 'package:evievm_app/src/features/product/presentation/widget/product_detail/description_and_propreties.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/product_detail/name_and_price.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/product_detail/product_option.dart';
+import 'package:evievm_app/src/features/shopping_cart/presentation/bloc/shopping_cart_bloc.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:evievm_app/src/shared/widgets/hidden_on_scroll_bottom_bar.dart';
 import 'package:evievm_app/src/shared/widgets/not_found.dart';
@@ -48,9 +49,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   void initState() {
     super.initState();
-    getIt<ProductDetailBloc>().add(
-      OnGetProductDetail(widget.args.productId, selectedOptionId: widget.args.selectedOptionId),
-    );
+    productDetailBloc.add(OnGetProductDetail(
+      widget.args.productId,
+      selectedOptionId: widget.args.selectedOptionId,
+    ));
+    shoppingCartBloc.add(OnGetShoppingCart());
   }
 
   @override

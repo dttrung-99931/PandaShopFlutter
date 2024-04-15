@@ -35,7 +35,7 @@ class ShoppingCartBloc extends BaseBloc {
   ShoppingCartBloc(this._getShoppingCartUseCase, this._upsertCartUseCase, this._deleteItems) : super(InitialState()) {
     onLoad<OnGetShoppingCart>(
       _onGetShoppingCart,
-      loadingStateBuilder: (_) => LoadingProductDetail(),
+      loadingStateBuilder: (_) => LoadingShoppingCart(),
     );
     on<OnUpsertCart>(_onUpsertCart, transformer: BlocConcurrency.sequential());
     on<OnCheckCartItem>(_onCheckCartItem, transformer: BlocConcurrency.sequential());

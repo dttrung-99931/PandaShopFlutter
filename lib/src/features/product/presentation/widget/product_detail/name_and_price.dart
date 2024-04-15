@@ -1,5 +1,7 @@
 import 'package:evievm_app/core/utils/dimensions.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
+import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
+import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_detail_dto.dart';
 import 'package:evievm_app/src/features/product/presentation/bloc/product_detail/product_option/product_option_bloc.dart';
@@ -33,7 +35,19 @@ class ProductNameAndPrice extends StatelessWidget {
                 buildForStates: const [OptionSelectedChanged],
                 builder: (state) {
                   if (state is OptionSelectedChanged && state.selectedOption != null) {
-                    return PriceWidget(state.selectedOption!.price);
+                    return Column(
+                      children: [
+                        4.shb,
+                        PriceWidget(state.selectedOption!.price, isLarge: true),
+                        Row(
+                          children: [
+                            8.swb,
+                            const Text('Kho: '),
+                            Text('${state.selectedOption!.remainingNum}', style: textTheme.bodyMedium.bold()),
+                          ],
+                        )
+                      ],
+                    );
                   }
                   return const SizedBox.shrink();
                 }),

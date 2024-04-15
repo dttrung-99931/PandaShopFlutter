@@ -42,8 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
           //   ShopProductDetailScreen.router,
           //   arguments: ShopProductDetailScreenArgs(),
           Global.navigator.pushReplacementNamed(MainScreen.router);
-        } else {
-          Global.navigator.pushReplacementNamed(LoginScreen.router);
+          // Global.navigator.pushReplacementNamed(LoginScreen.router);
         }
       },
       child: Scaffold(

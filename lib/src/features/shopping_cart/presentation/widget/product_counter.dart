@@ -74,6 +74,7 @@ class ProductCounter extends StatelessWidget {
         ),
         showCounter
             ? _Button(
+                isEnabled: item.productNum < item.prouductOption.remainingNum,
                 onPressed: () {
                   shoppingCartBloc.add(
                     OnUpsertCart(
@@ -97,9 +98,11 @@ class _Button extends StatelessWidget {
     Key? key,
     required this.symbol,
     required this.onPressed,
+    this.isEnabled = true,
   }) : super(key: key);
   final String symbol;
   final Function() onPressed;
+  final bool isEnabled;
 
   @override
   Widget build(BuildContext context) {
@@ -107,10 +110,10 @@ class _Button extends StatelessWidget {
       color: AppColors.transparent,
       child: InkWell(
         borderRadius: BorderRadius.circular(16.r),
-        onTap: onPressed,
+        onTap: isEnabled ? onPressed : null,
         child: Container(
           decoration: BoxDecoration(
-            border: Border.all(color: AppColors.primary.withOpacity(0.6)),
+            border: Border.all(color: AppColors.primary.withOpacity(isEnabled ? 0.6 : 0.3)),
             borderRadius: BorderRadius.circular(4.r),
           ),
           margin: EdgeInsets.all(8.r),
@@ -119,7 +122,11 @@ class _Button extends StatelessWidget {
           width: 28.r,
           child: Text(
             symbol,
-            style: textTheme.titleSmall?.withColor(AppColors.primary).withHeight(1.08),
+            style: textTheme.titleSmall
+                ?.withColor(AppColors.primary.withOpacity(
+                  isEnabled ? 1 : 0.3,
+                ))
+                .withHeight(1.08),
             textAlign: TextAlign.center,
           ),
         ),

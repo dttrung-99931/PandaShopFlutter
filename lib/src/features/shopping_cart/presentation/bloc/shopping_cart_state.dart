@@ -8,16 +8,17 @@ class ShoppingCartUpdated extends FullDataLoadedState<ShoppingCartDto> {
 class GetShoppingCartSuccess extends ShoppingCartUpdated {
   GetShoppingCartSuccess(super.data);
 }
+
 class UpsertShoppingCartSuccess extends ShoppingCartUpdated {
   final bool isFirstAdd;
   UpsertShoppingCartSuccess(
-    super.data,
-{    required this.isFirstAdd,}
-  );
+    super.data, {
+    required this.isFirstAdd,
+  });
 }
 
 class DeleteCartItemsSuccess extends LoadingCompleteStateWithoutProps {}
 
 class LoadingProducts extends LoadingState {}
 
-class LoadingProductDetail extends LoadingState {}
+class LoadingShoppingCart extends LoadingState {}
