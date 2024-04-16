@@ -62,7 +62,7 @@ class ShoppingCartBloc extends BaseBloc {
       emit: emit,
       onSuccess: (dynamic _) {
         CartItemDto? existing = _cart!.items
-            .firstWhereOrNull((element) => element.prouductOption == event.requestModel.productOptionId)
+            .firstWhereOrNull((element) => element.prouductOption.id == event.requestModel.productOptionId)
             ?.copyWith(
               productNum: event.requestModel.productNum,
             );
