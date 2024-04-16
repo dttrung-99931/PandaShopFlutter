@@ -11,7 +11,7 @@ extension ShoppingCartDtoExt on ShoppingCartDto {
     return items.any((element) => element.prouductOption.id == productOptionId);
   }
 
-  CartItemDto? getItem(int productOptionId) {
+  CartItemDto? getCartItemOf(int productOptionId) {
     return items.firstWhereOrNull((element) => element.prouductOption.id == productOptionId);
   }
 }

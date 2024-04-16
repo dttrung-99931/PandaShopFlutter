@@ -2,6 +2,7 @@
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/constants.dart';
+import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_detail_dto.dart';
@@ -77,11 +78,18 @@ class AddToCartButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      alignment: Alignment.center,
       width: size.width * 0.45,
       child: CustomBlocBuilder<ProductOptionBloc>(builder: (_) {
         ProductOptionDto? option = productOptionBloc.selectedOption;
         if (option == null) return emptyWidget;
+        if (option.remainingNum == 0) {
+          return Text('Sản phẩm hết hàng',
+              style: textTheme.bodyMedium.withColor(
+                AppColors.blackLight.withOpacity(0.7),
+              ));
+        }
         return CustomBlocConsumer<ShoppingCartBloc>(
             key: GlobalKey(),
             listener: (state) {
@@ -94,30 +102,34 @@ class AddToCartButton extends StatelessWidget {
             buildForStates: const [UpsertShoppingCartSuccess, GetShoppingCartSuccess],
             builder: (state) {
               if (state is ShoppingCartUpdated) {
-                CartItemDto? item = state.data.getItem(option.id);
+                CartItemDto? item = state.data.getCartItemOf(option.id);
                 if (item != null && item.productNum > 0) {
                   // TODO: fix wrong ProductCounter show a short time right after open prod detail screen
                   return ProductCounter(item: item, comfirmDelete: false);
                 }
               }
 
-              return TextButton(
-                onPressed: option != null
-                    ? () {
-                        shoppingCartBloc.add(
-                          OnUpsertCart(
-                            requestModel: UpsertCartRequestModel(
-                              productOptionId: option.id,
-                              productNum: productOptionBloc.productQuantity,
-                            ),
-                          ),
-                        );
-                      }
-                    : null,
-                child: Text("Thêm giỏ hàng", style: textTheme.bodyLarge),
-              );
+              return _addCartButton(option);
             });
       }),
+    );
+  }
+
+  TextButton _addCartButton(ProductOptionDto option) {
+    return TextButton(
+      onPressed: option != null
+          ? () {
+              shoppingCartBloc.add(
+                OnUpsertCart(
+                  requestModel: UpsertCartRequestModel(
+                    productOptionId: option.id,
+                    productNum: productOptionBloc.productQuantity,
+                  ),
+                ),
+              );
+            }
+          : null,
+      child: Text("Thêm giỏ hàng", style: textTheme.bodyLarge),
     );
   }
 }
