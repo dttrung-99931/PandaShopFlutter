@@ -40,7 +40,7 @@ class ShopProductBloc extends BaseBloc {
       loadingStateBuilder: (_) => LoadingShopProductCates(),
     );
     on<OnGetShopBanners>(_onGetHomeBanners);
-    on<OnDeleteProduct>(_onDeleteProduct);
+    onLoad<OnDeleteProduct>(_onDeleteProduct);
   }
   final GetProductsUseCase _getProducts;
   final GetProductCatesUseCase _getProductCates;

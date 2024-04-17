@@ -6,9 +6,7 @@ part of 'get_products_request_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-GetProductsRequestModel _$GetProductsRequestModelFromJson(
-        Map<String, dynamic> json) =>
-    GetProductsRequestModel(
+GetProductsRequestModel _$GetProductsRequestModelFromJson(Map<String, dynamic> json) => GetProductsRequestModel(
       categoryIdLV1: json['categoryIdLV1'] as int?,
       categoryIdLV2: json['categoryIdLV2'] as int?,
       categoryIdLV3: json['categoryIdLV3'] as int?,
@@ -17,8 +15,7 @@ GetProductsRequestModel _$GetProductsRequestModelFromJson(
       shopId: json['shopId'] as int?,
     );
 
-Map<String, dynamic> _$GetProductsRequestModelToJson(
-    GetProductsRequestModel instance) {
+Map<String, dynamic> _$GetProductsRequestModelToJson(GetProductsRequestModel instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -33,5 +30,6 @@ Map<String, dynamic> _$GetProductsRequestModelToJson(
   writeNotNull('categoryIdLV3', instance.categoryIdLV3);
   writeNotNull('orderBy', instance.orderBy);
   writeNotNull('shopId', instance.shopId);
+  writeNotNull('available', instance.available);
   return val;
 }

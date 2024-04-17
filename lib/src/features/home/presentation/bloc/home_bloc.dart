@@ -38,7 +38,7 @@ class HomeBloc extends BaseBloc {
 
   Future<void> _onGetHomeProducts(OnGetHomeProducts event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
-      usecaseResult: _getProducts.call(GetProductsRequestModel(orderBy: 'desc')),
+      usecaseResult: _getProducts.call(GetProductsRequestModel(orderBy: 'desc', available: true)),
       emit: emit,
       onSuccess: (List<ProductDto> result) {
         return GetProductsSucess(result);

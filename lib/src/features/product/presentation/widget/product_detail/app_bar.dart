@@ -63,6 +63,7 @@ class ProductDetailAppBar extends StatelessWidget {
       case ProductDetailViewMode.shopView:
         return [
           CustomBlocListener<ShopProductBloc>(
+            handleGlobalLoading: true,
             listener: (state) {
               if (state is DeleteProductSuccess) {
                 showSnackBar('Đã xóa sản phẩm!');

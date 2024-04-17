@@ -45,7 +45,7 @@ class OverlayLoadingPage extends ModalRoute<void> {
   }
 
   Widget _buildOverlayContent(BuildContext context) {
-    return LoadingWidget(size: 80.r);
+    return LoadingWidget(size: 48.r);
   }
 
   @override

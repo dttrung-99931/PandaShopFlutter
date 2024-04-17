@@ -10,6 +10,7 @@ class GetProductsRequestModel {
   final int? categoryIdLV3;
   final String? orderBy;
   final int? shopId;
+  final bool? available;
 
   GetProductsRequestModel({
     this.categoryIdLV1,
@@ -18,6 +19,7 @@ class GetProductsRequestModel {
     this.q,
     this.orderBy,
     this.shopId,
+    this.available,
   });
 
   factory GetProductsRequestModel.shopProducts({String? q}) {
