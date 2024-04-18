@@ -1,3 +1,4 @@
+import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/core/utils/overlay_utils.dart';
@@ -64,6 +65,7 @@ class ProductDetailAppBar extends StatelessWidget {
         return [
           CustomBlocListener<ShopProductBloc>(
             handleGlobalLoading: true,
+            loadingStateTyle: LoadingState<OnDeleteProduct>,
             listener: (state) {
               if (state is DeleteProductSuccess) {
                 showSnackBar('Đã xóa sản phẩm!');

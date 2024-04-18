@@ -38,7 +38,7 @@ class OrderBloc extends BaseBloc {
     on<OnChangeDeliveryMethod>(_onChangeDeliveryMethod);
     on<OnChangePaymentMethod>(_onChangePaymentMethod);
     on<OnChangeAddress>(_onChangeAddress);
-    onLoad<OnCreateOrder>(_onCreateOrder, loadingStateBuilder: (_) => LoadingState<OnCreateOrder>());
+    onLoad<OnCreateOrder>(_onCreateOrder, loadingBuilder: (_) => LoadingState<OnCreateOrder>());
   }
   @override
   BlocCommunication? get blocCommunication => getIt<OrderBlocCommunication>();

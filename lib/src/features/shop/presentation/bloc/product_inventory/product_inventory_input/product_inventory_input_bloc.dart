@@ -47,7 +47,7 @@ class ProductInventoryInputBloc extends BaseBloc {
     on<OnProdSelected>(_onProdSelected);
     onLoad<OnCreateProductInventory>(
       _onCreateProductInventory,
-      loadingStateBuilder: (_) => LoadingState<OnCreateProductInventory>(),
+      loadingBuilder: (_) => LoadingState<OnCreateProductInventory>(),
     );
     on<OnGetWarehousesToSelect>(_onGetWarehousesToSelect);
     on<OnWarehouseSelected>(_onWarehouseSelected);

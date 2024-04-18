@@ -45,7 +45,7 @@ class SearchProductsBloc extends BaseBloc {
     onLoad<OnGetProducts>(
       _onGetProducts,
       transformer: BlocConcurrency.debounce(300.milliseconds),
-      loadingStateBuilder: (_) => LoadingProducts(),
+      loadingBuilder: (_) => LoadingProducts(),
     );
   }
 

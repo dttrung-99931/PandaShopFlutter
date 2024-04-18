@@ -12,6 +12,7 @@ class CustomBlocListener<T extends BaseBloc> extends StatefulWidget {
   final List<Type>? listenForStates;
   final Widget? child;
   final bool handleGlobalLoading;
+  final Type loadingStateTyle;
   const CustomBlocListener({
     super.key,
     this.initialEvent,
@@ -19,6 +20,7 @@ class CustomBlocListener<T extends BaseBloc> extends StatefulWidget {
     this.listenForStates,
     this.child,
     this.handleGlobalLoading = false,
+    this.loadingStateTyle = LoadingState,
   });
 
   @override
@@ -61,7 +63,7 @@ class _CustomBlocListenerState<T extends BaseBloc> extends State<CustomBlocListe
 
   void _handleShowHideGlobalLoading(BaseState state) {
     if (!widget.handleGlobalLoading) return;
-    if (state is LoadingState) {
+    if (state.runtimeType == widget.loadingStateTyle) {
       showLoadingOverlay();
     } else if (state is LoadingCompleteState) {
       hideLoadingOverlay();

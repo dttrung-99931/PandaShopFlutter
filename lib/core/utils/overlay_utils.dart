@@ -77,6 +77,7 @@ void showLoadingOverlay({bool canDismiss = false, Color? backgroundColor}) {
 void hideLoadingOverlay() {
   try {
     if (_isShowingLoading) {
+      Global.hideAllSnackbars();
       Global.navigator.pop();
       _isShowingLoading = false;
     }

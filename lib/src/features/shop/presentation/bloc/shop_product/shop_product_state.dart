@@ -21,5 +21,5 @@ class DeleteProductSuccess extends LoadingCompleteState {
     required this.productId,
   });
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [productId];
 }

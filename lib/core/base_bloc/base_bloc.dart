@@ -38,10 +38,10 @@ abstract class BaseBloc extends Bloc<BaseEvent, BaseState> with BlocValidationMi
 
   /// Same to [on] method, but pre-handle loading event by set [LoadingState]
   void onLoad<T extends BaseEvent>(EventHandlerType<T> handler,
-      {TransformerType<T> transformer, LoadingState Function(T event)? loadingStateBuilder}) {
+      {TransformerType<T> transformer, LoadingState Function(T event)? loadingBuilder}) {
     on<T>(
       (event, emit) async {
-        emit(loadingStateBuilder != null ? loadingStateBuilder(event) : LoadingState());
+        emit(loadingBuilder != null ? loadingBuilder(event) : LoadingState());
         await handler(event, emit);
       },
       transformer: transformer,
