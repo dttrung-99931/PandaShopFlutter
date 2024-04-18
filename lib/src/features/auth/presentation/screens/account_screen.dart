@@ -6,6 +6,7 @@ import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:evievm_app/src/features/auth/presentation/screens/login_screen.dart';
+import 'package:evievm_app/src/features/common/presentation/bloc/main/main_bloc.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/user/user_bloc.dart';
 import 'package:evievm_app/src/shared/widgets/app_alert_dialog.dart';
 import 'package:evievm_app/src/shared/widgets/common/unregister_widget.dart';
@@ -115,17 +116,28 @@ class _Items extends StatelessWidget {
             if (state is! GetUserDetailSuccess) {
               return emptyWidget;
             }
-            return _Item(
-              title: state.data.shop != null ? 'Chuyển qua shop' : 'Tạo shop của bạn',
-              onPressed: () {
-                if (state.data.shop != null) {
-                  // TODO:
-                } else {
+            if (state.data.shop == null) {
+              return _Item(
+                title: 'Tạo shop của bạn',
+                onPressed: () {
                   Global.mainPageIndexNotifier.value = 1; // Switch to shop page on main screen
-                }
-              },
-              icon: const Icon(Icons.home_outlined),
-            );
+                },
+                icon: const Icon(Icons.home_outlined),
+              );
+            }
+            return CustomBlocBuilder<MainBloc>(builder: (state) {
+              if (state is! GetAppModeSuccess) {
+                return emptyWidget;
+              }
+              bool isUserMode = state.data == AppMode.user;
+              return _Item(
+                title: isUserMode ? 'Chuyển qua shop' : 'Chuyển qua người dùng thường',
+                onPressed: () {
+                  mainBloc.add(OnChangeAppMode(mode: isUserMode ? AppMode.shop : AppMode.user));
+                },
+                icon: const Icon(Icons.home_outlined),
+              );
+            });
           },
         ),
         const _Item(

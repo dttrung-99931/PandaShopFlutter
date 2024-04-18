@@ -6,11 +6,11 @@ import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../core/utils/app_colors.dart';
-import '../../../../shared/widgets/card_icon.dart';
+import '../../../../../../core/utils/app_colors.dart';
+import '../../../../../shared/widgets/card_icon.dart';
 
-class AppBottomNavBar extends StatelessWidget {
-  const AppBottomNavBar({
+class MainShopBottomNavBar extends StatelessWidget {
+  const MainShopBottomNavBar({
     Key? key,
     required this.selectedIndexNotifier,
   }) : super(key: key);
@@ -34,11 +34,6 @@ class AppBottomNavBar extends StatelessWidget {
                   builder: (_, __, ___) {
                     return BottomNavigationBar(
                       items: [
-                        BottomNavigationBarItem(
-                          backgroundColor: Colors.white,
-                          icon: CardIcon.zeroPadding(Icons.home_outlined),
-                          label: "Trang chủ",
-                        ),
                         BottomNavigationBarItem(
                           backgroundColor: Colors.white,
                           icon: CardIcon.zeroPadding(Icons.shop_outlined),

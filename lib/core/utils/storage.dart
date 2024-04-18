@@ -2,12 +2,15 @@
 
 import 'dart:convert';
 
+import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/src/features/auth/data/models/response/user_profile_model.dart';
+import 'package:evievm_app/src/features/common/presentation/bloc/main/main_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const _KEY_TOKEN = '_KEY_TOKEN';
 const _KEY_USER_PROFILE = '_KEY_USER_PROFILE';
 const _KEY_LOGIN_EMAIL = '_KEY_LOGIN_EMAIL';
+const _KEY_APP_MODE = '_KEY_APP_MODE';
 const _TEST_USER_TOKEN =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMTIiLCJjYXJ0X2lkIjoiOSIsInN1YiI6IjA5ODgyMDIwNzEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJ1c2VyIiwiZXhwIjoxNzEwOTIzMjkxLCJpc3MiOiJEVFQiLCJhdWQiOiJEVFQifQ.FI_TEWuQ-MgMFGs6jZ42j1fI2dPFRqzSZE_iCxQIMkk';
 
@@ -61,4 +64,20 @@ extension ProfileStrorage on Storage {
     if (json == null) return null;
     return UserProfileModel.fromJson(jsonDecode(json));
   }
+}
+
+extension AppModeStrorage on Storage {
+  Future<void> saveAppMode(AppMode value) async {
+    await _preferences.setString(_KEY_APP_MODE, value.name);
+  }
+
+  Future<void> deleteAppMode() async {
+    await _preferences.remove(_KEY_APP_MODE);
+  }
+
+  AppMode get appMode =>
+      AppMode.values.firstWhereOrNull(
+        (p0) => p0.name == _preferences.getString(_KEY_APP_MODE),
+      ) ??
+      AppMode.user;
 }
