@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evievm_app/src/features/shop/presentation/bloc/shop/shop_bloc.dart';
+import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product/shop_product_bloc.dart';
 import 'package:evievm_app/src/shared/widgets/common/app_floating_action_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,69 +30,75 @@ class ShopScreen extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     return SafeArea(
       top: false,
-      child: PageStorage(
-        bucket: _pageStorageBucket,
-        child: CustomBlocBuilder<UserBloc>(
-          buildForStates: const [GetUserDetailSuccess],
-          builder: (_) {
-            return Scaffold(
-              body: Global.userDetail == null
-                  ? const Center(child: NotLoginWidget())
-                  : Global.shop == null
-                      ? Center(
-                          child: UnregisterWidget(
-                            title: 'Bạn chưa đăng ký bán hàng!',
-                            buttonTitle: 'Tạo cửa hàng',
-                            onPressed: () {
-                              Global.pushNamed(RegisterShopScreen.router);
-                            },
-                          ),
-                        )
-                      : CustomScrollView(
-                          controller: scrollController,
-                          slivers: [
-                            ShopSearchBarAndBanner(size: size),
-                            SliverSizedBox(height: 4.h),
-                            SliverSection(
-                              padding: EdgeInsets.all(8.r),
-                              title: 'Phân loại sản phẩm shop của bạn',
-                              contentPadding: EdgeInsets.zero,
-                              child: Container(
-                                padding: EdgeInsets.symmetric(vertical: 8.r),
-                                child: const ShopProductCates(),
-                              ),
+      child: RefreshIndicator(
+        onRefresh: () async {
+          shopProductBloc.add(OnGetShopProducts());
+          shopProductBloc.add(OnGetShopProductCates());
+        },
+        child: PageStorage(
+          bucket: _pageStorageBucket,
+          child: CustomBlocBuilder<UserBloc>(
+            buildForStates: const [GetUserDetailSuccess],
+            builder: (_) {
+              return Scaffold(
+                body: Global.userDetail == null
+                    ? const Center(child: NotLoginWidget())
+                    : Global.shop == null
+                        ? Center(
+                            child: UnregisterWidget(
+                              title: 'Bạn chưa đăng ký bán hàng!',
+                              buttonTitle: 'Tạo cửa hàng',
+                              onPressed: () {
+                                Global.pushNamed(RegisterShopScreen.router);
+                              },
                             ),
-                            SliverToBoxAdapter(
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 8.h),
-                                child: Text(
-                                  'Các cản phẩm',
-                                  style: textTheme.bodyLarge?.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.black,
+                          )
+                        : CustomScrollView(
+                            controller: scrollController,
+                            slivers: [
+                              ShopSearchBarAndBanner(size: size),
+                              SliverSizedBox(height: 4.h),
+                              SliverSection(
+                                padding: EdgeInsets.all(8.r),
+                                title: 'Phân loại sản phẩm shop của bạn',
+                                contentPadding: EdgeInsets.zero,
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 8.r),
+                                  child: const ShopProductCates(),
+                                ),
+                              ),
+                              SliverToBoxAdapter(
+                                child: Padding(
+                                  padding: EdgeInsets.fromLTRB(16.w, 8.h, 16.w, 8.h),
+                                  child: Text(
+                                    'Các cản phẩm',
+                                    style: textTheme.bodyLarge?.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.black,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            SliverPadding(
-                              padding: EdgeInsets.all(8.r),
-                              sliver: const ShopProductSliverGrid(),
-                            ),
-                          ],
-                        ),
-              floatingActionButton: Global.shop == null
-                  ? null
-                  : AppFloatingActionButton(
-                      onPressed: () {
-                        Global.pushNamed(
-                          ShopProductDetailScreen.router,
-                          args: ShopProductDetailScreenArgs(productId: null),
-                        );
-                      },
-                      title: 'Thêm sản phẩm',
-                    ),
-            );
-          },
+                              SliverPadding(
+                                padding: EdgeInsets.all(8.r),
+                                sliver: const ShopProductSliverGrid(),
+                              ),
+                            ],
+                          ),
+                floatingActionButton: Global.shop == null
+                    ? null
+                    : AppFloatingActionButton(
+                        onPressed: () {
+                          Global.pushNamed(
+                            ShopProductDetailScreen.router,
+                            args: ShopProductDetailScreenArgs(productId: null),
+                          );
+                        },
+                        title: 'Thêm sản phẩm',
+                      ),
+              );
+            },
+          ),
         ),
       ),
     );

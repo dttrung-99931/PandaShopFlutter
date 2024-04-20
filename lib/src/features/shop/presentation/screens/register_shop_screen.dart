@@ -13,8 +13,10 @@ import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.
 import 'package:evievm_app/src/features/auth/presentation/bloc/sign_up/sign_up_bloc.dart';
 import 'package:evievm_app/src/features/auth/presentation/screens/login_screen.dart';
 import 'package:evievm_app/src/features/auth/presentation/widgets/info_input.dart';
+import 'package:evievm_app/src/features/common/presentation/bloc/main/main_bloc.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/user/user_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop/shop_bloc.dart';
+import 'package:evievm_app/src/shared/widgets/app_alert_dialog.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_listener.dart';
 import 'package:evievm_app/src/shared/widgets/cutstom_button.dart';
 import 'package:evievm_app/src/shared/widgets/utils/validation_state.dart';
@@ -92,8 +94,18 @@ class _RegisterButton extends StatelessWidget {
       listener: (state) {
         if (state is RegisterShopSuccess) {
           Global.pop();
-          showSnackBar('Đăng ký thành công.\nBạn có thể tạo sản phẩm cho cửa hàng của mình!');
-          userBloc.add(OnGetUserDetail());
+          // showSnackBar('Đăng ký thành công.\nBạn có thể tạo sản phẩm cho cửa hàng của mình!');
+          AppAlertDialog.show(
+            context: context,
+            title: 'Đăng ký thành công. Chuyên qua mode shop để tạo sản phảm ngay nhé',
+            onConfirm: () {
+              mainBloc.add(OnChangeAppMode(mode: AppMode.shop));
+            },
+            onCancel: () {
+              userBloc.add(OnGetUserDetail());
+            },
+            isPositive: true,
+          );
         }
       },
       builder: (state) {

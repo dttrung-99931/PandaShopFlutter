@@ -45,6 +45,7 @@ class AppAlertDialog extends StatelessWidget {
     required BuildContext context,
     required String title,
     required void Function() onConfirm,
+    void Function()? onCancel,
     bool isPositive = false,
   }) async {
     return showDialog(
@@ -53,6 +54,7 @@ class AppAlertDialog extends StatelessWidget {
         primaryColor: isPositive ? AppColors.primary : AppColors.red,
         title: title,
         onConfirm: onConfirm,
+        onCancelPressed: onCancel,
       ),
     );
   }

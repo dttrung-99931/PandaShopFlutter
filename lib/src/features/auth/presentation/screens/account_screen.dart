@@ -8,6 +8,7 @@ import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.
 import 'package:evievm_app/src/features/auth/presentation/screens/login_screen.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/main/main_bloc.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/user/user_bloc.dart';
+import 'package:evievm_app/src/features/shop/presentation/screens/register_shop_screen.dart';
 import 'package:evievm_app/src/shared/widgets/app_alert_dialog.dart';
 import 'package:evievm_app/src/shared/widgets/common/unregister_widget.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
@@ -120,7 +121,8 @@ class _Items extends StatelessWidget {
               return _Item(
                 title: 'Tạo shop của bạn',
                 onPressed: () {
-                  Global.mainPageIndexNotifier.value = 1; // Switch to shop page on main screen
+                  Global.pushNamed(RegisterShopScreen.router);
+                  // Global.mainPageIndexNotifier.value = 1; // Switch to shop page on main screen
                 },
                 icon: const Icon(Icons.home_outlined),
               );
