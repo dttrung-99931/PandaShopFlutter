@@ -43,6 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
             homeBloc.add(OnGetHomeBanners());
             homeBloc.add(OnGetHomeProductCates());
             homeBloc.add(OnGetHomeProducts());
+            shoppingCartBloc.add(OnGetShoppingCart());
           },
           child: CustomScrollView(
             controller: widget.scrollController,

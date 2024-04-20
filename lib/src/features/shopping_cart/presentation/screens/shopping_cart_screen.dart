@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/utils/app_colors.dart';
+import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/theme.dart';
@@ -77,6 +78,12 @@ class _Body extends StatelessWidget {
       buildCondition: (state) => state is ShoppingCartUpdated,
       builder: (state) {
         if (state is ShoppingCartUpdated) {
+          if (state.data.items.isEmpty) {
+            return SliverFillRemaining(
+              hasScrollBody: false,
+              child: Center(child: Text('Giỏ hàng trống!', style: textTheme.bodyMedium)),
+            );
+          }
           return SliverList(
             delegate: SliverChildBuilderDelegate(
               childCount: state.data.items.length,
