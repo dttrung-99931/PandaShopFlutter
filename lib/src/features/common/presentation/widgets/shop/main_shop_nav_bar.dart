@@ -41,6 +41,11 @@ class MainShopBottomNavBar extends StatelessWidget {
                         ),
                         BottomNavigationBarItem(
                           backgroundColor: Colors.white,
+                          icon: CardIcon.zeroPadding(Icons.menu_book_outlined),
+                          label: "Đơn hàng",
+                        ),
+                        BottomNavigationBarItem(
+                          backgroundColor: Colors.white,
                           icon: CardIcon.zeroPadding(Icons.notifications_outlined),
                           label: "Thông báo",
                         ),
@@ -50,7 +55,7 @@ class MainShopBottomNavBar extends StatelessWidget {
                           label: "Tài khoản",
                         ),
                       ],
-                      selectedItemColor: AppColors.primary,
+                      selectedItemColor: AppColors.primaryShop,
                       unselectedItemColor: AppColors.black.withOpacity(0.8),
                       showUnselectedLabels: true,
                       type: BottomNavigationBarType.fixed,
