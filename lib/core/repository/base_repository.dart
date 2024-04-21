@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -42,6 +44,9 @@ abstract class BaseRepo {
       );
     } on DioError catch (e) {
       loge('$e\n${e.response?.data}');
+      if (e.error is SocketException) {
+        return Left(NetworkFailure());
+      }
       return Left(
         ServerError(
           msg: e.response?.data['message'] ?? '',

@@ -21,7 +21,7 @@ class Failure {
 }
 
 class NetworkFailure extends Failure {
-  NetworkFailure([String? msg]) : super(msg = msg ?? 'messages.network_error'.tr());
+  NetworkFailure([String? msg]) : super(msg = msg ?? 'Lỗi kết nối');
 }
 
 class ServerError extends Failure {

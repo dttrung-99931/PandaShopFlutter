@@ -11,7 +11,7 @@ class MainCommunication extends BlocCommunication<MainBloc> {
     super.startCommunication(bloc);
     listenOtherBloc<LoginBloc>((state) {
       if (state is LogoutSuccess) {
-        bloc.add(OnClaerSavedAppMode());
+        bloc.add(OnClearSavedAppMode());
       }
     });
   }

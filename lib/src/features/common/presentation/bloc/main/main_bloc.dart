@@ -6,8 +6,10 @@ import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/storage.dart';
+import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/address/address_bloc_mixin.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 part 'main_event.dart';
@@ -20,7 +22,7 @@ class MainBloc extends BaseBloc with AddressBlocMixin {
   MainBloc(this._storage) : super(InitialState()) {
     on<OnGetAppMode>(_onGetAppMode);
     on<OnChangeAppMode>(_onChangeAppMode);
-    on<OnClaerSavedAppMode>(_onClaerSavedAppMode);
+    on<OnClearSavedAppMode>(_onClaerSavedAppMode);
   }
   final Storage _storage;
 
@@ -29,11 +31,13 @@ class MainBloc extends BaseBloc with AddressBlocMixin {
   }
 
   FutureOr<void> _onChangeAppMode(OnChangeAppMode event, Emitter<BaseState> emit) async {
-    await _storage.saveAppMode(event.mode);
+    // Renew change notifier to make sure that page index will be reset to 0 on new app mode
+    Global.mainPageIndexNotifier.dispose();
+    Global.mainPageIndexNotifier = ValueNotifier(0);
     emit(ChangeAppModeSuccess(event.mode));
   }
 
-  FutureOr<void> _onClaerSavedAppMode(OnClaerSavedAppMode event, Emitter<BaseState> emit) async {
+  FutureOr<void> _onClaerSavedAppMode(OnClearSavedAppMode event, Emitter<BaseState> emit) async {
     await _storage.deleteAppMode();
   }
 }

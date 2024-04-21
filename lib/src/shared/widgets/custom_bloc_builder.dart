@@ -67,15 +67,18 @@ class _CustomBlocBuilderState<T extends BaseBloc> extends State<CustomBlocBuilde
       // only build when
       buildWhen: (previous, current) {
         bool isOkType = widget.buildForStates != null
-            ? [widget.loadingStateType, if (widget.buildForErrorState) ErrorState, ...widget.buildForStates!]
-                .contains(current.runtimeType)
+            ? [
+                if (widget.handleLoading) widget.loadingStateType,
+                if (widget.buildForErrorState) ErrorState,
+                ...widget.buildForStates!
+              ].contains(current.runtimeType)
             : true;
         bool isOkCondition = widget.buildCondition != null ? widget.buildCondition!(current) : true;
         return isOkType && isOkCondition;
       },
       builder: (context, state) {
         if (widget.handleLoading && state.runtimeType == widget.loadingStateType) {
-          return widget.isSliver ? const SliverToBoxAdapter(child: LoadingWidget()) : const LoadingWidget();
+          return widget.isSliver ? const SliverFillRemaining(child: LoadingWidget()) : const LoadingWidget();
         }
         return widget.builder(state);
         // throw 'State ${state.runtimeType} has been not handled UI';

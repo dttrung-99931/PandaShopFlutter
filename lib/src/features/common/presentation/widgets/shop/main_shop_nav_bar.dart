@@ -37,7 +37,7 @@ class MainShopBottomNavBar extends StatelessWidget {
                         BottomNavigationBarItem(
                           backgroundColor: Colors.white,
                           icon: CardIcon.zeroPadding(Icons.shop_outlined),
-                          label: "Bán hàng",
+                          label: "Cửa hàng",
                         ),
                         BottomNavigationBarItem(
                           backgroundColor: Colors.white,

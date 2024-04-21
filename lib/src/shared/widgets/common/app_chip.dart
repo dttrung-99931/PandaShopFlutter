@@ -16,6 +16,7 @@ class AppChip extends StatelessWidget {
     this.isOutlineColor = false,
     this.showClose = false,
     this.onIconPressed,
+    this.onPressed,
     this.iconData = Icons.clear,
     Color? selectedColor,
     double? horizontalPadding,
@@ -35,6 +36,7 @@ class AppChip extends StatelessWidget {
   final double fontSize;
   final bool isOutlineColor;
   final Function()? onIconPressed;
+  final Function()? onPressed;
   final bool showClose;
   final IconData iconData;
   Color? get backgroundColor {
@@ -55,37 +57,40 @@ class AppChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(16.r),
-        border: isOutlineColor ? Border.all(color: selectedColor) : null,
-      ),
-      padding: EdgeInsets.symmetric(
-        vertical: verticalPadding,
-        horizontal: horizontalPadding,
-      ),
-      alignment: Alignment.center,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            label,
-            style: textTheme.bodyMedium
-                ?.copyWith(
-                  fontSize: fontSize,
-                  color: textColor,
-                  fontWeight: FontWeight.w500,
-                )
-                .withHeight(1.1),
-          ),
-          sw(4.w),
-          if (showClose)
-            InkWell(
-              onTap: onIconPressed,
-              child: Icon(iconData, size: 16.r),
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          borderRadius: BorderRadius.circular(16.r),
+          border: isOutlineColor ? Border.all(color: selectedColor) : null,
+        ),
+        padding: EdgeInsets.symmetric(
+          vertical: verticalPadding,
+          horizontal: horizontalPadding,
+        ),
+        alignment: Alignment.center,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              label,
+              style: textTheme.bodyMedium
+                  ?.copyWith(
+                    fontSize: fontSize,
+                    color: textColor,
+                    fontWeight: FontWeight.w500,
+                  )
+                  .withHeight(1.1),
             ),
-        ],
+            sw(4.w),
+            if (showClose)
+              InkWell(
+                onTap: onIconPressed,
+                child: Icon(iconData, size: 16.r),
+              ),
+          ],
+        ),
       ),
     );
   }

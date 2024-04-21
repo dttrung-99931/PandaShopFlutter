@@ -3,7 +3,7 @@ part of 'main_bloc.dart';
 
 class OnGetAppMode extends BaseEventWithoutProps {}
 
-class OnClaerSavedAppMode extends BaseEventWithoutProps {}
+class OnClearSavedAppMode extends BaseEventWithoutProps {}
 
 class OnChangeAppMode extends BaseEvent {
   final AppMode mode;

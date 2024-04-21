@@ -29,10 +29,6 @@ class _MainScreenState extends State<MainScreen> {
       if (state is! GetAppModeSuccess) {
         return emptyWidget;
       }
-      // Reset to page 0 each time mode changed
-      doOnBuildUICompleted(() {
-        Global.mainPageIndexNotifier.value = 0;
-      });
       return state.data == AppMode.shop ? const MainShopScreen() : const MainUserScreen();
     });
   }

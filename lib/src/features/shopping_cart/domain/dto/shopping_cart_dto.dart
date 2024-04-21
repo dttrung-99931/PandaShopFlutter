@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:equatable/equatable.dart';
+import 'package:evievm_app/core/utils/constants.dart';
 
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
+import 'package:evievm_app/src/features/order/domain/dto/order/sub_order_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/delivery_method_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_detail_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_dto.dart';
@@ -84,6 +86,17 @@ class CartItemDto extends Selectable {
       shop: shop ?? this.shop,
       deliveryMethods: deliveryMethods ?? this.deliveryMethods,
       id: id ?? this.id,
+    );
+  }
+
+  factory CartItemDto.from({required SubOrderDetailDto subOrderDetail, required ShopDto shop}) {
+    return CartItemDto(
+      id: Constatnts.idEmpty,
+      productNum: subOrderDetail.productNum,
+      prouductOption: subOrderDetail.productOption,
+      product: subOrderDetail.product,
+      shop: shop,
+      deliveryMethods: const [],
     );
   }
 }

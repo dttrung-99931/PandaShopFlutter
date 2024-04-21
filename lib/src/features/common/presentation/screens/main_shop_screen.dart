@@ -71,7 +71,7 @@ class _MainShopScreenState extends State<MainShopScreen> {
             _currentPageIndex.value = index;
           },
           controller: _pageController,
-          itemCount: 3,
+          itemCount: 4,
           itemBuilder: (context, index) {
             switch (index) {
               case 0:

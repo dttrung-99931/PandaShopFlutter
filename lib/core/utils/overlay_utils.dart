@@ -14,8 +14,14 @@ enum SnackType { success, fail, normal }
 // ignore_for_file: use_build_context_synchronously
 
 GlobalKey? _flushBarKey;
-
+String? _showingMsg;
 Future<void> showSnackBar(String msg, [type = SnackType.success]) async {
+  // Don't show duplicated snackbar together
+  if (_showingMsg == msg) {
+    return;
+  }
+  _showingMsg = msg;
+  logd('SNACKBAR: $msg');
   if (_isShowingLoading) {
     hideLoadingOverlay();
   }
@@ -57,7 +63,7 @@ Future<void> showSnackBar(String msg, [type = SnackType.success]) async {
         blurRadius: 3,
       )
     ],
-  ).show(Global.context);
+  ).show(Global.context).then((value) => _showingMsg = null);
 }
 
 bool _isShowingLoading = false;

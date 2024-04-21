@@ -42,7 +42,7 @@ class _AccountScreenState extends State<AccountScreen> {
           top: 160.h,
           child: Column(
             children: [
-              const _Avatar(),
+              Avatar(),
               Expanded(
                 child: CustomBlocBuilder<LoginBloc>(
                   buildForStates: const [CheckLoginSuccess],
@@ -85,9 +85,9 @@ class NotLoginWidget extends StatelessWidget {
   }
 }
 
-class _Avatar extends StatelessWidget {
-  const _Avatar();
-
+class Avatar extends StatelessWidget {
+  Avatar({double? size, super.key}) : size = size ?? 76.r;
+  final double size;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -96,7 +96,7 @@ class _Avatar extends StatelessWidget {
         border: Border.all(color: AppColors.white, width: 3.r),
       ),
       child: CircleAvatar(
-        maxRadius: 76.r,
+        maxRadius: size,
         backgroundColor: AppColors.blueGreyLight,
       ),
     );

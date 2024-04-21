@@ -7,16 +7,17 @@ import 'package:evievm_app/src/features/product/presentation/screens/product_det
 import 'package:evievm_app/src/features/product/presentation/widget/product/price_widget.dart';
 import 'package:evievm_app/src/features/shopping_cart/domain/dto/shopping_cart_dto.dart';
 import 'package:evievm_app/src/features/shopping_cart/presentation/bloc/shopping_cart_bloc.dart';
-import 'package:evievm_app/src/shared/widgets/product/product_properties_widget.dart';
 import 'package:evievm_app/src/features/shopping_cart/presentation/widget/product_counter.dart';
 import 'package:evievm_app/src/shared/widgets/custom_statefull_checkbox.dart';
 import 'package:evievm_app/src/shared/widgets/product/image_on_item.dart';
+import 'package:evievm_app/src/shared/widgets/product/product_properties_widget.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 enum CartItemMode {
   cart,
+  shopOrder,
   order;
 
   bool get showCheckBox {
