@@ -4,6 +4,7 @@ import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/theme.dart';
 import 'package:evievm_app/src/shared/widgets/loading_widget.dart';
+import 'package:evievm_app/src/shared/widgets/utils/color_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -64,7 +65,7 @@ class CustomButton extends StatelessWidget {
     Widget buttonContent = child ??
         Text(
           tr(title!),
-          style: style.withHeight(1.2),
+          style: style.withHeight(1.3),
           textAlign: TextAlign.center,
         );
     return Container(
@@ -78,7 +79,7 @@ class CustomButton extends StatelessWidget {
               }
             : null,
         style: ElevatedButton.styleFrom(
-          primary: backgroundColor,
+          backgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius)),
           padding: padding,
           elevation: elevation,

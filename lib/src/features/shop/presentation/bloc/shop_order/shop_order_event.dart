@@ -15,3 +15,25 @@ class OnGetShopOrders extends BaseEvent {
 class OnSelectOrderStatus extends OnSelect<OrderStatus> {
   OnSelectOrderStatus({required super.selected});
 }
+
+class OnProcessOrder extends BaseEvent {
+  OnProcessOrder({
+    required this.order,
+  });
+  final OrderDto order;
+
+  @override
+  List<Object?> get props => [order];
+}
+
+class OnStartProcessingOrder extends OnProcessOrder {
+  OnStartProcessingOrder({required super.order});
+}
+
+class OnStartCompleteProcessingOrder extends OnProcessOrder {
+  OnStartCompleteProcessingOrder({required super.order});
+}
+
+class OnCancelOrder extends OnProcessOrder {
+  OnCancelOrder({required super.order});
+}

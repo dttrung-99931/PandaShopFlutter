@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
+import 'package:evievm_app/src/features/order/data/models/response/order/order_response_model.dart';
 import 'package:evievm_app/src/features/order/data/models/response/order/sub_order_response_model.dart';
 import 'package:evievm_app/src/features/order/domain/dto/order/delivery_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_detail_dto.dart';
@@ -11,12 +12,14 @@ class SubOrderDto {
   final DeliveryDto delivery;
   final String? note;
   final List<SubOrderDetailDto> subOrderDetails;
+  final OrderStatus subOrderStatus;
 
   SubOrderDto({
     required this.id,
     required this.delivery,
     required this.note,
     required this.subOrderDetails,
+    required this.subOrderStatus,
   });
 
   factory SubOrderDto.fromModel(SubOrderResponseModel model) {
@@ -25,6 +28,7 @@ class SubOrderDto {
       delivery: DeliveryDto.fromModel(model.delivery),
       note: model.note,
       subOrderDetails: model.subOrderDetails.mapList((element) => SubOrderDetailDto.fromModel(element)),
+      subOrderStatus: OrderStatus.created, // TODO
     );
   }
 }
