@@ -2,7 +2,7 @@
 import 'package:evievm_app/src/features/order/data/models/response/order/order_response_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'package:evievm_app/src/features/order/data/models/request/sub_order_request_model.dart';
+import 'package:evievm_app/src/features/order/data/models/request/order_request_model.dart';
 
 part 'get_orders_request_model.g.dart';
 

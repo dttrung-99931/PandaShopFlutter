@@ -1,9 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:json_annotation/json_annotation.dart';
-
-import 'package:evievm_app/src/features/order/data/models/response/order/sub_order_response_model.dart';
+import 'package:evievm_app/src/features/order/data/models/response/order/delivery_response_model.dart';
+import 'package:evievm_app/src/features/order/data/models/response/order/order_response_model.dart';
 import 'package:evievm_app/src/features/order/data/models/response/order/user_short_response_model.dart';
-import 'package:evievm_app/src/features/order/data/models/response/payment_method_model.dart';
+import 'package:evievm_app/src/features/product/data/models/response/product/product_detail_model.dart';
+import 'package:evievm_app/src/features/product/data/models/response/product/short_product_model.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'order_response_model.g.dart';
 
@@ -11,20 +12,45 @@ part 'order_response_model.g.dart';
 class OrderResponseModel {
   final int id;
   final String? note;
-  final List<SubOrderResponseModel> subOrders;
-  final PaymentMethodModel paymentMethod;
+  // final PaymentMethodModel paymentMethod;
   final UserShortResponseModel user;
   final OrderStatus status;
+  final DeliveryResponseModel delivery;
+  final List<OrderDetailResponseModel> orderDetails;
+
   OrderResponseModel({
     required this.id,
-    required this.note,
-    required this.subOrders,
-    required this.paymentMethod,
+    this.note,
     required this.user,
     required this.status,
+    required this.delivery,
+    required this.orderDetails,
   });
 
   factory OrderResponseModel.fromJson(Map<String, dynamic> json) => _$OrderResponseModelFromJson(json);
+}
+
+@JsonSerializable(createToJson: false, explicitToJson: true)
+class OrderDetailResponseModel {
+  final int id;
+  final DateTime? createdAt;
+  final double discountPercent;
+  final double price;
+  final int productNum;
+  final ProductOptionModel productOption;
+  final ShortProductModel product;
+
+  OrderDetailResponseModel({
+    required this.id,
+    this.createdAt,
+    required this.discountPercent,
+    required this.price,
+    required this.productNum,
+    required this.productOption,
+    required this.product,
+  });
+
+  factory OrderDetailResponseModel.fromJson(Map<String, dynamic> json) => _$OrderDetailResponseModelFromJson(json);
 }
 
 enum OrderStatus {

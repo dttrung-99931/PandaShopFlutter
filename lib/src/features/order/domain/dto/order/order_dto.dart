@@ -1,35 +1,36 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/src/features/order/data/models/response/order/order_response_model.dart';
-import 'package:evievm_app/src/features/order/data/models/response/payment_method_model.dart';
-import 'package:evievm_app/src/features/order/domain/dto/order/sub_order_dto.dart';
+import 'package:evievm_app/src/features/order/domain/dto/order/delivery_dto.dart';
+import 'package:evievm_app/src/features/order/domain/dto/order/order_detail_dto.dart';
 import 'package:evievm_app/src/features/order/domain/dto/order/user_short_dto.dart';
 
 class OrderDto {
   final int id;
   final String? note;
-  final List<SubOrderDto> subOrders;
-  final PaymentMethodModel paymentMethod;
+  // final PaymentMethodModel paymentMethod;
   final UserShortDto user;
   final OrderStatus status;
+  final DeliveryDto delivery;
+  final List<OrderDetailDto> orderDetails;
 
   OrderDto({
     required this.id,
     required this.note,
-    required this.subOrders,
-    required this.paymentMethod,
     required this.user,
     required this.status,
+    required this.delivery,
+    required this.orderDetails,
   });
 
   factory OrderDto.fromModel(OrderResponseModel model) {
     return OrderDto(
       id: model.id,
+      delivery: DeliveryDto.fromModel(model.delivery),
       note: model.note,
-      subOrders: model.subOrders.mapList((element) => SubOrderDto.fromModel(element)),
-      paymentMethod: model.paymentMethod,
+      orderDetails: model.orderDetails.mapList((element) => OrderDetailDto.fromModel(element)),
+      status: OrderStatus.created, // TODO
       user: UserShortDto.fromModel(model.user),
-      status: model.status,
     );
   }
 }

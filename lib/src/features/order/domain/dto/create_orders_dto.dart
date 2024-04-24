@@ -8,52 +8,52 @@ import 'package:evievm_app/src/features/product/domain/dto/product/payement_meth
 import 'package:evievm_app/src/features/shop/domain/dtos/shop_response_dto.dart';
 import 'package:evievm_app/src/features/shopping_cart/domain/dto/shopping_cart_dto.dart';
 
-part 'order_inp_dto_ext.dart';
+part 'create_orders_dto_ext.dart';
 
-class CreateOrderDto extends Equatable {
+class CreateOrdersDto extends Equatable {
   final List<CartItemDto> items;
-  final List<SubOrderInputDto> subOrders;
+  final List<OrderInputDto> orderDetails;
   final PaymentMethodDto? selectedPayemntMethod;
-  const CreateOrderDto({
+  const CreateOrdersDto({
     required this.items,
-    required this.subOrders,
+    required this.orderDetails,
     required this.selectedPayemntMethod,
   });
 
-  CreateOrderDto.fromCartItems({
+  CreateOrdersDto.fromCartItems({
     required this.items,
     this.selectedPayemntMethod,
-  }) : subOrders = items.groupBy((p0) => p0.shop).entries.mapList(
-              (MapEntry<ShopDto, List<CartItemDto>> entry) => SubOrderInputDto(
+  }) : orderDetails = items.groupBy((p0) => p0.shop).entries.mapList(
+              (MapEntry<ShopDto, List<CartItemDto>> entry) => OrderInputDto(
                 items: entry.value,
                 shop: entry.key,
               ),
             );
 
   @override
-  List<Object?> get props => [items, subOrders];
+  List<Object?> get props => [items, orderDetails];
 
-  CreateOrderDto copyWith({
+  CreateOrdersDto copyWith({
     List<CartItemDto>? items,
-    List<SubOrderInputDto>? subOrders,
+    List<OrderInputDto>? orderDetails,
     PaymentMethodDto? selectedPayemntMethod,
   }) {
-    return CreateOrderDto(
+    return CreateOrdersDto(
       items: items ?? this.items,
-      subOrders: subOrders ?? this.subOrders,
+      orderDetails: orderDetails ?? this.orderDetails,
       selectedPayemntMethod: selectedPayemntMethod ?? this.selectedPayemntMethod,
     );
   }
 }
 
-class SubOrderInputDto extends Equatable {
+class OrderInputDto extends Equatable {
   final List<CartItemDto> items;
   final List<DeliveryMethodDto> availableDeliveryMethods;
   final ShopDto shop;
   final DeliveryMethodDto? selectedDelivery;
   final AddressDto? selectedAddress;
 
-  SubOrderInputDto({
+  OrderInputDto({
     required this.items,
     required this.shop,
     this.selectedDelivery,
@@ -66,13 +66,13 @@ class SubOrderInputDto extends Equatable {
   @override
   List<Object?> get props => [shop, selectedDelivery, selectedAddress, availableDeliveryMethods];
 
-  SubOrderInputDto copyWith({
+  OrderInputDto copyWith({
     List<CartItemDto>? items,
     ShopDto? shop,
     DeliveryMethodDto? selectedDelivery,
     AddressDto? selectedAddress,
   }) {
-    return SubOrderInputDto(
+    return OrderInputDto(
       items: items ?? this.items,
       shop: shop ?? this.shop,
       selectedDelivery: selectedDelivery ?? this.selectedDelivery,

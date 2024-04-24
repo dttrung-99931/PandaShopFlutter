@@ -10,9 +10,9 @@ import 'package:evievm_app/core/utils/validate.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
+import 'package:evievm_app/src/features/order/data/models/request/create_orders_request_model.dart';
 import 'package:evievm_app/src/features/order/data/models/request/order_request_model.dart';
-import 'package:evievm_app/src/features/order/data/models/request/sub_order_request_model.dart';
-import 'package:evievm_app/src/features/order/domain/dto/order_inp_dto.dart';
+import 'package:evievm_app/src/features/order/domain/dto/create_orders_dto.dart';
 import 'package:evievm_app/src/features/order/domain/use_cases/create_order_usecase.dart';
 import 'package:evievm_app/src/features/order/presentation/bloc/order_bloc_communicaton.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/delivery_method_dto.dart';
@@ -43,10 +43,10 @@ class OrderBloc extends BaseBloc {
   @override
   BlocCommunication? get blocCommunication => getIt<OrderBlocCommunication>();
   final CreateOrderUseCase _createOrder;
-  CreateOrderDto? _order;
+  CreateOrdersDto? _order;
 
   FutureOr<void> _onCreateOrderInput(OnCreateOrderInput event, Emitter<BaseState> emit) async {
-    _order = CreateOrderDto.fromCartItems(items: event.items);
+    _order = CreateOrdersDto.fromCartItems(items: event.items);
     emit(GetOrderConfirmSuccess(_order!));
   }
 
@@ -59,10 +59,10 @@ class OrderBloc extends BaseBloc {
     }
   }
 
-  void _updateSubOrder(ShopDto shop, SubOrderInputDto Function(SubOrderInputDto shopOrder) updater) {
-    int index = _order!.subOrders.indexWhere((element) => element.shop == shop);
+  void _updateSubOrder(ShopDto shop, OrderInputDto Function(OrderInputDto shopOrder) updater) {
+    int index = _order!.orderDetails.indexWhere((element) => element.shop == shop);
     if (index != -1) {
-      _order?.subOrders[index] = updater(_order!.subOrders[index]);
+      _order?.orderDetails[index] = updater(_order!.orderDetails[index]);
     }
   }
 
@@ -76,8 +76,8 @@ class OrderBloc extends BaseBloc {
   bool validateMoreData() {
     return _order != null &&
         _order?.selectedPayemntMethod != null &&
-        _order!.subOrders.all(
-          (SubOrderInputDto element) =>
+        _order!.orderDetails.all(
+          (OrderInputDto element) =>
               Validate.isValidId(element.selectedDelivery?.id) &&
               Validate.isValidId(
                 element.selectedAddress?.id,
@@ -87,21 +87,17 @@ class OrderBloc extends BaseBloc {
 
   FutureOr<void> _onCreateOrder(OnCreateOrder event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
-      usecaseResult: _createOrder.call(OrderRequestModel(
-        id: null,
-        userId: Global.userDetail!.id,
+      usecaseResult: _createOrder.call(CreateOrdersRequestModel(
         paymentMethodId: _order!.selectedPayemntMethod!.id,
         note: '', // TODO
-        subOrders: _order!.subOrders.mapList(
-          (subOrder) => SubOrderRequestModel(
+        orders: _order!.orderDetails.mapList(
+          (subOrder) => OrderRequestModel(
             id: null,
             addressId: subOrder.selectedAddress!.id, // TODO
             deliveryMethodId: subOrder.selectedDelivery!.id,
-            subOrderDetails: subOrder.items.mapList((detail) => SubOrderDetailRequestModel(
+            orderDetails: subOrder.items.mapList((detail) => OrderDetailRequestModel(
                   id: null,
                   productOptionId: detail.prouductOption.id,
-                  discountPercent: 0,
-                  price: detail.prouductOption.price, // TOOD: move to backend handling
                   productNum: detail.productNum,
                 )),
           ),

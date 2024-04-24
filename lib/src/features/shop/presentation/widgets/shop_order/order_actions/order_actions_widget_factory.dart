@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/src/features/order/data/models/response/order/order_response_model.dart';
-import 'package:evievm_app/src/features/order/domain/dto/order/sub_order_dto.dart';
+import 'package:evievm_app/src/features/order/domain/dto/order/order_dto.dart';
 import 'package:evievm_app/src/features/shop/presentation/widgets/shop_order/order_actions/complete_processing_action.dart';
 import 'package:evievm_app/src/features/shop/presentation/widgets/shop_order/order_actions/start_processing_action.dart';
 import 'package:flutter/widgets.dart';
@@ -10,12 +10,12 @@ abstract class OrderActionsWidget extends StatelessWidget {
     Key? key,
     required this.order,
   }) : super(key: key);
-  final SubOrderDto order;
+  final OrderDto order;
 }
 
 class OrderActionsWidgetFactory {
-  static OrderActionsWidget buildOrderActions(SubOrderDto order) {
-    switch (order.subOrderStatus) {
+  static OrderActionsWidget buildOrderActions(OrderDto order) {
+    switch (order.status) {
       case OrderStatus.created:
         return StartProcessingAction(order: order);
       case OrderStatus.pending:

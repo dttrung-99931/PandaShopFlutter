@@ -2,7 +2,7 @@
 part of 'delivery_method_inp_bloc.dart';
 
 class OnGetShopOrderDeliveryMethods extends OnGetListSelect {
-  final SubOrderInputDto subOrder;
+  final OrderInputDto subOrder;
   OnGetShopOrderDeliveryMethods({required super.selectedId, required this.subOrder});
 }
 
@@ -11,5 +11,5 @@ class OnDeliveryMethodSelected extends OnSelect<DeliveryMethodDto> {
     required super.selected,
     required this.shopOrderConfirm,
   });
-  final SubOrderInputDto shopOrderConfirm;
+  final OrderInputDto shopOrderConfirm;
 }

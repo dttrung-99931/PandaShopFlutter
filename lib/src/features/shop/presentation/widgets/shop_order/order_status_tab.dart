@@ -20,6 +20,7 @@ class OrderStatusesTab extends StatelessWidget {
         child: CustomBlocBuilder<ShopOrderBloc>(
             buildForStates: const [DisplayOrderStatusesUpdated],
             handleLoading: false,
+            buildForErrorState: false,
             builder: (state) {
               if (state is! DisplayOrderStatusesUpdated) {
                 return emptyWidget;

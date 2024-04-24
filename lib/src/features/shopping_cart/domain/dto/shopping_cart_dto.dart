@@ -3,7 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'package:evievm_app/core/utils/constants.dart';
 
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
-import 'package:evievm_app/src/features/order/domain/dto/order/sub_order_dto.dart';
+import 'package:evievm_app/src/features/order/domain/dto/order/order_detail_dto.dart';
+import 'package:evievm_app/src/features/order/domain/dto/order/order_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/delivery_method_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_detail_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_dto.dart';
@@ -89,7 +90,7 @@ class CartItemDto extends Selectable {
     );
   }
 
-  factory CartItemDto.from({required SubOrderDetailDto subOrderDetail, required ShopDto shop}) {
+  factory CartItemDto.from({required OrderDetailDto subOrderDetail, required ShopDto shop}) {
     return CartItemDto(
       id: Constatnts.idEmpty,
       productNum: subOrderDetail.productNum,

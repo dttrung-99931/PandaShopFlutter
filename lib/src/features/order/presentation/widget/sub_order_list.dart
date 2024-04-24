@@ -3,7 +3,7 @@ import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
 import 'package:evievm_app/src/features/common/presentation/widgets/address/address_input.dart';
-import 'package:evievm_app/src/features/order/domain/dto/order_inp_dto.dart';
+import 'package:evievm_app/src/features/order/domain/dto/create_orders_dto.dart';
 import 'package:evievm_app/src/features/order/presentation/bloc/delivery_method_inp/delivery_method_inp_bloc.dart';
 import 'package:evievm_app/src/features/order/presentation/bloc/order_bloc.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/delivery_method_dto.dart';
@@ -19,16 +19,16 @@ class SubOrderList extends StatelessWidget {
     super.key,
     required this.orderConfirm,
   });
-  final CreateOrderDto orderConfirm;
+  final CreateOrdersDto orderConfirm;
   List<CartItemDto> get items => orderConfirm.items;
 
   @override
   Widget build(BuildContext context) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
-        childCount: orderConfirm.subOrders.length,
+        childCount: orderConfirm.orderDetails.length,
         (context, index) {
-          return SubOrder(suborder: orderConfirm.subOrders[index]);
+          return SubOrder(suborder: orderConfirm.orderDetails[index]);
         },
       ),
     );
@@ -38,7 +38,7 @@ class SubOrderList extends StatelessWidget {
 class SubOrder extends StatelessWidget {
   const SubOrder({super.key, required this.suborder});
 
-  final SubOrderInputDto suborder;
+  final OrderInputDto suborder;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class _DeliveryMethodSelect extends StatefulWidget {
     Key? key,
     required this.subOrder,
   }) : super(key: key);
-  final SubOrderInputDto subOrder;
+  final OrderInputDto subOrder;
 
   @override
   State<_DeliveryMethodSelect> createState() => _DeliveryMethodSelectState();
