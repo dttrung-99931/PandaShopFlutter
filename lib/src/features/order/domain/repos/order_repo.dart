@@ -8,4 +8,6 @@ import 'package:evievm_app/src/features/order/data/models/response/order/order_r
 abstract class OrderRepo extends BaseRepo {
   Future<Either<Failure, dynamic>> createOrder(OrderRequestModel param);
   Future<Either<Failure, List<OrderResponseModel>>> getOrders(GetOrdersRequestModel param);
+  Future<Either<Failure, dynamic>> startProcessingOrder(int orderId);
+  Future<Either<Failure, dynamic>> completeProcessingOrder(int orderId);
 }

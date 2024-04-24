@@ -23,4 +23,10 @@ abstract class OrderDatasource {
 
   @GET('/v1/Orders')
   Future<BaseResponse<List<OrderResponseModel>>> getOrders(@Queries() GetOrdersRequestModel param);
+
+  @PUT('/v1/Orders/{orderId}/StartProcessing')
+  Future<BaseResponse> startProcessingOrder(@Path() int orderId);
+
+  @PUT('/v1/Orders/{orderId}/CompleteProcessing')
+  Future<BaseResponse> completeProcessingOrder(@Path() int orderId);
 }

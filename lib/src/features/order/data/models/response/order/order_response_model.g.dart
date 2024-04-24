@@ -6,14 +6,17 @@ part of 'order_response_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-OrderResponseModel _$OrderResponseModelFromJson(Map<String, dynamic> json) => OrderResponseModel(
+OrderResponseModel _$OrderResponseModelFromJson(Map<String, dynamic> json) =>
+    OrderResponseModel(
       id: json['id'] as int,
       note: json['note'] as String?,
       subOrders: (json['subOrders'] as List<dynamic>)
           .map((e) => SubOrderResponseModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      paymentMethod: PaymentMethodModel.fromJson(json['paymentMethod'] as Map<String, dynamic>),
-      user: UserShortResponseModel.fromJson(json['user'] as Map<String, dynamic>),
+      paymentMethod: PaymentMethodModel.fromJson(
+          json['paymentMethod'] as Map<String, dynamic>),
+      user:
+          UserShortResponseModel.fromJson(json['user'] as Map<String, dynamic>),
       status: $enumDecode(_$OrderStatusEnumMap, json['status']),
     );
 

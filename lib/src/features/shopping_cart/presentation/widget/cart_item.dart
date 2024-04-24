@@ -73,12 +73,14 @@ class CartItem extends StatelessWidget {
           sw(8.w),
           Expanded(
             child: InkWell(
-              onTap: () {
-                Global.pushNamedSafe(
-                  ProductDetailScreen.router,
-                  args: ProductDetailScreenArgs(item.product.id, selectedOptionId: item.prouductOption.id),
-                );
-              },
+              onTap: mode != CartItemMode.shopOrder
+                  ? () {
+                      Global.pushNamedSafe(
+                        ProductDetailScreen.router,
+                        args: ProductDetailScreenArgs(item.product.id, selectedOptionId: item.prouductOption.id),
+                      );
+                    }
+                  : null,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

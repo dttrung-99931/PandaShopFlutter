@@ -31,4 +31,22 @@ class OrderRepoImpl extends OrderRepo {
       ),
     );
   }
+
+  @override
+  Future<Either<Failure, dynamic>> completeProcessingOrder(int orderId) {
+    return handleNetwork(
+      onRemote: handleServerErrors(
+        datasourceResponse: datasource.startProcessingOrder(orderId),
+      ),
+    );
+  }
+
+  @override
+  Future<Either<Failure, dynamic>> startProcessingOrder(int orderId) {
+    return handleNetwork(
+      onRemote: handleServerErrors(
+        datasourceResponse: datasource.completeProcessingOrder(orderId),
+      ),
+    );
+  }
 }

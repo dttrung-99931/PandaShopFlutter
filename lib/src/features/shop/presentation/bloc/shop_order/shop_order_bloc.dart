@@ -41,7 +41,6 @@ class ShopOrderBloc extends BaseBloc {
   ) : super(InitialState()) {
     onLoad<OnGetShopOrders>(_onGetShopOrders);
     on<OnSelectOrderStatus>(_onSelectedOrderStatus);
-    on<OnStartProcessingOrder>(_onStartProcessingOrder);
   }
 
   FutureOr<void> _onGetShopOrders(OnGetShopOrders event, Emitter<BaseState> emit) async {
@@ -62,6 +61,4 @@ class ShopOrderBloc extends BaseBloc {
     add(OnGetShopOrders(orderStatus: event.selected!));
     emit(DisplayOrderStatusesUpdated(_displayingOrderStatuses, selectedId: event.selected));
   }
-
-  FutureOr<void> _onStartProcessingOrder(OnStartProcessingOrder event, Emitter<BaseState> emit) {}
 }
