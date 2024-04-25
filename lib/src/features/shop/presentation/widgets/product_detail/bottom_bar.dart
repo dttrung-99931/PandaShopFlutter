@@ -32,6 +32,7 @@ class ProductCreationBottomBar extends StatelessWidget {
             }
             return SizedBox(
               height: 52.h,
+              width: double.infinity,
               child: shopProductDetailBloc.isCreateMode ? const _CreateButton() : const _UpdateButton(),
             );
           }),

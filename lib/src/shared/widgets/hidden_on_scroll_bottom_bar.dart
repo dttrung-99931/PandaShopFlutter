@@ -53,13 +53,15 @@ class _HiddenOnSrollWidgetState extends State<HiddenOnSrollWidget> {
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
       valueListenable: _visible,
-      builder: (context, bool value, _) => AnimatedContainer(
-        duration: Duration(milliseconds: widget.animateDurationInMinlis),
-        height: value ? widget.height : 0,
-
-        // Wrap [child] with SingleChildScrollView to ignore overflow warnings
-        // when this resizes with animation
-        child: Align(alignment: Alignment.bottomCenter, child: SingleChildScrollView(child: widget.child)),
+      builder: (context, bool value, _) => IntrinsicHeight(
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: AnimatedContainer(
+            duration: Duration(milliseconds: widget.animateDurationInMinlis),
+            height: value ? widget.height : 0,
+            child: SingleChildScrollView(child: widget.child),
+          ),
+        ),
       ),
     );
   }
