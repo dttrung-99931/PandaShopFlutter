@@ -23,6 +23,7 @@ class Storage {
 
   Future<void> deleteAll() async {
     deleteToken();
+    deleteAppMode();
   }
 }
 
@@ -75,9 +76,10 @@ extension AppModeStrorage on Storage {
     await _preferences.remove(_KEY_APP_MODE);
   }
 
-  AppMode get appMode =>
-      AppMode.values.firstWhereOrNull(
-        (p0) => p0.name == _preferences.getString(_KEY_APP_MODE),
-      ) ??
-      AppMode.user;
+  AppMode get appMode {
+    return AppMode.values.firstWhereOrNull(
+          (p0) => p0.name == _preferences.getString(_KEY_APP_MODE),
+        ) ??
+        AppMode.user;
+  }
 }

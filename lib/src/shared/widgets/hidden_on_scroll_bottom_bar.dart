@@ -59,7 +59,7 @@ class _HiddenOnSrollWidgetState extends State<HiddenOnSrollWidget> {
 
         // Wrap [child] with SingleChildScrollView to ignore overflow warnings
         // when this resizes with animation
-        child: SingleChildScrollView(child: widget.child),
+        child: Align(alignment: Alignment.bottomCenter, child: SingleChildScrollView(child: widget.child)),
       ),
     );
   }

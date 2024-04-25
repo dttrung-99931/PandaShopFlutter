@@ -34,6 +34,7 @@ class MainBloc extends BaseBloc with AddressBlocMixin {
     // Renew change notifier to make sure that page index will be reset to 0 on new app mode
     Global.mainPageIndexNotifier.dispose();
     Global.mainPageIndexNotifier = ValueNotifier(0);
+    await _storage.saveAppMode(event.mode);
     emit(ChangeAppModeSuccess(event.mode));
   }
 
