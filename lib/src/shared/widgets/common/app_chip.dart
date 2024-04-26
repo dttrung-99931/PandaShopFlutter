@@ -69,7 +69,6 @@ class AppChip extends StatelessWidget {
           vertical: verticalPadding,
           horizontal: horizontalPadding,
         ),
-        alignment: Alignment.center,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -81,7 +80,7 @@ class AppChip extends StatelessWidget {
                     color: textColor,
                     fontWeight: FontWeight.w500,
                   )
-                  .withHeight(1.1),
+                  .withHeight(1.15),
             ),
             sw(4.w),
             if (showClose)
