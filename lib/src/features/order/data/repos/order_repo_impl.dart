@@ -36,7 +36,7 @@ class OrderRepoImpl extends OrderRepo {
   Future<Either<Failure, dynamic>> completeProcessingOrder(int orderId) {
     return handleNetwork(
       onRemote: handleServerErrors(
-        datasourceResponse: datasource.startProcessingOrder(orderId),
+        datasourceResponse: datasource.completeProcessingOrder(orderId),
       ),
     );
   }
@@ -45,7 +45,7 @@ class OrderRepoImpl extends OrderRepo {
   Future<Either<Failure, dynamic>> startProcessingOrder(int orderId) {
     return handleNetwork(
       onRemote: handleServerErrors(
-        datasourceResponse: datasource.completeProcessingOrder(orderId),
+        datasourceResponse: datasource.startProcessingOrder(orderId),
       ),
     );
   }

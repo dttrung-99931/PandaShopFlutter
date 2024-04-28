@@ -29,7 +29,7 @@ class OrderDto {
       delivery: DeliveryDto.fromModel(model.delivery),
       note: model.note,
       orderDetails: model.orderDetails.mapList((element) => OrderDetailDto.fromModel(element)),
-      status: OrderStatus.created, // TODO
+      status: model.status,
       user: UserShortDto.fromModel(model.user),
     );
   }
