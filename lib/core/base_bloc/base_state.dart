@@ -65,11 +65,12 @@ class PartDataLoadedState<T> extends BaseState {
 
 class ValidateDataState extends BaseState {
   final bool isValid;
-  final String? message;
+  final String message;
   final bool showErrorMsg;
   bool get shouldShowError => !isValid && showErrorMsg;
 
-  ValidateDataState(this.isValid, {this.showErrorMsg = false, this.message = 'Vui lòng nhập đầy đủ thông tin!'});
+  ValidateDataState(this.isValid, {this.showErrorMsg = false, String? message})
+      : message = message ?? 'Vui lòng nhập đầy đủ thông tin!';
 
   @override
   List<Object?> get props => [isValid, now.toString(), showErrorMsg, message];

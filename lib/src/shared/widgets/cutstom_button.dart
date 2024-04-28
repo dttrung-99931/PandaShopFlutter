@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
+import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/theme.dart';
@@ -38,7 +39,7 @@ class CustomButton extends StatelessWidget {
     this.borderRadius = 6,
     this.elevation = 5,
     this.backgroundColor = AppColors.primary,
-    this.loadingColor = AppColors.white,
+    this.loadingColor = AppColors.primary,
     this.padding = const EdgeInsets.symmetric(vertical: 8.0, horizontal: 32),
     this.margin = EdgeInsets.zero,
     this.titleFontSize = 14,
@@ -63,19 +64,21 @@ class CustomButton extends StatelessWidget {
       style = style.copyWith(color: backgroundColor);
     }
     Widget buttonContent = child ??
-        Text(
-          tr(title!),
-          style: style.withHeight(1.3),
-          textAlign: TextAlign.center,
-        );
+        (isLoading
+            ? emptyWidget
+            : Text(
+                tr(title!),
+                style: style.withHeight(1.3),
+                textAlign: TextAlign.center,
+              ));
     return Container(
       width: width,
       height: height,
       margin: margin,
       child: ElevatedButton(
-        onPressed: onPressed != null
+        onPressed: !isLoading && onPressed != null
             ? () {
-                if (!isLoading) onPressed?.call();
+                onPressed?.call();
               }
             : null,
         style: ElevatedButton.styleFrom(

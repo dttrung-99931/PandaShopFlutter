@@ -45,39 +45,36 @@ class _CreateButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.primary,
-      child: CustomBlocConsumer<ShopProductDetailBloc>(
-        listenForStates: const [
-          CreateProductError,
-          CreateProductSuccess,
-          ValidateDataState,
-          LoadingState<OnCreateProduct>
-        ],
-        listener: (state) {
-          if (state is CreateProductSuccess) {
-            Global.pop();
-            showSnackBar('Tạo sản phẩm thành công', SnackType.success);
-            shopProductBloc.add(OnGetShopProducts());
-            shopProductBloc.add(OnGetShopProductCates());
-            return;
-          }
+    return CustomBlocConsumer<ShopProductDetailBloc>(
+      listenForStates: const [
+        CreateProductError,
+        CreateProductSuccess,
+        ValidateDataState,
+      ],
+      listener: (state) {
+        if (state is CreateProductSuccess) {
+          Global.pop();
+          showSnackBar('Tạo sản phẩm thành công', SnackType.success);
+          shopProductBloc.add(OnGetShopProducts());
+          shopProductBloc.add(OnGetShopProductCates());
+          return;
+        }
 
-          if (state is ValidateDataState && state.shouldShowError) {
-            showFailedSnackBar(state.message);
-            return;
-          }
+        if (state is ValidateDataState && state.shouldShowError) {
+          showFailedSnackBar(state.message);
+          return;
+        }
+      },
+      handleLoading: false,
+      buildForStates: const [LoadingState<OnCreateProduct>],
+      builder: (state) => CustomButton(
+        isLoading: state is LoadingState<OnCreateProduct>,
+        onPressed: () {
+          shopProductDetailBloc.add(OnCreateProduct());
         },
-        handleLoading: false,
-        builder: (state) => CustomButton(
-          isLoading: state is LoadingState<OnCreateProduct>,
-          onPressed: () {
-            shopProductDetailBloc.add(OnCreateProduct());
-          },
-          child: Text(
-            "Tạo sản phẩm",
-            style: textTheme.bodyLarge?.copyWith(color: AppColors.white),
-          ),
+        child: Text(
+          "Tạo sản phẩm",
+          style: textTheme.bodyLarge?.copyWith(color: AppColors.white),
         ),
       ),
     );
@@ -89,39 +86,36 @@ class _UpdateButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppColors.primary,
-      child: CustomBlocConsumer<ShopProductDetailBloc>(
-        listenForStates: const [
-          UpdateProductError,
-          UpdateProductSuccess,
-          ValidateDataState,
-          LoadingState<OnUpdateProduct>,
-        ],
-        listener: (state) {
-          if (state is UpdateProductSuccess) {
-            Global.pop();
-            showSnackBar('Cập nhật phẩm thành công', SnackType.success);
-            productDetailBloc.add(OnGetProductDetail(shopProductDetailBloc.productDetail!.id));
-            shopProductBloc.add(OnGetShopProducts());
-            shopProductBloc.add(OnGetShopProductCates());
-            return;
-          }
+    return CustomBlocConsumer<ShopProductDetailBloc>(
+      listenForStates: const [
+        UpdateProductError,
+        UpdateProductSuccess,
+        ValidateDataState,
+      ],
+      listener: (state) {
+        if (state is UpdateProductSuccess) {
+          Global.pop();
+          showSnackBar('Cập nhật phẩm thành công', SnackType.success);
+          productDetailBloc.add(OnGetProductDetail(shopProductDetailBloc.productDetail!.id));
+          shopProductBloc.add(OnGetShopProducts());
+          shopProductBloc.add(OnGetShopProductCates());
+          return;
+        }
 
-          if (state is ValidateDataState && state.shouldShowError) {
-            showSnackBar('Vui lòng nhập đầy đủ thông tin', SnackType.fail);
-            return;
-          }
+        if (state is ValidateDataState && state.shouldShowError) {
+          showSnackBar('Vui lòng nhập đầy đủ thông tin', SnackType.fail);
+          return;
+        }
+      },
+      buildForStates: const [LoadingState<OnUpdateProduct>],
+      builder: (state) => CustomButton(
+        isLoading: state is LoadingState<OnUpdateProduct>,
+        onPressed: () {
+          shopProductDetailBloc.add(OnUpdateProduct());
         },
-        builder: (state) => CustomButton(
-          isLoading: state is LoadingState<OnUpdateProduct>,
-          onPressed: () {
-            shopProductDetailBloc.add(OnUpdateProduct());
-          },
-          child: Text(
-            "Cập nhật",
-            style: textTheme.bodyLarge?.copyWith(color: AppColors.white),
-          ),
+        child: Text(
+          "Cập nhật",
+          style: textTheme.bodyLarge?.copyWith(color: AppColors.white),
         ),
       ),
     );
