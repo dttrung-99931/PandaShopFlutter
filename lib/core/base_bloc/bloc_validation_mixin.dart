@@ -45,7 +45,7 @@ mixin BlocValidationMixin on Bloc<BaseEvent, BaseState> {
   }
 
   Either<String?, bool> validate() {
-    bool isFormValid = _formValidateCallBack?.call() ?? false;
+    bool isFormValid = _formValidateCallBack?.call() ?? true;
     Either<String?, bool> validateMoreResult = validateMoreData();
     return validateMoreResult.isRight()
         ? isFormValid
