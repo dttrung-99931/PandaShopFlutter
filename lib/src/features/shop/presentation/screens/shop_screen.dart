@@ -34,12 +34,12 @@ class ShopScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: false,
-      child: RefreshIndicator(
-        onRefresh: () async {
-          refreshData();
-        },
+    return RefreshIndicator(
+      onRefresh: () async {
+        refreshData();
+      },
+      child: SafeArea(
+        top: false,
         child: PageStorage(
           bucket: _pageStorageBucket,
           child: CustomBlocBuilder<UserBloc>(

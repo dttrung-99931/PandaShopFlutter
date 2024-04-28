@@ -47,6 +47,14 @@ abstract class BaseRepo {
       if (e.error is SocketException) {
         return Left(NetworkFailure());
       }
+      if (e.error is HandshakeException) {
+        return Left(
+          ServerError(
+            msg: 'Không thể kết nối đến server',
+            statusCode: e.response?.statusCode ?? 0,
+          )..log(),
+        );
+      }
       return Left(
         ServerError(
           msg: e.response?.data['message'] ?? '',
