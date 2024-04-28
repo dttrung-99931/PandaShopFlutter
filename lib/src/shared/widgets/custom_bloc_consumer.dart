@@ -57,8 +57,11 @@ class _CustomBlocConsumerState<T extends BaseBloc> extends State<CustomBlocConsu
       // only build when
       buildWhen: (previous, current) {
         bool isOkType = widget.buildForStates != null
-            ? [widget.loadingStateType, if (widget.buildForErrorState) ErrorState, ...widget.buildForStates!]
-                .contains(current.runtimeType)
+            ? [
+                if (widget.handleLoading) widget.loadingStateType,
+                if (widget.buildForErrorState) ErrorState,
+                ...widget.buildForStates!
+              ].contains(current.runtimeType)
             : true;
         bool isOkCondition = widget.buildCondition != null ? widget.buildCondition!(current) : true;
         return isOkType && isOkCondition;

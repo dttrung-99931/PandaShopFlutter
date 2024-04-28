@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 
+import 'package:dartz/dartz.dart';
 import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/base_bloc/bloc_communication.dart';
@@ -73,8 +74,8 @@ class OrderBloc extends BaseBloc {
   }
 
   @override
-  bool validateMoreData() {
-    return _order != null &&
+  Either<String?, bool> validateMoreData() {
+    bool isValid = _order != null &&
         _order?.selectedPayemntMethod != null &&
         _order!.orderDetails.all(
           (OrderInputDto element) =>
@@ -83,6 +84,7 @@ class OrderBloc extends BaseBloc {
                 element.selectedAddress?.id,
               ),
         );
+    return defaultValidateMoreResult(isValid);
   }
 
   FutureOr<void> _onCreateOrder(OnCreateOrder event, Emitter<BaseState> emit) async {

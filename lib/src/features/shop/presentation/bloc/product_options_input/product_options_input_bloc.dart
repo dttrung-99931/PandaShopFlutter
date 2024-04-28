@@ -109,5 +109,13 @@ class ProductOptionsInputBloc extends BaseBloc with AddressBlocMixin {
     }
     _selected = newSelectIndex >= 0 ? _productOptionInputs[newSelectIndex] : null;
     emit(ProductOptionsUpdated(_productOptionInputs, selected: _selected, editNameForSelected: false));
+    if (_productOptionInputs.isEmpty) {
+      _optionProperties.clear();
+      emit(OptionPropsUpdated(
+        const [],
+        propList: [..._optionProperties],
+        propAction: EditAction.delete,
+      ));
+    }
   }
 }

@@ -15,7 +15,8 @@ enum SnackType { success, fail, normal }
 
 GlobalKey? _flushBarKey;
 String? _showingMsg;
-Future<void> showSnackBar(String msg, [type = SnackType.success]) async {
+Future<void> showSnackBar(String? msg, [type = SnackType.success]) async {
+  msg ??= '';
   // Don't show duplicated snackbar together
   if (_showingMsg == msg) {
     return;
@@ -94,4 +95,8 @@ void hideLoadingOverlay() {
 
 void commingSoon() {
   showSnackBar('Tính năng đang được phát triển');
+}
+
+void showFailedSnackBar(String? msg) {
+  showSnackBar(msg, SnackType.fail);
 }

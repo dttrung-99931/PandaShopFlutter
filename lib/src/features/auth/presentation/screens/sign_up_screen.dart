@@ -124,7 +124,7 @@ class _SignUpScreenState extends ValidationState<SignUpScreen, SignUpBloc> {
 }
 
 _onSignUpButtonPressed() {
-  if (signUpBloc.validate()) {
+  if (signUpBloc.isValid()) {
     signUpBloc.add(OnSignUp(
       signUpBloc.phoneEdtController.text,
       signUpBloc.passwordEdtController.text,

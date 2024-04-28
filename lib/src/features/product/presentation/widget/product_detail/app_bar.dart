@@ -9,6 +9,7 @@ import 'package:evievm_app/src/features/product/presentation/screens/product_det
 import 'package:evievm_app/src/features/product/presentation/widget/product/cart_button.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product/shop_product_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/screens/shop_product_detail_screen.dart';
+import 'package:evievm_app/src/features/shop/presentation/screens/shop_screen.dart';
 import 'package:evievm_app/src/shared/widgets/app_alert_dialog.dart';
 import 'package:evievm_app/src/shared/widgets/back_button.dart';
 import 'package:evievm_app/src/shared/widgets/common/app_icon_button.dart';
@@ -70,7 +71,7 @@ class ProductDetailAppBar extends StatelessWidget {
               if (state is DeleteProductSuccess) {
                 showSnackBar('Đã xóa sản phẩm!');
                 Global.pop();
-                shopProductBloc.add(OnGetShopProducts());
+                ShopScreen.refreshData();
               }
             },
             child: AppIconButton(

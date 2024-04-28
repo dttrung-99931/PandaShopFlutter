@@ -9,10 +9,7 @@ import '../../../../../shared/widgets/search_bar.dart';
 class ShopSearchBarAndBanner extends StatefulWidget {
   const ShopSearchBarAndBanner({
     Key? key,
-    required this.size,
   }) : super(key: key);
-
-  final Size size;
 
   @override
   State<ShopSearchBarAndBanner> createState() => _ShopSearchBarAndBannerState();

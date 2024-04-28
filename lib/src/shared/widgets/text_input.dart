@@ -196,11 +196,7 @@ class _TextInputState extends State<TextInput> {
               contentPadding: widget.contentPadding ?? EdgeInsets.symmetric(vertical: 14.h, horizontal: 12.w),
             ),
             onTap: () {
-              try {
-                widget.onTap!();
-              } catch (e) {
-                log('$e');
-              }
+              widget.onTap?.call();
             },
             onChanged: (val) {
               if (widget.onChange != null) widget.onChange!(val);

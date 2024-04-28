@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:bloc/src/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
@@ -40,9 +41,9 @@ class ShopProductDetailBloc extends BaseBloc {
     this._createImages,
     this._updateProduct,
   ) : super(InitialState()) {
-    on<OnInitShopProduct>(_onInitShopProduct);
-    on<OnCreateProduct>(_onCreateProduct);
-    on<OnUpdateProduct>(_onUpdateProduct);
+    onLoad<OnInitShopProduct>(_onInitShopProduct);
+    onLoad<OnCreateProduct>(_onCreateProduct, loadingBuilder: (_) => LoadingState<OnCreateProduct>());
+    onLoad<OnUpdateProduct>(_onUpdateProduct, loadingBuilder: (_) => LoadingState<OnUpdateProduct>());
   }
   @override
   ShopProductDetailCommunication? get blocCommunication => getIt<ShopProductDetailCommunication>();
@@ -182,12 +183,16 @@ class ShopProductDetailBloc extends BaseBloc {
   }
 
   @override
-  bool validateMoreData() {
-    return productCateLv3 != null &&
+  Either<String?, bool> validateMoreData() {
+    if (isNullOrEmpty(optionInputs)) {
+      return const Left('Cần có ít nhất 1 lựa chọn sản phẩm');
+    }
+
+    return defaultValidateMoreResult(productCateLv3 != null &&
         productCateLv3!.id != Constatnts.idEmpty &&
         addressId != null &&
         addressId != Constatnts.idEmpty &&
-        images?.isNotEmpty == true;
+        images?.isNotEmpty == true);
   }
 
   @disposeMethod

@@ -97,7 +97,7 @@ class _ShopProductDetailScreenState extends ValidationState<ShopProductDetailScr
       bottomNavigationBar: HiddenOnSrollWidget(
         scrollController: _scrollContorller,
         height: 52.h,
-        child: const ProductCreationBottomBar(),
+        child: const ShopProductDetailBottomBar(),
       ),
     );
   }

@@ -15,27 +15,27 @@ import 'package:evievm_app/src/shared/widgets/cutstom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ProductCreationBottomBar extends StatelessWidget {
-  const ProductCreationBottomBar({
+class ShopProductDetailBottomBar extends StatelessWidget {
+  const ShopProductDetailBottomBar({
     Key? key,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 8,
-      margin: EdgeInsets.zero,
-      child: CustomBlocBuilder<ShopProductDetailBloc>(
-          buildForStates: const [InitShopProductSuccess],
-          builder: (state) {
-            if (state is! InitShopProductSuccess) {
-              return emptyWidget;
-            }
-            return SizedBox(
-              height: 52.h,
-              width: double.infinity,
-              child: shopProductDetailBloc.isCreateMode ? const _CreateButton() : const _UpdateButton(),
-            );
-          }),
+    return SizedBox(
+      height: 52.h,
+      width: double.infinity,
+      child: Card(
+        elevation: 8,
+        margin: EdgeInsets.zero,
+        child: CustomBlocBuilder<ShopProductDetailBloc>(
+            buildForStates: const [InitShopProductSuccess],
+            builder: (state) {
+              if (state is! InitShopProductSuccess) {
+                return emptyWidget;
+              }
+              return shopProductDetailBloc.isCreateMode ? const _CreateButton() : const _UpdateButton();
+            }),
+      ),
     );
   }
 }
@@ -48,7 +48,12 @@ class _CreateButton extends StatelessWidget {
     return Container(
       color: AppColors.primary,
       child: CustomBlocConsumer<ShopProductDetailBloc>(
-        listenForStates: const [CreateProductError, CreateProductSuccess, ValidateDataState],
+        listenForStates: const [
+          CreateProductError,
+          CreateProductSuccess,
+          ValidateDataState,
+          LoadingState<OnCreateProduct>
+        ],
         listener: (state) {
           if (state is CreateProductSuccess) {
             Global.pop();
@@ -59,12 +64,13 @@ class _CreateButton extends StatelessWidget {
           }
 
           if (state is ValidateDataState && state.shouldShowError) {
-            showFillEnoughtInfoMsg();
+            showFailedSnackBar(state.message);
             return;
           }
         },
+        handleLoading: false,
         builder: (state) => CustomButton(
-          isLoading: state is LoadingState,
+          isLoading: state is LoadingState<OnCreateProduct>,
           onPressed: () {
             shopProductDetailBloc.add(OnCreateProduct());
           },
@@ -86,7 +92,12 @@ class _UpdateButton extends StatelessWidget {
     return Container(
       color: AppColors.primary,
       child: CustomBlocConsumer<ShopProductDetailBloc>(
-        listenForStates: const [UpdateProductError, UpdateProductSuccess, ValidateDataState],
+        listenForStates: const [
+          UpdateProductError,
+          UpdateProductSuccess,
+          ValidateDataState,
+          LoadingState<OnUpdateProduct>,
+        ],
         listener: (state) {
           if (state is UpdateProductSuccess) {
             Global.pop();
@@ -103,7 +114,7 @@ class _UpdateButton extends StatelessWidget {
           }
         },
         builder: (state) => CustomButton(
-          isLoading: state is LoadingState,
+          isLoading: state is LoadingState<OnUpdateProduct>,
           onPressed: () {
             shopProductDetailBloc.add(OnUpdateProduct());
           },

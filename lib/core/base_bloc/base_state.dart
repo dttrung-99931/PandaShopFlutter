@@ -65,7 +65,7 @@ class PartDataLoadedState<T> extends BaseState {
 
 class ValidateDataState extends BaseState {
   final bool isValid;
-  final String message;
+  final String? message;
   final bool showErrorMsg;
   bool get shouldShowError => !isValid && showErrorMsg;
 

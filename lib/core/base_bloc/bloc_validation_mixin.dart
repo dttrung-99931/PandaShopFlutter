@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dartz/dartz.dart';
 import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/bloc_concurrency.dart';
@@ -18,8 +19,8 @@ mixin BlocValidationMixin on Bloc<BaseEvent, BaseState> {
     handleValidate(emit, showErrMsg: event.showErrorMsg);
   }
 
-  bool validateMoreData() {
-    return true;
+  Either<String?, bool> validateMoreData() {
+    return const Right(true);
   }
 
   Future<void> _onSetFormValidateCallBack(OnSetFormValidateCallBack event, Emitter<BaseState> emit) async {
@@ -31,13 +32,30 @@ mixin BlocValidationMixin on Bloc<BaseEvent, BaseState> {
   }
 
   bool handleValidate(Emitter<BaseState> emit, {bool showErrMsg = false}) {
-    bool isValid = validate();
-    emit(ValidateDataState(isValid, showErrorMsg: showErrMsg));
+    Either<String?, bool> result = validate();
+    bool isValid = false;
+    String? message;
+    result.fold((l) => message = l, (r) => isValid = true);
+    emit(ValidateDataState(isValid, showErrorMsg: showErrMsg, message: message));
     return isValid;
   }
 
-  bool validate() {
-    return (_formValidateCallBack?.call() ?? true) && validateMoreData();
+  Either<String?, bool> defaultValidateMoreResult(bool isValid) {
+    return isValid ? const Right(true) : const Left(null);
+  }
+
+  Either<String?, bool> validate() {
+    bool isFormValid = _formValidateCallBack?.call() ?? false;
+    Either<String?, bool> validateMoreResult = validateMoreData();
+    return validateMoreResult.isRight()
+        ? isFormValid
+            ? const Right(true)
+            : const Left(null) // null -> use default message
+        : validateMoreResult; // validateMoreResult containe error validation message
+  }
+
+  bool isValid() {
+    return validate().isRight();
   }
 
   @override
