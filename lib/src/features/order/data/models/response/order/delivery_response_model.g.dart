@@ -33,3 +33,12 @@ const _$DeliveryStatusEnumMap = {
   DeliveryStatus.lose: 28,
   DeliveryStatus.productBroken: 32,
 };
+
+ShortDeliveryResponseModel _$ShortDeliveryResponseModelFromJson(
+        Map<String, dynamic> json) =>
+    ShortDeliveryResponseModel(
+      finishedAt: json['finishedAt'] == null
+          ? null
+          : DateTime.parse(json['finishedAt'] as String),
+      status: $enumDecode(_$DeliveryStatusEnumMap, json['status']),
+    );

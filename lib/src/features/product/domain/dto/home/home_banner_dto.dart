@@ -6,6 +6,6 @@ class HomeBannerDto extends ImageDto {
   HomeBannerDto({required super.link, required super.description, required super.id});
 
   factory HomeBannerDto.fromModel(HomeBannerModel model) {
-    return HomeBannerDto(link: model.imageLink, description: '', id: Constatnts.idEmpty);
+    return HomeBannerDto(link: model.imageLink, description: '', id: Constants.idEmpty);
   }
 }

@@ -5,7 +5,7 @@ import 'package:evievm_app/src/features/auth/presentation/screens/account_screen
 import 'package:evievm_app/src/features/common/presentation/bloc/user/user_bloc.dart';
 import 'package:evievm_app/src/features/common/presentation/widgets/user/main_user_nav_bar.dart';
 import 'package:evievm_app/src/features/home/presentation/screens/home_screen.dart';
-import 'package:evievm_app/src/features/noti/presentation/noti_screen.dart';
+import 'package:evievm_app/src/features/notification/presentation/screens/notification_screen.dart';
 import 'package:evievm_app/src/shared/widgets/common/keep_page_alive.dart';
 import 'package:evievm_app/src/shared/widgets/common/refresh_widget.dart';
 import 'package:evievm_app/src/shared/widgets/hidden_on_scroll_bottom_bar.dart';
@@ -82,7 +82,7 @@ class _MainUserScreenState extends State<MainUserScreen> {
               case 1:
                 return KeepAlivePage(
                   child: RefreshChildBuilder(
-                    builder: (_) => const NotiScreen(),
+                    builder: (_) => const NotificationScreen(),
                   ),
                 );
               case 2:

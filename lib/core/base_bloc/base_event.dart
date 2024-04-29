@@ -10,7 +10,7 @@ abstract class BaseEvent extends Equatable {}
 class OnGetSelectData extends BaseEvent {
   final int selectedId;
   OnGetSelectData({
-    this.selectedId = Constatnts.idEmpty,
+    this.selectedId = Constants.idEmpty,
   });
 
   @override

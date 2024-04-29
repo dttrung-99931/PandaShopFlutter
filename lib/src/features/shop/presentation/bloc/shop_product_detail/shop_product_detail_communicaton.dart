@@ -24,7 +24,7 @@ class ShopProductDetailCommunication extends BlocCommunication<ShopProductDetail
       if (state is GetProductCatesSelectSucess &&
           state.selected != null &&
           state.selected!.level == 3 &&
-          state.selected?.id != Constatnts.idEmpty) {
+          state.selected?.id != Constants.idEmpty) {
         bloc.productCateLv3 = state.selected;
         if (bloc.isCreateMode) {
           productPropsInputBloc.add(OnGetPropertyTemplateOfCate(cateId: state.selectedId!));

@@ -70,7 +70,7 @@ class _AddressFieldInputState<TState extends GetAddressessFieldsSuccess> extends
       showRequiredLabel: widget.isRequired,
       bottomText: (_isValidated & widget.isRequired)
           ? Validate.validateRequiredCondition(
-              addressMixin.selectedProvOrCity.code != Constatnts.codeEmpty,
+              addressMixin.selectedProvOrCity.code != Constants.codeEmpty,
               fieldName: widget.title,
             )
           : null,

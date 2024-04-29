@@ -24,6 +24,19 @@ class DeliveryResponseModel {
   factory DeliveryResponseModel.fromJson(Map<String, dynamic> json) => _$DeliveryResponseModelFromJson(json);
 }
 
+@JsonSerializable(createToJson: false)
+class ShortDeliveryResponseModel {
+  final DateTime? finishedAt;
+  final DeliveryStatus status;
+
+  ShortDeliveryResponseModel({
+    this.finishedAt,
+    required this.status,
+  });
+
+  factory ShortDeliveryResponseModel.fromJson(Map<String, dynamic> json) => _$ShortDeliveryResponseModelFromJson(json);
+}
+
 enum DeliveryStatus {
   @JsonValue(1)
   created, // when an order.status = Created

@@ -1,10 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:json_annotation/json_annotation.dart';
+
 import 'package:evievm_app/src/features/order/data/models/response/order/delivery_response_model.dart';
 import 'package:evievm_app/src/features/order/data/models/response/order/order_response_model.dart';
 import 'package:evievm_app/src/features/order/data/models/response/order/user_short_response_model.dart';
 import 'package:evievm_app/src/features/product/data/models/response/product/product_detail_model.dart';
 import 'package:evievm_app/src/features/product/data/models/response/product/short_product_model.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'order_response_model.g.dart';
 
@@ -51,6 +52,20 @@ class OrderDetailResponseModel {
   });
 
   factory OrderDetailResponseModel.fromJson(Map<String, dynamic> json) => _$OrderDetailResponseModelFromJson(json);
+}
+
+@JsonSerializable(createToJson: false, explicitToJson: true)
+class ShortOrderDetailResponseModel {
+  final String productOptionName;
+  final String productName;
+
+  ShortOrderDetailResponseModel({
+    required this.productOptionName,
+    required this.productName,
+  });
+
+  factory ShortOrderDetailResponseModel.fromJson(Map<String, dynamic> json) =>
+      _$ShortOrderDetailResponseModelFromJson(json);
 }
 
 enum OrderStatus {

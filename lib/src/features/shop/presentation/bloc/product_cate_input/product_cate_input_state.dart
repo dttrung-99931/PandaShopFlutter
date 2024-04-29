@@ -7,7 +7,7 @@ class GetProductCatesSelectSucess extends ListLoadedState<ProductCategoryDto, in
   factory GetProductCatesSelectSucess.factory({
     required int level,
     required List<ProductCategoryDto> data,
-    int selectedId = Constatnts.idEmpty,
+    int selectedId = Constants.idEmpty,
   }) {
     switch (level) {
       case 1:
@@ -26,7 +26,7 @@ class GetProductCatesSelectSucess extends ListLoadedState<ProductCategoryDto, in
   }
 
   @override
-  bool get isValid => selectedId != Constatnts.idEmpty;
+  bool get isValid => selectedId != Constants.idEmpty;
 }
 
 class GetProductCatesLv1Successs extends GetProductCatesSelectSucess {

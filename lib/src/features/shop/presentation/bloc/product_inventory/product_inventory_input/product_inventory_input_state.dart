@@ -17,7 +17,7 @@ class GetProdsToSelectSucess extends ListLoadedState<ProductDto, int> {
   }
 
   @override
-  bool get isValid => selectedId != Constatnts.idEmpty;
+  bool get isValid => selectedId != Constants.idEmpty;
 }
 
 class CreateWarehouseSuccess extends FullDataLoadedState<WarehouseDto> {
@@ -37,11 +37,11 @@ class GetWarehousesSuccess extends ListLoadedState<WarehouseDto, int> {
   });
   @override
   int getId(WarehouseDto element) {
-    return element.id ?? Constatnts.idEmpty;
+    return element.id ?? Constants.idEmpty;
   }
 
   @override
-  bool get isValid => selectedId != Constatnts.idEmpty;
+  bool get isValid => selectedId != Constants.idEmpty;
 }
 
 class CreateProductInventoryError extends ErrorState {

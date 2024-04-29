@@ -24,7 +24,7 @@ class ImageInputDto extends BaseImageDto {
 
   factory ImageInputDto.fromBase64Image(String base64) {
     return ImageInputDto(
-      id: Constatnts.idEmpty,
+      id: Constants.idEmpty,
       based64Img: base64,
       orderIndex: 0,
       description: '',

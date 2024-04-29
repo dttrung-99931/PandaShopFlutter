@@ -27,10 +27,12 @@ class MainBloc extends BaseBloc with AddressBlocMixin {
   final Storage _storage;
 
   FutureOr<void> _onGetAppMode(OnGetAppMode event, Emitter<BaseState> emit) async {
+    Global.appMode = _storage.appMode;
     emit(GetAppModeSuccess(_storage.appMode));
   }
 
   FutureOr<void> _onChangeAppMode(OnChangeAppMode event, Emitter<BaseState> emit) async {
+    Global.appMode = event.mode;
     // Renew change notifier to make sure that page index will be reset to 0 on new app mode
     Global.mainPageIndexNotifier.dispose();
     Global.mainPageIndexNotifier = ValueNotifier(0);
@@ -39,6 +41,7 @@ class MainBloc extends BaseBloc with AddressBlocMixin {
   }
 
   FutureOr<void> _onClaerSavedAppMode(OnClearSavedAppMode event, Emitter<BaseState> emit) async {
+    Global.appMode = AppMode.user; // set back to default
     await _storage.deleteAppMode();
   }
 }

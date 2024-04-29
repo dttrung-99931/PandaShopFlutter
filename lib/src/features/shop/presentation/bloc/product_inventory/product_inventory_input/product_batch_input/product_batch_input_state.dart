@@ -17,5 +17,5 @@ class GetProductOptsToSelectSucess extends ListLoadedState<ProductOptionDto, int
   }
 
   @override
-  bool get isValid => selectedId != Constatnts.idEmpty;
+  bool get isValid => selectedId != Constants.idEmpty;
 }

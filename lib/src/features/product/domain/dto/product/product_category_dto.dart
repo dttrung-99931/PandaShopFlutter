@@ -11,28 +11,28 @@ class ProductCategoryDto {
     required this.parentId,
   });
   static ProductCategoryDto emptyLv1 = ProductCategoryDto(
-    id: Constatnts.idEmpty,
+    id: Constants.idEmpty,
     name: '- Lựa chọn -',
     imgLink: '',
-    templateId: Constatnts.idEmpty,
+    templateId: Constants.idEmpty,
     level: 1,
-    parentId: Constatnts.idEmpty - 1,
+    parentId: Constants.idEmpty - 1,
   );
   static ProductCategoryDto emptyLv2 = ProductCategoryDto(
-    id: Constatnts.idEmpty,
+    id: Constants.idEmpty,
     name: '- Lựa chọn -',
     imgLink: '',
-    templateId: Constatnts.idEmpty,
+    templateId: Constants.idEmpty,
     level: 2,
-    parentId: Constatnts.idEmpty - 1,
+    parentId: Constants.idEmpty - 1,
   );
   static ProductCategoryDto emptyLv3 = ProductCategoryDto(
-    id: Constatnts.idEmpty,
+    id: Constants.idEmpty,
     name: '- Lựa chọn -',
     imgLink: '',
-    templateId: Constatnts.idEmpty,
+    templateId: Constants.idEmpty,
     level: 3,
-    parentId: Constatnts.idEmpty - 1,
+    parentId: Constants.idEmpty - 1,
   );
 
   final int id;

@@ -4,6 +4,7 @@ import 'package:evievm_app/src/features/shop/domain/dtos/shop_response_dto.dart'
 import 'package:flutter/material.dart';
 
 import 'src/features/common/domain/dtos/user_detail_dto.dart';
+import 'src/features/common/presentation/bloc/main/main_bloc.dart';
 
 class Global {
   static final globalKey = GlobalKey<NavigatorState>();
@@ -23,6 +24,9 @@ class Global {
   static void setUserDetail(UserDetailDto detail) {
     _userDetail = detail;
   }
+
+  static late AppMode appMode;
+  static bool get isUserMode => appMode == AppMode.user;
 
   static ValueNotifier<int> mainPageIndexNotifier = ValueNotifier(0);
 

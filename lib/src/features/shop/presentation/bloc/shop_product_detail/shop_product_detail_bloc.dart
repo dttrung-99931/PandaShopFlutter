@@ -189,9 +189,9 @@ class ShopProductDetailBloc extends BaseBloc {
     }
 
     return defaultValidateMoreResult(productCateLv3 != null &&
-        productCateLv3!.id != Constatnts.idEmpty &&
+        productCateLv3!.id != Constants.idEmpty &&
         addressId != null &&
-        addressId != Constatnts.idEmpty &&
+        addressId != Constants.idEmpty &&
         images?.isNotEmpty == true);
   }
 

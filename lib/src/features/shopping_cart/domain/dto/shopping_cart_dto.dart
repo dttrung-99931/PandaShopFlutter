@@ -92,7 +92,7 @@ class CartItemDto extends Selectable {
 
   factory CartItemDto.from({required OrderDetailDto subOrderDetail, required ShopDto shop}) {
     return CartItemDto(
-      id: Constatnts.idEmpty,
+      id: Constants.idEmpty,
       productNum: subOrderDetail.productNum,
       prouductOption: subOrderDetail.productOption,
       product: subOrderDetail.product,

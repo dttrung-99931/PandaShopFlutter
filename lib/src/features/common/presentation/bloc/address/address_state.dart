@@ -10,7 +10,7 @@ class GetMyAddressesSucess extends ListLoadedState<AddressDto, int> {
   }
 
   @override
-  bool get isValid => selectedId != Constatnts.idEmpty;
+  bool get isValid => selectedId != Constants.idEmpty;
 }
 
 class GetAddressessFieldsSuccess extends FullDataLoadedState<List<AddressFieldDto>> {

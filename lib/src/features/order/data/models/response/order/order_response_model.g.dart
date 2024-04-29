@@ -50,3 +50,10 @@ OrderDetailResponseModel _$OrderDetailResponseModelFromJson(
       product:
           ShortProductModel.fromJson(json['product'] as Map<String, dynamic>),
     );
+
+ShortOrderDetailResponseModel _$ShortOrderDetailResponseModelFromJson(
+        Map<String, dynamic> json) =>
+    ShortOrderDetailResponseModel(
+      productOptionName: json['productOptionName'] as String,
+      productName: json['productName'] as String,
+    );

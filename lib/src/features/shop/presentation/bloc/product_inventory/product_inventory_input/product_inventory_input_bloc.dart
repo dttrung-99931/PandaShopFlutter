@@ -123,7 +123,7 @@ class ProductInventoryInputBloc extends BaseBloc {
 
   @override
   Either<String?, bool> validateMoreData() {
-    return defaultValidateMoreResult(_selectedWarehouse != null && _selectedWarehouse?.id != Constatnts.idEmpty);
+    return defaultValidateMoreResult(_selectedWarehouse != null && _selectedWarehouse?.id != Constants.idEmpty);
   }
 
   FutureOr<void> _onCreateProductInventory(OnCreateProductInventory event, Emitter<BaseState> emit) async {

@@ -157,7 +157,7 @@ class Validate {
   }
 
   static bool isValidId(int? id) {
-    return [null, Constatnts.idEmpty].contains(id) == false;
+    return [null, Constants.idEmpty].contains(id) == false;
   }
 }
 
