@@ -5,6 +5,7 @@ import 'package:bloc/src/bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
+import 'package:evievm_app/core/model/paginated_list.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/notification/data/models/request/get_notifications_model.dart';
 import 'package:evievm_app/src/features/notification/domain/dtos/notification_dto.dart';
@@ -27,7 +28,7 @@ class NotificationBloc extends BaseBloc {
     await handleUsecaseResult(
       usecaseResult: _getNotis.call(event.requestModel),
       emit: emit,
-      onSuccess: (List<NotificationDto> result) {
+      onSuccess: (PaginatedList<NotificationDto> result) {
         return GetNotificationsSuccesss(result);
       },
     );

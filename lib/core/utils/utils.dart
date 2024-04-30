@@ -46,6 +46,8 @@ void doOnBuildUICompleted(void Function() action) {
   });
 }
 
+bool isSubtype<S, T>() => <S>[] is List<T>;
+
 class Utils {
   static int getTotalPages(int total, int pageSize) {
     return total ~/ pageSize + (total % pageSize == 0 ? 0 : 1);

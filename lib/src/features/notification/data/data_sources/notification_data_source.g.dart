@@ -19,14 +19,15 @@ class _NotificationDatasource implements NotificationDatasource {
   String? baseUrl;
 
   @override
-  Future<BaseResponse<List<NotificationModel>>> getNotifications(params) async {
+  Future<PaginatedListResponse<NotificationModel>> getNotifications(
+      params) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.addAll(params.toJson());
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<List<NotificationModel>>>(Options(
+        _setStreamType<PaginatedListResponse<NotificationModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -38,12 +39,9 @@ class _NotificationDatasource implements NotificationDatasource {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<List<NotificationModel>>.fromJson(
+    final value = PaginatedListResponse<NotificationModel>.fromJson(
       _result.data!,
-      (json) => (json as List<dynamic>)
-          .map<NotificationModel>(
-              (i) => NotificationModel.fromJson(i as Map<String, dynamic>))
-          .toList(),
+      (json) => NotificationModel.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }

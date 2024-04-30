@@ -18,5 +18,5 @@ abstract class NotificationDatasourceProvider {
 @RestApi()
 abstract class NotificationDatasource {
   @GET('/v1/Notifications')
-  Future<BaseResponse<List<NotificationModel>>> getNotifications(@Queries() GetNotificationsModel params);
+  Future<PaginatedListResponse<NotificationModel>> getNotifications(@Queries() GetNotificationsModel params);
 }

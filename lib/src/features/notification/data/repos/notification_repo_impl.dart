@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:evievm_app/core/failures/failures.dart';
+import 'package:evievm_app/core/model/paginated_list.dart';
 import 'package:evievm_app/src/features/notification/data/data_sources/notification_data_source.dart';
 import 'package:evievm_app/src/features/notification/data/models/request/get_notifications_model.dart';
 import 'package:evievm_app/src/features/notification/data/models/response/notification_model.dart';
@@ -14,7 +15,7 @@ class NotificationRepoImpl extends NotificationRepo {
   NotificationRepoImpl(this.datasource);
 
   @override
-  Future<Either<Failure, List<NotificationModel>>> getNotifications(GetNotificationsModel param) async {
+  Future<Either<Failure, PaginatedList<NotificationModel>>> getNotifications(GetNotificationsModel param) async {
     return handleNetwork(
       onRemote: handleServerErrors(
         datasourceResponse: datasource.getNotifications(param),

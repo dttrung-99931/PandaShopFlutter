@@ -27,3 +27,21 @@ Map<String, dynamic> _$BaseResponseToJson<T>(
       'statusCode': instance.statusCode,
       'message': instance.message,
     };
+
+PaginatedListResponse<T> _$PaginatedListResponseFromJson<T>(
+  Map<String, dynamic> json,
+  T Function(Object? json) fromJsonT,
+) =>
+    PaginatedListResponse<T>(
+      (json['data'] as List<dynamic>).map(fromJsonT).toList(),
+      json['success'] as bool,
+      json['statusCode'] as int,
+      json['message'] as String?,
+      PaginationModel.fromJson(json['meta'] as Map<String, dynamic>),
+    );
+
+PaginationModel _$PaginationModelFromJson(Map<String, dynamic> json) => PaginationModel(
+      pageSize: json['pageSize'] as int,
+      pageNum: json['pageNum'] as int,
+      total: json['total'] as int,
+    );

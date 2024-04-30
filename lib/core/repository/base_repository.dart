@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:evievm_app/core/model/paginated_list.dart';
 import 'package:evievm_app/core/utils/log.dart';
+import 'package:evievm_app/core/utils/utils.dart';
 
 import '../failures/failures.dart';
 import '../model/base_response.dart';
@@ -27,13 +29,27 @@ abstract class BaseRepo {
     return result.fold((Failure l) => Left(l..log()), (Either<Failure, T> r) => r);
   }
 
-  Future<Either<Failure, T>> handleServerErrors<T>({
-    required Future<BaseResponse<T?>> datasourceResponse,
+  Future<Either<Failure, TRepoModel>> handleServerErrors<TRepoModel, TDatasourceModel>({
+    required Future<BaseResponse<TDatasourceModel?>> datasourceResponse,
+    TRepoModel Function(TDatasourceModel model)? mapper,
   }) async {
     try {
-      BaseResponse<T?> response = await datasourceResponse;
+      BaseResponse<TDatasourceModel?> response = await datasourceResponse;
       if (response.success) {
-        return Right(response.data as T);
+        if (mapper != null) {
+          return Right(mapper(response.data as TDatasourceModel));
+        }
+
+        if (response.data is TRepoModel) {
+          return Right(response.data as TRepoModel);
+        }
+
+        if (response is PaginatedListResponse && isSubtype<TRepoModel, PaginatedList>()) {
+          PaginatedListResponse pagiResponse = response as PaginatedListResponse;
+          return Right(pagiResponse.toPaginiatedList() as TRepoModel);
+        }
+
+        throw 'Required mapper to map TDatasourceModel => TRepoModel';
       }
 
       return Left(

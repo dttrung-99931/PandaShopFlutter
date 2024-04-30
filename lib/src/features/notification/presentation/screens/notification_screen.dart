@@ -59,7 +59,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 return const EmptyData(title: 'Bạn chưa có thông báo!');
               }
               return ListView(
-                children: state.data.mapList(
+                children: state.data.data.mapList(
                   (element) => NotificationItem(noti: element),
                 ),
               );
