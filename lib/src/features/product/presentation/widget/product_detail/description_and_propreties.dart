@@ -1,6 +1,6 @@
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
-import 'package:evievm_app/src/config/theme.dart';
+import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_detail_dto.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:evievm_app/src/shared/widgets/sliver/sliver_session.dart';

@@ -3,7 +3,7 @@ import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/core/utils/overlay_utils.dart';
 import 'package:evievm_app/global.dart';
-import 'package:evievm_app/src/config/theme.dart';
+import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_detail_dto.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/product_detail_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/product/cart_button.dart';

@@ -11,7 +11,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../core/utils/app_colors.dart';
-import '../../../../../config/theme.dart';
+import '../../../../../config/theme/app_theme.dart';
 
 class ProductItem extends StatelessWidget {
   final ProductDto product;

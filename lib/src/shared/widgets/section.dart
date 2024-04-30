@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../config/theme.dart';
+import '../../config/theme/app_theme.dart';
 
 class Section extends StatelessWidget {
   static final EdgeInsets defaultMargin = EdgeInsets.only(top: 4.h, left: 4.w, right: 4.w);

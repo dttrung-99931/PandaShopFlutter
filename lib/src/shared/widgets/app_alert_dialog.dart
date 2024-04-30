@@ -8,7 +8,7 @@ import 'package:evievm_app/src/shared/widgets/neutral_button.dart';
 import 'package:evievm_app/src/shared/widgets/positive_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../config/theme.dart';
+import '../../config/theme/app_theme.dart';
 import 'spacing_row.dart';
 
 class AppAlertDialog extends StatelessWidget {

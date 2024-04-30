@@ -4,7 +4,7 @@ import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/message_utils.dart';
 import 'package:evievm_app/core/utils/overlay_utils.dart';
 import 'package:evievm_app/global.dart';
-import 'package:evievm_app/src/config/theme.dart';
+import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/order/presentation/bloc/order_bloc.dart';
 import 'package:evievm_app/src/features/order/presentation/screens/successful_order_screen.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_listener.dart';

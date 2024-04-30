@@ -1,6 +1,6 @@
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
-import 'package:evievm_app/src/config/theme.dart';
+import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class ProcessAndProcessGroupName extends StatelessWidget {

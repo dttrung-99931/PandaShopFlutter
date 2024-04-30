@@ -11,7 +11,7 @@ import 'package:evievm_app/core/utils/assets/assets.dart';
 import 'package:evievm_app/core/utils/dimensions.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/global.dart';
-import 'package:evievm_app/src/config/theme.dart';
+import 'package:evievm_app/src/config/theme/app_theme.dart';
 
 class EVMAppBar extends StatelessWidget {
   final String title;

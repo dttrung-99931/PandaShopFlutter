@@ -5,7 +5,7 @@ import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/message_utils.dart';
 import 'package:evievm_app/core/utils/overlay_utils.dart';
 import 'package:evievm_app/global.dart';
-import 'package:evievm_app/src/config/theme.dart';
+import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/product/presentation/bloc/product_detail/product_detail_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product/shop_product_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product_detail/shop_product_detail_bloc.dart';

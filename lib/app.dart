@@ -9,7 +9,7 @@ import 'package:evievm_app/src/config/app_nav_observer.dart';
 import 'package:evievm_app/src/config/app_router.dart';
 import 'package:evievm_app/src/config/app_translation.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
-import 'package:evievm_app/src/config/theme.dart';
+import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,12 +25,12 @@ Future<void> appMain() async {
     path: AppTranslation.path,
     fallbackLocale: AppTranslation.ja,
     startLocale: AppTranslation.ja,
-    child: const EvmApp(),
+    child: const PandaShopApp(),
   ));
 }
 
-class EvmApp extends StatelessWidget {
-  const EvmApp({Key? key}) : super(key: key);
+class PandaShopApp extends StatelessWidget {
+  const PandaShopApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,18 +44,22 @@ class EvmApp extends StatelessWidget {
         designSize: const Size(540, 960),
         minTextAdapt: true,
         splitScreenMode: true,
-        builder: (ctx, child) => MaterialApp(
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          navigatorKey: Global.globalKey,
-          debugShowCheckedModeBanner: false,
-          title: AppConfig.config.appName,
-          onGenerateRoute: AppRouter.onGenerateRoute,
-          theme: theme(context),
-          initialRoute: AppRouter.initialRouter,
-          navigatorObservers: [AppNavObserver()],
-        ),
+        builder: (_, child) {
+          return AppThemeWidget(
+            builder: (themeContext) => MaterialApp(
+              localizationsDelegates: context.localizationDelegates,
+              supportedLocales: context.supportedLocales,
+              locale: context.locale,
+              navigatorKey: Global.globalKey,
+              debugShowCheckedModeBanner: false,
+              title: AppConfig.config.appName,
+              onGenerateRoute: AppRouter.onGenerateRoute,
+              theme: AppTheme.themeOf(themeContext),
+              initialRoute: AppRouter.initialRouter,
+              navigatorObservers: [AppNavObserver()],
+            ),
+          );
+        },
       ),
     );
   }

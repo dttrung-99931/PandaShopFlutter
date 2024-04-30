@@ -1,5 +1,5 @@
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
-import 'package:evievm_app/src/config/theme.dart';
+import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_detail_dto.dart';
 import 'package:evievm_app/src/shared/widgets/common/app_chip.dart';
 import 'package:evievm_app/src/shared/widgets/spacing_row.dart';

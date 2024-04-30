@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:evievm_app/core/utils/assets/assets.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
-import 'package:evievm_app/src/config/theme.dart';
+import 'package:evievm_app/src/config/theme/app_theme.dart';
 
 import 'position_dialog.dart';
 

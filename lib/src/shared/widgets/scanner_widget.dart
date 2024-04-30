@@ -4,7 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/core/utils/log.dart';
-import 'package:evievm_app/src/config/theme.dart';
+import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

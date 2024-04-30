@@ -1,10 +1,13 @@
 import 'package:evievm_app/core/utils/dimensions.dart';
+import 'package:evievm_app/global.dart';
 import 'package:flutter/material.dart';
 
 class AppColors {
   static const background = lightGrey;
   static const primary = Colors.indigo;
   static const primaryShop = blue2;
+  static get primaryByRole => Global.isUserMode ? primaryShop : primary;
+
   static const purple = Colors.purple;
   static const green = Color(0xff12c373);
   static const deepPurple = Color(0xff0e1543);

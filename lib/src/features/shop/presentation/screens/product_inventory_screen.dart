@@ -4,7 +4,7 @@ import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
-import 'package:evievm_app/src/config/theme.dart';
+import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/product/presentation/bloc/product_detail/product_detail_bloc.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/product/price_widget.dart';
 import 'package:evievm_app/src/features/shop/domain/dtos/warehouse/product_inventory_dto.dart';

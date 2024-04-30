@@ -4,7 +4,7 @@ import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
-import 'package:evievm_app/src/config/theme.dart';
+import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
 import 'package:evievm_app/src/features/common/presentation/widgets/address/address_input.dart';
 import 'package:evievm_app/src/features/order/presentation/bloc/order_bloc.dart';

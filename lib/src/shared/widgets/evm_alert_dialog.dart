@@ -3,7 +3,7 @@ import 'package:evievm_app/core/utils/assets/assets.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/global.dart';
-import 'package:evievm_app/src/config/theme.dart';
+import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/shared/widgets/neutral_button.dart';
 import 'package:evievm_app/src/shared/widgets/positive_button.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';

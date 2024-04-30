@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/utils/app_colors.dart';
-import '../../config/theme.dart';
+import '../../config/theme/app_theme.dart';
 
 class SearchBar extends StatelessWidget {
   final String? navigateToScreenOnPressed;

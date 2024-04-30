@@ -2,7 +2,7 @@
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
-import 'package:evievm_app/src/config/theme.dart';
+import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_order/shop_order_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/widgets/shop_order/order_status_tab.dart';
 import 'package:evievm_app/src/features/shop/presentation/widgets/shop_order/shop_order_list.dart';

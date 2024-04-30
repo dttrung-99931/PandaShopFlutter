@@ -9,7 +9,7 @@ import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
-import 'package:evievm_app/src/config/theme.dart';
+import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/notification/data/models/request/get_notifications_model.dart';
 import 'package:evievm_app/src/features/notification/domain/dtos/notification_dto.dart';
 import 'package:evievm_app/src/features/notification/presentation/bloc/notification_bloc.dart';

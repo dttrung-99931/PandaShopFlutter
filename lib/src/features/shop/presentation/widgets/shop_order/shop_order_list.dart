@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:evievm_app/src/config/theme.dart';
+import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/order/domain/dto/order/order_dto.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_order/shop_order_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/widgets/shop_order/shop_order_item.dart';

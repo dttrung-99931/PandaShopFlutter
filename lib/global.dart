@@ -25,8 +25,10 @@ class Global {
     _userDetail = detail;
   }
 
-  static late AppMode appMode;
-  static bool get isUserMode => appMode == AppMode.user;
+  static AppMode? appMode;
+  static bool get isUserMode {
+    return appMode == null || appMode == AppMode.user;
+  }
 
   static ValueNotifier<int> mainPageIndexNotifier = ValueNotifier(0);
 

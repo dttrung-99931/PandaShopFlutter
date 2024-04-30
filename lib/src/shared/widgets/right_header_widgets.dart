@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:evievm_app/core/utils/assets/assets.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
-import 'package:evievm_app/src/config/theme.dart';
+import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/shared/widgets/cutstom_button.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +80,7 @@ class OrderQuantityWidget extends StatelessWidget {
               children: [
                 if (current == null)
                   TextSpan(
-                    text: numberAlt ??  '$number',
+                    text: numberAlt ?? '$number',
                     style: textTheme.titleMedium!.arial().bold().withColor(EVMColors.primary),
                   )
                 else

@@ -3,7 +3,7 @@ import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/overlay_utils.dart';
 import 'package:evievm_app/global.dart';
-import 'package:evievm_app/src/config/theme.dart';
+import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:evievm_app/src/features/auth/presentation/screens/login_screen.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/main/main_bloc.dart';
@@ -36,7 +36,7 @@ class _AccountScreenState extends State<AccountScreen> {
       children: [
         Container(
           height: 240.h,
-          color: AppColors.primary,
+          color: theme.colorScheme.primary,
         ),
         Positioned.fill(
           top: 160.h,
