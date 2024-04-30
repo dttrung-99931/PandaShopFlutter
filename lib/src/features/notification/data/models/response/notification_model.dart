@@ -11,12 +11,14 @@ class NotificationModel {
   final String description;
   final NotificationType type;
   final NotificationDataModel data;
+  final DateTime createdDate;
 
   NotificationModel(
     this.title,
     this.description,
     this.type,
     this.data,
+    this.createdDate,
   );
 
   factory NotificationModel.fromJson(Map<String, dynamic> json) => _$NotificationModelFromJson(json);

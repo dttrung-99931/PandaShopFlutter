@@ -12,6 +12,7 @@ NotificationModel _$NotificationModelFromJson(Map<String, dynamic> json) =>
       json['description'] as String,
       $enumDecode(_$NotificationTypeEnumMap, json['type']),
       NotificationDataModel.fromJson(json['data'] as Map<String, dynamic>),
+      DateTime.parse(json['createdDate'] as String),
     );
 
 const _$NotificationTypeEnumMap = {

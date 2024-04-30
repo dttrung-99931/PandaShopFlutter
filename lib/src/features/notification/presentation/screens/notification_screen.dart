@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/utils/app_colors.dart';
+import 'package:evievm_app/core/utils/format_utils.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/shared/widgets/common/empty_data.dart';
 import 'package:flutter/material.dart';
@@ -78,15 +79,32 @@ class NotificationItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(12.r),
-      color: AppColors.white,
+      padding: EdgeInsets.symmetric(vertical: 12.r, horizontal: 16.r),
       margin: EdgeInsets.only(left: 12.w, right: 12.w, top: 8.h),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(4.r),
+        color: AppColors.white,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(noti.title, style: textTheme.bodyLarge.bold()),
+          Row(
+            children: [
+              Text(noti.data.order?.productAndOptionNames ?? '', style: textTheme.bodyLarge.bold()),
+              const Spacer(),
+              Text(noti.title, style: textTheme.bodyMedium.withOpacity(0.6)),
+            ],
+          ),
           4.shb,
-          Text(noti.description, style: textTheme.bodyMedium),
+          Text(noti.description, style: textTheme.bodyLarge),
+          4.shb,
+          Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              FormatUtils.formatDateTime(noti.createdDate),
+              style: textTheme.bodySmall.withOpacity(0.6),
+            ),
+          ),
         ],
       ),
     );

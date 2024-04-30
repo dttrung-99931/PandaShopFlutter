@@ -24,6 +24,9 @@ extension TextStyleExt on TextStyle? {
   TextStyle withWeight(FontWeight fw) => this!.copyWith(fontWeight: fw);
   TextStyle spacing(double spacing) => this!.copyWith(letterSpacing: spacing * 0);
   TextStyle overflowElipse() => this!.copyWith(overflow: TextOverflow.ellipsis);
+  TextStyle withOpacity(double opacity) => this!.copyWith(
+        color: this!.color!.withOpacity(opacity),
+      );
 }
 
 extension GlobalKeyExt on GlobalKey {

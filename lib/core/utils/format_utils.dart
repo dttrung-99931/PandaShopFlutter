@@ -30,8 +30,8 @@ class FormatUtils {
     return DateFormat(format).format(time);
   }
 
-  static String formatDateTime(DateTime dateTime, {String format = 'yyyy/MM/d(E) HH:mm'}) {
-    return DateFormat(format, 'ja-JP').format(dateTime);
+  static String formatDateTime(DateTime dateTime, {String format = 'dd/MM/yyyy HH:mm'}) {
+    return DateFormat().format(dateTime);
   }
 
   static String formatTimeOfDay(TimeOfDay time, {String format = 'HH:mm'}) {
