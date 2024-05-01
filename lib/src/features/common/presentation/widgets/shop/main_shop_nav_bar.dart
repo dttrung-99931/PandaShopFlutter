@@ -2,6 +2,9 @@
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/user/user_bloc.dart';
+import 'package:evievm_app/src/features/notification/data/models/request/get_notifications_model.dart';
+import 'package:evievm_app/src/features/notification/presentation/bloc/notification_bloc.dart';
+import 'package:evievm_app/src/shared/widgets/common/badge.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -44,9 +47,9 @@ class MainShopBottomNavBar extends StatelessWidget {
                           icon: CardIcon.zeroPadding(Icons.menu_book_outlined),
                           label: "Đơn hàng",
                         ),
-                        BottomNavigationBarItem(
+                        const BottomNavigationBarItem(
                           backgroundColor: Colors.white,
-                          icon: CardIcon.zeroPadding(Icons.notifications_outlined),
+                          icon: NotiIconWithBadge(),
                           label: "Thông báo",
                         ),
                         BottomNavigationBarItem(
@@ -81,5 +84,47 @@ class MainShopBottomNavBar extends StatelessWidget {
             ],
           );
         });
+  }
+}
+
+class NotiIconWithBadge extends StatefulWidget {
+  const NotiIconWithBadge({
+    super.key,
+  });
+
+  @override
+  State<NotiIconWithBadge> createState() => _NotiIconWithBadgeState();
+}
+
+class _NotiIconWithBadgeState extends State<NotiIconWithBadge> {
+  @override
+  void initState() {
+    notiBloc.add(OnGetNotificationOverview(requestModel: GetNotificationsModel.default_()));
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.topRight,
+      clipBehavior: Clip.none,
+      children: [
+        CardIcon.zeroPadding(Icons.notifications_outlined),
+        Positioned(
+          right: -8.w,
+          top: 2.h,
+          child: CustomBlocBuilder<NotificationBloc>(
+            handleLoading: false,
+            buildForStates: const [GetNotificationOverviewSuccesss],
+            builder: (state) {
+              if (state is! GetNotificationOverviewSuccesss || state.data.newNotiNum == 0) {
+                return emptyWidget;
+              }
+              return AppBadge(number: state.data.newNotiNum);
+            },
+          ),
+        )
+      ],
+    );
   }
 }

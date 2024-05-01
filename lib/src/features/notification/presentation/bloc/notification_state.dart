@@ -4,3 +4,7 @@ part of 'notification_bloc.dart';
 class GetNotificationsSuccesss extends FullDataLoadedState<PaginatedList<NotificationDto>> {
   GetNotificationsSuccesss(super.data);
 }
+
+class GetNotificationOverviewSuccesss extends FullDataLoadedState<NotificationOverviewDto> {
+  GetNotificationOverviewSuccesss(super.data);
+}

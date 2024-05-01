@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/model/paginated_request.dart';
+import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/features/order/data/models/response/order/order_response_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -15,6 +16,10 @@ class GetNotificationsModel extends PaginatedRequest {
   });
   final OrderStatus? status;
   final bool? onlyForShop;
+
+  factory GetNotificationsModel.default_() => GetNotificationsModel(
+        onlyForShop: !Global.isUserMode,
+      );
 
   Map<String, dynamic> toJson() => _$GetNotificationsModelToJson(this);
 }

@@ -39,11 +39,14 @@ TextTheme buildTextTheme() {
     ),
 
     /// Lable
+    labelLarge: TextStyle(
+      fontSize: 13.sp,
+      fontWeight: FontWeight.w600,
+    ),
     labelMedium: TextStyle(
       fontSize: 12.sp,
       fontWeight: FontWeight.w600,
     ),
-
     labelSmall: TextStyle(
       fontSize: 10.sp,
       fontWeight: FontWeight.w600,

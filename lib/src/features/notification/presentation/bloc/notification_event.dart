@@ -10,3 +10,13 @@ class OnGetNotifications extends BaseEvent {
   @override
   List<Object?> get props => [requestModel];
 }
+
+class OnGetNotificationOverview extends BaseEvent {
+  final GetNotificationsModel requestModel;
+  OnGetNotificationOverview({
+    required this.requestModel,
+  });
+
+  @override
+  List<Object?> get props => [requestModel];
+}

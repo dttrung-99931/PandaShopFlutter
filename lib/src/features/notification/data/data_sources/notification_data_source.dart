@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:evievm_app/core/model/base_response.dart';
 import 'package:evievm_app/src/features/notification/data/models/request/get_notifications_model.dart';
 import 'package:evievm_app/src/features/notification/data/models/response/notification_model.dart';
+import 'package:evievm_app/src/features/notification/data/models/response/notification_overview_model.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -19,4 +20,7 @@ abstract class NotificationDatasourceProvider {
 abstract class NotificationDatasource {
   @GET('/v1/Notifications')
   Future<PaginatedListResponse<NotificationModel>> getNotifications(@Queries() GetNotificationsModel params);
+
+  @GET('/v1/Notifications/Overview')
+  Future<BaseResponse<NotificationOverviewModel>> getNotificationOverview(@Queries() GetNotificationsModel params);
 }

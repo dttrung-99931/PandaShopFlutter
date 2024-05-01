@@ -19,15 +19,14 @@ class _NotificationDatasource implements NotificationDatasource {
   String? baseUrl;
 
   @override
-  Future<PaginatedListResponse<NotificationModel>> getNotifications(
-      params) async {
+  Future<PaginatedListResponse<NotificationModel>> getNotifications(params) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.addAll(params.toJson());
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<PaginatedListResponse<NotificationModel>>(Options(
+    final _result =
+        await _dio.fetch<Map<String, dynamic>>(_setStreamType<PaginatedListResponse<NotificationModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -46,10 +45,36 @@ class _NotificationDatasource implements NotificationDatasource {
     return value;
   }
 
+  @override
+  Future<BaseResponse<NotificationOverviewModel>> getNotificationOverview(params) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.addAll(params.toJson());
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result =
+        await _dio.fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<NotificationOverviewModel>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/v1/Notifications/Overview',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseResponse<NotificationOverviewModel>.fromJson(
+      _result.data!,
+      (json) => NotificationOverviewModel.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
-        !(requestOptions.responseType == ResponseType.bytes ||
-            requestOptions.responseType == ResponseType.stream)) {
+        !(requestOptions.responseType == ResponseType.bytes || requestOptions.responseType == ResponseType.stream)) {
       if (T == String) {
         requestOptions.responseType = ResponseType.plain;
       } else {

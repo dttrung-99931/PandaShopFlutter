@@ -40,7 +40,8 @@ PaginatedListResponse<T> _$PaginatedListResponseFromJson<T>(
       PaginationModel.fromJson(json['meta'] as Map<String, dynamic>),
     );
 
-PaginationModel _$PaginationModelFromJson(Map<String, dynamic> json) => PaginationModel(
+PaginationModel _$PaginationModelFromJson(Map<String, dynamic> json) =>
+    PaginationModel(
       pageSize: json['pageSize'] as int,
       pageNum: json['pageNum'] as int,
       total: json['total'] as int,

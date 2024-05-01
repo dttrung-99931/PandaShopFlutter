@@ -31,9 +31,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
   }
 
   void _getNotifications() {
-    notiBloc.add(OnGetNotifications(
-      requestModel: GetNotificationsModel(onlyForShop: !Global.isUserMode),
-    ));
+    GetNotificationsModel requestModel = GetNotificationsModel.default_();
+    notiBloc.add(OnGetNotifications(requestModel: requestModel));
+    notiBloc.add(OnGetNotificationOverview(requestModel: requestModel));
   }
 
   @override

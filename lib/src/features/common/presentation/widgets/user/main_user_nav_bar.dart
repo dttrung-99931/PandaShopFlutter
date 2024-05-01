@@ -2,6 +2,7 @@
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/user/user_bloc.dart';
+import 'package:evievm_app/src/features/common/presentation/widgets/shop/main_shop_nav_bar.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -39,9 +40,9 @@ class MainUserBottomNavBar extends StatelessWidget {
                           icon: CardIcon.zeroPadding(Icons.home_outlined),
                           label: "Trang chủ",
                         ),
-                        BottomNavigationBarItem(
+                        const BottomNavigationBarItem(
                           backgroundColor: Colors.white,
-                          icon: CardIcon.zeroPadding(Icons.notifications_outlined),
+                          icon: NotiIconWithBadge(),
                           label: "Thông báo",
                         ),
                         BottomNavigationBarItem(
