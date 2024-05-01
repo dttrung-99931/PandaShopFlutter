@@ -98,12 +98,9 @@ class NotificationItem extends StatelessWidget {
           4.shb,
           Text(noti.description, style: textTheme.bodyLarge),
           4.shb,
-          Align(
-            alignment: Alignment.centerRight,
-            child: Text(
-              FormatUtils.formatDateTime(noti.createdDate),
-              style: textTheme.bodySmall.withOpacity(0.6),
-            ),
+          Text(
+            FormatUtils.formatDateTime(noti.createdDate),
+            style: textTheme.bodySmall.withOpacity(0.6),
           ),
         ],
       ),

@@ -26,7 +26,9 @@ class NotificationModel {
 
 enum NotificationType {
   @JsonValue(1)
-  order,
+  userOrderNoti,
+  @JsonValue(2)
+  shopOrderNoti,
   @JsonValue(4)
   ads, // ...
 }

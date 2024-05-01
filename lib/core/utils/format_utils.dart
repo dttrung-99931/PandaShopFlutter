@@ -30,7 +30,7 @@ class FormatUtils {
     return DateFormat(format).format(time);
   }
 
-  static String formatDateTime(DateTime dateTime, {String format = 'dd/MM/yyyy HH:mm'}) {
+  static String formatDateTime(DateTime dateTime, {String format = 'dd/MM/yyyy  HH:mm'}) {
     return DateFormat().format(dateTime);
   }
 

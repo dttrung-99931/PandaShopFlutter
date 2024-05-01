@@ -22,7 +22,7 @@ class NotificationDto {
       description: model.description,
       type: model.type,
       data: NotificationDataDto.fromModel(model.data),
-      createdDate: model.createdDate,
+      createdDate: model.createdDate.toLocal(),
     );
   }
 }
