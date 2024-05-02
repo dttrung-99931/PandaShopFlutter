@@ -12,6 +12,7 @@ class NotificationModel {
   final NotificationType type;
   final NotificationDataModel data;
   final DateTime createdDate;
+  final UserNotificationStatus status;
 
   NotificationModel(
     this.title,
@@ -19,6 +20,7 @@ class NotificationModel {
     this.type,
     this.data,
     this.createdDate,
+    this.status,
   );
 
   factory NotificationModel.fromJson(Map<String, dynamic> json) => _$NotificationModelFromJson(json);
@@ -31,4 +33,13 @@ enum NotificationType {
   shopOrderNoti,
   @JsonValue(4)
   ads, // ...
+}
+
+enum UserNotificationStatus {
+  @JsonValue(1)
+  sent,
+  @JsonValue(4)
+  seen,
+  @JsonValue(8)
+  sentFailed,
 }

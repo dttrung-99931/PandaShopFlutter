@@ -9,12 +9,14 @@ class NotificationDto {
     required this.type,
     required this.data,
     required this.createdDate,
+    required this.status,
   });
   final String title;
   final String description;
   final NotificationType type;
   final NotificationDataDto data;
   final DateTime createdDate;
+  final UserNotificationStatus status;
 
   factory NotificationDto.fromModel(NotificationModel model) {
     return NotificationDto(
@@ -23,6 +25,7 @@ class NotificationDto {
       type: model.type,
       data: NotificationDataDto.fromModel(model.data),
       createdDate: model.createdDate.toLocal(),
+      status: model.status,
     );
   }
 }

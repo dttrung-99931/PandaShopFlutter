@@ -2,6 +2,7 @@
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/format_utils.dart';
 import 'package:evievm_app/global.dart';
+import 'package:evievm_app/src/features/notification/data/models/response/notification_model.dart';
 import 'package:evievm_app/src/shared/widgets/common/empty_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -83,7 +84,7 @@ class NotificationItem extends StatelessWidget {
       margin: EdgeInsets.only(left: 12.w, right: 12.w, top: 8.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.r),
-        color: AppColors.white,
+        color: noti.status == UserNotificationStatus.seen ? AppColors.white.withOpacity(0.4) : AppColors.white,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -13,10 +13,17 @@ NotificationModel _$NotificationModelFromJson(Map<String, dynamic> json) =>
       $enumDecode(_$NotificationTypeEnumMap, json['type']),
       NotificationDataModel.fromJson(json['data'] as Map<String, dynamic>),
       DateTime.parse(json['createdDate'] as String),
+      $enumDecode(_$UserNotificationStatusEnumMap, json['status']),
     );
 
 const _$NotificationTypeEnumMap = {
   NotificationType.userOrderNoti: 1,
   NotificationType.shopOrderNoti: 2,
   NotificationType.ads: 4,
+};
+
+const _$UserNotificationStatusEnumMap = {
+  UserNotificationStatus.sent: 1,
+  UserNotificationStatus.seen: 4,
+  UserNotificationStatus.sentFailed: 8,
 };
