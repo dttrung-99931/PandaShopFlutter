@@ -46,6 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
             shoppingCartBloc.add(OnGetShoppingCart());
           },
           child: CustomScrollView(
+            physics: const BouncingScrollPhysics(),
             controller: widget.scrollController,
             slivers: [
               SearchBarAndBanner(size: size),
