@@ -145,7 +145,7 @@ class _Items extends StatelessWidget {
         CustomBlocBuilder<MainBloc>(
           buildCondition: (state) => state is GetAppModeSuccess,
           builder: (state) {
-            if (state is! GetAppModeSuccess) {
+            if (state is! GetAppModeSuccess || state.data == AppMode.user) {
               return emptyWidget;
             }
             return _Item(
