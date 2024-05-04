@@ -3,14 +3,14 @@ import 'package:evievm_app/app.dart';
 
 void main() async {
   AppConfig.set(
-    appName: 'EVM Dev',
+    appName: 'EVM Home',
     flavorName: AppFlavor.DEV,
-    apiUrl: 'http://localhost:44444',
+    apiUrl: 'https://192.168.1.6:5001',
     resourceIcon: 'https://evi-gonosen.s3.ap-northeast-1.amazonaws.com',
     logResponse: true,
     logRequest: true,
     logBloc: true,
-    sinalRUrl: 'http://localhost:44444',
+    sinalRUrl: 'https://192.168.1.6:5001/SignalR',
   );
 
   await appMain();

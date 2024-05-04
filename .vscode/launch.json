@@ -58,5 +58,12 @@
                 "dev"
             ]
         },
+        {
+            "name": "dev home wifi",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "program": "lib/main_dev_home_wifi.dart"
+        },
     ]
 }

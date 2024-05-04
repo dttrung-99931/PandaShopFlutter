@@ -6,7 +6,6 @@ void main() async {
     appName: 'EVM Home',
     flavorName: AppFlavor.DEV,
     apiUrl: 'https://localhost:5001',
-    // apiUrl: 'https://192.168.1.4:5001',
     resourceIcon: 'https://evi-gonosen.s3.ap-northeast-1.amazonaws.com',
     logResponse: true,
     logRequest: true,
