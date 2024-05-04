@@ -31,10 +31,3 @@ class ShortOrderModel {
 
   factory ShortOrderModel.fromJson(Map<String, dynamic> json) => _$ShortOrderModelFromJson(json);
 }
-
-enum NotificationType {
-  @JsonValue(1)
-  order,
-  @JsonValue(4)
-  ads, // ...
-}

@@ -10,7 +10,7 @@ void main() async {
     logResponse: true,
     logRequest: true,
     logBloc: true,
-    socketUrl: 'https://api.evm.gonosen.work',
+    sinalRUrl: 'https://localhost:44444/SignalR',
   );
 
   await appMain();

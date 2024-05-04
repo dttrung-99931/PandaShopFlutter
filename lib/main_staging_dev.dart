@@ -10,7 +10,7 @@ void main() async {
     logResponse: true,
     logRequest: true,
     logBloc: true,
-    socketUrl: '',
+    sinalRUrl: '',
   );
 
   await appMain();

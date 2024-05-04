@@ -20,7 +20,7 @@ class AppConfig {
     required bool logResponse,
     required bool logRequest,
     required bool logBloc,
-    required String socketUrl,
+    required String sinalRUrl,
     bool logCurl = false,
   }) {
     _config ??= AppConfig._();
@@ -32,7 +32,7 @@ class AppConfig {
     _config!.logRequest = logRequest;
     _config!.logBloc = logBloc;
     _config!.logCurl = logCurl;
-    _config!.socketUrl = socketUrl;
+    _config!.sinalRUrl = sinalRUrl;
 
     FlutterError.onError = (FlutterErrorDetails details) {
       if (_config!.isDevelopment) {
@@ -53,7 +53,7 @@ class AppConfig {
   late final bool logRequest;
   late final bool logCurl;
   late final bool logBloc;
-  late final String socketUrl;
+  late final String sinalRUrl;
 
   bool get isDevelopment => flavorName == AppFlavor.DEV || flavorName == AppFlavor.STAGING_DEV;
 
