@@ -27,7 +27,7 @@ class NotificationBloc extends BaseBloc {
     this._getNotiOverview,
   ) : super(InitialState()) {
     onLoad<OnGetNotifications>(_onGetNotifications);
-    onLoad<OnGetNotificationOverview>(_onGetNotificationOverview);
+    on<OnGetNotificationOverview>(_onGetNotificationOverview);
   }
   final GetNotificationsUseCase _getNotis;
   final GetNotificationOverviewUseCase _getNotiOverview;
