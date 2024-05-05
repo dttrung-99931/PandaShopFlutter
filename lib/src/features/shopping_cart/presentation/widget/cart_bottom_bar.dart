@@ -120,7 +120,6 @@ class DeleteCartItemsDialog extends StatelessWidget {
       width: 400.w,
       onConfirm: () {
         shoppingCartBloc.add(OnDeleteCartItems(items: selected));
-        Global.pop();
       },
     );
   }
