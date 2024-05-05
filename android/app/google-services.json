@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "872080078202",
+    "project_id": "pandashop-db296",
+    "storage_bucket": "pandashop-db296.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:872080078202:android:2a7829ae98a4c0763ed2c3",
+        "android_client_info": {
+          "package_name": "pantech.panshop_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD96TWpPqgPYOTjKkttB4lo9auO8gGMyLQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
