@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:872080078202:android:2a7829ae98a4c0763ed2c3",
+        "mobilesdk_app_id": "1:872080078202:android:28397a44da69cdd23ed2c3",
         "android_client_info": {
-          "package_name": "pantech.panshop_app"
+          "package_name": "pantech.panshop_app.dev"
         }
       },
       "oauth_client": [],
