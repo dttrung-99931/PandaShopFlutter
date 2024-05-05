@@ -1,9 +1,15 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/failures/failures.dart';
 import 'package:evievm_app/core/utils/error_handlers.dart';
+import 'package:evievm_app/core/utils/log.dart';
+import 'package:evievm_app/src/features/common/presentation/bloc/main/main_bloc.dart';
+import 'package:evievm_app/src/features/notification/data/models/response/push_notification/push_notification_payload.dart';
 import 'package:evievm_app/src/features/notification/domain/dtos/push_notification/push_notification_dto.dart';
+import 'package:evievm_app/src/features/notification/presentation/bloc/notification_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:injectable/injectable.dart';
 
@@ -43,21 +49,41 @@ class PushNotificationUseCases {
           android: AndroidInitializationSettings('@mipmap/ic_launcher'),
           iOS: DarwinInitializationSettings(), // TODO:
         ),
+        onDidReceiveNotificationResponse: (NotificationResponse details) {
+          if (details.payload == null) {
+            logd('Invalid notificaiton without payload');
+            return;
+          }
+          switch (details.notificationResponseType) {
+            case NotificationResponseType.selectedNotification:
+              PushNotificationPayload payload = PushNotificationPayload.fromJson(jsonDecode(details.payload!));
+              notiBloc.add(OnSetState(NotificationPressed(payload)));
+
+              break;
+            case NotificationResponseType.selectedNotificationAction:
+              logd('selectedNotificationAction');
+              // TODO:
+              // if (details.actionId == navigationActionId) {
+              //   selectNotificationStream.add(details.payload);
+              // }
+              break;
+          }
+        },
       );
     });
   }
 
-  Future<Either<Failure, dynamic>> pushNoti(PushNotificationDto param) async {
+  Future<Either<Failure, dynamic>> pushNoti(PushNotificationDto noti) async {
     if (notificationsPlugin == null) {
       return Left(Failure('Notificaiton plugin is not initialized'));
     }
     return executeWithTryCatch(() async {
-      String title = param.displayTitle;
+      String title = noti.displayTitle;
 
       notificationsPlugin?.show(
-        param.hashCode,
+        noti.hashCode,
         title,
-        param.description,
+        noti.description,
         NotificationDetails(
           android: AndroidNotificationDetails(
             channel!.id,
@@ -67,7 +93,7 @@ class PushNotificationUseCases {
             presentAlert: true,
           ),
         ),
-        // payload: param.data,
+        payload: jsonEncode(noti.getPayload().toJson()),
       );
     });
   }

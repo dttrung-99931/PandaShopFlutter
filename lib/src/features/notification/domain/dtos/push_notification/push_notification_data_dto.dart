@@ -24,15 +24,18 @@ class PushNotificationDataDto {
 }
 
 class PushNotificationDataOrderDto {
+  final int id;
   final List<ShortOrderDetailDto> orderDetails;
   PushNotificationDataOrderDto({
+    required this.id,
     required this.orderDetails,
   });
 
   factory PushNotificationDataOrderDto.fromModel(PushNotificationDataOrderModel model) {
     return PushNotificationDataOrderDto(
         orderDetails: model.orderDetails.mapList(
-      (element) => ShortOrderDetailDto.fromModel(element),
-    ));
+          (element) => ShortOrderDetailDto.fromModel(element),
+        ),
+        id: model.id);
   }
 }

@@ -8,3 +8,7 @@ class GetNotificationsSuccesss extends FullDataLoadedState<PaginatedList<Notific
 class GetNotificationOverviewSuccesss extends FullDataLoadedState<NotificationOverviewDto> {
   GetNotificationOverviewSuccesss(super.data);
 }
+
+class NotificationPressed extends FullDataLoadedState<PushNotificationPayload> {
+  NotificationPressed(super.data);
+}

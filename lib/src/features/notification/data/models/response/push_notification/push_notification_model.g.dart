@@ -6,7 +6,9 @@ part of 'push_notification_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-PushNotificationModel _$PushNotificationModelFromJson(Map<String, dynamic> json) => PushNotificationModel(
+PushNotificationModel _$PushNotificationModelFromJson(
+        Map<String, dynamic> json) =>
+    PushNotificationModel(
       json['title'] as String,
       json['description'] as String,
       $enumDecode(_$NotificationTypeEnumMap, json['type']),

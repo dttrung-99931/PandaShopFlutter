@@ -2,6 +2,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/src/features/notification/data/models/response/notification_model.dart';
+import 'package:evievm_app/src/features/notification/data/models/response/push_notification/push_notification_payload.dart';
 import 'package:evievm_app/src/features/notification/domain/dtos/push_notification/push_notification_data_dto.dart';
 
 import '../../../data/models/response/push_notification/push_notification_model.dart';
@@ -9,6 +10,24 @@ import '../../../data/models/response/push_notification/push_notification_model.
 // part 'push_notification_model.g.dart';
 
 class PushNotificationDto extends Equatable {
+  const PushNotificationDto({
+    required this.title,
+    required this.description,
+    required this.type,
+    required this.data,
+    required this.createdDate,
+  });
+
+  factory PushNotificationDto.fromModel(PushNotificationModel model) {
+    return PushNotificationDto(
+      title: model.title,
+      description: model.description,
+      type: model.type,
+      data: PushNotificationDataDto.fromModel(model.data),
+      createdDate: model.createdDate,
+    );
+  }
+
   final String title;
   final String description;
   final NotificationType type;
@@ -39,22 +58,8 @@ class PushNotificationDto extends Equatable {
     }
   }
 
-  const PushNotificationDto({
-    required this.title,
-    required this.description,
-    required this.type,
-    required this.data,
-    required this.createdDate,
-  });
-
-  factory PushNotificationDto.fromModel(PushNotificationModel model) {
-    return PushNotificationDto(
-      title: model.title,
-      description: model.description,
-      type: model.type,
-      data: PushNotificationDataDto.fromModel(model.data),
-      createdDate: model.createdDate,
-    );
+  PushNotificationPayload getPayload() {
+    return PushNotificationPayload(orderId: data.order?.id, notiType: type);
   }
 
   @override

@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:bloc/src/bloc.dart';
+import 'package:evievm_app/src/features/notification/data/models/response/push_notification/push_notification_payload.dart';
 import 'package:evievm_app/src/features/notification/domain/dtos/notification_overview_dto.dart';
 import 'package:injectable/injectable.dart';
 

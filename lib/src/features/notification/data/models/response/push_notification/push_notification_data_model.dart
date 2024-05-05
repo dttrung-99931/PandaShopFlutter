@@ -17,8 +17,10 @@ class PushNotificationDataModel {
 
 @JsonSerializable(explicitToJson: true, createToJson: false)
 class PushNotificationDataOrderModel {
+  final int id;
   final List<ShortOrderDetailResponseModel> orderDetails;
   PushNotificationDataOrderModel({
+    required this.id,
     required this.orderDetails,
   });
 

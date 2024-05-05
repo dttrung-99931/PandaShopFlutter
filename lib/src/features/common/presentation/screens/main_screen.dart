@@ -6,6 +6,7 @@ import 'package:evievm_app/src/features/common/presentation/bloc/main/main_bloc.
 import 'package:evievm_app/src/features/common/presentation/screens/main_shop_screen.dart';
 import 'package:evievm_app/src/features/common/presentation/screens/main_user_screen.dart';
 import 'package:evievm_app/src/features/notification/presentation/bloc/push_notification/push_notification_bloc.dart';
+import 'package:evievm_app/src/features/notification/presentation/screens/widgets/notification_pressed_listener.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_consumer.dart';
 import 'package:flutter/material.dart';
 
@@ -27,15 +28,17 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomBlocConsumer<MainBloc>(listener: (state) {
-      if (state is GetAppModeSuccess) {
-        AppTheme.of(context).updateTheme();
-      }
-    }, builder: (state) {
-      if (state is! GetAppModeSuccess) {
-        return emptyWidget;
-      }
-      return state.data == AppMode.shop ? const MainShopScreen() : const MainUserScreen();
-    });
+    return NotificationPressedListener(
+      child: CustomBlocConsumer<MainBloc>(listener: (state) {
+        if (state is GetAppModeSuccess) {
+          AppTheme.of(context).updateTheme();
+        }
+      }, builder: (state) {
+        if (state is! GetAppModeSuccess) {
+          return emptyWidget;
+        }
+        return state.data == AppMode.shop ? const MainShopScreen() : const MainUserScreen();
+      }),
+    );
   }
 }
