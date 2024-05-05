@@ -9,6 +9,7 @@ import 'package:evievm_app/src/config/app_nav_observer.dart';
 import 'package:evievm_app/src/config/app_router.dart';
 import 'package:evievm_app/src/config/app_translation.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
+import 'package:evievm_app/src/config/firebase_config.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,6 +21,7 @@ Future<void> appMain() async {
   await ScreenUtil.ensureScreenSize();
   configureDependencies();
   HttpOverrides.global = PandaHttpOverrides();
+  FirebaseConfig.config();
   runApp(EasyLocalization(
     supportedLocales: AppTranslation.supportedLocales,
     path: AppTranslation.path,
