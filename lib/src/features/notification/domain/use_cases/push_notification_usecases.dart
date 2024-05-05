@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:evievm_app/core/failures/failures.dart';
 import 'package:evievm_app/core/utils/error_handlers.dart';
-import 'package:evievm_app/src/features/notification/domain/dtos/push_notification_dto.dart';
+import 'package:evievm_app/src/features/notification/domain/dtos/push_notification/push_notification_dto.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:injectable/injectable.dart';
 
@@ -37,6 +37,7 @@ class PushNotificationUseCases {
               sound: true,
             );
       }
+      // notificationsPlugin!.
       notificationsPlugin!.initialize(
         const InitializationSettings(
           android: AndroidInitializationSettings('@mipmap/ic_launcher'),
@@ -51,7 +52,7 @@ class PushNotificationUseCases {
       return Left(Failure('Notificaiton plugin is not initialized'));
     }
     return executeWithTryCatch(() async {
-      String title = param.title;
+      String title = param.displayTitle;
 
       notificationsPlugin?.show(
         param.hashCode,
@@ -66,6 +67,7 @@ class PushNotificationUseCases {
             presentAlert: true,
           ),
         ),
+        // payload: param.data,
       );
     });
   }

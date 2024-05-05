@@ -5,12 +5,12 @@ void main() async {
   AppConfig.set(
     appName: 'EVM Home',
     flavorName: AppFlavor.DEV,
-    apiUrl: 'https://localhost:5001',
+    apiUrl: 'https://192.168.1.5:5001',
     resourceIcon: 'https://evi-gonosen.s3.ap-northeast-1.amazonaws.com',
     logResponse: true,
     logRequest: true,
     logBloc: true,
-    sinalRUrl: 'https://localhost:5001/SignalR',
+    sinalRUrl: 'https://192.168.1.5:5001/SignalR',
   );
 
   await appMain();

@@ -6,8 +6,8 @@ import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
-import 'package:evievm_app/src/features/notification/domain/dtos/push_notification_dto.dart';
-import 'package:evievm_app/src/features/notification/domain/use_cases/push_notification_usecase.dart';
+import 'package:evievm_app/src/features/notification/domain/dtos/push_notification/push_notification_dto.dart';
+import 'package:evievm_app/src/features/notification/domain/use_cases/push_notification_usecases.dart';
 import 'package:evievm_app/src/features/notification/presentation/bloc/push_notification/push_notification_communication.dart';
 import 'package:injectable/injectable.dart';
 

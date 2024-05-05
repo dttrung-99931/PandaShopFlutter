@@ -19,13 +19,3 @@ const _$NotificationTypeEnumMap = {
   NotificationType.shopOrderNoti: 2,
   NotificationType.ads: 4,
 };
-
-const _$UserNotificationStatusEnumMap = {
-  UserNotificationStatus.sent: 1,
-  UserNotificationStatus.seen: 4,
-  UserNotificationStatus.sentFailed: 8,
-};
-
-PushNotificationDataModel _$PushNotificationDataModelFromJson(Map<String, dynamic> json) => PushNotificationDataModel(
-      json['orderId'] as int?,
-    );

@@ -12,8 +12,8 @@ import 'package:evievm_app/core/utils/storage.dart';
 import 'package:evievm_app/src/config/app_config.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/address/address_bloc_mixin.dart';
-import 'package:evievm_app/src/features/notification/data/models/response/push_notification_model.dart';
-import 'package:evievm_app/src/features/notification/domain/dtos/push_notification_dto.dart';
+import 'package:evievm_app/src/features/notification/data/models/response/push_notification/push_notification_model.dart';
+import 'package:evievm_app/src/features/notification/domain/dtos/push_notification/push_notification_dto.dart';
 import 'package:injectable/injectable.dart';
 import 'package:signalr_netcore/signalr_client.dart';
 

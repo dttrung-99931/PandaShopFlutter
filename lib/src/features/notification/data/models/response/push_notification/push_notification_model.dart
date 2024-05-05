@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/src/features/notification/data/models/response/notification_model.dart';
+import 'package:evievm_app/src/features/notification/data/models/response/push_notification/push_notification_data_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'push_notification_model.g.dart';
@@ -21,15 +22,4 @@ class PushNotificationModel {
   );
 
   factory PushNotificationModel.fromJson(Map<String, dynamic> json) => _$PushNotificationModelFromJson(json);
-}
-
-@JsonSerializable(explicitToJson: true, createToJson: false)
-class PushNotificationDataModel {
-  final int? orderId;
-
-  PushNotificationDataModel(
-    this.orderId,
-  );
-
-  factory PushNotificationDataModel.fromJson(Map<String, dynamic> json) => _$PushNotificationDataModelFromJson(json);
 }
