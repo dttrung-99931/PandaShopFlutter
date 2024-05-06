@@ -84,19 +84,19 @@ android {
     productFlavors {
        dev {
             dimension "evmapp"// TODO: change
-            applicationIdSuffix ".panshop_dev"
+            applicationIdSuffix ".dev"
             resValue "string", "app_name", "PanshopDev"
             signingConfig signingConfigs.dev
         }
         staging {
             dimension "evmapp"// TODO: change
-            applicationIdSuffix ".panshop_staging"
+            applicationIdSuffix ".staging"
             resValue "string", "app_name", "PanshopStaging"
             signingConfig signingConfigs.staging
         }
         production {
             dimension "evmapp"// TODO: change
-            applicationIdSuffix ".panshop_app"
+            applicationIdSuffix ".production"
             resValue "string", "app_name", "Panshop"
             signingConfig signingConfigs.production
         }
