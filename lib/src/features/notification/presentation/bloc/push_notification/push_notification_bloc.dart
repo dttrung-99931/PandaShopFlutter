@@ -21,18 +21,11 @@ PushNotificationBloc get pushNotificationBloc => getIt<PushNotificationBloc>();
 
 @lazySingleton
 class PushNotificationBloc extends BaseBloc {
-  PushNotificationBloc(
-    this._pushNotiUseCases,
-    this._fcmNotiUseCase,
-    this._createReceiver,
-  ) : super(InitialState()) {
+  PushNotificationBloc(this._pushNotiUseCases) : super(InitialState()) {
     on<OnConfigPushNotification>(_onConfigPushNotification);
     on<OnPushNotification>(_onPushNotification);
-    on<OnCreateFCMNotificationReceiver>(_onCreateFCMNotificationReceiver);
   }
   final PushNotificationUseCases _pushNotiUseCases;
-  final FCMNotificationsUseCases _fcmNotiUseCase;
-  final CreateNotificationReceiverUseCase _createReceiver;
 
   @override
   PushNotificationCommunication get blocCommunication => getIt<PushNotificationCommunication>();
@@ -52,31 +45,5 @@ class PushNotificationBloc extends BaseBloc {
       emit: emit,
       showErrorWhenFail: false,
     );
-  }
-
-  FutureOr<void> _onCreateFCMNotificationReceiver(
-    OnCreateFCMNotificationReceiver event,
-    Emitter<BaseState> emit,
-  ) async {
-    String? token = await handleUsecaseResult<String?>(
-      usecaseResult: _fcmNotiUseCase.getFcmNotificationToken(),
-      emit: emit,
-      showErrorWhenFail: false,
-    );
-
-    if (token != null) {
-      handleUsecaseResult(
-          usecaseResult: _createReceiver.call(
-            NotificationReceiverRequestModel(token: token, senderType: NotificationSenderType.fcm),
-          ),
-          showErrorWhenFail: false,
-          emit: emit,
-          onError: (f) {
-            // TODO: handle warning user
-            return ErrorState(f);
-          });
-    } else {
-      // TODO:
-    }
   }
 }
