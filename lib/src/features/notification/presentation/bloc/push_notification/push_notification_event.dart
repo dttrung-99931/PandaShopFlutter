@@ -12,4 +12,4 @@ class OnPushNotification extends BaseEvent {
   List<Object?> get props => [noti];
 }
 
-class OnCreateFCMNotificationReceiver extends BaseEventWithoutProps {}
+class OnConfigNotiReceiver extends BaseEventWithoutProps {}
