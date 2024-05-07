@@ -67,10 +67,15 @@ class ValidateDataState extends BaseState {
   final bool isValid;
   final String message;
   final bool showErrorMsg;
+  final bool isValidateToSubmit;
   bool get shouldShowError => !isValid && showErrorMsg;
 
-  ValidateDataState(this.isValid, {this.showErrorMsg = false, String? message})
-      : message = message ?? 'Vui lòng nhập đầy đủ thông tin!';
+  ValidateDataState(
+    this.isValid, {
+    this.showErrorMsg = false,
+    required this.isValidateToSubmit,
+    String? message,
+  }) : message = message ?? 'Vui lòng nhập đầy đủ thông tin!';
 
   @override
   List<Object?> get props => [isValid, now.toString(), showErrorMsg, message];

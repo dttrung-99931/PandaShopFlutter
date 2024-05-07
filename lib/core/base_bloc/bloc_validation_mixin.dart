@@ -16,7 +16,8 @@ mixin BlocValidationMixin on Bloc<BaseEvent, BaseState> {
   }
 
   Future<void> _onValidateData(OnValidateData event, Emitter<BaseState> emit) async {
-    handleValidate(emit, showErrMsg: event.showErrorMsg);
+    ValidateDataState validateResult = handleValidate(emit, event);
+    emit(validateResult);
   }
 
   Either<String?, bool> validateMoreData() {
@@ -31,13 +32,17 @@ mixin BlocValidationMixin on Bloc<BaseEvent, BaseState> {
     _formValidateCallBack = null;
   }
 
-  bool handleValidate(Emitter<BaseState> emit, {bool showErrMsg = false}) {
+  ValidateDataState handleValidate(Emitter<BaseState> emit, OnValidateData event) {
     Either<String?, bool> result = validate();
     bool isValid = false;
     String? message;
     result.fold((l) => message = l, (r) => isValid = true);
-    emit(ValidateDataState(isValid, showErrorMsg: showErrMsg, message: message));
-    return isValid;
+    return ValidateDataState(
+      isValid,
+      showErrorMsg: event.showErrorMsg,
+      message: message,
+      isValidateToSubmit: event.isValidateToSubmit,
+    );
   }
 
   Either<String?, bool> defaultValidateMoreResult(bool isValid) {

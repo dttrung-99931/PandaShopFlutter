@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/constants.dart';
@@ -60,9 +61,15 @@ class _CreateButton extends StatelessWidget {
           return;
         }
 
-        if (state is ValidateDataState && state.shouldShowError) {
-          showFailedSnackBar(state.message);
-          return;
+        if (state is ValidateDataState) {
+          if (state.isValidateToSubmit && state.isValid) {
+            shopProductDetailBloc.add(OnCreateProduct());
+            return;
+          }
+
+          if (state.shouldShowError) {
+            showFailedSnackBar(state.message);
+          }
         }
       },
       handleLoading: false,
@@ -70,7 +77,7 @@ class _CreateButton extends StatelessWidget {
       builder: (state) => CustomButton(
         isLoading: state is LoadingState<OnCreateProduct>,
         onPressed: () {
-          shopProductDetailBloc.add(OnCreateProduct());
+          shopProductDetailBloc.add(OnValidateData.validateToSubmit());
         },
         child: Text(
           "Tạo sản phẩm",
@@ -102,16 +109,22 @@ class _UpdateButton extends StatelessWidget {
           return;
         }
 
-        if (state is ValidateDataState && state.shouldShowError) {
-          showSnackBar('Vui lòng nhập đầy đủ thông tin', SnackType.fail);
-          return;
+        if (state is ValidateDataState) {
+          if (state.isValidateToSubmit && state.isValid) {
+            shopProductDetailBloc.add(OnUpdateProduct());
+            return;
+          }
+
+          if (state.shouldShowError) {
+            showFailedSnackBar(state.message);
+          }
         }
       },
       buildForStates: const [LoadingState<OnUpdateProduct>],
       builder: (state) => CustomButton(
         isLoading: state is LoadingState<OnUpdateProduct>,
         onPressed: () {
-          shopProductDetailBloc.add(OnUpdateProduct());
+          shopProductDetailBloc.add(OnValidateData.validateToSubmit());
         },
         child: Text(
           "Cập nhật",
