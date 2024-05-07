@@ -8,6 +8,7 @@ import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/use_case/use_case.dart';
 import 'package:evievm_app/core/utils/validate.dart';
+import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/app_config.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/auth/domain/login_response_dto.dart';
@@ -68,6 +69,7 @@ class LoginBloc extends BaseBloc {
       ),
       emit: emit,
       onSuccess: (LoginResponseDto result) {
+        Global.mainPageIndexNotifier = ValueNotifier(0);
         return LoginSuccess();
       },
       onError: (failure) {

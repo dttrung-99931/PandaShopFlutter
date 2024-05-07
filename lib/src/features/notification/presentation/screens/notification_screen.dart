@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/format_utils.dart';
+import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/global.dart';
+import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:evievm_app/src/features/notification/data/models/response/notification_model.dart';
 import 'package:evievm_app/src/shared/widgets/common/empty_data.dart';
 import 'package:flutter/material.dart';
@@ -32,9 +34,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
   }
 
   void _getNotifications() {
-    GetNotificationsModel requestModel = GetNotificationsModel.default_();
-    notiBloc.add(OnGetNotifications(requestModel: requestModel));
-    notiBloc.add(OnGetNotificationOverview(requestModel: requestModel));
+    doIfLoggedIn(() {
+      GetNotificationsModel requestModel = GetNotificationsModel.default_();
+      notiBloc.add(OnGetNotifications(requestModel: requestModel));
+      notiBloc.add(OnGetNotificationOverview(requestModel: requestModel));
+    });
   }
 
   @override

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/app_config.dart';
+import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -44,6 +45,10 @@ void doOnBuildUICompleted(void Function() action) {
   SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
     action();
   });
+}
+
+void doIfLoggedIn(void Function() action) {
+  loginBloc.add(OnDoCheckLogin(onDidLogin: action));
 }
 
 bool isSubtype<S, T>() => <S>[] is List<T>;
