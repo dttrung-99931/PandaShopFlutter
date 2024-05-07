@@ -43,7 +43,11 @@ class _HomeScreenState extends State<HomeScreen> {
             homeBloc.add(OnGetHomeBanners());
             homeBloc.add(OnGetHomeProductCates());
             homeBloc.add(OnGetHomeProducts());
-            shoppingCartBloc.add(OnGetShoppingCart());
+            loginBloc.add(OnDoCheckLogin(
+              onDidLogin: () {
+                shoppingCartBloc.add(OnGetShoppingCart());
+              },
+            ));
           },
           child: CustomScrollView(
             physics: const BouncingScrollPhysics(),
