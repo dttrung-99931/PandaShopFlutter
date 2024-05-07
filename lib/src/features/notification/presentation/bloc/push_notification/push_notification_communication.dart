@@ -32,6 +32,13 @@ class PushNotificationCommunication extends BlocCommunication<PushNotificationBl
         notiBloc.add(OnGetNotificationOverview(requestModel: GetNotificationsModel.default_()));
       }
     });
+
+    listenOtherBloc<FCMBloc>((state) {
+      if (state is FCMNotificationReceived) {
+        bloc.add(OnPushNotification(noti: state.data));
+        notiBloc.add(OnGetNotificationOverview(requestModel: GetNotificationsModel.default_()));
+      }
+    });
   }
 
   void config() {
