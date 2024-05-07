@@ -2,6 +2,11 @@ import 'package:evievm_app/src/config/app_config.dart';
 import 'package:evievm_app/app.dart';
 
 void main() async {
+  configStagingDev();
+  await appMain();
+}
+
+void configStagingDev() {
   AppConfig.set(
     appName: 'EVM Staging',
     flavorName: AppFlavor.STAGING_DEV,
@@ -12,6 +17,4 @@ void main() async {
     logBloc: true,
     sinalRUrl: '',
   );
-
-  await appMain();
 }

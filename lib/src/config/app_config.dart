@@ -1,6 +1,11 @@
 import 'dart:async';
 
+import 'package:evievm_app/main.dart';
+import 'package:evievm_app/main_dev.dart';
+import 'package:evievm_app/main_staging.dart';
+import 'package:evievm_app/main_staging_dev.dart';
 import 'package:flutter/foundation.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class AppConfig {
   static AppConfig? _config;
@@ -58,6 +63,42 @@ class AppConfig {
   bool get isDevelopment => flavorName == AppFlavor.DEV || flavorName == AppFlavor.STAGING_DEV;
 
   bool get isDevelopmentDebug => isDevelopment && kDebugMode;
+
+  static Map<AppFlavor, Function()> configurerMap = {
+    AppFlavor.DEV: configDev,
+    AppFlavor.STAGING: configStaging,
+    AppFlavor.PRODUCTION: configProduction,
+    AppFlavor.STAGING_DEV: configStagingDev,
+  };
+  static Future<void> autoConfigByBundleId() async {
+    AppFlavor env = await getFlavorByCurrentAppBundleId();
+    configurerMap[env]?.call();
+  }
+
+  static Future<AppFlavor> getFlavorByCurrentAppBundleId() async {
+    PackageInfo info = await PackageInfo.fromPlatform();
+    String bundleId = info.packageName;
+    if (bundleId.toLowerCase().contains('dev')) {
+      return AppFlavor.DEV;
+    }
+    if (bundleId.toLowerCase().contains('staging')) {
+      return AppFlavor.STAGING;
+    }
+    if (bundleId.toLowerCase().contains('staging_dev')) {
+      return AppFlavor.STAGING_DEV;
+    }
+    return AppFlavor.PRODUCTION;
+  }
+
+  // Flavor need match with bundle id like below role
+  // to make background notificaiton working correctly in
+  Future<void> validateFlavorMatchingBundleId() async {
+    assert(
+      flavorName == await getFlavorByCurrentAppBundleId(),
+      """Native bundle id must contains match env name. 
+      Ex: dev bundle id mus contains 'dev' => dev bundle id may be 'app.test.dev'""",
+    );
+  }
 }
 
 // ignore: constant_identifier_names

@@ -63,7 +63,12 @@
             "request": "launch",
             "type": "dart",
             "flutterMode": "debug",
-            "program": "lib/main_dev_home_wifi.dart"
+            "program": "lib/main_dev_home_wifi.dart",
+            "args": [
+                "--flavor",
+                "dev"
+            ]
+
         },
     ]
 }

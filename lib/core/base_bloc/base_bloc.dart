@@ -7,6 +7,7 @@ import 'package:evievm_app/core/base_bloc/bloc_communication.dart';
 import 'package:evievm_app/core/base_bloc/bloc_validation_mixin.dart';
 import 'package:evievm_app/core/failures/failures.dart';
 import 'package:evievm_app/core/utils/overlay_utils.dart';
+import 'package:evievm_app/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -73,7 +74,8 @@ abstract class BaseBloc extends Bloc<BaseEvent, BaseState> with BlocValidationMi
     BaseState? state = either.fold(
       (Failure l) {
         ErrorState errorState = onError?.call(l) ?? ErrorState(l);
-        if (showErrorWhenFail) {
+        // Global context is null in case this is called from background (when received noti)
+        if (showErrorWhenFail && Global.globalKey.currentContext != null) {
           showSnackBar(errorState.failure.displayMsg, SnackType.fail);
         }
         return errorState;
