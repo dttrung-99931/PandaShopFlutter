@@ -142,22 +142,15 @@ class _Items extends StatelessWidget {
             });
           },
         ),
-        CustomBlocBuilder<MainBloc>(
-          buildCondition: (state) => state is GetAppModeSuccess,
-          builder: (state) {
-            if (state is! GetAppModeSuccess || state.data == AppMode.user) {
-              return emptyWidget;
-            }
-            return _Item(
-              title: 'Đơn hàng',
-              onPressed: () {
-                commingSoon();
-                // Global.pushNamed(RegisterShopScreen.router);
-              },
-              icon: const Icon(Icons.inventory_2_outlined),
-            );
-          },
-        ),
+        if (Global.isUserMode)
+          _Item(
+            title: 'Đơn hàng',
+            onPressed: () {
+              commingSoon();
+              // Global.pushNamed(RegisterShopScreen.router);
+            },
+            icon: const Icon(Icons.inventory_2_outlined),
+          ),
         const _Item(
           title: 'Thông tin',
           onPressed: commingSoon,

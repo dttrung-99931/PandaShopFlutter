@@ -32,7 +32,13 @@ class FCMBloc extends BaseNotificationReceiverBloc<OnConfigFCM> {
   @override
   FutureOr<void> onConfig(OnConfigFCM event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
-      usecaseResult: _fcmNotiUseCase.config(),
+      usecaseResult: _fcmNotiUseCase.config(FCMConfig(
+        onReceivedNoti: (noti) {
+          if (!isClosed) {
+            add(OnSetState(FCMNotificationReceived(noti)));
+          }
+        },
+      )),
       emit: emit,
       showErrorWhenFail: false,
       onError: (failure) {
