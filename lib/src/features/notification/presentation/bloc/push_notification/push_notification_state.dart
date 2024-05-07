@@ -4,3 +4,5 @@ part of 'push_notification_bloc.dart';
 class NotificationReceived extends FullDataLoadedState<PushNotificationDto> {
   NotificationReceived(super.data);
 }
+
+class ConfigPushNotificationComplete extends LoadingCompleteStateWithoutProps {}

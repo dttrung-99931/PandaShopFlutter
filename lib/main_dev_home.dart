@@ -2,6 +2,11 @@ import 'package:evievm_app/src/config/app_config.dart';
 import 'package:evievm_app/app.dart';
 
 void main() async {
+  configDevHome();
+  await appMain();
+}
+
+void configDevHome() {
   AppConfig.set(
     appName: 'EVM Home',
     flavorName: AppFlavor.DEV,
@@ -12,6 +17,4 @@ void main() async {
     logBloc: true,
     sinalRUrl: 'https://192.168.1.6:5001/SignalR',
   );
-
-  await appMain();
 }

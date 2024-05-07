@@ -19,7 +19,7 @@ part 'fcm_state.dart';
 FCMBloc get fcmBloc => getIt<FCMBloc>();
 
 @lazySingleton
-class FCMBloc extends BaseNotificationReceiverBloc<OnConfigFCM> {
+class FCMBloc extends BaseNotificationReceiverBloc {
   FCMBloc(
     this._createReceiver,
     this._fcmNotiUseCase,
@@ -30,12 +30,12 @@ class FCMBloc extends BaseNotificationReceiverBloc<OnConfigFCM> {
   final FCMNotificationsUseCases _fcmNotiUseCase;
 
   @override
-  FutureOr<void> onConfig(OnConfigFCM event, Emitter<BaseState> emit) async {
+  FutureOr<void> onConfig(OnConfigNotiReceiver event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
       usecaseResult: _fcmNotiUseCase.config(FCMConfig(
-        onReceivedNoti: (noti) {
+        onForcegroundNoti: (Map<String, dynamic> notiData) {
           if (!isClosed) {
-            add(OnSetState(FCMNotificationReceived(noti)));
+            add(OnReceivedNotification.fromNotiDataJson(notiData: notiData));
           }
         },
       )),

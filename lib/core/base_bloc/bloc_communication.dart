@@ -17,8 +17,12 @@ abstract class BlocCommunication<TBloc extends BaseBloc> {
     _bloc = bloc;
   }
 
-  void listenOtherBloc<TOtherBloc extends BaseBloc>(Function(BaseState state) onStateChanged) {
-    _subscriptions.add(getIt<TOtherBloc>().stream.listen((BaseState state) {
+  void listenOtherBloc<TOtherBloc extends BaseBloc>(
+    Function(BaseState state) onStateChanged, {
+    TOtherBloc? bloc,
+  }) {
+    TOtherBloc blocToListen = bloc ?? getIt<TOtherBloc>();
+    _subscriptions.add((blocToListen).stream.listen((BaseState state) {
       onStateChanged(state);
     }));
   }
