@@ -10,7 +10,7 @@ void main() async {
     logResponse: true,
     logRequest: true,
     logBloc: true,
-    sinalRUrl: 'http://localhost:44444',
+    sinalRUrl: 'http://localhost:44444/SignalR',
   );
 
   await appMain();
