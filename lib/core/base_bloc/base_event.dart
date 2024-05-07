@@ -90,16 +90,25 @@ class OnSetFormValidateCallBack extends BaseEvent {
 
 class OnUnsetFormValidateCallBack extends BaseEventWithoutProps {}
 
-enum ValidateType {
-  validateEdit,
-  validateCreate,
-}
+// enum ValidateType {
+//   validateEdit,
+//   validateCreate,
+// }
 
 class OnValidateData extends BaseEvent {
-  final ValidateType type;
+  // final ValidateType type;
   final bool showErrorMsg;
-  OnValidateData({this.type = ValidateType.validateCreate, this.showErrorMsg = false});
+  final bool isValidateToSubmit;
+  OnValidateData({
+    // this.type = ValidateType.validateCreate,
+    this.showErrorMsg = false,
+    this.isValidateToSubmit = false,
+  });
+
+  OnValidateData.validateToSubmit()
+      : isValidateToSubmit = true,
+        showErrorMsg = true;
 
   @override
-  List<Object?> get props => [type, now.toString(), showErrorMsg];
+  List<Object?> get props => [now.toString(), showErrorMsg];
 }
