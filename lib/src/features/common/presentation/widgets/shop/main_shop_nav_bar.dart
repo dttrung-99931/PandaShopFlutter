@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/constants.dart';
+import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/user/user_bloc.dart';
 import 'package:evievm_app/src/features/notification/data/models/request/get_notifications_model.dart';
 import 'package:evievm_app/src/features/notification/presentation/bloc/notification_bloc.dart';
@@ -99,7 +100,9 @@ class NotiIconWithBadge extends StatefulWidget {
 class _NotiIconWithBadgeState extends State<NotiIconWithBadge> {
   @override
   void initState() {
-    notiBloc.add(OnGetNotificationOverview(requestModel: GetNotificationsModel.default_()));
+    doIfLoggedIn(() {
+      notiBloc.add(OnGetNotificationOverview(requestModel: GetNotificationsModel.default_()));
+    });
     super.initState();
   }
 

@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:evievm_app/src/features/auth/presentation/screens/account_screen.dart';
@@ -42,9 +43,9 @@ class _MainUserScreenState extends State<MainUserScreen> {
 
   @override
   void initState() {
-    loginBloc.add(OnDoCheckLogin(onDidLogin: () {
+    doIfLoggedIn(() {
       userBloc.add(OnGetUserDetail());
-    }));
+    });
     _pageController = PageController();
     _currentPageIndex.addListener(() {
       if (_pageController.hasClients && mounted) {
