@@ -10,7 +10,7 @@ void configDevHomeWifi() {
   AppConfig.set(
     appName: 'EVM Home',
     flavorName: AppFlavor.DEV,
-    apiUrl: 'https://192.168.1.6:5001',
+    apiUrl: 'https://192.168.1.31:5001',
     resourceIcon: 'https://evi-gonosen.s3.ap-northeast-1.amazonaws.com',
     logResponse: true,
     logRequest: true,
