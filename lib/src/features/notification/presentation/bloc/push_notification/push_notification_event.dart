@@ -34,3 +34,14 @@ class OnPushNotification extends BaseEvent {
 }
 
 class OnConfigNotiReceiver extends BaseEventWithoutProps {}
+
+class OnPushNotificationPressed extends BaseEvent {
+  final PushNotificationPayload data;
+  OnPushNotificationPressed({
+    required this.data,
+  });
+  @override
+  List<Object?> get props => [data];
+}
+
+class OnCheckBackgroundNotiPressed extends BaseEventWithoutProps {}
