@@ -18,5 +18,8 @@ class PushNotificationPayload {
   });
 
   factory PushNotificationPayload.fromJson(Map<String, dynamic> json) => _$PushNotificationPayloadFromJson(json);
+  factory PushNotificationPayload.fromJsonString(String json) {
+    return PushNotificationPayload.fromJson(jsonDecode(json));
+  }
   Map<String, dynamic> toJson() => _$PushNotificationPayloadToJson(this);
 }
