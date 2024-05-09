@@ -224,15 +224,13 @@ class _TextInputState extends State<TextInput> {
       padding: EdgeInsets.only(right: 6.w),
       child: InkWell(
           child: Stack(
+            alignment: Alignment.center,
             children: [
               const Icon(Icons.remove_red_eye_outlined, color: AppColors.blackLight),
               if (isSecure)
-                Transform.translate(
-                  offset: const Offset(0, -2),
-                  child: Text(
-                    '  /',
-                    style: textTheme.bodyLarge.withColor(AppColors.blackLight).bold(),
-                  ),
+                Text(
+                  '/',
+                  style: textTheme.bodyMedium.withColor(AppColors.blackLight).bold(),
                 ),
             ],
           ),
