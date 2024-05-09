@@ -49,15 +49,12 @@ class FCMNotificationsUseCases with DisposableMixin {
       );
       _listenForgroundNoti(fcmConfig);
       _listenBackgroundNoti();
-      // TODO: show push noti when app terminated.
-      // Hanlde on not presseed"\
-      // - When app termiated
-      // - When in background
-      // - When in forground
       return FCMConfigResult.fromFCMAuthorizationStatus(settings.authorizationStatus);
     });
   }
 
+  // Althought when app in forceground. Notification will be received via SignalR.
+  // But for sure, still listen fcm foreground noti
   void _listenForgroundNoti(FCMConfig fcmConfig) {
     addSubscription(FirebaseMessaging.onMessage.listen((RemoteMessage event) {
       String? data = event.data['data'];
