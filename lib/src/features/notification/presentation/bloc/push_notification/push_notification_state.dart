@@ -6,3 +6,7 @@ class NotificationReceived extends FullDataLoadedState<PushNotificationDto> {
 }
 
 class ConfigPushNotificationComplete extends LoadingCompleteStateWithoutProps {}
+
+class PushNotificationPressed extends FullDataLoadedState<PushNotificationPayload> {
+  PushNotificationPressed(super.data);
+}
