@@ -107,7 +107,7 @@ class _TextInputState extends State<TextInput> {
         borderRadius: BorderRadius.circular(widget.borderRadius),
       );
 
-  late final _focusNode = widget.focusNode ?? FocusNode();
+  late FocusNode _focusNode;
   late final _controller = widget.controller ?? TextEditingController();
 
   final _key = GlobalKey<FormFieldState>();
@@ -115,7 +115,19 @@ class _TextInputState extends State<TextInput> {
   @override
   void initState() {
     super.initState();
+    _focusNode = widget.focusNode ?? FocusNode();
     _focusNode.addListener(_onFoucusChanged);
+  }
+
+  @override
+  void didUpdateWidget(covariant TextInput oldWidget) {
+    if (widget.focusNode != null && _focusNode != widget.focusNode) {
+      _focusNode.removeListener(_onFoucusChanged);
+      _focusNode.dispose();
+      _focusNode = widget.focusNode!;
+      widget.focusNode!.addListener(_onFoucusChanged);
+    }
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
