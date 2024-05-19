@@ -10,7 +10,10 @@ void main() async {
 
 Future<void> configDevHomeWifi() async {
   await PandaMap.init(
-    options: MapOptions(mapAPIKey: 'AIzaSyALbPC2ZoNXKr_OTXLxD_wY-348rPXwDw4', mapType: PandaMapType.google),
+    options: MapOptions(
+      mapAPIKey: 'AIzaSyDX339mM4ZOXkaXpDLlZxooV6OcHMS3WY8',
+      mapType: PandaMapType.google,
+    ),
   );
   AppConfig.set(
     appName: 'EVM Home',
