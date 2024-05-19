@@ -23,7 +23,7 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     mainBloc.add(OnGetAppMode());
-    getIt<PushNotificationBloc>(); // Get to create pusn noti bloc
+    getIt<PushNotificationBloc>(); // Get to create push noti bloc & init its communication
   }
 
   @override

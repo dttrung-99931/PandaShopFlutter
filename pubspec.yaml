@@ -40,8 +40,9 @@ dependencies:
 
   # Map
   panda_map:
-    git: https://github.com/dttrung-99931/PandaMap.git
-    
+    #
+    # git: https://github.com/dttrung-99931/PandaMap.git
+
   # --------------- UI ---------------
   cupertino_icons: ^1.0.2
   flutter_rating_bar: ^4.0.1
