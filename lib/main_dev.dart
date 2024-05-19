@@ -10,7 +10,7 @@ void main() async {
 
 Future<void> configDev() async {
   await PandaMap.init(
-    options: const MapOptions(mapAPIKey: '', mapType: PandaMapType.google),
+    options: MapOptions(mapAPIKey: 'AIzaSyALbPC2ZoNXKr_OTXLxD_wY-348rPXwDw4', mapType: PandaMapType.google,),
   );
   AppConfig.set(
     appName: 'EVM Dev',

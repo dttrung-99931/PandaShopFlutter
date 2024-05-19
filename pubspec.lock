@@ -936,11 +936,9 @@ packages:
   panda_map:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "47f11013c150864dcaace3ec3679cd6c78368f13"
-      url: "https://github.com/dttrung-99931/PandaMap.git"
-    source: git
+      path: "/Users/msv/projects/flutter/panda_map"
+      relative: false
+    source: path
     version: "0.0.1"
   path:
     dependency: transitive

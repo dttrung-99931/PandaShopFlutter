@@ -16,6 +16,10 @@ import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_listener.dart';
 import 'package:evievm_app/src/shared/widgets/cutstom_button.dart';
 import 'package:evievm_app/src/shared/widgets/evm_dialog.dart';
+import 'package:panda_map/core/models/map_place.dart';
+import 'package:panda_map/widgets/search_bar/map_seach_button.dart';
+import 'package:panda_map/widgets/search_bar/map_search.dart';
+import 'package:panda_map/widgets/search_bar/map_search_dialog.dart';
 
 class AddAddrDialog extends StatefulWidget {
   const AddAddrDialog({
@@ -45,65 +49,83 @@ class _AddAddrDialogState extends State<AddAddrDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomBlocListener<AddressInputBloc>(
-      listener: (state) {
-        if (state is SaveMyAddressSuccesss) {
-          widget.onAddSuccessed?.call(state.data);
-          // Pop AddAddressDialog
-          Global.pop();
-          // Pop Address drop down
-          Global.pop();
-        }
-      },
-      child: AppDialog(
-        width: .9.sw,
-        title: 'Thêm địa chỉ',
-        child: Column(
-          children: [
-            AddressFieldInput<GetProvincesAndCitiesSucess>(
-              addrBlocMixin: addressInputBloc,
-              title: 'Tỉnh/Thành phố',
-              onSelected: (AddressFieldDto selected) {
-                addressInputBloc.addressBloc.add(OnProvOrCitySelected(provOrCity: selected));
-              },
-            ),
-            AddressFieldInput<GetDistrictsSuccess>(
-              addrBlocMixin: addressInputBloc,
-              title: 'Quận/Huyện',
-              onSelected: (AddressFieldDto selected) {
-                addressInputBloc.addressBloc.add(OnDistrictSelected(district: selected));
-              },
-            ),
-            AddressFieldInput<GetCommunesAndWardsSuccess>(
-              addrBlocMixin: addressInputBloc,
-              title: 'Phường/Xã',
-              onSelected: (AddressFieldDto selected) {
-                addressInputBloc.addressBloc.add(OnCommuneOrWardSelected(communeOrWard: selected));
-              },
-            ),
-            InfoInput(
-              title: 'Số nhà, đường',
-              controller: addressInputBloc.houseNumRoadNameController,
-            ),
-            InfoInput(
-              title: 'Lưu địa chỉ với tên',
-              controller: addressInputBloc.addrNameController,
-            ),
-            8.shb,
-            CustomBlocBuilder<AddressInputBloc>(
-              buildForStates: const [SaveMyAddressSuccesss],
-              builder: (state) {
-                return CustomButton(
-                  isLoading: state is LoadingState,
-                  title: 'Chọn và lưu',
-                  onPressed: () {
-                    addressInputBloc.add(OnSaveMyAddress());
+    return Center(
+      child: SingleChildScrollView(
+        child: CustomBlocListener<AddressInputBloc>(
+          listener: (state) {
+            if (state is SaveMyAddressSuccesss) {
+              widget.onAddSuccessed?.call(state.data);
+              // Pop AddAddressDialog
+              Global.pop();
+              // Pop Address drop down
+              Global.pop();
+            }
+          },
+          child: AppDialog(
+            width: .9.sw,
+            title: 'Thêm địa chỉ',
+            child: Column(
+              children: [
+                AddressFieldInput<GetProvincesAndCitiesSucess>(
+                  addrBlocMixin: addressInputBloc,
+                  title: 'Tỉnh/Thành phố',
+                  onSelected: (AddressFieldDto selected) {
+                    addressInputBloc.addressBloc.add(OnProvOrCitySelected(provOrCity: selected));
                   },
-                  elevation: 0,
-                );
-              },
+                ),
+                AddressFieldInput<GetDistrictsSuccess>(
+                  addrBlocMixin: addressInputBloc,
+                  title: 'Quận/Huyện',
+                  onSelected: (AddressFieldDto selected) {
+                    addressInputBloc.addressBloc.add(OnDistrictSelected(district: selected));
+                  },
+                ),
+                AddressFieldInput<GetCommunesAndWardsSuccess>(
+                  addrBlocMixin: addressInputBloc,
+                  title: 'Phường/Xã',
+                  onSelected: (AddressFieldDto selected) {
+                    addressInputBloc.addressBloc.add(OnCommuneOrWardSelected(communeOrWard: selected));
+                  },
+                ),
+                InfoInput(
+                  title: 'Số nhà, đường',
+                  controller: addressInputBloc.houseNumRoadNameController,
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) => MapSearchDialog(
+                        onSelected: (MapPlace place) {
+                          // Set houese num, lat, lng
+                          Global.pop();
+                        },
+                        searchTextTransformer: (text) {
+                          return '${addressInputBloc.addressComponents}, $text';
+                        },
+                      ),
+                    );
+                  },
+                ),
+                InfoInput(
+                  title: 'Lưu địa chỉ với tên',
+                  controller: addressInputBloc.addrNameController,
+                ),
+                8.shb,
+                CustomBlocBuilder<AddressInputBloc>(
+                  buildForStates: const [SaveMyAddressSuccesss],
+                  builder: (state) {
+                    return CustomButton(
+                      isLoading: state is LoadingState,
+                      title: 'Chọn và lưu',
+                      onPressed: () {
+                        addressInputBloc.add(OnSaveMyAddress());
+                      },
+                      elevation: 0,
+                    );
+                  },
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

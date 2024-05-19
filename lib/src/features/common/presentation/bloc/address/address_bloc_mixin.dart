@@ -14,6 +14,11 @@ mixin AddressBlocMixin on BaseBloc {
   AddressFieldDto selectedDistrict = AddressFieldDto.empty;
   AddressFieldDto selectedCommureOrWard = AddressFieldDto.empty;
 
+  /// Address joined from [selectedProvOrCity] & [selectedCommureOrWard] & [selectedCommureOrWard]
+  String get addressComponents {
+    return '${selectedProvOrCity.name}, ${selectedDistrict.name}, ${selectedCommureOrWard.name}'.trim();
+  }
+
   // Future<void> onInitLabInfoInput(OnInitLabInfoInput event, Emitter<BaseState> emit) async {
   //   nameController.text = event.lab?.name ?? '';
   //   nameFuriganaController.text = event.lab?.nameF ?? '';

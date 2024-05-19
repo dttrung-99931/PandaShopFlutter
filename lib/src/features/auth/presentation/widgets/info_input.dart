@@ -74,6 +74,7 @@ class InfoInput extends StatelessWidget {
   final double verticalPadding;
   final Axis direction;
   final double spacing;
+  final Function()? onTap;
 
   InfoInput({
     Key? key,
@@ -124,6 +125,7 @@ class InfoInput extends StatelessWidget {
     this.verticalPadding = 6,
     this.direction = Axis.horizontal,
     double? spacing,
+    this.onTap,
   })  : trailingSpacing = trailingSpacing ?? 16.w,
         titleStyle = titleStyle ??
             textTheme.bodyMedium!.copyWith(
@@ -270,6 +272,7 @@ class InfoInput extends StatelessWidget {
               errorFontSize: showErr ? 14.sp : 0,
               expandHeight: expandHeight,
               onSubmited: onSubmited,
+              onTap: onTap,
             );
           },
         );
