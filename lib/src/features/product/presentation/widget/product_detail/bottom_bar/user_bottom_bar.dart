@@ -3,6 +3,7 @@ import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
+import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_detail_dto.dart';
@@ -117,18 +118,18 @@ class AddToCartButton extends StatelessWidget {
 
   TextButton _addCartButton(ProductOptionDto option) {
     return TextButton(
-      onPressed: option != null
-          ? () {
-              shoppingCartBloc.add(
-                OnUpsertCart(
-                  requestModel: UpsertCartRequestModel(
-                    productOptionId: option.id,
-                    productNum: productOptionBloc.productQuantity,
-                  ),
-                ),
-              );
-            }
-          : null,
+      onPressed: () {
+        doIfLoggedIn(() {
+          shoppingCartBloc.add(
+            OnUpsertCart(
+              requestModel: UpsertCartRequestModel(
+                productOptionId: option.id,
+                productNum: productOptionBloc.productQuantity,
+              ),
+            ),
+          );
+        }, navToLoginIfNot: true);
+      },
       child: Text("Thêm giỏ hàng", style: textTheme.bodyLarge),
     );
   }
