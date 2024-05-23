@@ -1,6 +1,7 @@
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
+import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_detail_dto.dart';
 import 'package:evievm_app/src/features/product/presentation/bloc/product_detail/product_detail_bloc.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/product_detail/bottom_bar/bottom_bar.dart';
@@ -53,7 +54,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       widget.args.productId,
       selectedOptionId: widget.args.selectedOptionId,
     ));
-    shoppingCartBloc.add(OnGetShoppingCart());
+    loginBloc.add(OnDoCheckLogin(
+      onDidLogin: () => shoppingCartBloc.add(OnGetShoppingCart()),
+    ));
   }
 
   @override
