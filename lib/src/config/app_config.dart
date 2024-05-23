@@ -72,7 +72,7 @@ class AppConfig {
   };
   static Future<void> autoConfigByBundleId() async {
     AppFlavor env = await getFlavorByCurrentAppBundleId();
-    configurerMap[env]?.call();
+    await configurerMap[env]?.call();
   }
 
   static Future<AppFlavor> getFlavorByCurrentAppBundleId() async {

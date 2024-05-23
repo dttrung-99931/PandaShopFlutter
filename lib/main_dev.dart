@@ -1,12 +1,20 @@
 import 'package:evievm_app/src/config/app_config.dart';
 import 'package:evievm_app/app.dart';
+import 'package:panda_map/panda_map.dart';
+import 'package:panda_map/panda_map_options.dart';
 
 void main() async {
-  configDev();
+  await configDev();
   await appMain();
 }
 
-void configDev() {
+Future<void> configDev() async {
+  await PandaMap.init(
+    options: MapOptions(
+      mapAPIKey: 'AIzaSyDX339mM4ZOXkaXpDLlZxooV6OcHMS3WY8',
+      mapType: PandaMapType.google,
+    ),
+  );
   AppConfig.set(
     appName: 'EVM Dev',
     flavorName: AppFlavor.DEV,
