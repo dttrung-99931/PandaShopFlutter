@@ -95,6 +95,7 @@ class _AddAddrDialogState extends State<AddAddrDialog> {
                       context: context,
                       builder: (_) => MapSearchDialog(
                         onSelected: (MapPlace place) {
+                          addressInputBloc.add(OnGetHouseNumberFromMapPlace(place: place));
                           // Set houese num, lat, lng
                           Global.pop();
                         },
