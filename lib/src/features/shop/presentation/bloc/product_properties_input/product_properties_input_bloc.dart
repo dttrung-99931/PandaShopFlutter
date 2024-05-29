@@ -46,7 +46,7 @@ class ProductPropertiesInputBloc extends BaseBloc with AddressBlocMixin {
   FutureOr<void> _onGetPropertyTemplateOfCate(OnGetPropertyTemplateOfCate event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
       usecaseResult: _getPropertyTemp.call(event.cateId),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (PropertyTemplateDto result) {
         _textControllerMap.clear();
         for (PropertyValuesDto element in result.properties) {

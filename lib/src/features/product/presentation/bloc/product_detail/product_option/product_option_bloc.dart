@@ -37,7 +37,7 @@ class ProductOptionBloc extends BaseBloc {
   late Map<String, List<SelectableValueDto>> _selectableValuesOfPropMap;
 
   double? get price => _selectedOption?.price;
-  int _productQuantity = 1;
+  final int _productQuantity = 1;
   int get productQuantity => _productQuantity;
 
   Future<void> _onOptionPropSelectedChagned(OnOptionPropSelectedChagned event, Emitter<BaseState> emit) async {

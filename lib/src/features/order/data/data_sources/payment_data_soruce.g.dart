@@ -20,10 +20,10 @@ class _PaymentDatasource implements PaymentDatasource {
 
   @override
   Future<BaseResponse<List<PaymentMethodModel>>> getPaymentMethods() async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<List<PaymentMethodModel>>>(Options(
       method: 'GET',
@@ -36,13 +36,19 @@ class _PaymentDatasource implements PaymentDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<List<PaymentMethodModel>>.fromJson(
       _result.data!,
-      (json) => (json as List<dynamic>)
-          .map<PaymentMethodModel>(
-              (i) => PaymentMethodModel.fromJson(i as Map<String, dynamic>))
-          .toList(),
+      (json) => json is List<dynamic>
+          ? json
+              .map<PaymentMethodModel>(
+                  (i) => PaymentMethodModel.fromJson(i as Map<String, dynamic>))
+              .toList()
+          : List.empty(),
     );
     return value;
   }
@@ -58,5 +64,22 @@ class _PaymentDatasource implements PaymentDatasource {
       }
     }
     return requestOptions;
+  }
+
+  String _combineBaseUrls(
+    String dioBaseUrl,
+    String? baseUrl,
+  ) {
+    if (baseUrl == null || baseUrl.trim().isEmpty) {
+      return dioBaseUrl;
+    }
+
+    final url = Uri.parse(baseUrl);
+
+    if (url.isAbsolute) {
+      return url.toString();
+    }
+
+    return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }

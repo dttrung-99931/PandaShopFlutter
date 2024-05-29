@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:evievm_app/core/model/base_response.dart';
-import 'package:evievm_app/src/features/product/data/models/response/home/home_banner_model.dart';
 import 'package:evievm_app/src/features/order/data/models/response/payment_method_model.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';

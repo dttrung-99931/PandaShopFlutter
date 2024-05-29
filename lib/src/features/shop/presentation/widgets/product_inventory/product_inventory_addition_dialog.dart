@@ -23,9 +23,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductInventoryAdditionDialog extends StatefulWidget {
   const ProductInventoryAdditionDialog({
-    Key? key,
+    super.key,
     this.onAddSuccessed,
-  }) : super(key: key);
+  });
   final Function()? onAddSuccessed;
 
   Future<T?> show<T>(BuildContext context) {
@@ -133,7 +133,7 @@ class _ProductInventoryAdditionDialogState extends State<ProductInventoryAdditio
 }
 
 class _WarehouseSelect extends StatefulWidget {
-  const _WarehouseSelect({Key? key}) : super(key: key);
+  const _WarehouseSelect();
 
   @override
   State<_WarehouseSelect> createState() => _WarehouseSelectState();

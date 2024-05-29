@@ -9,9 +9,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SubtotalPrices extends StatelessWidget {
   const SubtotalPrices({
-    Key? key,
+    super.key,
     required this.orderConfirm,
-  }) : super(key: key);
+  });
   final CreateOrdersDto orderConfirm;
 
   @override
@@ -47,10 +47,9 @@ class SubtotalPrices extends StatelessWidget {
 
 class _Row extends StatelessWidget {
   const _Row({
-    Key? key,
     required this.title,
     required this.value,
-  }) : super(key: key);
+  });
 
   final String title;
   final Widget value;

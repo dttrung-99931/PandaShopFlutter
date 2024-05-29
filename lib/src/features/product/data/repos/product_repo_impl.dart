@@ -4,7 +4,6 @@ import 'package:evievm_app/core/failures/failures.dart';
 import 'package:dartz/dartz.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/src/features/product/data/models/request/product/get_product_cates_request_model.dart';
-import 'package:evievm_app/src/features/product/data/models/request/image/base64_image_request_model.dart';
 import 'package:evievm_app/src/features/product/data/models/request/product/create_product_request_model.dart';
 import 'package:evievm_app/src/features/product/data/models/request/product/search_products_request_model.dart';
 import 'package:evievm_app/src/features/product/data/models/response/cate_property_template/property_template_model.dart';

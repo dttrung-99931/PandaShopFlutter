@@ -18,7 +18,7 @@ PushNotificationDataModel _$PushNotificationDataModelFromJson(
 PushNotificationDataOrderModel _$PushNotificationDataOrderModelFromJson(
         Map<String, dynamic> json) =>
     PushNotificationDataOrderModel(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       orderDetails: (json['orderDetails'] as List<dynamic>)
           .map((e) =>
               ShortOrderDetailResponseModel.fromJson(e as Map<String, dynamic>))

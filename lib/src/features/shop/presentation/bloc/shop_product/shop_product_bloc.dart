@@ -53,7 +53,7 @@ class ShopProductBloc extends BaseBloc {
   Future<void> _onGetShopProducts(OnGetShopProducts event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
       usecaseResult: _getProducts.call(GetProductsRequestModel.shopProducts()),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (List<ProductDto> result) {
         return GetShopProductsSucess(result);
       },
@@ -63,7 +63,7 @@ class ShopProductBloc extends BaseBloc {
   FutureOr<void> _onGetHomeProductCates(OnGetShopProductCates event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
       usecaseResult: _getProductCates.call(GetProductCatesRequestModel(shopId: Global.shop?.id)),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (List<ProductCategoryDto> result) {
         return GetShopProductCatesSucess(result);
       },
@@ -73,7 +73,7 @@ class ShopProductBloc extends BaseBloc {
   FutureOr<void> _onGetHomeBanners(OnGetShopBanners event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
       usecaseResult: _getHomeBanners.call(noParam),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (List<HomeBannerDto> result) {
         return GetShopBannersSucess(result);
       },
@@ -83,7 +83,7 @@ class ShopProductBloc extends BaseBloc {
   FutureOr<void> _onDeleteProduct(OnDeleteProduct event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
       usecaseResult: _deleteProduct.call(event.productId),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (void result) {
         return DeleteProductSuccess(productId: event.productId);
       },

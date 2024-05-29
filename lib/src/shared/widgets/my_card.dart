@@ -6,11 +6,11 @@ class MyCard extends StatelessWidget {
   final EdgeInsets padding;
 
   const MyCard({
-    Key? key,
+    super.key,
     required this.child,
     this.elevation = 2.0,
     this.padding = const EdgeInsets.all(12),
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

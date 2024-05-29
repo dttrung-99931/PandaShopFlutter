@@ -1,7 +1,6 @@
 import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
-import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/auth/presentation/widgets/info_input.dart';

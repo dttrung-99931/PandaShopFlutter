@@ -4,7 +4,6 @@ import 'package:evievm_app/core/utils/constants.dart';
 
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/src/features/order/domain/dto/order/order_detail_dto.dart';
-import 'package:evievm_app/src/features/order/domain/dto/order/order_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/delivery_method_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_detail_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_dto.dart';

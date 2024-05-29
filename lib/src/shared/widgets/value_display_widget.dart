@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:easy_localization/easy_localization.dart';
-import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 // Widget display points, minutes, ... with optional top title
 class ValueDisplayWidget extends StatelessWidget {
   const ValueDisplayWidget({
-    Key? key,
+    super.key,
     required this.value,
     this.showPlusSign = false,
     this.showPlusMinusSignIfValueZero = false,
@@ -22,7 +21,7 @@ class ValueDisplayWidget extends StatelessWidget {
     this.isUnitBold = true,
     this.valueMarginLeft = 0,
     this.valuePrecision = 0,
-  }) : super(key: key);
+  });
 
   final double value;
   final int valuePrecision;

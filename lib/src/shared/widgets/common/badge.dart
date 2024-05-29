@@ -8,9 +8,9 @@ import '../../../../../../core/utils/app_colors.dart';
 
 class AppBadge extends StatelessWidget {
   const AppBadge({
-    Key? key,
+    super.key,
     required this.number,
-  }) : super(key: key);
+  });
   final int number;
   @override
   Widget build(BuildContext context) {

@@ -6,10 +6,10 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class CustomCalendarPicker extends StatelessWidget {
   const CustomCalendarPicker({
-    Key? key,
+    super.key,
     @required this.controller,
     this.onSelectDate,
-  }) : super(key: key);
+  });
 
   final DateRangePickerController? controller;
   final Function(DateTime)? onSelectDate;

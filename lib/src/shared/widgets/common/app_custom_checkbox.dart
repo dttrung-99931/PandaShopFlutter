@@ -8,11 +8,11 @@ class AppCustomCheckBox extends StatelessWidget {
   final bool isChecked;
   final String title;
   const AppCustomCheckBox({
-    Key? key,
+    super.key,
     required this.onChanged,
     required this.isChecked,
     required this.title,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class AppCustomCheckBox extends StatelessWidget {
                   borderRadius: BorderRadius.circular(4),
                 ),
                 side: BorderSide(color: AppColors.border, width: 1),
-                fillColor: MaterialStateColor.resolveWith((states) => AppColors.primary),
+                fillColor: WidgetStateColor.resolveWith((states) => AppColors.primary),
                 value: isChecked,
                 onChanged: (isChecked) {
                   onChanged(isChecked ?? false);

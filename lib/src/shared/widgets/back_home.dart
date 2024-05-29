@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class BackHome extends StatelessWidget {
   const BackHome({
-    Key? key,
+    super.key,
     this.pageText = "",
-  }) : super(key: key);
+  });
 
   final String pageText;
 

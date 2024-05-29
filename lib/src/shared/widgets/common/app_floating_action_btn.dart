@@ -5,11 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppFloatingActionButton extends StatelessWidget {
   const AppFloatingActionButton({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.title,
     this.color = AppColors.primaryShop,
-  }) : super(key: key);
+  });
 
   final Function() onPressed;
   final String title;

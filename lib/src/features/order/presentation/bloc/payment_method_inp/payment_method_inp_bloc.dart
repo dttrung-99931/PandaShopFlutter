@@ -38,7 +38,7 @@ class PaymentMethodInpBloc extends BaseBloc {
     }
     await handleUsecaseResult(
         usecaseResult: _getPaymentMethods.call(noParam),
-        emit: emit,
+        emit: emit.call,
         onSuccess: (List<PaymentMethodDto> result) {
           return GetPaymentMethodsSuccess(
             _paymentMethods = result,

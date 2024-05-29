@@ -38,9 +38,9 @@ class AppTheme extends InheritedWidget {
 
 class AppThemeWidget extends StatefulWidget {
   const AppThemeWidget({
-    Key? key,
+    super.key,
     required this.builder,
-  }) : super(key: key);
+  });
   final WidgetBuilder builder;
 
   @override

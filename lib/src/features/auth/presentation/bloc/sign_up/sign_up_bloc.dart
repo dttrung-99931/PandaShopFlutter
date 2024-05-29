@@ -32,7 +32,7 @@ class SignUpBloc extends BaseBloc {
       usecaseResult: _signUp.call(
         SignUpRequestModel(name: 'User ${now.microsecondsSinceEpoch}', phone: event.phone, password: event.password),
       ),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (UserDetailDto result) {
         _clearInput();
         return SignUpSuccess(userDetail: result, event: event);

@@ -20,8 +20,8 @@ class ProductItem extends StatelessWidget {
   const ProductItem(
     this.product, {
     this.onPressed,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -103,6 +103,7 @@ class ProductItem extends StatelessWidget {
               endIndent: 0,
               height: 16,
               thickness: 1,
+              color: Colors.black26,
             ),
             Row(
               children: [

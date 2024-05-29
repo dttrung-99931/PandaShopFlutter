@@ -7,12 +7,10 @@ import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/core/utils/overlay_utils.dart';
 import 'package:evievm_app/global.dart';
-import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:evievm_app/src/features/auth/presentation/screens/sign_up_screen.dart';
 import 'package:evievm_app/src/features/common/presentation/screens/main_screen.dart';
-import 'package:evievm_app/src/features/home/presentation/screens/home_screen.dart';
 import 'package:evievm_app/src/shared/widgets/common/app_custom_checkbox.dart';
 import 'package:evievm_app/src/shared/widgets/common/triangle_clip_path.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
@@ -27,7 +25,7 @@ import '../../../../shared/widgets/custom_bloc_listener.dart';
 class LoginScreen extends StatelessWidget {
   static const router = '/login';
 
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

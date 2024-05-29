@@ -37,7 +37,7 @@ class ShopBloc extends BaseBloc {
           shop: ShopRequestModel(id: null, name: nameController.text),
         ),
       ),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (_) {
         return RegisterShopSuccess();
       },

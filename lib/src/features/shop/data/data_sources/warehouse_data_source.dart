@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:evievm_app/core/model/base_response.dart';
-import 'package:evievm_app/src/features/shop/data/models/request/warehouse/product_batch_request_model.dart';
 import 'package:evievm_app/src/features/shop/data/models/request/warehouse/warehouse_input_request_model.dart';
 import 'package:evievm_app/src/features/shop/data/models/request/warehouse/warehouse_request_model.dart';
 import 'package:evievm_app/src/features/shop/data/models/response/warehouse/product_inventory_model.dart';

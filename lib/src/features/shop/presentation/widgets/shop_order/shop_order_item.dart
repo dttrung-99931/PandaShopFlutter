@@ -15,9 +15,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ShopOrderItem extends StatelessWidget {
   const ShopOrderItem({
-    Key? key,
+    super.key,
     required this.order,
-  }) : super(key: key);
+  });
   final OrderDto order;
   List<OrderDetailDto> get orderDetails => order.orderDetails;
 

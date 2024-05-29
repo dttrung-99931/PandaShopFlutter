@@ -77,7 +77,7 @@ class InfoInput extends StatelessWidget {
   final Function()? onTap;
 
   InfoInput({
-    Key? key,
+    super.key,
     this.controller,
     this.hint = '',
     this.secondHint = '',
@@ -136,8 +136,7 @@ class InfoInput extends StatelessWidget {
           controller != customInput, // both must not be null together
           'Either controller must be != null OR customInput != null',
         ),
-        spacing = spacing ?? (direction == Axis.horizontal ? 0 : 12.h),
-        super(key: key);
+        spacing = spacing ?? (direction == Axis.horizontal ? 0 : 12.h);
 
   factory InfoInput.onlyInput({
     required String hint,
@@ -356,9 +355,9 @@ class InfoInput extends StatelessWidget {
 class ExpandedSizedBox extends StatelessWidget {
   final int flex;
   const ExpandedSizedBox({
-    Key? key,
+    super.key,
     required this.flex,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

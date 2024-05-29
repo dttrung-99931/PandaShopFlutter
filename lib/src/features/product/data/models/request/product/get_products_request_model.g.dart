@@ -9,12 +9,12 @@ part of 'get_products_request_model.dart';
 GetProductsRequestModel _$GetProductsRequestModelFromJson(
         Map<String, dynamic> json) =>
     GetProductsRequestModel(
-      categoryIdLV1: json['categoryIdLV1'] as int?,
-      categoryIdLV2: json['categoryIdLV2'] as int?,
-      categoryIdLV3: json['categoryIdLV3'] as int?,
+      categoryIdLV1: (json['categoryIdLV1'] as num?)?.toInt(),
+      categoryIdLV2: (json['categoryIdLV2'] as num?)?.toInt(),
+      categoryIdLV3: (json['categoryIdLV3'] as num?)?.toInt(),
       q: json['q'] as String?,
       orderBy: json['orderBy'] as String?,
-      shopId: json['shopId'] as int?,
+      shopId: (json['shopId'] as num?)?.toInt(),
       available: json['available'] as bool?,
     );
 

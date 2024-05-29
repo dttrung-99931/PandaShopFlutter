@@ -15,7 +15,7 @@ import 'package:injectable/injectable.dart';
 final GetIt getIt = GetIt.instance;
 
 @InjectableInit(generateForDir: ["lib"])
-configureDependencies() => $initGetIt(getIt);
+configureDependencies() => getIt.init();
 
 // Provide dependencies used in whole app
 @module

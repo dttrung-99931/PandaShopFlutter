@@ -7,7 +7,6 @@ import 'package:evievm_app/src/features/product/data/models/response/product/pro
 import 'package:evievm_app/src/features/product/domain/repos/product_cate_repo.dart';
 import 'package:injectable/injectable.dart';
 
-import '../data_sources/product_remote_data_soruce.dart';
 
 @LazySingleton(as: ProductCateRepo)
 class ProductRepoImpl extends ProductCateRepo {

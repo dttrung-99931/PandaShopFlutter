@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class CenterSingleChildScrollView extends StatelessWidget {
   const CenterSingleChildScrollView({
-    Key? key,
+    super.key,
     required this.child,
-  }) : super(key: key);
+  });
   final Widget child;
 
   @override

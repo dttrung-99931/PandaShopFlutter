@@ -39,7 +39,7 @@ class FCMBloc extends BaseNotificationReceiverBloc {
           }
         },
       )),
-      emit: emit,
+      emit: emit.call,
       showErrorWhenFail: false,
       onError: (failure) {
         // TODO:
@@ -59,7 +59,7 @@ class FCMBloc extends BaseNotificationReceiverBloc {
   ) async {
     String? token = await handleUsecaseResult<String?>(
       usecaseResult: _fcmNotiUseCase.getFcmNotificationToken(),
-      emit: emit,
+      emit: emit.call,
       showErrorWhenFail: false,
     );
 
@@ -69,7 +69,7 @@ class FCMBloc extends BaseNotificationReceiverBloc {
             NotificationReceiverRequestModel(token: token, senderType: NotificationSenderType.fcm),
           ),
           showErrorWhenFail: false,
-          emit: emit,
+          emit: emit.call,
           onError: (f) {
             // TODO: handle warning user
             return ErrorState(f);

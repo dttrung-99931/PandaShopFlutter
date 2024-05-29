@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/src/features/order/data/models/response/order/order_response_model.dart';
 import 'package:evievm_app/src/features/order/domain/dto/order/order_dto.dart';
 import 'package:evievm_app/src/features/shop/presentation/widgets/shop_order/order_actions/complete_processing_action.dart';
@@ -9,9 +8,9 @@ import 'package:flutter/widgets.dart';
 
 abstract class OrderActionsWidget extends StatelessWidget {
   const OrderActionsWidget({
-    Key? key,
+    super.key,
     required this.order,
-  }) : super(key: key);
+  });
   final OrderDto order;
 }
 

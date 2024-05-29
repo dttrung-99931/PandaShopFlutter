@@ -5,8 +5,8 @@ class CardIcon extends StatelessWidget {
   const CardIcon(
     this.iconData, {
     this.padding = const EdgeInsets.all(12),
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final IconData iconData;
   final EdgeInsets padding;
 

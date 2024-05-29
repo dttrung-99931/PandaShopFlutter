@@ -3,19 +3,19 @@ import 'package:evievm_app/src/features/home/presentation/bloc/home_bloc.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/search_products_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/product/cart_button.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
+import 'package:evievm_app/src/shared/widgets/search_bar.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../shared/widgets/banner_slider.dart';
-import '../../../../shared/widgets/search_bar.dart';
 
 class SearchBarAndBanner extends StatefulWidget {
   const SearchBarAndBanner({
-    Key? key,
+    super.key,
     required this.size,
-  }) : super(key: key);
+  });
 
   final Size size;
 
@@ -52,7 +52,7 @@ class _SearchBarAndBannerState extends State<SearchBarAndBanner> {
       expandedHeight: 180,
       pinned: true,
       backgroundColor: AppColors.primary,
-      title: SearchBar(
+      title: AppSearchBar(
         autoFocus: true,
         navigateToScreenOnPressed: SearchProductsScreen.router,
       ),

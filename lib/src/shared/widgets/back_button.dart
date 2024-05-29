@@ -3,15 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:evievm_app/core/utils/app_colors.dart';
-import 'package:evievm_app/core/utils/evm_colors.dart';
 
 import '../../../../../global.dart';
 
 class PShopBackButton extends StatelessWidget {
   const PShopBackButton({
-    Key? key,
+    super.key,
     this.color = AppColors.black,
-  }) : super(key: key);
+  });
   final Color color;
 
   @override

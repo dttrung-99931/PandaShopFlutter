@@ -5,7 +5,6 @@ import 'package:evievm_app/core/utils/assets/assets.dart';
 import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
-import 'package:evievm_app/src/features/auth/presentation/screens/login_screen.dart';
 import 'package:evievm_app/src/features/common/presentation/screens/main_screen.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_listener.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +16,7 @@ import '../../../../../core/utils/time_utils.dart';
 class SplashScreen extends StatefulWidget {
   static const router = '/';
 
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/app_config.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';

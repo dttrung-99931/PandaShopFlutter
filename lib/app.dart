@@ -33,7 +33,7 @@ Future<void> appMain() async {
 }
 
 class PandaShopApp extends StatelessWidget {
-  const PandaShopApp({Key? key}) : super(key: key);
+  const PandaShopApp({super.key});
 
   @override
   Widget build(BuildContext context) {

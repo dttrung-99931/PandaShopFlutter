@@ -19,12 +19,13 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
   String? baseUrl;
 
   @override
-  Future<BaseResponse<List<ShortProductModel>>> getProducts(params) async {
-    const _extra = <String, dynamic>{};
+  Future<BaseResponse<List<ShortProductModel>>> getProducts(
+      GetProductsRequestModel params) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.addAll(params.toJson());
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<List<ShortProductModel>>>(Options(
       method: 'GET',
@@ -37,24 +38,31 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<List<ShortProductModel>>.fromJson(
       _result.data!,
-      (json) => (json as List<dynamic>)
-          .map<ShortProductModel>(
-              (i) => ShortProductModel.fromJson(i as Map<String, dynamic>))
-          .toList(),
+      (json) => json is List<dynamic>
+          ? json
+              .map<ShortProductModel>(
+                  (i) => ShortProductModel.fromJson(i as Map<String, dynamic>))
+              .toList()
+          : List.empty(),
     );
     return value;
   }
 
   @override
-  Future<BaseResponse<SearchProductModel>> searchProducts(params) async {
-    const _extra = <String, dynamic>{};
+  Future<BaseResponse<SearchProductModel>> searchProducts(
+      SearchProductsRequestModel params) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.addAll(params.toJson());
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<SearchProductModel>>(Options(
       method: 'GET',
@@ -67,7 +75,11 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<SearchProductModel>.fromJson(
       _result.data!,
       (json) => SearchProductModel.fromJson(json as Map<String, dynamic>),
@@ -76,11 +88,11 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
   }
 
   @override
-  Future<BaseResponse<ProductDetailModel?>> getProductDetail(id) async {
-    const _extra = <String, dynamic>{};
+  Future<BaseResponse<ProductDetailModel?>> getProductDetail(int id) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<ProductDetailModel>>(Options(
       method: 'GET',
@@ -93,7 +105,11 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<ProductDetailModel?>.fromJson(
       _result.data!,
       (json) => json == null
@@ -105,12 +121,12 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
 
   @override
   Future<BaseResponse<List<ProductCategoryModel>>> getProductCates(
-      params) async {
-    const _extra = <String, dynamic>{};
+      GetProductCatesRequestModel params) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.addAll(params.toJson());
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<List<ProductCategoryModel>>>(Options(
       method: 'GET',
@@ -123,24 +139,30 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<List<ProductCategoryModel>>.fromJson(
       _result.data!,
-      (json) => (json as List<dynamic>)
-          .map<ProductCategoryModel>(
-              (i) => ProductCategoryModel.fromJson(i as Map<String, dynamic>))
-          .toList(),
+      (json) => json is List<dynamic>
+          ? json
+              .map<ProductCategoryModel>((i) =>
+                  ProductCategoryModel.fromJson(i as Map<String, dynamic>))
+              .toList()
+          : List.empty(),
     );
     return value;
   }
 
   @override
   Future<BaseResponse<PropertyTemplateModel>> getPropertyTemplate(
-      cateId) async {
-    const _extra = <String, dynamic>{};
+      int cateId) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<PropertyTemplateModel>>(Options(
       method: 'GET',
@@ -153,7 +175,11 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<PropertyTemplateModel>.fromJson(
       _result.data!,
       (json) => PropertyTemplateModel.fromJson(json as Map<String, dynamic>),
@@ -162,8 +188,9 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
   }
 
   @override
-  Future<BaseResponse<ShortProductModel>> createProduct(params) async {
-    const _extra = <String, dynamic>{};
+  Future<BaseResponse<ShortProductModel>> createProduct(
+      CreateProductRequestModel params) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -180,7 +207,11 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<ShortProductModel>.fromJson(
       _result.data!,
       (json) => ShortProductModel.fromJson(json as Map<String, dynamic>),
@@ -190,10 +221,10 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
 
   @override
   Future<BaseResponse<dynamic>> updateProduct(
-    id,
-    params,
+    int id,
+    CreateProductRequestModel params,
   ) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -210,7 +241,11 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<dynamic>.fromJson(
       _result.data!,
       (json) => json as dynamic,
@@ -219,8 +254,8 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
   }
 
   @override
-  Future<BaseResponse<dynamic>> deleteProduct(id) async {
-    const _extra = <String, dynamic>{};
+  Future<BaseResponse<dynamic>> deleteProduct(int id) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final String? _data = null;
@@ -236,7 +271,11 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<dynamic>.fromJson(
       _result.data!,
       (json) => json as dynamic,
@@ -246,10 +285,10 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
 
   @override
   Future<BaseResponse<dynamic>> createProductImages({
-    required productId,
-    required body,
+    required dynamic productId,
+    required String body,
   }) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = body;
@@ -265,7 +304,11 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<dynamic>.fromJson(
       _result.data!,
       (json) => json as dynamic,
@@ -284,5 +327,22 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
       }
     }
     return requestOptions;
+  }
+
+  String _combineBaseUrls(
+    String dioBaseUrl,
+    String? baseUrl,
+  ) {
+    if (baseUrl == null || baseUrl.trim().isEmpty) {
+      return dioBaseUrl;
+    }
+
+    final url = Uri.parse(baseUrl);
+
+    if (url.isAbsolute) {
+      return url.toString();
+    }
+
+    return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }

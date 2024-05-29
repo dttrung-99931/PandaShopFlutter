@@ -11,8 +11,9 @@ void main() async {
 Future<void> configDevHomeWifi() async {
   await PandaMap.init(
     options: MapOptions(
-      mapAPIKey: 'AIzaSyDX339mM4ZOXkaXpDLlZxooV6OcHMS3WY8',
-      mapType: PandaMapType.google,
+      mapAPIKey: 'bb6rs_Rbb7Vz0qOXSaF_CnVL7Z3rJ53N4uJ8-fUjEM-TBSGPU6hUsWxAocMuZ1cB57oJ_v8QaXpdWEmKVCgNFg',
+      mapAPIKeyId: 'GWunhRPgdFdBJcKsfrCaqg',
+      mapType: PandaMapType.heremap,
     ),
   );
   AppConfig.set(

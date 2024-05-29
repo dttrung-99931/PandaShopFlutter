@@ -53,7 +53,7 @@ class ProductBatchInputBloc extends BaseBloc {
     }
     await handleUsecaseResult(
       usecaseResult: _getProductDetail.call(batch.productId),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (ProductDetailDto? product) {
         if (product != null) {
           cacheProductOptions[product.id] = [...product.options];

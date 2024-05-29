@@ -6,10 +6,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ImageOnItem extends StatelessWidget {
   const ImageOnItem({
-    Key? key,
+    super.key,
     required this.imageLink,
     this.width,
-  }) : super(key: key);
+  });
   final String? imageLink;
   final double? width;
 

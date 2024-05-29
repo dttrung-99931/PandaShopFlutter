@@ -10,7 +10,6 @@ import 'package:evievm_app/core/utils/overlay_utils.dart';
 import 'package:evievm_app/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:injectable/injectable.dart';
 
 typedef EventHandlerType<T> = FutureOr<void> Function(
   T event,

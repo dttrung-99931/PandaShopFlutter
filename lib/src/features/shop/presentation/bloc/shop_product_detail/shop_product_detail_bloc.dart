@@ -6,13 +6,11 @@ import 'package:dartz/dartz.dart';
 import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
-import 'package:evievm_app/core/base_bloc/bloc_communication.dart';
 import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
-import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
 import 'package:evievm_app/src/features/product/data/models/request/product/create_product_request_model.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_category_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_detail_dto.dart';
@@ -68,7 +66,7 @@ class ShopProductDetailBloc extends BaseBloc {
     if (event.productId != null) {
       await handleUsecaseResult(
         usecaseResult: _getProductDetail.call(event.productId!),
-        emit: emit,
+        emit: emit.call,
         onSuccess: (ProductDetailDto? result) {
           if (result != null) {
             _init(result);
@@ -93,7 +91,7 @@ class ShopProductDetailBloc extends BaseBloc {
   FutureOr<void> _onCreateProduct(OnCreateProduct event, Emitter<BaseState> emit) async {
     ProductDto? created = await handleUsecaseResult(
       usecaseResult: _createProduct.call(_getCreateModel()),
-      emit: emit,
+      emit: emit.call,
       onError: (failure) {
         return CreateProductError(failure);
       },
@@ -107,7 +105,7 @@ class ShopProductDetailBloc extends BaseBloc {
             images: images!.mapList((ImageInputDto element) => element.toRequestModel()),
           ),
         ),
-        emit: emit,
+        emit: emit.call,
         onSuccess: (dynamic _) {
           return CreateProductSuccess(product: created);
         },
@@ -143,7 +141,7 @@ class ShopProductDetailBloc extends BaseBloc {
   FutureOr<void> _onUpdateProduct(OnUpdateProduct event, Emitter<BaseState> emit) async {
     dynamic result = await handleUsecaseResult(
       usecaseResult: _updateProduct.call(_getCreateModel()),
-      emit: emit,
+      emit: emit.call,
       onError: (failure) {
         return UpdateProductError(failure);
       },

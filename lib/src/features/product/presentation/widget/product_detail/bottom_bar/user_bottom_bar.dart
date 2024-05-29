@@ -21,8 +21,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddCartAndBuyBottomBar extends StatelessWidget {
   const AddCartAndBuyBottomBar({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

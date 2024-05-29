@@ -82,9 +82,8 @@ class _ProductInventoryInputState extends State<ProductInventoryInput> {
 
 class _ProductSelect extends StatefulWidget {
   const _ProductSelect({
-    Key? key,
     required this.productInventoryInpId,
-  }) : super(key: key);
+  });
   final int productInventoryInpId;
 
   @override

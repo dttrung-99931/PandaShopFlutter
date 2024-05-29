@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/utils/app_colors.dart';
-import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/shopping_cart/data/models/request/shopping_cart/upsert_cart_request_model.dart';
@@ -95,11 +94,10 @@ class ProductCounter extends StatelessWidget {
 
 class _Button extends StatelessWidget {
   const _Button({
-    Key? key,
     required this.symbol,
     required this.onPressed,
     this.isEnabled = true,
-  }) : super(key: key);
+  });
   final String symbol;
   final Function() onPressed;
   final bool isEnabled;

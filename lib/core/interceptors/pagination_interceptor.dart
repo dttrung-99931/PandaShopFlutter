@@ -1,10 +1,7 @@
-import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:evievm_app/core/utils/log.dart';
 import 'package:injectable/injectable.dart';
 
-import 'package:evievm_app/core/utils/storage.dart';
 
 import '../../src/config/app_config.dart';
 

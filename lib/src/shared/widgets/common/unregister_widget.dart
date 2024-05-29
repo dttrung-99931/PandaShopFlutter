@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 
 class UnregisterWidget extends StatelessWidget {
   const UnregisterWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.buttonTitle,
     required this.onPressed,
-  }) : super(key: key);
+  });
   final String title;
   final String buttonTitle;
   final Function() onPressed;

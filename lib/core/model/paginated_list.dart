@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:json_annotation/json_annotation.dart';
 
-import 'package:evievm_app/core/model/base_response.dart';
 
 @JsonSerializable(genericArgumentFactories: true)
 class PaginatedList<T> {

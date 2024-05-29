@@ -9,9 +9,9 @@ class BannerSlider extends StatelessWidget {
   final List<ImageDto> images;
 
   const BannerSlider({
-    Key? key,
+    super.key,
     required this.images,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

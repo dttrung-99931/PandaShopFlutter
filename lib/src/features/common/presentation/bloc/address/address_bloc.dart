@@ -5,7 +5,6 @@ import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/use_case/use_case.dart';
 import 'package:evievm_app/core/utils/constants.dart';
-import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
 import 'package:evievm_app/src/features/common/domain/dtos/address_field_dto.dart';
 import 'package:evievm_app/src/features/common/domain/use_cases/get_communes_and_ward_usecase.dart';
@@ -47,7 +46,7 @@ class AddressBloc extends BaseBloc {
   Future<void> _onGetMyAddresses(OnGetMyAddresses event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
       usecaseResult: _getMyAddresses.call(noParam),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (List<AddressDto> result) {
         return GetMyAddressesSucess([...result, AddressDto.add], selectedId: event.selectedId);
       },
@@ -57,7 +56,7 @@ class AddressBloc extends BaseBloc {
   Future<FutureOr<void>> _onGetProvinceAndCities(OnGetProvinceAndCities event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
       usecaseResult: _getProvAndCities.call(noParam),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (List<AddressFieldDto> result) {
         GetProvincesAndCitiesSucess state = GetProvincesAndCitiesSucess([AddressFieldDto.emptyProvOrCity, ...result]);
         _addressBlocMixin.selectedProvOrCity = state.selected;
@@ -70,7 +69,7 @@ class AddressBloc extends BaseBloc {
   FutureOr<void> _onGetDistricts(OnGetDistricts event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
       usecaseResult: _getDistricts.call(event.provinceOrCityCode),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (List<AddressFieldDto> result) {
         var state = GetDistrictsSuccess([AddressFieldDto.emptyDistrict, ...result], selectedCode: event.selectedCode);
         _addressBlocMixin.selectedDistrict = state.selected;
@@ -83,7 +82,7 @@ class AddressBloc extends BaseBloc {
   FutureOr<void> _onGetCommunesAndWard(OnGetCommunesAndWard event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
       usecaseResult: _getCommunesAndWards.call(event.districtCode),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (List<AddressFieldDto> result) {
         GetCommunesAndWardsSuccess state = GetCommunesAndWardsSuccess(
           [AddressFieldDto.emptyComnuneOrWard, ...result],

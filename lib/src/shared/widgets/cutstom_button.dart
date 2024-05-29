@@ -5,7 +5,6 @@ import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/shared/widgets/loading_widget.dart';
-import 'package:evievm_app/src/shared/widgets/utils/color_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -31,7 +30,7 @@ class CustomButton extends StatelessWidget {
   final bool isLoading;
 
   const CustomButton({
-    Key? key,
+    super.key,
     this.title,
     this.child,
     this.onPressed,
@@ -49,8 +48,7 @@ class CustomButton extends StatelessWidget {
     this.height,
     this.isTitleBold = false,
     this.isLoading = false,
-  })  : assert((title != null) != (child != null), 'Either title or child must be not null'),
-        super(key: key);
+  })  : assert((title != null) != (child != null), 'Either title or child must be not null');
 
   @override
   Widget build(BuildContext context) {

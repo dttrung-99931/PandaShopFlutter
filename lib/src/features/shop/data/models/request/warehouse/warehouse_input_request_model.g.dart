@@ -9,8 +9,8 @@ part of 'warehouse_input_request_model.dart';
 WarehouseInputRequestModel _$WarehouseInputRequestModelFromJson(
         Map<String, dynamic> json) =>
     WarehouseInputRequestModel(
-      id: json['id'] as int?,
-      warehouseId: json['warehouseId'] as int,
+      id: (json['id'] as num?)?.toInt(),
+      warehouseId: (json['warehouseId'] as num).toInt(),
       date: DateTime.parse(json['date'] as String),
     );
 

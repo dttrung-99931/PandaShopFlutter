@@ -9,10 +9,10 @@ part of 'get_product_cates_request_model.dart';
 GetProductCatesRequestModel _$GetProductCatesRequestModelFromJson(
         Map<String, dynamic> json) =>
     GetProductCatesRequestModel(
-      level: json['level'] as int?,
-      parentId: json['parentId'] as int?,
-      q: json['q'] as int?,
-      shopId: json['shopId'] as int?,
+      level: (json['level'] as num?)?.toInt(),
+      parentId: (json['parentId'] as num?)?.toInt(),
+      q: (json['q'] as num?)?.toInt(),
+      shopId: (json['shopId'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$GetProductCatesRequestModelToJson(

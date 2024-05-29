@@ -21,9 +21,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ImagesInputSlider extends StatefulWidget {
   const ImagesInputSlider({
-    Key? key,
+    super.key,
     required this.initImages,
-  }) : super(key: key);
+  });
   final List<ImageInputDto> initImages;
 
   @override

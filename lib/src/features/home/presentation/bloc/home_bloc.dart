@@ -39,7 +39,7 @@ class HomeBloc extends BaseBloc {
   Future<void> _onGetHomeProducts(OnGetHomeProducts event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
       usecaseResult: _getProducts.call(GetProductsRequestModel(orderBy: 'desc', available: true)),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (List<ProductDto> result) {
         return GetProductsSucess(result);
       },
@@ -49,7 +49,7 @@ class HomeBloc extends BaseBloc {
   FutureOr<void> _onGetHomeProductCates(OnGetHomeProductCates event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
       usecaseResult: _getProductCates.call(GetProductCatesRequestModel(level: 3)),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (List<ProductCategoryDto> result) {
         return GetProductCatesSucess(result);
       },
@@ -59,7 +59,7 @@ class HomeBloc extends BaseBloc {
   FutureOr<void> _onGetHomeBanners(OnGetHomeBanners event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
       usecaseResult: _getHomeBanners.call(noParam),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (List<HomeBannerDto> result) {
         return GetHomeBannersSucess(result);
       },

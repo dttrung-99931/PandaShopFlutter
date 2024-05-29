@@ -8,6 +8,6 @@ part of 'delivery_method_model.dart';
 
 DeliveryMethodModel _$DeliveryMethodModelFromJson(Map<String, dynamic> json) =>
     DeliveryMethodModel(
-      json['id'] as int,
+      (json['id'] as num).toInt(),
       json['name'] as String,
     );

@@ -6,7 +6,6 @@ import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/shop/domain/use_cases/product_inventory/get_product_inventory_usecase.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -30,7 +29,7 @@ class ProductInventoryBloc extends BaseBloc {
   FutureOr<void> _onGetProductInventory(OnGetProductInventory event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
       usecaseResult: _getProductInventory.call(event.productId),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (ProductInventoryDto result) {
         return GetProductInventorySuccess(result);
       },

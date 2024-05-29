@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/base_bloc/base_state.dart';
-import 'package:evievm_app/src/features/shop/presentation/bloc/shop/shop_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product/shop_product_bloc.dart';
 import 'package:evievm_app/src/shared/widgets/common/app_floating_action_btn.dart';
 import 'package:evievm_app/src/shared/widgets/loading_widget.dart';
@@ -23,7 +22,7 @@ import 'package:evievm_app/src/shared/widgets/sliver/sliver_session.dart';
 import 'package:evievm_app/src/shared/widgets/sliver/sliver_sized_box.dart';
 
 class ShopScreen extends StatelessWidget {
-  ShopScreen({Key? key, required this.scrollController}) : super(key: key);
+  ShopScreen({super.key, required this.scrollController});
   final ScrollController scrollController;
   final _pageStorageBucket = PageStorageBucket();
 

@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
   static const router = '/main';
-  const MainScreen({Key? key}) : super(key: key);
+  const MainScreen({super.key});
 
   @override
   State<MainScreen> createState() => _MainScreenState();

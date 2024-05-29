@@ -39,7 +39,7 @@ class PushNotificationBloc extends BaseBloc {
           add(OnPushNotificationPressed(data: payload));
         },
       )),
-      emit: emit,
+      emit: emit.call,
       showErrorWhenFail: false,
     );
     emit(ConfigPushNotificationComplete());
@@ -48,7 +48,7 @@ class PushNotificationBloc extends BaseBloc {
   FutureOr<void> _onPushNotification(OnPushNotification event, Emitter<BaseState> emit) {
     handleUsecaseResult(
       usecaseResult: _pushNotiUseCases.pushNoti(event.noti),
-      emit: emit,
+      emit: emit.call,
       showErrorWhenFail: false,
     );
   }

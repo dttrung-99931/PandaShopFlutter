@@ -9,7 +9,7 @@ part of 'push_notification_payload.dart';
 PushNotificationPayload _$PushNotificationPayloadFromJson(
         Map<String, dynamic> json) =>
     PushNotificationPayload(
-      orderId: json['orderId'] as int?,
+      orderId: (json['orderId'] as num?)?.toInt(),
       notiType: $enumDecode(_$NotificationTypeEnumMap, json['notiType']),
     );
 

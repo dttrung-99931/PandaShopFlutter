@@ -3,7 +3,6 @@ import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/constants.dart';
-import 'package:evievm_app/core/utils/message_utils.dart';
 import 'package:evievm_app/core/utils/overlay_utils.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
@@ -18,8 +17,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ShopProductDetailBottomBar extends StatelessWidget {
   const ShopProductDetailBottomBar({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   @override
   Widget build(BuildContext context) {
     return SizedBox(

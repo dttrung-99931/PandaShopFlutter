@@ -8,6 +8,6 @@ part of 'payment_method_model.dart';
 
 PaymentMethodModel _$PaymentMethodModelFromJson(Map<String, dynamic> json) =>
     PaymentMethodModel(
-      json['id'] as int,
+      (json['id'] as num).toInt(),
       json['name'] as String,
     );

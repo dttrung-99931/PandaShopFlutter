@@ -3,7 +3,6 @@ import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/global.dart';
-import 'package:evievm_app/src/shared/widgets/color_container.dart';
 import 'package:evievm_app/src/shared/widgets/neutral_button.dart';
 import 'package:evievm_app/src/shared/widgets/positive_button.dart';
 import 'package:flutter/material.dart';

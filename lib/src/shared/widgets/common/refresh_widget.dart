@@ -46,9 +46,9 @@ class RefreshParent extends InheritedWidget {
 
 class RefreshChildBuilder extends StatelessWidget {
   const RefreshChildBuilder({
-    Key? key,
+    super.key,
     required this.builder,
-  }) : super(key: key);
+  });
   final WidgetBuilder builder;
 
   @override

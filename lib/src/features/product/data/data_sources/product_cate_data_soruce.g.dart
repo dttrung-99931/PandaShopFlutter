@@ -20,12 +20,12 @@ class _ProductCateDatasource implements ProductCateDatasource {
 
   @override
   Future<BaseResponse<List<ProductCategoryModel>>> getProductCates(
-      params) async {
-    const _extra = <String, dynamic>{};
+      GetProductCatesRequestModel params) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.addAll(params.toJson());
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<List<ProductCategoryModel>>>(Options(
       method: 'GET',
@@ -38,23 +38,29 @@ class _ProductCateDatasource implements ProductCateDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<List<ProductCategoryModel>>.fromJson(
       _result.data!,
-      (json) => (json as List<dynamic>)
-          .map<ProductCategoryModel>(
-              (i) => ProductCategoryModel.fromJson(i as Map<String, dynamic>))
-          .toList(),
+      (json) => json is List<dynamic>
+          ? json
+              .map<ProductCategoryModel>((i) =>
+                  ProductCategoryModel.fromJson(i as Map<String, dynamic>))
+              .toList()
+          : List.empty(),
     );
     return value;
   }
 
   @override
-  Future<BaseResponse<ProductCategoryModel>> getById(id) async {
-    const _extra = <String, dynamic>{};
+  Future<BaseResponse<ProductCategoryModel>> getById(int id) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<ProductCategoryModel>>(Options(
       method: 'GET',
@@ -67,7 +73,11 @@ class _ProductCateDatasource implements ProductCateDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<ProductCategoryModel>.fromJson(
       _result.data!,
       (json) => ProductCategoryModel.fromJson(json as Map<String, dynamic>),
@@ -77,11 +87,11 @@ class _ProductCateDatasource implements ProductCateDatasource {
 
   @override
   Future<BaseResponse<PropertyTemplateModel>> getPropertyTemplate(
-      cateId) async {
-    const _extra = <String, dynamic>{};
+      int cateId) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<PropertyTemplateModel>>(Options(
       method: 'GET',
@@ -94,7 +104,11 @@ class _ProductCateDatasource implements ProductCateDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<PropertyTemplateModel>.fromJson(
       _result.data!,
       (json) => PropertyTemplateModel.fromJson(json as Map<String, dynamic>),
@@ -113,5 +127,22 @@ class _ProductCateDatasource implements ProductCateDatasource {
       }
     }
     return requestOptions;
+  }
+
+  String _combineBaseUrls(
+    String dioBaseUrl,
+    String? baseUrl,
+  ) {
+    if (baseUrl == null || baseUrl.trim().isEmpty) {
+      return dioBaseUrl;
+    }
+
+    final url = Uri.parse(baseUrl);
+
+    if (url.isAbsolute) {
+      return url.toString();
+    }
+
+    return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }

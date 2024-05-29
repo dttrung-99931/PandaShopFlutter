@@ -10,7 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../widgets/search_bar_and_banner.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key, required this.scrollController}) : super(key: key);
+  const HomeScreen({super.key, required this.scrollController});
   final ScrollController scrollController;
 
   @override

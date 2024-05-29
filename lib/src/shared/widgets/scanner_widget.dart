@@ -241,7 +241,7 @@ class ScannerWidgetState extends State<ScannerWidget> {
 }
 
 class _ChangeModeButton extends StatelessWidget {
-  const _ChangeModeButton({Key? key, required this.isCamera, required this.onTap}) : super(key: key);
+  const _ChangeModeButton({required this.isCamera, required this.onTap});
   final bool isCamera;
   final VoidCallback onTap;
 
@@ -273,7 +273,7 @@ class _ChangeModeButton extends StatelessWidget {
 }
 
 class _FlipCameraButton extends StatelessWidget {
-  const _FlipCameraButton({Key? key, required this.onTap}) : super(key: key);
+  const _FlipCameraButton({required this.onTap});
   final VoidCallback onTap;
 
   @override

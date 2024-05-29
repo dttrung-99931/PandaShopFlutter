@@ -5,10 +5,10 @@ import 'package:evievm_app/global.dart';
 
 class PositionDialog extends StatelessWidget {
   const PositionDialog({
-    Key? key,
+    super.key,
     required this.child,
     required this.showingPosition,
-  }) : super(key: key);
+  });
 
   final Widget child;
   final Offset showingPosition;

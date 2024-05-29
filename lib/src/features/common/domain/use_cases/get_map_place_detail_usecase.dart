@@ -1,10 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:evievm_app/core/failures/failures.dart';
 import 'package:evievm_app/core/use_case/use_case.dart';
-import 'package:evievm_app/src/features/common/data/models/request/save_address_model.dart';
-import 'package:evievm_app/src/features/common/data/models/response/address_model.dart';
-import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
-import 'package:evievm_app/src/features/common/domain/repos/address_repo.dart';
 import 'package:injectable/injectable.dart';
 import 'package:panda_map/core/dtos/map_place_detail_dto.dart';
 import 'package:panda_map/core/models/map_place_detail.dart';

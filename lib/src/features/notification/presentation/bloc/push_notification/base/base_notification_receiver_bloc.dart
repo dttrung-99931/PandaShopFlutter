@@ -3,7 +3,6 @@ import 'package:bloc/src/bloc.dart';
 import 'dart:async';
 
 import 'package:evievm_app/core/base_bloc/base_bloc.dart';
-import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/log.dart';
 import 'package:evievm_app/src/features/notification/data/models/response/push_notification/push_notification_model.dart';

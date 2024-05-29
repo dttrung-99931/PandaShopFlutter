@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 
 class PaymentMethodSelect extends StatefulWidget {
   const PaymentMethodSelect({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<PaymentMethodSelect> createState() => _PaymentMethodSelectState();

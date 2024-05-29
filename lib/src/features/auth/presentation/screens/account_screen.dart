@@ -188,11 +188,10 @@ class _Item extends StatelessWidget {
   final Function() onPressed;
   final Widget icon;
   const _Item({
-    Key? key,
     required this.title,
     required this.onPressed,
     required this.icon,
-  }) : super(key: key);
+  });
   @override
   Widget build(BuildContext context) {
     return Material(

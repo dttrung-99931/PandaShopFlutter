@@ -22,5 +22,5 @@ ProductOptionInvetoryModel _$ProductOptionInvetoryModelFromJson(
     ProductOptionInvetoryModel(
       productOption: ProductOptionModel.fromJson(
           json['productOption'] as Map<String, dynamic>),
-      number: json['number'] as int,
+      number: (json['number'] as num).toInt(),
     );

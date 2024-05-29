@@ -10,7 +10,6 @@ import 'package:evievm_app/src/features/common/presentation/bloc/address/address
 import 'package:evievm_app/src/features/common/presentation/widgets/address/add_address_dialog.dart';
 import 'package:evievm_app/src/shared/widgets/custom_drop_down_button.dart';
 import 'package:evievm_app/src/shared/widgets/section.dart';
-import 'package:evievm_app/src/shared/widgets/utils/color_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

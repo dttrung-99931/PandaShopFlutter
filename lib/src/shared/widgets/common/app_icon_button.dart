@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class AppIconButton extends StatelessWidget {
   AppIconButton({
-    Key? key,
+    super.key,
     this.title,
     this.onPressed,
     required this.iconData,
@@ -16,8 +16,7 @@ class AppIconButton extends StatelessWidget {
     double? fontSize,
     EdgeInsets? padding,
   })  : fontSize = fontSize ?? textTheme.bodySmall!.fontSize!,
-        padding = padding ?? const EdgeInsets.all(4.0),
-        super(key: key);
+        padding = padding ?? const EdgeInsets.all(4.0);
   final String? title;
   final IconData iconData;
   final Function()? onPressed;

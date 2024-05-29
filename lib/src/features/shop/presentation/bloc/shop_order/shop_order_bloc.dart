@@ -9,8 +9,6 @@ import 'package:evievm_app/src/features/order/data/models/request/get_orders_req
 import 'package:evievm_app/src/features/order/data/models/response/order/order_response_model.dart';
 import 'package:evievm_app/src/features/order/domain/dto/order/order_dto.dart';
 import 'package:evievm_app/src/features/order/domain/use_cases/get_orders_usecase.dart';
-import 'package:evievm_app/src/features/shopping_cart/data/models/request/shopping_cart/upsert_cart_request_model.dart';
-import 'package:evievm_app/src/features/shopping_cart/domain/dto/shopping_cart_dto.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -49,7 +47,7 @@ class ShopOrderBloc extends BaseBloc {
         shopId: Global.shop?.id,
         status: event.orderStatus,
       )),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (List<OrderDto> result) {
         return GetShopOrdersSuccess(result);
       },

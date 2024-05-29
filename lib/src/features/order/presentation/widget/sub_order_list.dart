@@ -70,9 +70,8 @@ class SubOrder extends StatelessWidget {
 
 class _DeliveryMethodSelect extends StatefulWidget {
   const _DeliveryMethodSelect({
-    Key? key,
     required this.subOrder,
-  }) : super(key: key);
+  });
   final OrderInputDto subOrder;
 
   @override

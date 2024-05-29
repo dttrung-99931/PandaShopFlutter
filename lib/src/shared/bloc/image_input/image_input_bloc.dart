@@ -8,7 +8,6 @@ import 'package:evievm_app/core/use_case/use_case.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/common/domain/use_cases/utils/pick_local_image_as_base64_use_case.dart';
 import 'package:evievm_app/src/features/shop/domain/dtos/image/image_input_dto.dart';
-import 'package:evievm_app/src/shared/dtos/image_dto.dart';
 import 'package:evievm_app/src/shared/enums/edit_action.dart';
 import 'package:injectable/injectable.dart';
 
@@ -73,7 +72,7 @@ class ImageInputBloc extends BaseBloc {
   Future<String?> _pickImageAsBase64(Emitter<BaseState> emit) async {
     return await handleUsecaseResult<String?>(
       usecaseResult: _pickImageAsBase64Usecase.call(noParam),
-      emit: emit,
+      emit: emit.call,
     );
   }
 
