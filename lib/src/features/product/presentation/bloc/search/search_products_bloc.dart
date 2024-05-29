@@ -62,7 +62,7 @@ class SearchProductsBloc extends BaseBloc {
 
     await handleUsecaseResult(
       usecaseResult: _searchUsecase.call(SearchProductsRequestModel(q: event.q)),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (SearchProductDto result) {
         return SearchProductsSucess(result, isSearchHistory: false);
       },
@@ -80,7 +80,7 @@ class SearchProductsBloc extends BaseBloc {
           q: event.q,
         ),
       ),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (List<ProductDto> result) {
         return GetProductsSucess(result);
       },

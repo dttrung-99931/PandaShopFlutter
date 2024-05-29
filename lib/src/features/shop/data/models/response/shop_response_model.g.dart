@@ -9,7 +9,7 @@ part of 'shop_response_model.dart';
 ShopResponseModel _$ShopResponseModelFromJson(Map<String, dynamic> json) =>
     ShopResponseModel(
       name: json['name'] as String,
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
     );
 
 Map<String, dynamic> _$ShopResponseModelToJson(ShopResponseModel instance) =>

@@ -5,10 +5,10 @@ class SliverSizedBox extends StatelessWidget {
   final double? width;
 
   const SliverSizedBox({
-    Key? key,
+    super.key,
     this.height,
     this.width,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

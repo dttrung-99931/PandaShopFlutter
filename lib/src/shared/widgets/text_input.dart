@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
@@ -15,7 +14,7 @@ class TextInput extends StatefulWidget {
     this.validator,
     this.width,
     this.controller,
-    Key? key,
+    super.key,
     this.isPasswordInput = false,
     this.onChange,
     this.onSubmited,
@@ -48,7 +47,7 @@ class TextInput extends StatefulWidget {
     this.onFocusChanged,
     this.errorFontSize,
     this.autovalidateMode = AutovalidateMode.disabled,
-  }) : super(key: key);
+  });
 
   final String? hintText;
   final double? width;

@@ -13,8 +13,8 @@ class LabelCheckbox extends StatelessWidget {
     required this.selectedBackgroundColor,
     this.onTap,
     this.enabled = true,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final String label;
   final bool isSelected;

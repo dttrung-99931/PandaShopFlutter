@@ -8,7 +8,7 @@ part of 'shop_request_model.dart';
 
 ShopRequestModel _$ShopRequestModelFromJson(Map<String, dynamic> json) =>
     ShopRequestModel(
-      id: json['id'] as int?,
+      id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String,
     );
 

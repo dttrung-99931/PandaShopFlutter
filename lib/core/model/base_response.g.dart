@@ -13,7 +13,7 @@ BaseResponse<T> _$BaseResponseFromJson<T>(
     BaseResponse<T>(
       fromJsonT(json['data']),
       json['success'] as bool,
-      json['statusCode'] as int,
+      (json['statusCode'] as num).toInt(),
       json['message'] as String?,
     );
 
@@ -35,14 +35,14 @@ PaginatedListResponse<T> _$PaginatedListResponseFromJson<T>(
     PaginatedListResponse<T>(
       (json['data'] as List<dynamic>).map(fromJsonT).toList(),
       json['success'] as bool,
-      json['statusCode'] as int,
+      (json['statusCode'] as num).toInt(),
       json['message'] as String?,
       PaginationModel.fromJson(json['meta'] as Map<String, dynamic>),
     );
 
 PaginationModel _$PaginationModelFromJson(Map<String, dynamic> json) =>
     PaginationModel(
-      pageSize: json['pageSize'] as int,
-      pageNum: json['pageNum'] as int,
-      total: json['total'] as int,
+      pageSize: (json['pageSize'] as num).toInt(),
+      pageNum: (json['pageNum'] as num).toInt(),
+      total: (json['total'] as num).toInt(),
     );

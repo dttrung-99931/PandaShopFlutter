@@ -13,7 +13,6 @@ import 'package:evievm_app/src/features/product/data/models/request/product/get_
 import 'package:evievm_app/src/features/product/domain/dto/product/product_category_dto.dart';
 import 'package:evievm_app/src/features/product/domain/use_cases/product/get_product_cate_by_id_usecase.dart';
 import 'package:evievm_app/src/features/product/domain/use_cases/product/get_product_cates_usecase.dart';
-import 'package:flutter/rendering.dart';
 import 'package:injectable/injectable.dart';
 
 part 'product_cate_input_event.dart';
@@ -39,7 +38,7 @@ class ProductCateInputBloc extends BaseBloc with AddressBlocMixin {
         parentId: event.parentId,
         level: event.level,
       )),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (List<ProductCategoryDto> result) {
         _productCatesMap[event.level] = [...result];
         return GetProductCatesSelectSucess.factory(level: event.level, data: result, selectedId: event.selectedId);
@@ -82,7 +81,7 @@ class ProductCateInputBloc extends BaseBloc with AddressBlocMixin {
     while (cateId != null) {
       ProductCategoryDto? productCate = await handleUsecaseResult(
         usecaseResult: _getProductCateById.call(cateId),
-        emit: emit,
+        emit: emit.call,
       );
       if (productCate != null) {
         add(OnGetProductCates(level: productCate.level, selectedId: productCate.id));

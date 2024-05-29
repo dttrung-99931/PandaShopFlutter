@@ -8,9 +8,9 @@ class ImageSlider extends StatelessWidget {
   final List<BaseImageDto> images;
 
   const ImageSlider({
-    Key? key,
+    super.key,
     required this.images,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +25,10 @@ class ImageSlider extends StatelessWidget {
 
 class AppImage extends StatelessWidget {
   const AppImage({
-    Key? key,
+    super.key,
     required this.image,
     this.fit = BoxFit.scaleDown,
-  }) : super(key: key);
+  });
   final BaseImageDto image;
   final BoxFit fit;
 

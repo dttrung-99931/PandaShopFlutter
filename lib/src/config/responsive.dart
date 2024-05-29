@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_framework/responsive_wrapper.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 Widget responsiveBuilder(context, child) {
-  return ResponsiveWrapper.builder(
-    child,
-    maxWidth: 2732,
-    minWidth: 480,
-    defaultScale: true,
+  return ResponsiveBreakpoints.builder(
+    child: child,
     breakpoints: const [
-      ResponsiveBreakpoint.resize(480, name: MOBILE),
-      ResponsiveBreakpoint.autoScale(800, name: TABLET),
-      ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+      Breakpoint(start: 0, end: 480, name: MOBILE),
+      Breakpoint(start: 451, end: 800, name: TABLET),
+      Breakpoint(start: 801, end: 1000, name: DESKTOP),
     ],
   );
 }

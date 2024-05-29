@@ -1,5 +1,4 @@
 import 'package:evievm_app/core/base_bloc/bloc_communication.dart';
-import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/user/user_bloc.dart';
 import 'package:evievm_app/src/features/notification/data/models/request/get_notifications_model.dart';

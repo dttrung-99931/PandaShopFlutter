@@ -1,5 +1,4 @@
 import 'package:evievm_app/core/base_bloc/base_event.dart';
-import 'package:evievm_app/core/utils/dimensions.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
@@ -91,7 +90,7 @@ class _SliverSearchBar extends StatelessWidget {
           const PShopBackButton(),
           sw(2.w),
           Expanded(
-            child: SearchBar(
+            child: AppSearchBar(
               controller: getIt<SearchProductsBloc>().edtController,
               autoFocus: true,
               onTextChanged: (text) {

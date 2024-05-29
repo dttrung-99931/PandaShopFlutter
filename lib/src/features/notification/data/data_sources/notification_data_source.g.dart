@@ -20,12 +20,12 @@ class _NotificationDatasource implements NotificationDatasource {
 
   @override
   Future<PaginatedListResponse<NotificationModel>> getNotifications(
-      params) async {
-    const _extra = <String, dynamic>{};
+      GetNotificationsModel params) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.addAll(params.toJson());
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<PaginatedListResponse<NotificationModel>>(Options(
       method: 'GET',
@@ -38,7 +38,11 @@ class _NotificationDatasource implements NotificationDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = PaginatedListResponse<NotificationModel>.fromJson(
       _result.data!,
       (json) => NotificationModel.fromJson(json as Map<String, dynamic>),
@@ -48,12 +52,12 @@ class _NotificationDatasource implements NotificationDatasource {
 
   @override
   Future<BaseResponse<NotificationOverviewModel>> getNotificationOverview(
-      params) async {
-    const _extra = <String, dynamic>{};
+      GetNotificationsModel params) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.addAll(params.toJson());
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<NotificationOverviewModel>>(Options(
       method: 'GET',
@@ -66,7 +70,11 @@ class _NotificationDatasource implements NotificationDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<NotificationOverviewModel>.fromJson(
       _result.data!,
       (json) =>
@@ -76,8 +84,9 @@ class _NotificationDatasource implements NotificationDatasource {
   }
 
   @override
-  Future<BaseResponse<dynamic>> createNotificationReceiver(param) async {
-    const _extra = <String, dynamic>{};
+  Future<BaseResponse<dynamic>> createNotificationReceiver(
+      NotificationReceiverRequestModel param) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -94,7 +103,11 @@ class _NotificationDatasource implements NotificationDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<dynamic>.fromJson(
       _result.data!,
       (json) => json as dynamic,
@@ -113,5 +126,22 @@ class _NotificationDatasource implements NotificationDatasource {
       }
     }
     return requestOptions;
+  }
+
+  String _combineBaseUrls(
+    String dioBaseUrl,
+    String? baseUrl,
+  ) {
+    if (baseUrl == null || baseUrl.trim().isEmpty) {
+      return dioBaseUrl;
+    }
+
+    final url = Uri.parse(baseUrl);
+
+    if (url.isAbsolute) {
+      return url.toString();
+    }
+
+    return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }

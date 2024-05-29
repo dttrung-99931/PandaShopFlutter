@@ -14,13 +14,10 @@ import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.
 import 'package:evievm_app/src/features/auth/presentation/bloc/sign_up/sign_up_bloc.dart';
 import 'package:evievm_app/src/features/auth/presentation/screens/login_screen.dart';
 import 'package:evievm_app/src/features/auth/presentation/widgets/info_input.dart';
-import 'package:evievm_app/src/features/common/presentation/screens/main_screen.dart';
 import 'package:evievm_app/src/shared/widgets/app_alert_dialog.dart';
-import 'package:evievm_app/src/shared/widgets/color_container.dart';
 import 'package:evievm_app/src/shared/widgets/common/triangle_clip_path.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_listener.dart';
 import 'package:evievm_app/src/shared/widgets/cutstom_button.dart';
-import 'package:evievm_app/src/shared/widgets/text_input.dart';
 import 'package:evievm_app/src/shared/widgets/utils/validation_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -30,7 +27,7 @@ import '../../../../shared/widgets/custom_bloc_consumer.dart';
 class SignUpScreen extends StatefulWidget {
   static const router = '/signup';
 
-  const SignUpScreen({Key? key}) : super(key: key);
+  const SignUpScreen({super.key});
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();

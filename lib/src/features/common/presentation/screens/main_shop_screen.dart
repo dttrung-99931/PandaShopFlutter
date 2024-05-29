@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/global.dart';
-import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:evievm_app/src/features/auth/presentation/screens/account_screen.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/user/user_bloc.dart';
 import 'package:evievm_app/src/features/common/presentation/widgets/shop/main_shop_nav_bar.dart';
@@ -17,7 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/utils/app_colors.dart';
 
 class MainShopScreen extends StatefulWidget {
-  const MainShopScreen({Key? key}) : super(key: key);
+  const MainShopScreen({super.key});
 
   @override
   State<MainShopScreen> createState() => _MainShopScreenState();

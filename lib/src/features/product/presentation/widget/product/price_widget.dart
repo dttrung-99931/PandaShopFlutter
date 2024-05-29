@@ -8,11 +8,11 @@ import '../../../../../config/theme/app_theme.dart';
 class PriceWidget extends StatelessWidget {
   const PriceWidget(
     this.price, {
-    Key? key,
+    super.key,
     this.isOriginalPrice = false,
     this.unit = Global.currencySymbol,
     this.isLarge = false,
-  }) : super(key: key);
+  });
 
   final bool isOriginalPrice;
   final double price;

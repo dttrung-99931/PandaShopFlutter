@@ -9,7 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppChip extends StatelessWidget {
   AppChip({
-    Key? key,
+    super.key,
     this.isSelected = true,
     required this.label,
     this.isSelectable = true,
@@ -25,8 +25,7 @@ class AppChip extends StatelessWidget {
   })  : selectedColor = selectedColor ?? AppColors.primary.shade400,
         horizontalPadding = horizontalPadding ?? 12.h,
         verticalPadding = verticalPadding ?? 8.h,
-        fontSize = fontSize ?? textTheme.bodyMedium!.fontSize!,
-        super(key: key);
+        fontSize = fontSize ?? textTheme.bodyMedium!.fontSize!;
   final bool isSelected;
   final bool isSelectable;
   final String label;

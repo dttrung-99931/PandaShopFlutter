@@ -8,17 +8,17 @@ part of 'product_detail_model.dart';
 
 ProductDetailModel _$ProductDetailModelFromJson(Map<String, dynamic> json) =>
     ProductDetailModel(
-      json['id'] as int,
+      (json['id'] as num).toInt(),
       json['name'] as String,
       json['description'] as String,
       (json['images'] as List<dynamic>)
           .map((e) => ImageModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       (json['starNum'] as num).toDouble(),
-      json['sellingNum'] as int,
-      json['categoryId'] as int,
-      json['shopId'] as int,
-      json['addressId'] as int,
+      (json['sellingNum'] as num).toInt(),
+      (json['categoryId'] as num).toInt(),
+      (json['shopId'] as num).toInt(),
+      (json['addressId'] as num).toInt(),
       (json['propertyValues'] as List<dynamic>)
           .map((e) => PropertyValueModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -28,26 +28,26 @@ ProductDetailModel _$ProductDetailModelFromJson(Map<String, dynamic> json) =>
     );
 
 ImageModel _$ImageModelFromJson(Map<String, dynamic> json) => ImageModel(
-      json['id'] as int,
+      (json['id'] as num).toInt(),
       json['link'] as String,
       json['description'] as String?,
     );
 
 PropertyValueModel _$PropertyValueModelFromJson(Map<String, dynamic> json) =>
     PropertyValueModel(
-      json['id'] as int,
+      (json['id'] as num).toInt(),
       json['name'] as String,
       json['value'] as String,
-      json['propertyId'] as int,
+      (json['propertyId'] as num).toInt(),
     );
 
 ProductOptionModel _$ProductOptionModelFromJson(Map<String, dynamic> json) =>
     ProductOptionModel(
-      json['id'] as int,
+      (json['id'] as num).toInt(),
       json['name'] as String?,
       (json['propertyValues'] as List<dynamic>)
           .map((e) => PropertyValueModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       (json['price'] as num).toDouble(),
-      json['remainingNum'] as int,
+      (json['remainingNum'] as num).toInt(),
     );

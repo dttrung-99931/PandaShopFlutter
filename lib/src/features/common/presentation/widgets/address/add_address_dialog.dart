@@ -17,15 +17,13 @@ import 'package:evievm_app/src/shared/widgets/custom_bloc_listener.dart';
 import 'package:evievm_app/src/shared/widgets/cutstom_button.dart';
 import 'package:evievm_app/src/shared/widgets/evm_dialog.dart';
 import 'package:panda_map/core/models/map_place.dart';
-import 'package:panda_map/widgets/search_bar/map_seach_button.dart';
-import 'package:panda_map/widgets/search_bar/map_search.dart';
 import 'package:panda_map/widgets/search_bar/map_search_dialog.dart';
 
 class AddAddrDialog extends StatefulWidget {
   const AddAddrDialog({
-    Key? key,
+    super.key,
     this.onAddSuccessed,
-  }) : super(key: key);
+  });
   final Function(AddressDto added)? onAddSuccessed;
 
   @override

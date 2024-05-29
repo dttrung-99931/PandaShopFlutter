@@ -8,11 +8,11 @@ part of 'user_detail_model.dart';
 
 UserDetailModel _$UserDetailModelFromJson(Map<String, dynamic> json) =>
     UserDetailModel(
-      json['id'] as int,
+      (json['id'] as num).toInt(),
       json['name'] as String,
       json['phone'] as String,
       json['email'] as String,
-      json['cartId'] as int,
+      (json['cartId'] as num).toInt(),
       json['shop'] == null
           ? null
           : ShopResponseModel.fromJson(json['shop'] as Map<String, dynamic>),

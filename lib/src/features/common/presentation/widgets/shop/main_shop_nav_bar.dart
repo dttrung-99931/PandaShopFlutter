@@ -15,9 +15,9 @@ import '../../../../../shared/widgets/card_icon.dart';
 
 class MainShopBottomNavBar extends StatelessWidget {
   const MainShopBottomNavBar({
-    Key? key,
+    super.key,
     required this.selectedIndexNotifier,
-  }) : super(key: key);
+  });
   final ValueNotifier<int> selectedIndexNotifier;
   int get _selectIndex => selectedIndexNotifier.value;
   set _selectIndex(value) => selectedIndexNotifier.value = value;

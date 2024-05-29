@@ -13,7 +13,6 @@ import 'package:evievm_app/src/features/home/presentation/bloc/home_bloc.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/product/product_slidergrid_bloc_builder.dart';
 import 'package:evievm_app/src/shared/widgets/app_alert_dialog.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
-import 'package:evievm_app/src/shared/widgets/section.dart';
 import 'package:evievm_app/src/shared/widgets/sliver/sliver_session.dart';
 import 'package:evievm_app/src/shared/widgets/spacing_row.dart';
 import 'package:flutter/material.dart';
@@ -178,11 +177,10 @@ class _Item extends StatelessWidget {
   final Function() onPressed;
   final Widget icon;
   const _Item({
-    Key? key,
     required this.title,
     required this.onPressed,
     required this.icon,
-  }) : super(key: key);
+  });
   @override
   Widget build(BuildContext context) {
     return Material(

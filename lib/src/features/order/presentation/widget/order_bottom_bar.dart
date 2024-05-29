@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // Buy button * subtotal prices
 class OrderBottomBar extends StatelessWidget {
-  const OrderBottomBar({Key? key}) : super(key: key);
+  const OrderBottomBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +15,8 @@ class OrderBottomBar extends StatelessWidget {
       margin: EdgeInsets.zero,
       child: SizedBox(
         height: 56.h,
-        child: Row(
-          children: const [
+        child: const Row(
+          children: [
             _BackButton(),
             Expanded(
               child: OrderButton(),

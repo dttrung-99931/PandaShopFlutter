@@ -8,7 +8,6 @@ import 'package:evievm_app/core/base_bloc/bloc_communication.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/core/utils/log.dart';
 import 'package:evievm_app/core/utils/validate.dart';
-import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
 import 'package:evievm_app/src/features/order/data/models/request/create_orders_request_model.dart';
@@ -105,7 +104,7 @@ class OrderBloc extends BaseBloc {
           ),
         ),
       )),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (dynamic _) {
         return CreatOrderSuccess();
       },

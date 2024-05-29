@@ -8,10 +8,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductDetailBottomBar extends StatelessWidget {
   const ProductDetailBottomBar({
-    Key? key,
+    super.key,
     required this.args,
     required this.scrollController,
-  }) : super(key: key);
+  });
   final ProductDetailScreenArgs args;
   final ScrollController scrollController;
 

@@ -20,10 +20,10 @@ class _AddressDatasource implements AddressDatasource {
 
   @override
   Future<BaseResponse<List<AddressModel>>> get() async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<List<AddressModel>>>(Options(
       method: 'GET',
@@ -36,20 +36,26 @@ class _AddressDatasource implements AddressDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<List<AddressModel>>.fromJson(
       _result.data!,
-      (json) => (json as List<dynamic>)
-          .map<AddressModel>(
-              (i) => AddressModel.fromJson(i as Map<String, dynamic>))
-          .toList(),
+      (json) => json is List<dynamic>
+          ? json
+              .map<AddressModel>(
+                  (i) => AddressModel.fromJson(i as Map<String, dynamic>))
+              .toList()
+          : List.empty(),
     );
     return value;
   }
 
   @override
-  Future<BaseResponse<AddressModel>> save(param) async {
-    const _extra = <String, dynamic>{};
+  Future<BaseResponse<AddressModel>> save(SaveAddressRequestModel param) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -66,7 +72,11 @@ class _AddressDatasource implements AddressDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<AddressModel>.fromJson(
       _result.data!,
       (json) => AddressModel.fromJson(json as Map<String, dynamic>),
@@ -76,10 +86,10 @@ class _AddressDatasource implements AddressDatasource {
 
   @override
   Future<BaseResponse<List<AddressFieldModel>>> getProvincesAndCities() async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<List<AddressFieldModel>>>(Options(
       method: 'GET',
@@ -92,24 +102,30 @@ class _AddressDatasource implements AddressDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<List<AddressFieldModel>>.fromJson(
       _result.data!,
-      (json) => (json as List<dynamic>)
-          .map<AddressFieldModel>(
-              (i) => AddressFieldModel.fromJson(i as Map<String, dynamic>))
-          .toList(),
+      (json) => json is List<dynamic>
+          ? json
+              .map<AddressFieldModel>(
+                  (i) => AddressFieldModel.fromJson(i as Map<String, dynamic>))
+              .toList()
+          : List.empty(),
     );
     return value;
   }
 
   @override
   Future<BaseResponse<List<AddressFieldModel>>> getCommunesAndWards(
-      districtCode) async {
-    const _extra = <String, dynamic>{};
+      String districtCode) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<List<AddressFieldModel>>>(Options(
       method: 'GET',
@@ -122,24 +138,30 @@ class _AddressDatasource implements AddressDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<List<AddressFieldModel>>.fromJson(
       _result.data!,
-      (json) => (json as List<dynamic>)
-          .map<AddressFieldModel>(
-              (i) => AddressFieldModel.fromJson(i as Map<String, dynamic>))
-          .toList(),
+      (json) => json is List<dynamic>
+          ? json
+              .map<AddressFieldModel>(
+                  (i) => AddressFieldModel.fromJson(i as Map<String, dynamic>))
+              .toList()
+          : List.empty(),
     );
     return value;
   }
 
   @override
   Future<BaseResponse<List<AddressFieldModel>>> getDistricts(
-      districtCode) async {
-    const _extra = <String, dynamic>{};
+      String districtCode) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<List<AddressFieldModel>>>(Options(
       method: 'GET',
@@ -152,13 +174,19 @@ class _AddressDatasource implements AddressDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<List<AddressFieldModel>>.fromJson(
       _result.data!,
-      (json) => (json as List<dynamic>)
-          .map<AddressFieldModel>(
-              (i) => AddressFieldModel.fromJson(i as Map<String, dynamic>))
-          .toList(),
+      (json) => json is List<dynamic>
+          ? json
+              .map<AddressFieldModel>(
+                  (i) => AddressFieldModel.fromJson(i as Map<String, dynamic>))
+              .toList()
+          : List.empty(),
     );
     return value;
   }
@@ -174,5 +202,22 @@ class _AddressDatasource implements AddressDatasource {
       }
     }
     return requestOptions;
+  }
+
+  String _combineBaseUrls(
+    String dioBaseUrl,
+    String? baseUrl,
+  ) {
+    if (baseUrl == null || baseUrl.trim().isEmpty) {
+      return dioBaseUrl;
+    }
+
+    final url = Uri.parse(baseUrl);
+
+    if (url.isAbsolute) {
+      return url.toString();
+    }
+
+    return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }

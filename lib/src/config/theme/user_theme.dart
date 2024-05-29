@@ -9,6 +9,9 @@ ThemeData buildUserTheme() {
     appBarTheme: const AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: AppColors.transparent),
       backgroundColor: AppColors.primary,
+      iconTheme: IconThemeData(
+        color: AppColors.white,
+      ),
     ),
     textTheme: buildTextTheme(),
   );

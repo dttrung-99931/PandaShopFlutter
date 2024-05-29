@@ -20,11 +20,11 @@ class _WarehouseRemoteDatasource implements WarehouseRemoteDatasource {
 
   @override
   Future<BaseResponse<ProductInventoryModel>> getProductInventory(
-      {required productId}) async {
-    const _extra = <String, dynamic>{};
+      {required int productId}) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<ProductInventoryModel>>(Options(
       method: 'GET',
@@ -37,7 +37,11 @@ class _WarehouseRemoteDatasource implements WarehouseRemoteDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<ProductInventoryModel>.fromJson(
       _result.data!,
       (json) => ProductInventoryModel.fromJson(json as Map<String, dynamic>),
@@ -47,10 +51,10 @@ class _WarehouseRemoteDatasource implements WarehouseRemoteDatasource {
 
   @override
   Future<BaseResponse<List<WarehouseModel>>> getWarehouses() async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<List<WarehouseModel>>>(Options(
       method: 'GET',
@@ -63,20 +67,27 @@ class _WarehouseRemoteDatasource implements WarehouseRemoteDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<List<WarehouseModel>>.fromJson(
       _result.data!,
-      (json) => (json as List<dynamic>)
-          .map<WarehouseModel>(
-              (i) => WarehouseModel.fromJson(i as Map<String, dynamic>))
-          .toList(),
+      (json) => json is List<dynamic>
+          ? json
+              .map<WarehouseModel>(
+                  (i) => WarehouseModel.fromJson(i as Map<String, dynamic>))
+              .toList()
+          : List.empty(),
     );
     return value;
   }
 
   @override
-  Future<BaseResponse<WarehouseModel>> createWarehouse(param) async {
-    const _extra = <String, dynamic>{};
+  Future<BaseResponse<WarehouseModel>> createWarehouse(
+      WarehouseRequestModel param) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -93,7 +104,11 @@ class _WarehouseRemoteDatasource implements WarehouseRemoteDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<WarehouseModel>.fromJson(
       _result.data!,
       (json) => WarehouseModel.fromJson(json as Map<String, dynamic>),
@@ -102,8 +117,9 @@ class _WarehouseRemoteDatasource implements WarehouseRemoteDatasource {
   }
 
   @override
-  Future<BaseResponse<WarehouseInputModel>> createWarehouseInput(param) async {
-    const _extra = <String, dynamic>{};
+  Future<BaseResponse<WarehouseInputModel>> createWarehouseInput(
+      WarehouseInputRequestModel param) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -120,7 +136,11 @@ class _WarehouseRemoteDatasource implements WarehouseRemoteDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<WarehouseInputModel>.fromJson(
       _result.data!,
       (json) => WarehouseInputModel.fromJson(json as Map<String, dynamic>),
@@ -129,8 +149,9 @@ class _WarehouseRemoteDatasource implements WarehouseRemoteDatasource {
   }
 
   @override
-  Future<BaseResponse<dynamic>> createProductBatches(productBatches) async {
-    const _extra = <String, dynamic>{};
+  Future<BaseResponse<dynamic>> createProductBatches(
+      String productBatches) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = productBatches;
@@ -146,7 +167,11 @@ class _WarehouseRemoteDatasource implements WarehouseRemoteDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<dynamic>.fromJson(
       _result.data!,
       (json) => json as dynamic,
@@ -165,5 +190,22 @@ class _WarehouseRemoteDatasource implements WarehouseRemoteDatasource {
       }
     }
     return requestOptions;
+  }
+
+  String _combineBaseUrls(
+    String dioBaseUrl,
+    String? baseUrl,
+  ) {
+    if (baseUrl == null || baseUrl.trim().isEmpty) {
+      return dioBaseUrl;
+    }
+
+    final url = Uri.parse(baseUrl);
+
+    if (url.isAbsolute) {
+      return url.toString();
+    }
+
+    return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }

@@ -25,7 +25,6 @@ import 'package:evievm_app/src/features/shop/domain/use_cases/product_inventory/
 import 'package:evievm_app/src/features/shop/domain/use_cases/product_inventory/create_warehouse_input_usecase.dart';
 import 'package:evievm_app/src/features/shop/domain/use_cases/product_inventory/get_warehouses_usecase.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_inventory/product_inventory_input/product_inventory_input_communicaton.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -81,7 +80,7 @@ class ProductInventoryInputBloc extends BaseBloc {
     }
     await handleUsecaseResult(
       usecaseResult: _getProducts.call(GetProductsRequestModel.shopProducts()),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (List<ProductDto> result) {
         return GetProdsToSelectSucess(
           _cacheShopProducts = result,
@@ -133,7 +132,7 @@ class ProductInventoryInputBloc extends BaseBloc {
         warehouseId: _selectedWarehouse!.id!,
         date: now,
       )),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (WarehouseInputDto result) {
         return CreateWarehouseInputSuccess(result);
       },
@@ -147,7 +146,7 @@ class ProductInventoryInputBloc extends BaseBloc {
       );
       await handleUsecaseResult(
         usecaseResult: _createProductBatches.call(batchInputRequests),
-        emit: emit,
+        emit: emit.call,
         onSuccess: (dynamic result) {
           return CreateProductInventorySuccess();
         },
@@ -163,7 +162,7 @@ class ProductInventoryInputBloc extends BaseBloc {
   FutureOr<void> _onGetWarehousesToSelect(OnGetWarehousesToSelect event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
       usecaseResult: _getWarehouses.call(noParam),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (List<WarehouseDto> result) {
         return GetWarehousesSuccess(
           result,

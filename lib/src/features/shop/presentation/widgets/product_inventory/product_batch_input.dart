@@ -3,18 +3,16 @@ import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/src/features/auth/presentation/widgets/info_input.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_detail_dto.dart';
 import 'package:evievm_app/src/features/shop/domain/dtos/warehouse/product_batch_input_dto.dart';
-import 'package:evievm_app/src/features/shop/domain/dtos/warehouse/warehouse_dto.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_inventory/product_inventory_input/product_batch_input/product_batch_input_bloc.dart';
-import 'package:evievm_app/src/features/shop/presentation/bloc/product_inventory/product_inventory_input/product_inventory_input_bloc.dart';
 import 'package:evievm_app/src/shared/widgets/common/custom_dropdown_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductBatchInput extends StatelessWidget {
   const ProductBatchInput({
-    Key? key,
+    super.key,
     required this.productBatch,
-  }) : super(key: key);
+  });
   final ProductBatchInputDto productBatch;
   @override
   Widget build(BuildContext context) {
@@ -39,9 +37,8 @@ class ProductBatchInput extends StatelessWidget {
 
 class _ProductOptionSelect extends StatefulWidget {
   const _ProductOptionSelect({
-    Key? key,
     required this.productBatch,
-  }) : super(key: key);
+  });
   final ProductBatchInputDto productBatch;
 
   @override

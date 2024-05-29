@@ -21,7 +21,6 @@
 !.vscode/settings.json
 !.vscode/tasks.json
 
-
 # Flutter/Dart/Pub related
 **/doc/api/
 **/ios/Flutter/.last_build_id
@@ -45,7 +44,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-
 
 /windows/
 
@@ -76,3 +74,6 @@ app.*.map.json
 .dart_tool/version
 .dart_tool/package_config_subset
 .dart_tool/package_config.json
+
+# FVM Version Cache
+.fvm/

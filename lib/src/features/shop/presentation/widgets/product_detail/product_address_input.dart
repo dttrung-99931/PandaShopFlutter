@@ -1,7 +1,6 @@
 import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
 import 'package:evievm_app/src/features/common/presentation/widgets/address/address_input.dart';
-import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product/shop_product_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product_detail/shop_product_detail_bloc.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:flutter/material.dart';

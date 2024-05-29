@@ -8,7 +8,7 @@ part of 'order_response_model.dart';
 
 OrderResponseModel _$OrderResponseModelFromJson(Map<String, dynamic> json) =>
     OrderResponseModel(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       note: json['note'] as String?,
       user:
           UserShortResponseModel.fromJson(json['user'] as Map<String, dynamic>),
@@ -38,13 +38,13 @@ const _$OrderStatusEnumMap = {
 OrderDetailResponseModel _$OrderDetailResponseModelFromJson(
         Map<String, dynamic> json) =>
     OrderDetailResponseModel(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
       discountPercent: (json['discountPercent'] as num).toDouble(),
       price: (json['price'] as num).toDouble(),
-      productNum: json['productNum'] as int,
+      productNum: (json['productNum'] as num).toInt(),
       productOption: ProductOptionModel.fromJson(
           json['productOption'] as Map<String, dynamic>),
       product:

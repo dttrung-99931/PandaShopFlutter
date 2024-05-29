@@ -9,9 +9,9 @@ part of 'base64_image_request_model.dart';
 Base64ImageRequestModel _$Base64ImageRequestModelFromJson(
         Map<String, dynamic> json) =>
     Base64ImageRequestModel(
-      id: json['id'] as int?,
+      id: (json['id'] as num?)?.toInt(),
       based64Img: json['based64Img'] as String,
-      orderIndex: json['orderIndex'] as int,
+      orderIndex: (json['orderIndex'] as num).toInt(),
       description: json['description'] as String,
     );
 

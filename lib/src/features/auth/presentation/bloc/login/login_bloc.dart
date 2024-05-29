@@ -67,7 +67,7 @@ class LoginBloc extends BaseBloc {
           rememberEmail: event.rememberEmail,
         ),
       ),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (LoginResponseDto result) {
         Global.mainPageIndexNotifier = ValueNotifier(0);
         return LoginSuccess();
@@ -86,7 +86,7 @@ class LoginBloc extends BaseBloc {
   Future<void> _onLogout(OnLogout event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
       usecaseResult: _logoutUseCase.call(noParam),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (result) {
         add(OnCheckLogin());
         return LogoutSuccess();
@@ -97,7 +97,7 @@ class LoginBloc extends BaseBloc {
   Future<void> _onGetRememberLoginEmail(OnGetRememberLoginEmail event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
       usecaseResult: _getRememberLoginEmailUserCase.call(noParam),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (String? rememberEmail) {
         return GetRememberLoginEmailSuccess(rememberEmail);
       },
@@ -115,7 +115,7 @@ class LoginBloc extends BaseBloc {
           userType: 'lab',
         ),
       ),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (LoginResponseDto result) {
         return LoginSuccess();
       },

@@ -1,8 +1,6 @@
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/constants.dart';
-import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
-import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/shopping_cart/domain/dto/shopping_cart_dto.dart';
 import 'package:evievm_app/src/features/shopping_cart/domain/dto/shopping_cart_dto_ext.dart';
@@ -17,7 +15,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // Buy button * subtotal prices
 class CartBottomBar extends StatelessWidget {
-  const CartBottomBar({Key? key}) : super(key: key);
+  const CartBottomBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +28,8 @@ class CartBottomBar extends StatelessWidget {
           margin: EdgeInsets.zero,
           child: SizedBox(
             height: 56.h,
-            child: Row(
-              children: const [
+            child: const Row(
+              children: [
                 ViewMoreButton(),
                 Expanded(
                   child: OrderButton(),

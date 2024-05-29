@@ -8,7 +8,7 @@ part of 'warehouse_model.dart';
 
 WarehouseModel _$WarehouseModelFromJson(Map<String, dynamic> json) =>
     WarehouseModel(
-      id: json['id'] as int?,
+      id: (json['id'] as num?)?.toInt(),
       address: AddressModel.fromJson(json['address'] as Map<String, dynamic>),
       name: json['name'] as String,
     );

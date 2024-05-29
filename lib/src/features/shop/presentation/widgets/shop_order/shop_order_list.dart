@@ -33,9 +33,9 @@ class ShopOrderListBuilder extends StatelessWidget {
 
 class ShopOrderSliverList extends StatelessWidget {
   const ShopOrderSliverList({
-    Key? key,
+    super.key,
     required this.orders,
-  }) : super(key: key);
+  });
   final List<OrderDto> orders;
   @override
   Widget build(BuildContext context) {

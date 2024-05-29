@@ -1,5 +1,4 @@
 import 'package:evievm_app/core/utils/app_colors.dart';
-import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +18,7 @@ class CustomDropdownButton<T> extends StatefulWidget {
   final List<T> disableItems;
 
   const CustomDropdownButton({
-    Key? key,
+    super.key,
     this.enabled = true,
     required this.dataItems,
     required this.itemBuilder,
@@ -31,7 +30,7 @@ class CustomDropdownButton<T> extends StatefulWidget {
     this.backgroundColor,
     this.selectedItem,
     this.disableItems = const [],
-  }) : super(key: key);
+  });
 
   @override
   State<CustomDropdownButton<T>> createState() => _CustomDropdownButtonState<T>();

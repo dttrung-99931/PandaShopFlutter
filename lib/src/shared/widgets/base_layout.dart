@@ -4,8 +4,8 @@ class BaseLayout extends StatefulWidget {
   const BaseLayout({
     this.child,
     this.bottomNavigationBar,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final Widget? child;
   final BottomNavigationBar? bottomNavigationBar;
   @override

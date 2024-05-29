@@ -9,8 +9,8 @@ part of 'upsert_cart_request_model.dart';
 UpsertCartRequestModel _$UpsertCartRequestModelFromJson(
         Map<String, dynamic> json) =>
     UpsertCartRequestModel(
-      productOptionId: json['productOptionId'] as int,
-      productNum: json['productNum'] as int,
+      productOptionId: (json['productOptionId'] as num).toInt(),
+      productNum: (json['productNum'] as num).toInt(),
     );
 
 Map<String, dynamic> _$UpsertCartRequestModelToJson(

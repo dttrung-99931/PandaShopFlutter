@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 import '../../../../../core/utils/app_colors.dart';
 
@@ -10,8 +9,8 @@ class HomeMenu extends StatelessWidget {
 
   // ]
   const HomeMenu({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final int menuItemsCount = 18;
   final int rows = 2;
 

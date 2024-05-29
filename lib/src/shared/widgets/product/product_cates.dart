@@ -12,9 +12,9 @@ import '../../../../../core/utils/app_colors.dart';
 
 class ProductCates extends StatelessWidget {
   const ProductCates({
-    Key? key,
+    super.key,
     required this.cates,
-  }) : super(key: key);
+  });
   int get menuItemsCount => cates.length;
   final int perRow = 5;
   int get rows {

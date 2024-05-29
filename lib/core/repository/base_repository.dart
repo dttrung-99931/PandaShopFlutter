@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:evievm_app/core/model/paginated_list.dart';
 import 'package:evievm_app/core/utils/log.dart';
 import 'package:evievm_app/core/utils/utils.dart';

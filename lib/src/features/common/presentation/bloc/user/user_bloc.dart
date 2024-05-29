@@ -8,10 +8,7 @@ import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/use_case/use_case.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
-import 'package:evievm_app/src/features/common/data/models/request/save_address_model.dart';
-import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
 import 'package:evievm_app/src/features/common/domain/dtos/user_detail_dto.dart';
-import 'package:evievm_app/src/features/common/domain/use_cases/save_my_address_usecase.dart';
 import 'package:evievm_app/src/features/common/domain/use_cases/user/get_user_detail_usecase.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/address/address_bloc_mixin.dart';
 import 'package:injectable/injectable.dart';
@@ -31,7 +28,7 @@ class UserBloc extends BaseBloc with AddressBlocMixin {
   FutureOr<void> _onGetUserDetail(OnGetUserDetail event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
       usecaseResult: _getUserDetail.call(noParam),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (UserDetailDto result) {
         Global.setUserDetail(result);
         return GetUserDetailSuccess(result);

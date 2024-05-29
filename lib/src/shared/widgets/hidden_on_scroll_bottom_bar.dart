@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HiddenOnSrollWidget extends StatefulWidget {
   final ScrollController scrollController;
@@ -11,10 +10,10 @@ class HiddenOnSrollWidget extends StatefulWidget {
   const HiddenOnSrollWidget({
     required this.scrollController,
     required this.child,
-    Key? key,
+    super.key,
     this.height,
     this.animateDurationInMinlis = 500,
-  }) : super(key: key);
+  });
 
   @override
   State<HiddenOnSrollWidget> createState() => _HiddenOnSrollWidgetState();

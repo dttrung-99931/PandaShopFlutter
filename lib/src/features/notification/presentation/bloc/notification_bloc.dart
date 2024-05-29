@@ -2,7 +2,6 @@
 import 'dart:async';
 
 import 'package:bloc/src/bloc.dart';
-import 'package:evievm_app/src/features/notification/data/models/response/push_notification/push_notification_payload.dart';
 import 'package:evievm_app/src/features/notification/domain/dtos/notification_overview_dto.dart';
 import 'package:injectable/injectable.dart';
 
@@ -36,7 +35,7 @@ class NotificationBloc extends BaseBloc {
   FutureOr<void> _onGetNotifications(OnGetNotifications event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
       usecaseResult: _getNotis.call(event.requestModel),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (PaginatedList<NotificationDto> result) {
         return GetNotificationsSuccesss(result);
       },
@@ -46,7 +45,7 @@ class NotificationBloc extends BaseBloc {
   FutureOr<void> _onGetNotificationOverview(OnGetNotificationOverview event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
       usecaseResult: _getNotiOverview.call(event.requestModel),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (NotificationOverviewDto result) {
         return GetNotificationOverviewSuccesss(result);
       },

@@ -8,10 +8,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ProductGridView extends StatelessWidget {
   const ProductGridView(
     this.products, {
-    Key? key,
+    super.key,
     this.physics = const AlwaysScrollableScrollPhysics(),
     this.padding = EdgeInsets.zero,
-  }) : super(key: key);
+  });
   final List<ProductDto> products;
   final ScrollPhysics physics;
   final EdgeInsets padding;

@@ -9,7 +9,6 @@ import 'package:evievm_app/src/features/product/presentation/bloc/product_detail
 import 'package:evievm_app/src/features/product/presentation/widget/product/price_widget.dart';
 import 'package:evievm_app/src/features/shop/domain/dtos/warehouse/product_inventory_dto.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_inventory/product_inventory_bloc.dart';
-import 'package:evievm_app/src/features/shop/presentation/bloc/product_inventory/product_inventory_input/product_inventory_input_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop/shop_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/widgets/product_inventory/product_inventory_addition_dialog.dart';
 import 'package:evievm_app/src/shared/widgets/common/app_floating_action_btn.dart';
@@ -31,8 +30,8 @@ class ProductInventoryScreen extends StatefulWidget {
   static const router = '/productInventory';
   const ProductInventoryScreen(
     this.args, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   final ProductInventoryArgs args;
 
   @override

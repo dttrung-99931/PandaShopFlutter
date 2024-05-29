@@ -11,13 +11,13 @@ ShoppingCartModel _$ShoppingCartModelFromJson(Map<String, dynamic> json) =>
       items: (json['items'] as List<dynamic>)
           .map((e) => CartItemModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
     );
 
 CartItemModel _$CartItemModelFromJson(Map<String, dynamic> json) =>
     CartItemModel(
-      id: json['id'] as int,
-      productNum: json['productNum'] as int,
+      id: (json['id'] as num).toInt(),
+      productNum: (json['productNum'] as num).toInt(),
       productOption: ProductOptionModel.fromJson(
           json['productOption'] as Map<String, dynamic>),
       shortProduct: ShortProductModel.fromJson(

@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:evievm_app/src/features/common/presentation/screens/main_screen.dart';
-import 'package:evievm_app/src/features/home/presentation/screens/home_screen.dart';
 import 'package:evievm_app/src/shared/widgets/question_mark.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:flutter/material.dart';
@@ -22,14 +21,14 @@ class EVMAppBar extends StatelessWidget {
   final void Function()? onBackToHome;
 
   const EVMAppBar({
-    Key? key,
+    super.key,
     required this.title,
     this.guide = '',
     this.redNote = '',
     this.trailings,
     this.onBack,
     this.onBackToHome,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

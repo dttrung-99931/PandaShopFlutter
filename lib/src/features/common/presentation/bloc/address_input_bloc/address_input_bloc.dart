@@ -42,7 +42,7 @@ class AddressInputBloc extends BaseBloc with AddressBlocMixin {
         streetAndHouseNum: selectedCommureOrWard.code,
         name: addrNameController.text,
       )),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (AddressDto result) {
         return SaveMyAddressSuccesss(result);
       },
@@ -52,9 +52,10 @@ class AddressInputBloc extends BaseBloc with AddressBlocMixin {
   FutureOr<void> _onGetHouseNumberFromMapPlace(OnGetHouseNumberFromMapPlace event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
       usecaseResult: _getPlaceDetail.call(event.place.placeId),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (MapPlaceDetail result) {
         houseNumRoadNameController.text = 'house number';
+        return null;
       },
     );
   }

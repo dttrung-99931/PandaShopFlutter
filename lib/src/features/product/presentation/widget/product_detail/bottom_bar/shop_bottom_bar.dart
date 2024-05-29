@@ -15,8 +15,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ShopProductDetailBottomBar extends StatelessWidget {
   const ShopProductDetailBottomBar({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
   @override
   Widget build(BuildContext context) {
     return Padding(

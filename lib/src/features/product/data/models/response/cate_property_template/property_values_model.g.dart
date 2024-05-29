@@ -10,8 +10,8 @@ PropertyValuesModel _$PropertyValuesModelFromJson(Map<String, dynamic> json) =>
     PropertyValuesModel(
       propertyName: json['propertyName'] as String,
       isRequired: json['isRequired'] as bool,
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       exampleValues:
           (json['values'] as List<dynamic>).map((e) => e as String).toList(),
-      propertyId: json['propertyId'] as int,
+      propertyId: (json['propertyId'] as num).toInt(),
     );

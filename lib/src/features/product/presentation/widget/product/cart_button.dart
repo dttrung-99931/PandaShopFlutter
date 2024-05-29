@@ -29,9 +29,10 @@ class CartButton extends StatelessWidget {
           icon: Container(
             decoration: BoxDecoration(
               color: AppColors.white.withOpacity(.8),
-              borderRadius: BorderRadius.circular(size ?? 32.r),
+              // borderRadius: BorderRadius.circular(size ?? 32.r),
+              shape: BoxShape.circle,
             ),
-            padding: EdgeInsets.all(4.r),
+            padding: EdgeInsets.all(6.r),
             alignment: Alignment.center,
             child: Transform.translate(
               offset: Offset(1.w, 1.h),

@@ -19,11 +19,11 @@ class _ShoppingCartDatasource implements ShoppingCartDatasource {
   String? baseUrl;
 
   @override
-  Future<BaseResponse<ShoppingCartModel>> getById(shoppingCartId) async {
-    const _extra = <String, dynamic>{};
+  Future<BaseResponse<ShoppingCartModel>> getById(int shoppingCartId) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<ShoppingCartModel>>(Options(
       method: 'GET',
@@ -36,7 +36,11 @@ class _ShoppingCartDatasource implements ShoppingCartDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<ShoppingCartModel>.fromJson(
       _result.data!,
       (json) => ShoppingCartModel.fromJson(json as Map<String, dynamic>),
@@ -46,10 +50,10 @@ class _ShoppingCartDatasource implements ShoppingCartDatasource {
 
   @override
   Future<BaseResponse<ShoppingCartModel>> get() async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<ShoppingCartModel>>(Options(
       method: 'GET',
@@ -62,7 +66,11 @@ class _ShoppingCartDatasource implements ShoppingCartDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<ShoppingCartModel>.fromJson(
       _result.data!,
       (json) => ShoppingCartModel.fromJson(json as Map<String, dynamic>),
@@ -71,8 +79,8 @@ class _ShoppingCartDatasource implements ShoppingCartDatasource {
   }
 
   @override
-  Future<BaseResponse<dynamic>> upsert(param) async {
-    const _extra = <String, dynamic>{};
+  Future<BaseResponse<dynamic>> upsert(UpsertCartRequestModel param) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -89,7 +97,11 @@ class _ShoppingCartDatasource implements ShoppingCartDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<dynamic>.fromJson(
       _result.data!,
       (json) => json as dynamic,
@@ -98,8 +110,8 @@ class _ShoppingCartDatasource implements ShoppingCartDatasource {
   }
 
   @override
-  Future<BaseResponse<dynamic>> deleteItems(param) async {
-    const _extra = <String, dynamic>{};
+  Future<BaseResponse<dynamic>> deleteItems(Map<String, dynamic> param) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -116,7 +128,11 @@ class _ShoppingCartDatasource implements ShoppingCartDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<dynamic>.fromJson(
       _result.data!,
       (json) => json as dynamic,
@@ -135,5 +151,22 @@ class _ShoppingCartDatasource implements ShoppingCartDatasource {
       }
     }
     return requestOptions;
+  }
+
+  String _combineBaseUrls(
+    String dioBaseUrl,
+    String? baseUrl,
+  ) {
+    if (baseUrl == null || baseUrl.trim().isEmpty) {
+      return dioBaseUrl;
+    }
+
+    final url = Uri.parse(baseUrl);
+
+    if (url.isAbsolute) {
+      return url.toString();
+    }
+
+    return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }

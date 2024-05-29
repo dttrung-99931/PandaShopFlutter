@@ -9,6 +9,6 @@ part of 'notification_overview_model.dart';
 NotificationOverviewModel _$NotificationOverviewModelFromJson(
         Map<String, dynamic> json) =>
     NotificationOverviewModel(
-      json['newNotiNum'] as int,
-      json['total'] as int,
+      (json['newNotiNum'] as num).toInt(),
+      (json['total'] as num).toInt(),
     );

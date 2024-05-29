@@ -10,7 +10,7 @@ import '../../../../home/presentation/bloc/home_bloc.dart';
 class ProductSliverGridBlocBuilder<TBLoc extends BaseBloc> extends StatelessWidget {
   final BaseEvent? inititalEvent;
 
-  const ProductSliverGridBlocBuilder({Key? key, this.inititalEvent}) : super(key: key);
+  const ProductSliverGridBlocBuilder({super.key, this.inititalEvent});
 
   @override
   Widget build(BuildContext context) {

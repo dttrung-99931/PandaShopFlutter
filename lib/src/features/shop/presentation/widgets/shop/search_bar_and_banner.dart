@@ -1,15 +1,15 @@
 import 'package:evievm_app/src/features/home/presentation/bloc/home_bloc.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/search_products_screen.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
+import 'package:evievm_app/src/shared/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../core/utils/app_colors.dart';
-import '../../../../../shared/widgets/search_bar.dart';
 
 class ShopSearchBarAndBanner extends StatefulWidget {
   const ShopSearchBarAndBanner({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ShopSearchBarAndBanner> createState() => _ShopSearchBarAndBannerState();
@@ -44,7 +44,7 @@ class _ShopSearchBarAndBannerState extends State<ShopSearchBarAndBanner> {
       expandedHeight: 180,
       pinned: true,
       backgroundColor: AppColors.blue2,
-      title: SearchBar(
+      title: AppSearchBar(
         autoFocus: true,
         navigateToScreenOnPressed: SearchProductsScreen.router,
         hint: 'Tìm sản phầm trong shop của bạn',

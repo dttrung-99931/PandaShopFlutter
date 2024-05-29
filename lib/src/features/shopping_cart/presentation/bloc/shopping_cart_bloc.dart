@@ -48,7 +48,7 @@ class ShoppingCartBloc extends BaseBloc {
     }
     await handleUsecaseResult(
       usecaseResult: _getShoppingCartUseCase.call(noParam),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (ShoppingCartDto result) {
         _cart = result;
         return GetShoppingCartSuccess(result);
@@ -59,7 +59,7 @@ class ShoppingCartBloc extends BaseBloc {
   FutureOr<void> _onUpsertCart(OnUpsertCart event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
       usecaseResult: _upsertCartUseCase.call(event.requestModel),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (dynamic _) {
         CartItemDto? existing = _cart!.items
             .firstWhereOrNull((element) => element.prouductOption.id == event.requestModel.productOptionId)
@@ -95,7 +95,7 @@ class ShoppingCartBloc extends BaseBloc {
   FutureOr<void> _onDeleteCartItems(OnDeleteCartItems event, Emitter<BaseState> emit) async {
     await handleUsecaseResult(
       usecaseResult: _deleteItems.call(event.items.mapList((element) => element.id)),
-      emit: emit,
+      emit: emit.call,
       onSuccess: (dynamic _) {
         return DeleteCartItemsSuccess();
       },

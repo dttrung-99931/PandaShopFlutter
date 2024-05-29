@@ -19,8 +19,9 @@ class _OrderDatasource implements OrderDatasource {
   String? baseUrl;
 
   @override
-  Future<BaseResponse<dynamic>> createOrder(param) async {
-    const _extra = <String, dynamic>{};
+  Future<BaseResponse<dynamic>> createOrder(
+      CreateOrdersRequestModel param) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -37,7 +38,11 @@ class _OrderDatasource implements OrderDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<dynamic>.fromJson(
       _result.data!,
       (json) => json as dynamic,
@@ -46,12 +51,13 @@ class _OrderDatasource implements OrderDatasource {
   }
 
   @override
-  Future<BaseResponse<List<OrderResponseModel>>> getOrders(param) async {
-    const _extra = <String, dynamic>{};
+  Future<BaseResponse<List<OrderResponseModel>>> getOrders(
+      GetOrdersRequestModel param) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.addAll(param.toJson());
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<List<OrderResponseModel>>>(Options(
       method: 'GET',
@@ -64,23 +70,29 @@ class _OrderDatasource implements OrderDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<List<OrderResponseModel>>.fromJson(
       _result.data!,
-      (json) => (json as List<dynamic>)
-          .map<OrderResponseModel>(
-              (i) => OrderResponseModel.fromJson(i as Map<String, dynamic>))
-          .toList(),
+      (json) => json is List<dynamic>
+          ? json
+              .map<OrderResponseModel>(
+                  (i) => OrderResponseModel.fromJson(i as Map<String, dynamic>))
+              .toList()
+          : List.empty(),
     );
     return value;
   }
 
   @override
-  Future<BaseResponse<dynamic>> startProcessingOrder(orderId) async {
-    const _extra = <String, dynamic>{};
+  Future<BaseResponse<dynamic>> startProcessingOrder(int orderId) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<dynamic>>(Options(
       method: 'PUT',
@@ -93,7 +105,11 @@ class _OrderDatasource implements OrderDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<dynamic>.fromJson(
       _result.data!,
       (json) => json as dynamic,
@@ -102,11 +118,11 @@ class _OrderDatasource implements OrderDatasource {
   }
 
   @override
-  Future<BaseResponse<dynamic>> completeProcessingOrder(orderId) async {
-    const _extra = <String, dynamic>{};
+  Future<BaseResponse<dynamic>> completeProcessingOrder(int orderId) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<dynamic>>(Options(
       method: 'PUT',
@@ -119,7 +135,11 @@ class _OrderDatasource implements OrderDatasource {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = BaseResponse<dynamic>.fromJson(
       _result.data!,
       (json) => json as dynamic,
@@ -138,5 +158,22 @@ class _OrderDatasource implements OrderDatasource {
       }
     }
     return requestOptions;
+  }
+
+  String _combineBaseUrls(
+    String dioBaseUrl,
+    String? baseUrl,
+  ) {
+    if (baseUrl == null || baseUrl.trim().isEmpty) {
+      return dioBaseUrl;
+    }
+
+    final url = Uri.parse(baseUrl);
+
+    if (url.isAbsolute) {
+      return url.toString();
+    }
+
+    return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }

@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:evievm_app/core/failures/failures.dart';

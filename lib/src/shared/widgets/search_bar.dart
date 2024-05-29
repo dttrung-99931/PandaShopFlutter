@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../config/theme/app_theme.dart';
 
-class SearchBar extends StatelessWidget {
+class AppSearchBar extends StatelessWidget {
   final String? navigateToScreenOnPressed;
   final bool autoFocus;
   final TextEditingController controller;
@@ -13,16 +13,15 @@ class SearchBar extends StatelessWidget {
   final void Function(String? text)? onTextChanged;
   final String hint;
 
-  SearchBar({
-    Key? key,
+  AppSearchBar({
+    super.key,
     TextEditingController? controller,
     this.navigateToScreenOnPressed,
     this.autoFocus = false,
     this.onSearch,
     this.onTextChanged,
     this.hint = 'Tên sản phẩm, tên shop...',
-  })  : controller = controller ?? TextEditingController(),
-        super(key: key);
+  }) : controller = controller ?? TextEditingController();
 
   @override
   Widget build(BuildContext context) {
