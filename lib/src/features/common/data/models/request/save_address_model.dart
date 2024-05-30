@@ -12,6 +12,8 @@ class SaveAddressRequestModel {
   final String communeOrWard;
   final String streetAndHouseNum;
   final String? name;
+  final double lat;
+  final double long;
 
   SaveAddressRequestModel({
     required this.provinceOrCity,
@@ -21,6 +23,8 @@ class SaveAddressRequestModel {
     required this.communeOrWard,
     required this.streetAndHouseNum,
     required this.name,
+    required this.lat,
+    required this.long,
   });
 
   factory SaveAddressRequestModel.fromJson(Map<String, dynamic> json) => _$SaveAddressRequestModelFromJson(json);

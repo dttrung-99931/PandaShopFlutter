@@ -8,7 +8,7 @@ class OnGetHouseNumberFromMapPlace extends BaseEvent {
   OnGetHouseNumberFromMapPlace({
     required this.place,
   });
-  
+
   @override
   List<Object?> get props => [place];
 }
