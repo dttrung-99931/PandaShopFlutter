@@ -1,19 +1,18 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 
-import 'package:bloc/src/bloc.dart';
-import 'package:injectable/injectable.dart';
-import 'package:panda_map/core/models/map_place.dart';
-
 import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
+import 'package:evievm_app/core/failures/failures.dart';
 import 'package:evievm_app/src/features/common/data/models/request/save_address_model.dart';
 import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
 import 'package:evievm_app/src/features/common/domain/use_cases/get_map_place_detail_usecase.dart';
 import 'package:evievm_app/src/features/common/domain/use_cases/save_my_address_usecase.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/address/address_bloc_mixin.dart';
-import 'package:panda_map/core/models/map_place_detail.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
+import 'package:panda_map/core/models/map_place.dart';
 
 part 'address_input_event.dart';
 part 'address_input_state.dart';
@@ -30,8 +29,15 @@ class AddressInputBloc extends BaseBloc with AddressBlocMixin {
   final SaveMyAddressUseCase _saveAddress;
   // Get placeDetail.addressCompoenents => get houseNumber
   final GetMapPlaceDetailUseCase _getPlaceDetail;
+  MapPlace? _selectedPlace; // hold houseNumber, lat, long that users search on map
 
   FutureOr<void> _onSaveMyAddress(OnSaveMyAddress event, Emitter<BaseState> emit) async {
+    if (_selectedPlace == null) {
+      emit(ErrorState(Failure(
+        'Vui lòng nhập số nhà cụ thể (Bạn có thể chọn địa điểm lân cận nếu địa điểm mon muốn không tìm tháy)',
+      )));
+      return;
+    }
     await handleUsecaseResult(
       usecaseResult: _saveAddress.call(SaveAddressRequestModel(
         provinceOrCity: selectedProvOrCity.name,
@@ -39,8 +45,10 @@ class AddressInputBloc extends BaseBloc with AddressBlocMixin {
         district: selectedDistrict.name,
         districtCode: selectedDistrict.code,
         communeOrWard: selectedCommureOrWard.name,
-        streetAndHouseNum: selectedCommureOrWard.code,
+        streetAndHouseNum: houseNumRoadNameController.text,
         name: addrNameController.text,
+        lat: _selectedPlace!.location.lat,
+        long: _selectedPlace!.location.long,
       )),
       emit: emit.call,
       onSuccess: (AddressDto result) {
@@ -50,13 +58,12 @@ class AddressInputBloc extends BaseBloc with AddressBlocMixin {
   }
 
   FutureOr<void> _onGetHouseNumberFromMapPlace(OnGetHouseNumberFromMapPlace event, Emitter<BaseState> emit) async {
-    await handleUsecaseResult(
-      usecaseResult: _getPlaceDetail.call(event.place.placeId),
-      emit: emit.call,
-      onSuccess: (MapPlaceDetail result) {
-        houseNumRoadNameController.text = 'house number';
-        return null;
-      },
-    );
+    if (event.place.addressComponent != null) {
+      houseNumRoadNameController.text = event.place.addressComponent!.streetAndHouseNum;
+    } else {
+      // TODO: address components may be not load together for other MapType.
+      // So we need to get address compenents to extract house number
+    }
+    _selectedPlace = event.place;
   }
 }

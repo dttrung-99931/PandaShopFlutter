@@ -16,6 +16,8 @@ SaveAddressRequestModel _$SaveAddressRequestModelFromJson(
       communeOrWard: json['communeOrWard'] as String,
       streetAndHouseNum: json['streetAndHouseNum'] as String,
       name: json['name'] as String?,
+      lat: (json['lat'] as num).toDouble(),
+      long: (json['long'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$SaveAddressRequestModelToJson(
@@ -28,4 +30,6 @@ Map<String, dynamic> _$SaveAddressRequestModelToJson(
       'communeOrWard': instance.communeOrWard,
       'streetAndHouseNum': instance.streetAndHouseNum,
       'name': instance.name,
+      'lat': instance.lat,
+      'long': instance.long,
     };
