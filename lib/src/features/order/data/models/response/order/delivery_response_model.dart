@@ -11,14 +11,14 @@ class DeliveryResponseModel {
   final DateTime? finishedAt;
   final DeliveryStatus status;
   final DeliveryMethodModel deliveryMethod;
-  final AddressModel address;
+  final AddressModel customerAddress;
 
   DeliveryResponseModel({
     this.startedAt,
     this.finishedAt,
     required this.status,
     required this.deliveryMethod,
-    required this.address,
+    required this.customerAddress,
   });
 
   factory DeliveryResponseModel.fromJson(Map<String, dynamic> json) => _$DeliveryResponseModelFromJson(json);

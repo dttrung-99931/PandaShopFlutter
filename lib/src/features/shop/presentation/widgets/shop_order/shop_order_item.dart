@@ -50,7 +50,7 @@ class ShopOrderItem extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Section(
-                        // title: order.deliveries.deliveryMethod.name,
+                        // title: order.deliveries.,
                         title: 'User delivery method',
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                         child: Column(
