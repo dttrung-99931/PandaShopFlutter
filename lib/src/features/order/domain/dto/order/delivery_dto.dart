@@ -26,7 +26,7 @@ class DeliveryDto {
       finishedAt: model.finishedAt,
       status: model.status,
       deliveryMethod: DeliveryMethodDto.fromModel(model.deliveryMethod),
-      address: AddressDto.fromModel(model.address),
+      address: AddressDto.fromModel(model.customerAddress),
     );
   }
 }
