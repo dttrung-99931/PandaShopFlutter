@@ -16,7 +16,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Future<void> appMain() async {
-  WidgetsFlutterBinding.ensureInitialized();
   await AppConfig.config.validateFlavorMatchingBundleId();
   await EasyLocalization.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
