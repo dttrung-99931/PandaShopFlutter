@@ -11,7 +11,7 @@ class OrderDto {
   // final PaymentMethodModel paymentMethod;
   final UserShortDto user;
   final OrderStatus status;
-  final DeliveryDto delivery;
+  final List<DeliveryDto> deliveries;
   final List<OrderDetailDto> orderDetails;
 
   OrderDto({
@@ -19,14 +19,14 @@ class OrderDto {
     required this.note,
     required this.user,
     required this.status,
-    required this.delivery,
+    required this.deliveries,
     required this.orderDetails,
   });
 
   factory OrderDto.fromModel(OrderResponseModel model) {
     return OrderDto(
       id: model.id,
-      delivery: DeliveryDto.fromModel(model.delivery),
+      deliveries: model.deliveries.mapList((element) => DeliveryDto.fromModel(element)),
       note: model.note,
       orderDetails: model.orderDetails.mapList((element) => OrderDetailDto.fromModel(element)),
       status: model.status,

@@ -15,7 +15,7 @@ class OrderResponseModel {
   // final PaymentMethodModel paymentMethod;
   final UserShortResponseModel user;
   final OrderStatus status;
-  final DeliveryResponseModel delivery;
+  final List<DeliveryResponseModel> deliveries;
   final List<OrderDetailResponseModel> orderDetails;
 
   OrderResponseModel({
@@ -23,7 +23,7 @@ class OrderResponseModel {
     this.note,
     required this.user,
     required this.status,
-    required this.delivery,
+    required this.deliveries,
     required this.orderDetails,
   });
 

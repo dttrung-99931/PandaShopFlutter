@@ -13,8 +13,9 @@ OrderResponseModel _$OrderResponseModelFromJson(Map<String, dynamic> json) =>
       user:
           UserShortResponseModel.fromJson(json['user'] as Map<String, dynamic>),
       status: $enumDecode(_$OrderStatusEnumMap, json['status']),
-      delivery: DeliveryResponseModel.fromJson(
-          json['delivery'] as Map<String, dynamic>),
+      deliveries: (json['deliveries'] as List<dynamic>)
+          .map((e) => DeliveryResponseModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
       orderDetails: (json['orderDetails'] as List<dynamic>)
           .map((e) =>
               OrderDetailResponseModel.fromJson(e as Map<String, dynamic>))
