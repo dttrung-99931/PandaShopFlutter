@@ -5,17 +5,14 @@ import 'package:injectable/injectable.dart';
 import 'package:panda_map/core/dtos/map_place_detail_dto.dart';
 import 'package:panda_map/core/models/map_place_detail.dart';
 import 'package:panda_map/core/services/map_api_service.dart';
-import 'package:panda_map/core/services/map_api_service_factory.dart';
 import 'package:panda_map/panda_map.dart';
 
 @lazySingleton
 // EitherUseCase<MapPlaceDetail, String> : < map palce Id
 class GetMapPlaceDetailUseCase extends EitherUseCase<MapPlaceDetail, String> {
-  late final MapAPIService _mapService = MapAPIServiceFactory.getMapAPI(PandaMap.options.mapType);
+  late final MapAPIService _mapService = PandaMap.service;
 
-  GetMapPlaceDetailUseCase() {
-    MapAPIServiceFactory.getMapAPI(PandaMap.options.mapType);
-  }
+  GetMapPlaceDetailUseCase();
 
   @override
   Future<Either<Failure, MapPlaceDetail>> call(String placeId) async {
