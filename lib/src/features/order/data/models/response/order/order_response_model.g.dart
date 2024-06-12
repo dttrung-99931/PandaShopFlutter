@@ -20,6 +20,8 @@ OrderResponseModel _$OrderResponseModelFromJson(Map<String, dynamic> json) =>
           .map((e) =>
               OrderDetailResponseModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      deliveryAddress: AddressModel.fromJson(
+          json['deliveryAddress'] as Map<String, dynamic>),
     );
 
 const _$OrderStatusEnumMap = {

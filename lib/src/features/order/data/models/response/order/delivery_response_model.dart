@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:evievm_app/src/features/common/data/models/response/address_model.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:evievm_app/src/features/product/data/models/response/product/delivery_method_model.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'delivery_response_model.g.dart';
 
@@ -11,14 +10,12 @@ class DeliveryResponseModel {
   final DateTime? finishedAt;
   final DeliveryStatus status;
   final DeliveryMethodModel deliveryMethod;
-  final AddressModel customerAddress;
 
   DeliveryResponseModel({
     this.startedAt,
     this.finishedAt,
     required this.status,
     required this.deliveryMethod,
-    required this.customerAddress,
   });
 
   factory DeliveryResponseModel.fromJson(Map<String, dynamic> json) => _$DeliveryResponseModelFromJson(json);

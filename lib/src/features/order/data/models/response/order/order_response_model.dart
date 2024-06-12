@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evievm_app/src/features/common/data/models/response/address_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'package:evievm_app/src/features/order/data/models/response/order/delivery_response_model.dart';
@@ -17,6 +18,8 @@ class OrderResponseModel {
   final OrderStatus status;
   final List<DeliveryResponseModel> deliveries;
   final List<OrderDetailResponseModel> orderDetails;
+  // TODO: change to DeliveryResponseModel customerDelivery {address, deliveryMethod}
+  final AddressModel deliveryAddress;
 
   OrderResponseModel({
     required this.id,
@@ -25,6 +28,7 @@ class OrderResponseModel {
     required this.status,
     required this.deliveries,
     required this.orderDetails,
+    required this.deliveryAddress,
   });
 
   factory OrderResponseModel.fromJson(Map<String, dynamic> json) => _$OrderResponseModelFromJson(json);

@@ -11,7 +11,6 @@ DeliveryResponseModel _$DeliveryResponseModelFromJson(Map<String, dynamic> json)
       finishedAt: json['finishedAt'] == null ? null : DateTime.parse(json['finishedAt'] as String),
       status: $enumDecode(_$DeliveryStatusEnumMap, json['status']),
       deliveryMethod: DeliveryMethodModel.fromJson(json['deliveryMethod'] as Map<String, dynamic>),
-      customerAddress: AddressModel.fromJson(json['customerAddress'] as Map<String, dynamic>),
     );
 
 const _$DeliveryStatusEnumMap = {
