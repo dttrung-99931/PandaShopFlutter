@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
+import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
 import 'package:evievm_app/src/features/order/data/models/response/order/order_response_model.dart';
 import 'package:evievm_app/src/features/order/domain/dto/order/delivery_dto.dart';
 import 'package:evievm_app/src/features/order/domain/dto/order/order_detail_dto.dart';
@@ -13,6 +14,7 @@ class OrderDto {
   final OrderStatus status;
   final List<DeliveryDto> deliveries;
   final List<OrderDetailDto> orderDetails;
+  final AddressDto deliveryAddress;
 
   OrderDto({
     required this.id,
@@ -21,6 +23,7 @@ class OrderDto {
     required this.status,
     required this.deliveries,
     required this.orderDetails,
+    required this.deliveryAddress,
   });
 
   factory OrderDto.fromModel(OrderResponseModel model) {
@@ -31,6 +34,7 @@ class OrderDto {
       orderDetails: model.orderDetails.mapList((element) => OrderDetailDto.fromModel(element)),
       status: model.status,
       user: UserShortDto.fromModel(model.user),
+      deliveryAddress: AddressDto.fromModel(model.deliveryAddress),
     );
   }
 }
