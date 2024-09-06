@@ -10,7 +10,7 @@ import 'package:panda_map/panda_map.dart';
 @lazySingleton
 // EitherUseCase<MapPlaceDetail, String> : < map palce Id
 class GetMapPlaceDetailUseCase extends EitherUseCase<MapPlaceDetail, String> {
-  late final MapAPIService _mapService = PandaMap.service;
+  late final MapAPIService _mapService = PandaMap.mapApiService;
 
   GetMapPlaceDetailUseCase();
 
