@@ -11,7 +11,7 @@ void configProduction() {
   WidgetsFlutterBinding.ensureInitialized();
   // TODO: config PandaMap
   AppConfig.set(
-    appName: 'EVM',
+    appName: 'Panda Shop',
     flavorName: AppFlavor.PRODUCTION,
     apiUrl: '',
     resourceIcon: '',
