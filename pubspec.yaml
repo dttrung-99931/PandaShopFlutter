@@ -61,6 +61,7 @@ dependencies:
   expandable_page_view: ^1.0.17 # Page view wrap height content    
   carousel_slider: ^4.2.1
   dotted_border: ^2.1.0
+  flutter_image_compress: ^2.3.0
 
 dev_dependencies:
   flutter_test:
