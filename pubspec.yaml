@@ -39,8 +39,8 @@ dependencies:
   firebase_core: ^2.24.2
 
   # Map
-  # panda_map:
-  #   #
+  panda_map:
+    #
     # git: https://github.com/dttrung-99931/PandaMap.git
   here_panda_map:
     #

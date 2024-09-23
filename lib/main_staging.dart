@@ -16,5 +16,7 @@ void configStaging() {
     logRequest: false,
     logBloc: false,
     sinalRUrl: '',
+    hereMapAPIKey: '',
+    hereMapAPIKeyId: '',
   );
 }

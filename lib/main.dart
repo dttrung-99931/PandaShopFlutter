@@ -19,5 +19,7 @@ void configProduction() {
     logRequest: false,
     logBloc: false,
     sinalRUrl: '',
+    hereMapAPIKey: '',
+    hereMapAPIKeyId: '',
   );
 }

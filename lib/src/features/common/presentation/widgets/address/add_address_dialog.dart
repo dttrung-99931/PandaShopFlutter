@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evievm_app/src/features/common/presentation/bloc/map_address/map_address_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -42,6 +43,7 @@ class _AddAddrDialogState extends State<AddAddrDialog> {
   @override
   void dispose() {
     getIt.resetLazySingleton<AddressInputBloc>();
+    mapAddressBloc.add(OnDisposeMapSDK());
     super.dispose();
   }
 
@@ -85,24 +87,32 @@ class _AddAddrDialogState extends State<AddAddrDialog> {
                     addressInputBloc.addressBloc.add(OnCommuneOrWardSelected(communeOrWard: selected));
                   },
                 ),
-                InfoInput(
-                  title: 'Số nhà, đường',
-                  controller: addressInputBloc.houseNumRoadNameController,
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (_) => MapSearchDialog(
-                        onSelected: (MapPlace place) {
-                          addressInputBloc.add(OnGetHouseNumberFromMapPlace(place: place));
-                          // Set houese num, lat, lng
-                          Global.pop();
-                        },
-                        searchTextTransformer: (text) {
-                          return '${addressInputBloc.addressComponents}, $text';
-                        },
-                      ),
-                    );
+                CustomBlocListener<MapAddressBloc>(
+                  handleGlobalLoading: true,
+                  listener: (state) async {
+                    if (state is MapSDKInitilized) {
+                      await showDialog(
+                        context: context,
+                        builder: (_) => MapSearchDialog(
+                          onSelected: (MapPlace place) {
+                            addressInputBloc.add(OnGetHouseNumberFromMapPlace(place: place));
+                            // Set houese num, lat, lng
+                            Global.pop();
+                          },
+                          searchTextTransformer: (text) {
+                            return '${addressInputBloc.addressComponents}, $text';
+                          },
+                        ),
+                      );
+                    }
                   },
+                  child: InfoInput(
+                    title: 'Số nhà, đường',
+                    controller: addressInputBloc.houseNumRoadNameController,
+                    onTap: () {
+                      mapAddressBloc.add(OnEnsureMapSdkInit());
+                    },
+                  ),
                 ),
                 InfoInput(
                   title: 'Lưu địa chỉ với tên',

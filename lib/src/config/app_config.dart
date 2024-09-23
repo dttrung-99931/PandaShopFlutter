@@ -26,6 +26,8 @@ class AppConfig {
     required bool logRequest,
     required bool logBloc,
     required String sinalRUrl,
+    required String hereMapAPIKey,
+    required String hereMapAPIKeyId,
     bool logCurl = false,
   }) {
     _config ??= AppConfig._();
@@ -38,6 +40,8 @@ class AppConfig {
     _config!.logBloc = logBloc;
     _config!.logCurl = logCurl;
     _config!.sinalRUrl = sinalRUrl;
+    _config!.hereMapAPIKey = hereMapAPIKey;
+    _config!.hereMapAPIKeyId = hereMapAPIKeyId;
 
     FlutterError.onError = (FlutterErrorDetails details) {
       if (_config!.isDevelopment) {
@@ -59,6 +63,8 @@ class AppConfig {
   late final bool logCurl;
   late final bool logBloc;
   late final String sinalRUrl;
+  late final String hereMapAPIKey;
+  late final String hereMapAPIKeyId;
 
   bool get isDevelopment => flavorName == AppFlavor.DEV || flavorName == AppFlavor.STAGING_DEV;
 
