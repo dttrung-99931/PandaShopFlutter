@@ -6,11 +6,18 @@ part of 'delivery_response_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-DeliveryResponseModel _$DeliveryResponseModelFromJson(Map<String, dynamic> json) => DeliveryResponseModel(
-      startedAt: json['startedAt'] == null ? null : DateTime.parse(json['startedAt'] as String),
-      finishedAt: json['finishedAt'] == null ? null : DateTime.parse(json['finishedAt'] as String),
+DeliveryResponseModel _$DeliveryResponseModelFromJson(
+        Map<String, dynamic> json) =>
+    DeliveryResponseModel(
+      startedAt: json['startedAt'] == null
+          ? null
+          : DateTime.parse(json['startedAt'] as String),
+      finishedAt: json['finishedAt'] == null
+          ? null
+          : DateTime.parse(json['finishedAt'] as String),
       status: $enumDecode(_$DeliveryStatusEnumMap, json['status']),
-      deliveryMethod: DeliveryMethodModel.fromJson(json['deliveryMethod'] as Map<String, dynamic>),
+      deliveryMethod: DeliveryMethodModel.fromJson(
+          json['deliveryMethod'] as Map<String, dynamic>),
     );
 
 const _$DeliveryStatusEnumMap = {
@@ -26,8 +33,11 @@ const _$DeliveryStatusEnumMap = {
   DeliveryStatus.productBroken: 32,
 };
 
-ShortDeliveryResponseModel _$ShortDeliveryResponseModelFromJson(Map<String, dynamic> json) =>
+ShortDeliveryResponseModel _$ShortDeliveryResponseModelFromJson(
+        Map<String, dynamic> json) =>
     ShortDeliveryResponseModel(
-      finishedAt: json['finishedAt'] == null ? null : DateTime.parse(json['finishedAt'] as String),
+      finishedAt: json['finishedAt'] == null
+          ? null
+          : DateTime.parse(json['finishedAt'] as String),
       status: $enumDecode(_$DeliveryStatusEnumMap, json['status']),
     );
