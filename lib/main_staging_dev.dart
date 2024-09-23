@@ -8,7 +8,7 @@ void main() async {
 
 void configStagingDev() {
   AppConfig.set(
-    appName: 'EVM Staging',
+    appName: 'Panda Shop Staging',
     flavorName: AppFlavor.STAGING_DEV,
     apiUrl: '',
     resourceIcon: '',

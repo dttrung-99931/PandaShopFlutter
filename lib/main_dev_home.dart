@@ -21,7 +21,7 @@ Future<void> configDevHome() async {
     ),
   );
   AppConfig.set(
-    appName: 'EVM Home',
+    appName: 'Panda Shop Dev',
     flavorName: AppFlavor.DEV,
     apiUrl: 'https://localhost:5001',
     resourceIcon: 'https://evi-gonosen.s3.ap-northeast-1.amazonaws.com',
