@@ -24,7 +24,7 @@ class ImageInputBloc extends BaseBloc {
     on<OnChangeImage>(_onChangeImage);
     on<OnDeleteImage>(_onDeleteImage);
   }
-  final PickLocalImageAsBase64UseCase _pickImageAsBase64Usecase;
+  final PickLocalImageCompressedBase64UseCase _pickImageAsBase64Usecase;
   List<ImageInputDto> _images = [];
 
   FutureOr<void> _onInitImagesInput(OnInitImagesInput event, Emitter<BaseState> emit) {
