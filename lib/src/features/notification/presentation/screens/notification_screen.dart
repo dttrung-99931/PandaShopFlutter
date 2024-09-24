@@ -1,21 +1,20 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/utils/app_colors.dart';
-import 'package:evievm_app/core/utils/format_utils.dart';
-import 'package:evievm_app/core/utils/utils.dart';
-import 'package:evievm_app/src/features/notification/data/models/response/notification_model.dart';
-import 'package:evievm_app/src/shared/widgets/common/empty_data.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
+import 'package:evievm_app/core/utils/format_utils.dart';
+import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/notification/data/models/request/get_notifications_model.dart';
+import 'package:evievm_app/src/features/notification/data/models/response/notification_model.dart';
 import 'package:evievm_app/src/features/notification/domain/dtos/notification_dto.dart';
 import 'package:evievm_app/src/features/notification/presentation/bloc/notification_bloc.dart';
+import 'package:evievm_app/src/shared/widgets/common/empty_data.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -53,21 +52,31 @@ class _NotificationScreenState extends State<NotificationScreen> {
             style: textTheme.titleSmall?.withColor(AppColors.white),
           ),
         ),
-        body: CustomBlocBuilder<NotificationBloc>(
-            buildForStates: const [GetNotificationsSuccesss],
-            builder: (state) {
-              if (state is! GetNotificationsSuccesss) {
-                return emptyWidget;
-              }
-              if (state.data.isEmpty) {
-                return const EmptyData(title: 'Bạn chưa có thông báo!');
-              }
-              return ListView(
-                children: state.data.data.mapList(
-                  (element) => NotificationItem(noti: element),
-                ),
-              );
-            }),
+        body: Stack(
+          children: [
+            CustomBlocBuilder<NotificationBloc>(
+              buildForStates: const [GetNotificationsSuccesss],
+              builder: (state) {
+                if (state is! GetNotificationsSuccesss) {
+                  return emptyWidget;
+                }
+                if (state.data.isEmpty) {
+                  return const EmptyData(title: 'Bạn chưa có thông báo!');
+                }
+                return ListView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  children: state.data.data.mapList(
+                    (element) => NotificationItem(noti: element),
+                  ),
+                );
+              },
+            ),
+            // Make RefreshIndicator working even no data / error
+            ListView(
+              physics: const AlwaysScrollableScrollPhysics(),
+            ),
+          ],
+        ),
       ),
     );
   }
