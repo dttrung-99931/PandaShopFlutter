@@ -3,8 +3,10 @@ import 'dart:async';
 
 import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
+import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
+import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
 import 'package:evievm_app/src/features/order/data/models/request/get_orders_request_model.dart';
 import 'package:evievm_app/src/features/order/data/models/response/order/order_response_model.dart';
 import 'package:evievm_app/src/features/order/domain/dto/order/order_dto.dart';
@@ -49,7 +51,7 @@ class ShopOrderBloc extends BaseBloc {
       )),
       emit: emit.call,
       onSuccess: (List<OrderDto> result) {
-        return GetShopOrdersSuccess(result);
+        return GetShopOrdersSuccess(result, orderStatus: _selectedStatus);
       },
     );
   }

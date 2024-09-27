@@ -19,7 +19,8 @@ class OrderResponseModel {
   final List<DeliveryResponseModel> deliveries;
   final List<OrderDetailResponseModel> orderDetails;
   // TODO: change to DeliveryResponseModel customerDelivery {address, deliveryMethod}
-  final AddressModel deliveryAddress;
+  @JsonKey(name: 'deliveryAddress')
+  final AddressModel customerAddress;
 
   OrderResponseModel({
     required this.id,
@@ -28,7 +29,7 @@ class OrderResponseModel {
     required this.status,
     required this.deliveries,
     required this.orderDetails,
-    required this.deliveryAddress,
+    required this.customerAddress,
   });
 
   factory OrderResponseModel.fromJson(Map<String, dynamic> json) => _$OrderResponseModelFromJson(json);

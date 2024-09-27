@@ -18,6 +18,10 @@ DeliveryResponseModel _$DeliveryResponseModelFromJson(
       status: $enumDecode(_$DeliveryStatusEnumMap, json['status']),
       deliveryMethod: DeliveryMethodModel.fromJson(
           json['deliveryMethod'] as Map<String, dynamic>),
+      deliveryLocations: (json['deliveryLocations'] as List<dynamic>)
+          .map((e) =>
+              DeliveryLocationResponseModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 const _$DeliveryStatusEnumMap = {
