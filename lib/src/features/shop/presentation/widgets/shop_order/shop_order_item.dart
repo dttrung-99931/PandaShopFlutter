@@ -56,7 +56,7 @@ class ShopOrderItem extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(order.deliveryAddress.address),
+                            Text(order.customerAddress.address),
                           ],
                         ),
                       ),

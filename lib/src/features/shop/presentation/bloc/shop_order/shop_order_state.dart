@@ -2,7 +2,19 @@
 part of 'shop_order_bloc.dart';
 
 class GetShopOrdersSuccess extends FullDataLoadedState<List<OrderDto>> {
-  GetShopOrdersSuccess(super.data);
+  final OrderStatus orderStatus;
+
+  Map<AddressDto, List<OrderDto>> get ordersGroupByDeliveryPartnerAddr {
+    return data.groupBy((order) => order.deliveryPartnerAddress);
+  }
+
+  GetShopOrdersSuccess(
+    super.data, {
+    required this.orderStatus,
+  });
+
+  @override
+  List<Object?> get props => [...super.props, orderStatus];
 }
 
 class LoadingShoppingCart extends LoadingState {}
