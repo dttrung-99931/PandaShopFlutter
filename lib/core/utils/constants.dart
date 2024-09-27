@@ -1,3 +1,4 @@
+import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:flutter/widgets.dart';
 
 class Constants {
@@ -9,6 +10,7 @@ class Constants {
   static const int noLimit = -1;
   static const int idEmpty = -1;
   static const String codeEmpty = 'empty';
+  static final Duration defaultAPICacheTime = 5.minutes;
 }
 
 const emptyWidget = SizedBox.shrink();
