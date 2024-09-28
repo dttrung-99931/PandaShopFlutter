@@ -6,24 +6,17 @@ part of 'notification_data_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-NotificationDataModel _$NotificationDataModelFromJson(
-        Map<String, dynamic> json) =>
-    NotificationDataModel(
-      json['order'] == null
-          ? null
-          : ShortOrderModel.fromJson(json['order'] as Map<String, dynamic>),
+NotificationDataModel _$NotificationDataModelFromJson(Map<String, dynamic> json) => NotificationDataModel(
+      json['order'] == null ? null : ShortOrderModel.fromJson(json['order'] as Map<String, dynamic>),
     );
 
-ShortOrderModel _$ShortOrderModelFromJson(Map<String, dynamic> json) =>
-    ShortOrderModel(
+ShortOrderModel _$ShortOrderModelFromJson(Map<String, dynamic> json) => ShortOrderModel(
       $enumDecode(_$OrderStatusEnumMap, json['status']),
       (json['deliveries'] as List<dynamic>)
-          .map((e) =>
-              ShortDeliveryResponseModel.fromJson(e as Map<String, dynamic>))
+          .map((e) => ShortDeliveryResponseModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       (json['orderDetails'] as List<dynamic>)
-          .map((e) =>
-              ShortOrderDetailResponseModel.fromJson(e as Map<String, dynamic>))
+          .map((e) => ShortOrderDetailResponseModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -33,6 +26,7 @@ const _$OrderStatusEnumMap = {
   OrderStatus.processing: 12,
   OrderStatus.cancelledByBuyer: 16,
   OrderStatus.cancelledByShop: 20,
+  OrderStatus.completeProcessing: 22,
   OrderStatus.waitingForDelivering: 24,
   OrderStatus.delivering: 28,
   OrderStatus.delivered: 32,

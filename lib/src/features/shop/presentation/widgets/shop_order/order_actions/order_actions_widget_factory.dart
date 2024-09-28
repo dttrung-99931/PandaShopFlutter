@@ -41,6 +41,8 @@ class OrderActionsWidgetFactory {
         return NoProcessingAction(order: order);
       case OrderStatus.lost:
         return NoProcessingAction(order: order);
+      case OrderStatus.completeProcessing:
+        return NoProcessingAction(order: order);
     }
   }
 }

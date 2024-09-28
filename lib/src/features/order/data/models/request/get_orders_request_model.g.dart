@@ -6,8 +6,7 @@ part of 'get_orders_request_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Map<String, dynamic> _$GetOrdersRequestModelToJson(
-    GetOrdersRequestModel instance) {
+Map<String, dynamic> _$GetOrdersRequestModelToJson(GetOrdersRequestModel instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -28,6 +27,7 @@ const _$OrderStatusEnumMap = {
   OrderStatus.processing: 12,
   OrderStatus.cancelledByBuyer: 16,
   OrderStatus.cancelledByShop: 20,
+  OrderStatus.completeProcessing: 22,
   OrderStatus.waitingForDelivering: 24,
   OrderStatus.delivering: 28,
   OrderStatus.delivered: 32,

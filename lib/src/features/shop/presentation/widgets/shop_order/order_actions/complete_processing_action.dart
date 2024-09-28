@@ -27,11 +27,11 @@ class CompleteProcessingAction extends OrderActionsWidget {
           return CustomButton(
             isLoading: state is LoadingState,
             backgroundColor: AppColors.primaryShop,
-            icon: Icon(Icons.inventory_2_outlined, size: 24.r),
+            icon: Icon(Icons.check, size: 24.r, color: AppColors.white),
             iconSpacing: 8.w,
             height: 36.h,
             elevation: 0,
-            title: 'Báo shipper',
+            title: 'Hoàn thành xử lý',
             padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 12.w),
             titleFontSize: 16.sp,
             onPressed: () {

@@ -36,41 +36,48 @@ class MainShopBottomNavBar extends StatelessWidget {
               ValueListenableBuilder(
                   valueListenable: selectedIndexNotifier,
                   builder: (_, __, ___) {
-                    return BottomNavigationBar(
-                      items: [
-                        BottomNavigationBarItem(
-                          backgroundColor: Colors.white,
-                          icon: CardIcon.zeroPadding(Icons.shop_outlined),
-                          label: "Cửa hàng",
-                        ),
-                        BottomNavigationBarItem(
-                          backgroundColor: Colors.white,
-                          icon: CardIcon.zeroPadding(Icons.menu_book_outlined),
-                          label: "Đơn hàng",
-                        ),
-                        const BottomNavigationBarItem(
-                          backgroundColor: Colors.white,
-                          icon: NotiIconWithBadge(),
-                          label: "Thông báo",
-                        ),
-                        BottomNavigationBarItem(
-                          backgroundColor: Colors.white,
-                          icon: CardIcon.zeroPadding(Icons.account_box_outlined),
-                          label: "Tài khoản",
-                        ),
-                      ],
-                      selectedItemColor: AppColors.primaryShop,
-                      unselectedItemColor: AppColors.black.withOpacity(0.8),
-                      showUnselectedLabels: true,
-                      type: BottomNavigationBarType.fixed,
-                      currentIndex: _selectIndex,
-                      onTap: (index) {
-                        _selectIndex = index;
-                      },
-                      iconSize: 28.r,
-                      selectedFontSize: 12,
-                      unselectedFontSize: 12,
-                      elevation: 10,
+                    return Theme(
+                      data: ThemeData(
+                        // Disable ripple anim on press
+                        splashColor: AppColors.transparent,
+                      ),
+                      child: BottomNavigationBar(
+                        backgroundColor: AppColors.white,
+                        items: [
+                          BottomNavigationBarItem(
+                            backgroundColor: Colors.white,
+                            icon: CardIcon.zeroPadding(Icons.shop_outlined),
+                            label: "Cửa hàng",
+                          ),
+                          BottomNavigationBarItem(
+                            backgroundColor: Colors.white,
+                            icon: CardIcon.zeroPadding(Icons.menu_book_outlined),
+                            label: "Đơn hàng",
+                          ),
+                          const BottomNavigationBarItem(
+                            backgroundColor: Colors.white,
+                            icon: NotiIconWithBadge(),
+                            label: "Thông báo",
+                          ),
+                          BottomNavigationBarItem(
+                            backgroundColor: Colors.white,
+                            icon: CardIcon.zeroPadding(Icons.account_box_outlined),
+                            label: "Tài khoản",
+                          ),
+                        ],
+                        selectedItemColor: AppColors.primaryShop,
+                        unselectedItemColor: AppColors.black.withOpacity(0.8),
+                        showUnselectedLabels: true,
+                        type: BottomNavigationBarType.fixed,
+                        currentIndex: _selectIndex,
+                        onTap: (index) {
+                          _selectIndex = index;
+                        },
+                        iconSize: 28.r,
+                        selectedFontSize: 12,
+                        unselectedFontSize: 12,
+                        elevation: 10,
+                      ),
                     );
                   }),
               // Make shadow

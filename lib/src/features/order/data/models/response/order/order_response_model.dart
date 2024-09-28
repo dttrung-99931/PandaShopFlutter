@@ -1,11 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/src/features/common/data/models/response/address_model.dart';
-import 'package:json_annotation/json_annotation.dart';
-
-import 'package:evievm_app/src/features/order/data/models/response/order/delivery_response_model.dart';
 import 'package:evievm_app/src/features/order/data/models/response/order/user_short_response_model.dart';
 import 'package:evievm_app/src/features/product/data/models/response/product/product_detail_model.dart';
 import 'package:evievm_app/src/features/product/data/models/response/product/short_product_model.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'order_response_model.g.dart';
 
@@ -16,7 +14,6 @@ class OrderResponseModel {
   // final PaymentMethodModel paymentMethod;
   final UserShortResponseModel user;
   final OrderStatus status;
-  final List<DeliveryResponseModel> deliveries;
   final List<OrderDetailResponseModel> orderDetails;
   // TODO: change to DeliveryResponseModel customerDelivery {address, deliveryMethod}
   @JsonKey(name: 'deliveryAddress')
@@ -27,7 +24,6 @@ class OrderResponseModel {
     this.note,
     required this.user,
     required this.status,
-    required this.deliveries,
     required this.orderDetails,
     required this.customerAddress,
   });
@@ -83,8 +79,10 @@ enum OrderStatus {
   cancelledByBuyer,
   @JsonValue(20)
   cancelledByShop,
+  @JsonValue(22)
+  completeProcessing, // Complete processes and waiting for request delivering
   @JsonValue(24)
-  waitingForDelivering, // Processes and waiting for delivering
+  waitingForDelivering, // Waiting for delivering
   @JsonValue(28)
   delivering, // Delivering
   @JsonValue(32)

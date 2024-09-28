@@ -33,36 +33,42 @@ class MainUserBottomNavBar extends StatelessWidget {
               ValueListenableBuilder(
                   valueListenable: selectedIndexNotifier,
                   builder: (_, __, ___) {
-                    return BottomNavigationBar(
-                      items: [
-                        BottomNavigationBarItem(
-                          backgroundColor: Colors.white,
-                          icon: CardIcon.zeroPadding(Icons.home_outlined),
-                          label: "Trang chủ",
-                        ),
-                        const BottomNavigationBarItem(
-                          backgroundColor: Colors.white,
-                          icon: NotiIconWithBadge(),
-                          label: "Thông báo",
-                        ),
-                        BottomNavigationBarItem(
-                          backgroundColor: Colors.white,
-                          icon: CardIcon.zeroPadding(Icons.account_box_outlined),
-                          label: "Tài khoản",
-                        ),
-                      ],
-                      selectedItemColor: AppColors.primary,
-                      unselectedItemColor: AppColors.black.withOpacity(0.8),
-                      showUnselectedLabels: true,
-                      type: BottomNavigationBarType.fixed,
-                      currentIndex: _selectIndex,
-                      onTap: (index) {
-                        _selectIndex = index;
-                      },
-                      iconSize: 28.r,
-                      selectedFontSize: 12,
-                      unselectedFontSize: 12,
-                      elevation: 10,
+                    return Theme(
+                      data: ThemeData(
+                        // Disable ripple anim on press
+                        splashColor: AppColors.transparent,
+                      ),
+                      child: BottomNavigationBar(
+                        items: [
+                          BottomNavigationBarItem(
+                            backgroundColor: Colors.white,
+                            icon: CardIcon.zeroPadding(Icons.home_outlined),
+                            label: "Trang chủ",
+                          ),
+                          const BottomNavigationBarItem(
+                            backgroundColor: Colors.white,
+                            icon: NotiIconWithBadge(),
+                            label: "Thông báo",
+                          ),
+                          BottomNavigationBarItem(
+                            backgroundColor: Colors.white,
+                            icon: CardIcon.zeroPadding(Icons.account_box_outlined),
+                            label: "Tài khoản",
+                          ),
+                        ],
+                        selectedItemColor: AppColors.primary,
+                        unselectedItemColor: AppColors.black.withOpacity(0.8),
+                        showUnselectedLabels: true,
+                        type: BottomNavigationBarType.fixed,
+                        currentIndex: _selectIndex,
+                        onTap: (index) {
+                          _selectIndex = index;
+                        },
+                        iconSize: 28.r,
+                        selectedFontSize: 12,
+                        unselectedFontSize: 12,
+                        elevation: 10,
+                      ),
                     );
                   }),
               // Make shadow

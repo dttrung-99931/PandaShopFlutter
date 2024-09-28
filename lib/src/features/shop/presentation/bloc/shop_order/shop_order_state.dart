@@ -5,7 +5,7 @@ class GetShopOrdersSuccess extends FullDataLoadedState<List<OrderDto>> {
   final OrderStatus orderStatus;
 
   Map<AddressDto, List<OrderDto>> get ordersGroupByDeliveryPartnerAddr {
-    return data.groupBy((order) => order.deliveryPartnerAddress);
+    return data.groupBy((order) => order.customerAddress);
   }
 
   GetShopOrdersSuccess(

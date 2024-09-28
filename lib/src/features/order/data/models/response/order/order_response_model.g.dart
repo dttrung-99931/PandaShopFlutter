@@ -11,9 +11,6 @@ OrderResponseModel _$OrderResponseModelFromJson(Map<String, dynamic> json) => Or
       note: json['note'] as String?,
       user: UserShortResponseModel.fromJson(json['user'] as Map<String, dynamic>),
       status: $enumDecode(_$OrderStatusEnumMap, json['status']),
-      deliveries: (json['deliveries'] as List<dynamic>)
-          .map((e) => DeliveryResponseModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
       orderDetails: (json['orderDetails'] as List<dynamic>)
           .map((e) => OrderDetailResponseModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -26,6 +23,7 @@ const _$OrderStatusEnumMap = {
   OrderStatus.processing: 12,
   OrderStatus.cancelledByBuyer: 16,
   OrderStatus.cancelledByShop: 20,
+  OrderStatus.completeProcessing: 22,
   OrderStatus.waitingForDelivering: 24,
   OrderStatus.delivering: 28,
   OrderStatus.delivered: 32,
