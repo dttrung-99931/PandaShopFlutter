@@ -41,7 +41,7 @@ class ShopOrderItem extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 2.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -51,12 +51,13 @@ class ShopOrderItem extends StatelessWidget {
                     Expanded(
                       child: Section(
                         // title: order.deliveries.,
-                        title: 'Delivery method',
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                        title: 'Gửi đến',
+                        padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 4.h),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 2.h),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(order.customerAddress.address),
+                            Text(order.customerAddress.shortAddress),
                           ],
                         ),
                       ),
@@ -80,7 +81,7 @@ class ShopOrderItem extends StatelessWidget {
                 ],
                 8.shb,
                 OrderActionsWidgetFactory.buildOrderActions(order),
-                8.shb,
+                10.shb,
               ],
             ),
           ),

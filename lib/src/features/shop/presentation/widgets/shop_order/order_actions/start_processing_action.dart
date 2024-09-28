@@ -27,7 +27,7 @@ class StartProcessingAction extends OrderActionsWidget {
           return CustomButton(
             isLoading: state is LoadingState,
             backgroundColor: AppColors.primaryShop,
-            icon: Icon(Icons.inventory_2_outlined, size: 24.r),
+            icon: Icon(Icons.inventory_2_outlined, size: 24.r, color: AppColors.white),
             iconSpacing: 8.w,
             height: 36.h,
             elevation: 0,

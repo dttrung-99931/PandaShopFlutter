@@ -28,6 +28,7 @@ class ShopOrderBloc extends BaseBloc {
     OrderStatus.pending,
     OrderStatus.created,
     OrderStatus.processing,
+    OrderStatus.completeProcessing,
     OrderStatus.waitingForDelivering,
     OrderStatus.completedByUser,
     OrderStatus.completedBySystem,

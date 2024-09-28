@@ -26,6 +26,8 @@ class AddressDto extends Equatable {
   final String name;
 
   String get address => "$provinceOrCity, $district, $communeOrWard, $streetAndHouseNum";
+  String get shortAddress => "$provinceOrCity, $district";
+
   static AddressDto add = AddressDto(
     id: -1,
     provinceOrCity: '',

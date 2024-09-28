@@ -6,9 +6,7 @@ part of 'get_notifications_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Map<String, dynamic> _$GetNotificationsModelToJson(
-        GetNotificationsModel instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$GetNotificationsModelToJson(GetNotificationsModel instance) => <String, dynamic>{
       'pageSize': instance.pageSize,
       'pageNum': instance.pageNum,
       'status': _$OrderStatusEnumMap[instance.status],
@@ -21,6 +19,7 @@ const _$OrderStatusEnumMap = {
   OrderStatus.processing: 12,
   OrderStatus.cancelledByBuyer: 16,
   OrderStatus.cancelledByShop: 20,
+  OrderStatus.completeProcessing: 22,
   OrderStatus.waitingForDelivering: 24,
   OrderStatus.delivering: 28,
   OrderStatus.delivered: 32,
