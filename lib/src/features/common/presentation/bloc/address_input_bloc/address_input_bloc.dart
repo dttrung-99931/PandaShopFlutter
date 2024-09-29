@@ -34,7 +34,7 @@ class AddressInputBloc extends BaseBloc with AddressBlocMixin {
   FutureOr<void> _onSaveMyAddress(OnSaveMyAddress event, Emitter<BaseState> emit) async {
     if (_selectedPlace == null) {
       emit(ErrorState(Failure(
-        'Vui lòng nhập số nhà cụ thể (Bạn có thể chọn địa điểm lân cận nếu địa điểm mon muốn không tìm tháy)',
+        'Vui lòng nhập số nhà cụ thể (Bạn có thể chọn địa điểm lân cận nếu địa điểm mong muốn không tìm tháy)',
       )));
       return;
     }
