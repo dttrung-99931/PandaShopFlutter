@@ -23,7 +23,7 @@ abstract class CacheProvider {
       // CachePolicy.forceCache => awlays cache all requests
       // CachePolicy.request => used cache response when server response 304 status
       policy: CachePolicy.forceCache,
-      hitCacheOnErrorExcept: [401, 403],
+      hitCacheOnErrorExcept: [401, 403, 500],
       priority: CachePriority.normal,
       // Custom keyBuilder when you want to control delete cache programatically
       // keyBuilder: CacheOptions.defaultCacheKeyBuilder,

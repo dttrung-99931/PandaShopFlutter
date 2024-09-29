@@ -48,27 +48,30 @@ class CustomButton extends StatelessWidget {
     this.height,
     this.isTitleBold = false,
     this.isLoading = false,
-  })  : assert((title != null) != (child != null), 'Either title or child must be not null');
+  }) : assert((title != null) != (child != null), 'Either title or child must be not null');
 
   @override
   Widget build(BuildContext context) {
     TextStyle style = titleStyle ??
-        textTheme.bodyMedium!.copyWith(
-          color: EVMColors.white,
-          fontWeight: isTitleBold ? FontWeight.bold : FontWeight.normal,
-          fontSize: titleFontSize,
-        );
+        textTheme.bodyMedium!
+            .copyWith(
+              color: EVMColors.white,
+              fontWeight: isTitleBold ? FontWeight.bold : FontWeight.normal,
+              fontSize: titleFontSize,
+            )
+            .withHeight(1.3);
     if (isLoading) {
-      style = style.copyWith(color: backgroundColor);
+      style = style.copyWith(
+        // Set text color = disable bg color when loading to hide the text and keep button form with center loading
+        color: theme.colorScheme.onSurface.withOpacity(0.12),
+      );
     }
     Widget buttonContent = child ??
-        (isLoading
-            ? emptyWidget
-            : Text(
-                tr(title!),
-                style: style.withHeight(1.3),
-                textAlign: TextAlign.center,
-              ));
+        Text(
+          tr(title!),
+          style: style,
+          textAlign: TextAlign.center,
+        );
     return Container(
       width: width,
       height: height,
@@ -92,7 +95,9 @@ class CustomButton extends StatelessWidget {
             if (icon != null) icon!,
             if (icon != null) sw(iconSpacing),
             isLoading
-                ? Stack(
+                ?
+                // Use stack to show loading icon overlaying on text to keep button form when loading
+                Stack(
                     children: [
                       buttonContent,
                       Positioned.fill(child: LoadingWidget(size: 24.r, color: loadingColor)),

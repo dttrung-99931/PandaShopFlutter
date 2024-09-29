@@ -24,8 +24,8 @@ class PickLocalImageCompressedBase64UseCase extends EitherUseCase<String?, NoPar
       if (file != null) {
         Uint8List compressed = await FlutterImageCompress.compressWithList(
           await file.readAsBytes(),
-          minHeight: 1920,
-          minWidth: 1080,
+          minHeight: 1280,
+          minWidth: 720,
           quality: 95,
         );
         List<int> bytes = compressed;
