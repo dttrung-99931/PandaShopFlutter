@@ -37,8 +37,8 @@ abstract class AppModuleDepedenciesProvider {
     final dio = Dio(baseOptions);
     dio.interceptors.addAll([
       authInterceptor,
-      maxStaleModifierInterceptor,
-      cacheInterceptor,
+      // maxStaleModifierInterceptor,
+      // cacheInterceptor,
       apiLogInterceptor,
     ]);
     (dio.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate = (HttpClient httpClient) {
