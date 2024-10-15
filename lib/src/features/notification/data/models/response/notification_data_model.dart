@@ -20,12 +20,12 @@ class NotificationDataModel {
 @JsonSerializable(explicitToJson: true, createToJson: false)
 class ShortOrderModel {
   final OrderStatus status;
-  final List<ShortDeliveryResponseModel> deliveries;
+  // final List<ShortDeliveryResponseModel> deliveries;
   final List<ShortOrderDetailResponseModel> orderDetails;
 
   ShortOrderModel(
     this.status,
-    this.deliveries,
+    // this.deliveries,
     this.orderDetails,
   );
 
