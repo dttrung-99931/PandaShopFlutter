@@ -2,7 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:evievm_app/core/model/base_response.dart';
 import 'package:evievm_app/src/features/order/data/models/request/get_orders_request_model.dart';
 import 'package:evievm_app/src/features/order/data/models/request/create_orders_request_model.dart';
+import 'package:evievm_app/src/features/order/data/models/request/request_partner_delivery_request_model.dart';
 import 'package:evievm_app/src/features/order/data/models/response/order/order_response_model.dart';
+import 'package:evievm_app/src/features/order/data/models/response/order/temp_delivery_response_model.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -29,4 +31,11 @@ abstract class OrderDatasource {
 
   @PUT('/v1/Orders/{orderId}/CompleteProcessing')
   Future<BaseResponse> completeProcessingOrder(@Path() int orderId);
+
+  @GET('/v1/Orders/CompleteProcessing')
+  Future<BaseResponse<List<TempDeliveryResponseModel>>> getCompleteProcessingOrders();
+
+  @POST('/v1/Orders/RequestPartnerDelivery')
+  Future<BaseResponse<List<TempDeliveryResponseModel>>> requestPartnerDelivery(
+      @Body() RequestPartnerDeliveryRequestModel param);
 }

@@ -5,10 +5,16 @@ class EmptyData extends StatelessWidget {
   const EmptyData({
     super.key,
     required this.title,
+    this.isSliver = false,
   });
   final String title;
+  final bool isSliver;
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text(title, style: textTheme.bodyMedium));
+    var center = Center(child: Text(title, style: textTheme.bodyMedium));
+    if (isSliver) {
+      return SliverFillRemaining(child: center);
+    }
+    return center;
   }
 }

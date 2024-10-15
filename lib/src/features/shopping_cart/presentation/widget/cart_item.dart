@@ -62,7 +62,7 @@ class CartItem extends StatelessWidget {
               ),
             ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.w),
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
             child: IntrinsicHeight(
               child: ImageOnItem(
                 imageLink: item.product.thumbnailUrl,

@@ -2,6 +2,7 @@
 
 import 'package:evievm_app/src/features/order/domain/dto/order/order_dto.dart';
 import 'package:evievm_app/src/features/shop/presentation/widgets/shop_order/shop_order_item.dart';
+import 'package:evievm_app/src/shared/widgets/common/empty_data.dart';
 import 'package:flutter/material.dart';
 
 class ShopOrderSliverList extends StatelessWidget {
@@ -12,6 +13,9 @@ class ShopOrderSliverList extends StatelessWidget {
   final List<OrderDto> orders;
   @override
   Widget build(BuildContext context) {
+    if (orders.isEmpty) {
+      return const EmptyData(title: 'Chưa có đơn hàng', isSliver: true);
+    }
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         childCount: orders.length,

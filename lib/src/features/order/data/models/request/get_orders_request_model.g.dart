@@ -6,7 +6,8 @@ part of 'get_orders_request_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Map<String, dynamic> _$GetOrdersRequestModelToJson(GetOrdersRequestModel instance) {
+Map<String, dynamic> _$GetOrdersRequestModelToJson(
+    GetOrdersRequestModel instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
