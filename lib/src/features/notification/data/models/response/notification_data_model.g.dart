@@ -12,9 +12,6 @@ NotificationDataModel _$NotificationDataModelFromJson(Map<String, dynamic> json)
 
 ShortOrderModel _$ShortOrderModelFromJson(Map<String, dynamic> json) => ShortOrderModel(
       $enumDecode(_$OrderStatusEnumMap, json['status']),
-      (json['deliveries'] as List<dynamic>)
-          .map((e) => ShortDeliveryResponseModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
       (json['orderDetails'] as List<dynamic>)
           .map((e) => ShortOrderDetailResponseModel.fromJson(e as Map<String, dynamic>))
           .toList(),

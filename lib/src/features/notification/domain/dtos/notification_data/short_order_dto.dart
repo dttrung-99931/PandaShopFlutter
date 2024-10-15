@@ -8,11 +8,11 @@ import 'package:evievm_app/src/features/order/data/models/response/order/order_r
 class ShortOrderDto {
   ShortOrderDto({
     required this.status,
-    required this.deliveries,
+    // required this.deliveries,
     required this.orderDetails,
   });
   final OrderStatus status;
-  final List<ShortDeliveryDto> deliveries;
+  // final List<ShortDeliveryDto> deliveries;
   final List<ShortOrderDetailDto> orderDetails;
 
   String get productAndOptionNames {
@@ -24,7 +24,7 @@ class ShortOrderDto {
   factory ShortOrderDto.fromModel(ShortOrderModel model) {
     return ShortOrderDto(
       status: model.status,
-      deliveries: model.deliveries.mapList((delivery) => ShortDeliveryDto.fromModel(delivery)),
+      // deliveries: model.deliveries.mapList((delivery) => ShortDeliveryDto.fromModel(delivery)),
       orderDetails: model.orderDetails.mapList((element) => ShortOrderDetailDto.fromModel(element)),
     );
   }
