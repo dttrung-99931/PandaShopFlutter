@@ -17,6 +17,13 @@ class GetShopOrdersSuccess extends FullDataLoadedState<List<OrderDto>> {
   List<Object?> get props => [...super.props, orderStatus];
 }
 
+class GetCompleteProcessingOrdersSuccess extends FullDataLoadedState<List<TempDeliveryResponseDto>> {
+  GetCompleteProcessingOrdersSuccess(super.data, {
+    required this.orderStatus,
+  });
+  final OrderStatus orderStatus;
+}
+
 class LoadingShoppingCart extends LoadingState {}
 
 class DisplayOrderStatusesUpdated extends ListLoadedState<OrderStatus, OrderStatus> {

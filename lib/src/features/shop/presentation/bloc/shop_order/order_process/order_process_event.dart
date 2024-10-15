@@ -21,3 +21,12 @@ class OnCompleteProcessingOrder extends OnProcessOrder {
 class OnCancelOrder extends OnProcessOrder {
   OnCancelOrder({required super.order});
 }
+
+class OnRequestPartnerDelivery extends BaseEvent {
+  final RequestPartnerDeliveryRequestModel requestModel;
+
+  OnRequestPartnerDelivery({required this.requestModel});
+
+  @override
+  List<Object?> get props => [requestModel];
+}

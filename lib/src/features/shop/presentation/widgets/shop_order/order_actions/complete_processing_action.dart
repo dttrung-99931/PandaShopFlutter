@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
+import 'package:evievm_app/src/features/order/data/models/response/order/order_response_model.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_order/order_process/order_process_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_order/shop_order_bloc.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_consumer.dart';
@@ -19,8 +20,13 @@ class CompleteProcessingAction extends OrderActionsWidget {
       alignment: Alignment.centerRight,
       child: CustomBlocConsumer<OrderProcessBloc>(
         listener: (state) {
-          if (state is CompleteProcessingOrderSuccess) {
-            shopOrderBloc.add(OnGetShopOrders(orderStatus: shopOrderBloc.selectedStatus));
+          switch (state.runtimeType) {
+            case CompleteProcessingOrderSuccess:
+              shopOrderBloc.add(OnGetShopOrders(orderStatus: OrderStatus.processing));
+              break;
+            case RequestPartnerDeliverySuccess:
+              shopOrderBloc.add(OnGetShopOrders(orderStatus: OrderStatus.completeProcessing));
+              break;
           }
         },
         builder: (state) {

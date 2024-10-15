@@ -14,3 +14,5 @@ class StartProcessingOrderSuccess extends ProcessingOrderState {
 class CompleteProcessingOrderSuccess extends ProcessingOrderState {
   CompleteProcessingOrderSuccess({required super.order});
 }
+
+class RequestPartnerDeliverySuccess extends LoadingCompleteStateWithoutProps {}
