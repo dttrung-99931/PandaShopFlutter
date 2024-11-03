@@ -18,6 +18,7 @@ class OrderResponseModel {
   // TODO: change to DeliveryResponseModel customerDelivery {address, deliveryMethod}
   @JsonKey(name: 'deliveryAddress')
   final AddressModel customerAddress;
+  // final List<OrderDetailResponseModel> orderDetails;
 
   OrderResponseModel({
     required this.id,

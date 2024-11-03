@@ -18,7 +18,16 @@ class GetShopOrdersSuccess extends FullDataLoadedState<List<OrderDto>> {
 }
 
 class GetCompleteProcessingOrdersSuccess extends FullDataLoadedState<List<TempDeliveryResponseDto>> {
-  GetCompleteProcessingOrdersSuccess(super.data, {
+  GetCompleteProcessingOrdersSuccess(
+    super.data, {
+    required this.orderStatus,
+  });
+  final OrderStatus orderStatus;
+}
+
+class GetWaitingDeliveryPartnerOrdersSuccess extends FullDataLoadedState<List<DeliveryWithOrdersResponseDto>> {
+  GetWaitingDeliveryPartnerOrdersSuccess(
+    super.data, {
     required this.orderStatus,
   });
   final OrderStatus orderStatus;

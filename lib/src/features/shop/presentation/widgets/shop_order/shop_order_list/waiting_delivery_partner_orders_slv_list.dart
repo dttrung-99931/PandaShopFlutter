@@ -7,6 +7,7 @@ import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
+import 'package:evievm_app/src/features/order/domain/dto/order/delivery_with_orders_response_dto.dart';
 import 'package:evievm_app/src/features/order/domain/dto/order/order_dto.dart';
 import 'package:evievm_app/src/features/order/domain/dto/order/temp_delivery_response_dto.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_order/order_process/order_process_bloc.dart';
@@ -17,34 +18,34 @@ import 'package:evievm_app/src/shared/widgets/cutstom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CompleteProcessingOrderGroupSlvList extends StatelessWidget {
-  const CompleteProcessingOrderGroupSlvList({
+class WaitingDeliveryPartnerOrderGroupSlvList extends StatelessWidget {
+  const WaitingDeliveryPartnerOrderGroupSlvList({
     super.key,
-    required this.completeProcessingOrderGroup,
+    required this.waitingDeliveryPartnerOrderGroup,
   });
 
-  final List<TempDeliveryResponseDto> completeProcessingOrderGroup;
+  final List<DeliveryWithOrdersResponseDto> waitingDeliveryPartnerOrderGroup;
 
   @override
   Widget build(BuildContext context) {
-    if (completeProcessingOrderGroup.isEmpty) {
+    if (waitingDeliveryPartnerOrderGroup.isEmpty) {
       return const EmptyData(title: 'Chưa có đơn hàng', isSliver: true);
     }
 
     return SliverList(
       delegate: SliverChildBuilderDelegate(
-        childCount: completeProcessingOrderGroup.length,
+        childCount: waitingDeliveryPartnerOrderGroup.length,
         (context, index) {
-          AddressDto addr = completeProcessingOrderGroup[index].deliveryPartnerUnitAddress;
-          List<OrderDto> orders = completeProcessingOrderGroup[index].orders;
+          AddressDto addr = waitingDeliveryPartnerOrderGroup[index].deliveryPartnerUnitAddress;
+          List<OrderDto> orders = waitingDeliveryPartnerOrderGroup[index].orders;
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               index == 0 ? 8.shb : 20.shb,
-              Align(
-                alignment: Alignment.centerRight,
-                child: _RequestPartnerDeliveryButton(completeProcessingOrderGroup[index]),
-              ),
+              // Align(
+              //   alignment: Alignment.centerRight,
+              //   child: _RequestPartnerDeliveryButton(waitingDeliveryPartnerOrderGroup[index]),
+              // ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Row(

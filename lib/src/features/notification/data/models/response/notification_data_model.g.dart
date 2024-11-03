@@ -6,14 +6,20 @@ part of 'notification_data_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-NotificationDataModel _$NotificationDataModelFromJson(Map<String, dynamic> json) => NotificationDataModel(
-      json['order'] == null ? null : ShortOrderModel.fromJson(json['order'] as Map<String, dynamic>),
+NotificationDataModel _$NotificationDataModelFromJson(
+        Map<String, dynamic> json) =>
+    NotificationDataModel(
+      json['order'] == null
+          ? null
+          : ShortOrderModel.fromJson(json['order'] as Map<String, dynamic>),
     );
 
-ShortOrderModel _$ShortOrderModelFromJson(Map<String, dynamic> json) => ShortOrderModel(
+ShortOrderModel _$ShortOrderModelFromJson(Map<String, dynamic> json) =>
+    ShortOrderModel(
       $enumDecode(_$OrderStatusEnumMap, json['status']),
       (json['orderDetails'] as List<dynamic>)
-          .map((e) => ShortOrderDetailResponseModel.fromJson(e as Map<String, dynamic>))
+          .map((e) =>
+              ShortOrderDetailResponseModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

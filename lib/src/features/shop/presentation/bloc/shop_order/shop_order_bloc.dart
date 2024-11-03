@@ -10,13 +10,13 @@ import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
 import 'package:evievm_app/src/features/order/data/models/request/get_orders_request_model.dart';
-import 'package:evievm_app/src/features/order/data/models/request/request_partner_delivery_request_model.dart';
 import 'package:evievm_app/src/features/order/data/models/response/order/order_response_model.dart';
+import 'package:evievm_app/src/features/order/domain/dto/order/delivery_with_orders_response_dto.dart';
 import 'package:evievm_app/src/features/order/domain/dto/order/order_dto.dart';
 import 'package:evievm_app/src/features/order/domain/dto/order/temp_delivery_response_dto.dart';
 import 'package:evievm_app/src/features/order/domain/use_cases/get_complete_processing_orders_usecase.dart';
 import 'package:evievm_app/src/features/order/domain/use_cases/get_orders_usecase.dart';
-import 'package:evievm_app/src/features/order/domain/use_cases/request_partner_delivery_usecase.dart';
+import 'package:evievm_app/src/features/order/domain/use_cases/get_waiting_delivery_orders_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -32,6 +32,7 @@ class ShopOrderBloc extends BaseBloc {
   ShopOrderBloc(
     this._getOrders,
     this._getCompleteProcessingOrders,
+    this._getWaitingDeliveryOrders,
   ) : super(InitialState()) {
     onLoad<OnGetShopOrders>(_onGetShopOrders);
     on<OnSelectOrderStatus>(_onSelectedOrderStatus);
@@ -39,6 +40,7 @@ class ShopOrderBloc extends BaseBloc {
 
   final GetOrdersUseCase _getOrders;
   final GetCompleteProcessingOrdersUseCase _getCompleteProcessingOrders;
+  final GetWaitingDeliveryOrdersUseCase _getWaitingDeliveryOrders;
   final List<OrderStatus> _displayingOrderStatuses = [
     OrderStatus.pending,
     OrderStatus.created,
@@ -75,12 +77,20 @@ class ShopOrderBloc extends BaseBloc {
         );
         break;
       case OrderStatus.completeProcessing:
-      case OrderStatus.waitingForDelivering:
         await handleUsecaseResult(
           usecaseResult: _getCompleteProcessingOrders.call(noParam),
           emit: emit.call,
           onSuccess: (List<TempDeliveryResponseDto> result) {
             return GetCompleteProcessingOrdersSuccess(result, orderStatus: _selectedStatus);
+          },
+        );
+        break;
+      case OrderStatus.waitingForDelivering:
+        await handleUsecaseResult(
+          usecaseResult: _getWaitingDeliveryOrders.call(noParam),
+          emit: emit.call,
+          onSuccess: (List<DeliveryWithOrdersResponseDto> result) {
+            return GetWaitingDeliveryPartnerOrdersSuccess(result, orderStatus: _selectedStatus);
           },
         );
         break;

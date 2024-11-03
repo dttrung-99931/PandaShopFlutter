@@ -3,6 +3,7 @@ import 'package:evievm_app/core/model/base_response.dart';
 import 'package:evievm_app/src/features/order/data/models/request/get_orders_request_model.dart';
 import 'package:evievm_app/src/features/order/data/models/request/create_orders_request_model.dart';
 import 'package:evievm_app/src/features/order/data/models/request/request_partner_delivery_request_model.dart';
+import 'package:evievm_app/src/features/order/data/models/response/order/delivery_with_orders_response_model.dart';
 import 'package:evievm_app/src/features/order/data/models/response/order/order_response_model.dart';
 import 'package:evievm_app/src/features/order/data/models/response/order/temp_delivery_response_model.dart';
 import 'package:injectable/injectable.dart';
@@ -34,6 +35,9 @@ abstract class OrderDatasource {
 
   @GET('/v1/Orders/CompleteProcessing')
   Future<BaseResponse<List<TempDeliveryResponseModel>>> getCompleteProcessingOrders();
+
+  @GET('/v1/Orders/WaitingPartnerDelivery')
+  Future<BaseResponse<List<DeliveryWithOrdersResponseModel>>> getWaitingPartnerDeliveryOrders();
 
   @POST('/v1/Orders/RequestPartnerDelivery')
   Future<BaseResponse<List<TempDeliveryResponseModel>>> requestPartnerDelivery(
