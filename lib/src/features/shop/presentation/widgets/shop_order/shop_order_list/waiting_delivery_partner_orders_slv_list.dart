@@ -1,5 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:evievm_app/src/features/order/data/models/response/order/delivery_response_model.dart';
+import 'package:evievm_app/src/shared/widgets/common/app_icon_button.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
@@ -15,8 +20,6 @@ import 'package:evievm_app/src/features/shop/presentation/widgets/shop_order/sho
 import 'package:evievm_app/src/shared/widgets/common/empty_data.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_listener.dart';
 import 'package:evievm_app/src/shared/widgets/cutstom_button.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WaitingDeliveryPartnerOrderGroupSlvList extends StatelessWidget {
   const WaitingDeliveryPartnerOrderGroupSlvList({
@@ -36,36 +39,104 @@ class WaitingDeliveryPartnerOrderGroupSlvList extends StatelessWidget {
       delegate: SliverChildBuilderDelegate(
         childCount: waitingDeliveryPartnerOrderGroup.length,
         (context, index) {
-          AddressDto addr = waitingDeliveryPartnerOrderGroup[index].deliveryPartnerUnitAddress;
+          DeliveryWithOrdersResponseDto delivery = waitingDeliveryPartnerOrderGroup[index];
           List<OrderDto> orders = waitingDeliveryPartnerOrderGroup[index].orders;
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               index == 0 ? 8.shb : 20.shb,
-              // Align(
-              //   alignment: Alignment.centerRight,
-              //   child: _RequestPartnerDeliveryButton(waitingDeliveryPartnerOrderGroup[index]),
-              // ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: Row(
-                  children: [
-                    Icon(Icons.delivery_dining, size: 40.r),
-                    8.swb,
-                    Expanded(
-                      child: Text(
-                        addr.address,
-                        style: textTheme.bodyLarge.withWeight(FontWeight.bold),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              _DeliveryProgress(delivery: delivery),
               ...orders.mapList<Widget>((order) => ShopOrderItem(order: order))
             ],
           );
         },
+      ),
+    );
+  }
+}
+
+class _DeliveryProgress extends StatelessWidget {
+  const _DeliveryProgress({
+    required this.delivery,
+  });
+
+  final DeliveryWithOrdersResponseDto delivery;
+
+  @override
+  Widget build(BuildContext context) {
+    AddressDto addr = delivery.deliveryPartnerUnitAddress;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _IconTitle(icon: Icons.location_on_outlined, title: addr.address),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    delivery.status.title,
+                    style: textTheme.bodyLarge,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  if (delivery.status == DeliveryStatus.delivering)
+                    AppIconButton(
+                      iconData: Icons.map_outlined,
+                      color: AppColors.primaryShop,
+                      padding: const EdgeInsets.all(2),
+                      onPressed: () {
+                        // TODO: Open map showing driver moving
+                        // Shop no need to view more detail -> try this to impl map
+                        // It's better to impl this for  buyer
+                      },
+                    )
+                ],
+              ),
+              if (delivery.progress != null) ...[
+                8.shb,
+                LinearProgressIndicator(
+                  value: 0.3,
+                  // value: delivery.progress!.remainingDistance / delivery.progress!.distanceInMetter,
+                  color: AppColors.green,
+                  backgroundColor: AppColors.grey.withOpacity(0.3),
+                ),
+                2.shb,
+              ],
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _IconTitle extends StatelessWidget {
+  const _IconTitle({
+    super.key,
+    required this.icon,
+    required this.title,
+  });
+  final IconData icon;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      child: Row(
+        children: [
+          Icon(icon, size: 40.r),
+          8.swb,
+          Expanded(
+            child: Text(
+              title,
+              style: textTheme.bodyLarge.withWeight(FontWeight.bold),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
       ),
     );
   }

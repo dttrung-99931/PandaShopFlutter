@@ -57,5 +57,27 @@ enum DeliveryStatus {
   @JsonValue(28)
   lose, // Lose the product
   @JsonValue(32)
-  productBroken,
+  productBroken;
+
+  String get title {
+    switch (this) {
+      case DeliveryStatus.created:
+      case DeliveryStatus.findingDriver:
+        return 'Đang chờ shipper...';
+      case DeliveryStatus.foundDriver:
+        return 'Đã tìm thấy shipper';
+      case DeliveryStatus.movingToShop:
+        return 'Shipper đang đến lấy hàng';
+      case DeliveryStatus.receivingProduct:
+        return 'Shipper nhận hàng';
+      case DeliveryStatus.delivering:
+        return 'Đang vận chuyển';
+      case DeliveryStatus.delivered:
+      case DeliveryStatus.cancelled:
+      case DeliveryStatus.lose:
+      case DeliveryStatus.productBroken:
+        // TODO:
+        return name;
+    }
+  }
 }
