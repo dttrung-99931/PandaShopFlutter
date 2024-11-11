@@ -39,6 +39,9 @@ abstract class OrderDatasource {
   @GET('/v1/Orders/WaitingPartnerDelivery')
   Future<BaseResponse<List<DeliveryWithOrdersResponseModel>>> getWaitingPartnerDeliveryOrders();
 
+  @GET('/v1/Orders/Delivering')
+  Future<BaseResponse<List<DeliveryWithOrdersResponseModel>>> getDeliveringOrders();
+
   @POST('/v1/Orders/RequestPartnerDelivery')
   Future<BaseResponse<List<TempDeliveryResponseModel>>> requestPartnerDelivery(
       @Body() RequestPartnerDeliveryRequestModel param);

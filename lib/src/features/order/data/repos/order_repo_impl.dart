@@ -79,4 +79,13 @@ class OrderRepoImpl extends OrderRepo {
       ),
     );
   }
+
+  @override
+  Future<Either<Failure, List<DeliveryWithOrdersResponseModel>>> getDeliveringOrders() {
+    return handleNetwork(
+      onRemote: handleServerErrors(
+        datasourceResponse: datasource.getDeliveringOrders(),
+      ),
+    );
+  }
 }

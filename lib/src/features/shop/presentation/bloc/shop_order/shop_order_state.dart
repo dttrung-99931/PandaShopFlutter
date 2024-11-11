@@ -33,6 +33,14 @@ class GetWaitingDeliveryPartnerOrdersSuccess extends FullDataLoadedState<List<De
   final OrderStatus orderStatus;
 }
 
+class GetDeliveringOrdersSuccess extends FullDataLoadedState<List<DeliveryWithOrdersResponseDto>> {
+  GetDeliveringOrdersSuccess(
+    super.data, {
+    required this.orderStatus,
+  });
+  final OrderStatus orderStatus;
+}
+
 class LoadingShoppingCart extends LoadingState {}
 
 class DisplayOrderStatusesUpdated extends ListLoadedState<OrderStatus, OrderStatus> {

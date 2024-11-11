@@ -10,15 +10,15 @@ import 'package:evievm_app/src/features/order/domain/repos/order_repo.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class GetWaitingDeliveryOrdersUseCase extends EitherUseCase<List<DeliveryWithOrdersResponseDto>, NoParams> {
+class GetDeliveringOrdersUseCase extends EitherUseCase<List<DeliveryWithOrdersResponseDto>, NoParams> {
   final OrderRepo _repo;
 
-  GetWaitingDeliveryOrdersUseCase(this._repo);
+  GetDeliveringOrdersUseCase(this._repo);
 
   @override
   Future<Either<Failure, List<DeliveryWithOrdersResponseDto>>> call(NoParams param) async {
     return handleRepoResult(
-      repoResult: _repo.getWaitingDeliveryOrders(),
+      repoResult: _repo.getDeliveringOrders(),
       onSuccess: (List<DeliveryWithOrdersResponseModel> model) async {
         return model.mapList(((e) => DeliveryWithOrdersResponseDto.fromModel(e)));
       },

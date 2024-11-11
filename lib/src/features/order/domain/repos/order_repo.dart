@@ -15,5 +15,6 @@ abstract class OrderRepo extends BaseRepo {
   Future<Either<Failure, dynamic>> completeProcessingOrder(int orderId);
   Future<Either<Failure, List<TempDeliveryResponseModel>>> getCompleteProcessingOrders();
   Future<Either<Failure, List<DeliveryWithOrdersResponseModel>>> getWaitingDeliveryOrders();
+  Future<Either<Failure, List<DeliveryWithOrdersResponseModel>>> getDeliveringOrders();
   Future<Either<Failure, void>> requestPartnerDelivery(RequestPartnerDeliveryRequestModel param);
 }

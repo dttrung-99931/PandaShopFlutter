@@ -4,3 +4,11 @@ part of 'signalr_bloc.dart';
 class SignalRNotificationReceived extends NotificationReceived {
   SignalRNotificationReceived(super.data);
 }
+
+class SinalRDeliveryProgressUpdate extends BaseState {
+  final DeliveryProgressUpdateDto progressUpdate;
+  SinalRDeliveryProgressUpdate({required this.progressUpdate});
+
+  @override
+  List<Object?> get props => [progressUpdate];
+}
