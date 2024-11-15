@@ -1,21 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'push_notification_payload.dart';
+part of 'remote_push_notification_payload.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-PushNotificationPayload _$PushNotificationPayloadFromJson(
-        Map<String, dynamic> json) =>
-    PushNotificationPayload(
+RemotePushNotificationPayload _$PushNotificationPayloadFromJson(Map<String, dynamic> json) =>
+    RemotePushNotificationPayload(
       orderId: (json['orderId'] as num?)?.toInt(),
       notiType: $enumDecode(_$NotificationTypeEnumMap, json['notiType']),
     );
 
-Map<String, dynamic> _$PushNotificationPayloadToJson(
-        PushNotificationPayload instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$PushNotificationPayloadToJson(RemotePushNotificationPayload instance) => <String, dynamic>{
       'orderId': instance.orderId,
       'notiType': _$NotificationTypeEnumMap[instance.notiType]!,
     };

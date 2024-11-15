@@ -36,7 +36,7 @@ class OnPushNotification extends BaseEvent {
 class OnConfigNotiReceiver extends BaseEventWithoutProps {}
 
 class OnPushNotificationPressed extends BaseEvent {
-  final PushNotificationPayload data;
+  final RemotePushNotificationPayload data;
   OnPushNotificationPressed({
     required this.data,
   });

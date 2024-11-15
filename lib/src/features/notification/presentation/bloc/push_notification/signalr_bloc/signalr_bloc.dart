@@ -9,11 +9,13 @@ import 'package:evievm_app/core/utils/log.dart';
 import 'package:evievm_app/core/utils/storage.dart';
 import 'package:evievm_app/src/config/app_config.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
-import 'package:evievm_app/src/features/notification/domain/dtos/push_notification/push_notification_dto.dart';
+import 'package:evievm_app/src/features/common/data/models/response/realtime/real_time_event_model.dart';
+import 'package:evievm_app/src/features/notification/domain/dtos/push_notification/remote_push_notification_dto.dart';
 import 'package:evievm_app/src/features/notification/presentation/bloc/push_notification/base/base_notification_receiver_bloc.dart';
 import 'package:evievm_app/src/features/notification/presentation/bloc/push_notification/push_notification_bloc.dart';
-import 'package:evievm_app/src/features/order/data/models/response/order/delivery_progress_update_response.dart';
+import 'package:evievm_app/src/features/order/data/models/response/order/delivery_with_orders_response_model.dart';
 import 'package:evievm_app/src/features/order/domain/dto/order/delivery_progress_update_dto.dart';
+import 'package:evievm_app/src/features/order/domain/dto/order/delivery_with_orders_response_dto.dart';
 import 'package:injectable/injectable.dart';
 import 'package:signalr_netcore/signalr_client.dart';
 
@@ -28,6 +30,7 @@ class SignalRBloc extends BaseNotificationReceiverBloc {
 
   static const onNotificationEvent = 'onNotification';
   static const onDeliveryProgress = 'onDeliveryProgress';
+  static const onDriverTakeDelivery = 'onDriverTakeDelivery';
   final Storage _storage;
   HubConnection? _hub;
 
@@ -49,6 +52,7 @@ class SignalRBloc extends BaseNotificationReceiverBloc {
     _hub!.onclose(_onSingalRDisconnected);
     _hub!.on(onNotificationEvent, _onNotification);
     _hub!.on(onDeliveryProgress, _onDeliveryProgress);
+    _hub!.on(onDriverTakeDelivery, _onDriverTakeDelivery);
     _hub!.start();
   }
 
@@ -60,7 +64,7 @@ class SignalRBloc extends BaseNotificationReceiverBloc {
 
   void _onNotification(List<Object?>? arguments) {
     if (arguments == null || arguments.isEmpty) {
-      logd('Invalid signalr notification $arguments');
+      logd('Invalid signalr argument $arguments');
       return;
     }
     add(OnReceivedNotification.fromNotiDataJsonString(
@@ -73,7 +77,7 @@ class SignalRBloc extends BaseNotificationReceiverBloc {
   }
 
   @override
-  NotificationReceived buildNotificationReceiverState(PushNotificationDto noti) {
+  NotificationReceived buildNotificationReceiverState(RemotePushNotificationDto noti) {
     return SignalRNotificationReceived(noti);
   }
 
@@ -84,15 +88,30 @@ class SignalRBloc extends BaseNotificationReceiverBloc {
     }
     logd('Delivery update ${arguments.first.toString()}');
 
-    final model = DeliveryProgressUpdateResponseModel.fromJson(
+    final event = RealTimeEventModel.fromJson(
       jsonDecode(arguments.first.toString()),
     );
+    final progressJson = jsonDecode(event.data);
     add(
       OnSetState(
         SinalRDeliveryProgressUpdate(
-          progressUpdate: DeliveryProgressUpdateDto.fromModel(model),
+          progressUpdate: DeliveryProgressUpdateDto.fromModel(progressJson),
         ),
       ),
     );
+  }
+
+  void _onDriverTakeDelivery(List<Object?>? arguments) {
+    if (arguments == null || arguments.isEmpty) {
+      logd('Invalid signalr argument $arguments');
+      return;
+    }
+
+    final event = RealTimeEventModel.fromJson(
+      jsonDecode(arguments.first.toString()),
+    );
+    final model = DeliveryWithOrdersResponseModel.fromJson(event.data);
+    final dto = DeliveryWithOrdersResponseDto.fromModel(model);
+    add(OnSetState(SinalRDriverTakeDelivery(dto)));
   }
 }

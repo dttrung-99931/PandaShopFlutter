@@ -12,3 +12,11 @@ class SinalRDeliveryProgressUpdate extends BaseState {
   @override
   List<Object?> get props => [progressUpdate];
 }
+
+class SinalRDriverTakeDelivery extends BaseState {
+  final DeliveryWithOrdersResponseDto deliveryWithOrders;
+  SinalRDriverTakeDelivery(this.deliveryWithOrders);
+
+  @override
+  List<Object?> get props => [deliveryWithOrders];
+}

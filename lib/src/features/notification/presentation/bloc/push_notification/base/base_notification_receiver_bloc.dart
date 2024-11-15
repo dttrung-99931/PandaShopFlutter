@@ -6,7 +6,7 @@ import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/log.dart';
 import 'package:evievm_app/src/features/notification/data/models/response/push_notification/push_notification_model.dart';
-import 'package:evievm_app/src/features/notification/domain/dtos/push_notification/push_notification_dto.dart';
+import 'package:evievm_app/src/features/notification/domain/dtos/push_notification/remote_push_notification_dto.dart';
 import 'package:evievm_app/src/features/notification/presentation/bloc/push_notification/push_notification_bloc.dart';
 
 abstract class BaseNotificationReceiverBloc extends BaseBloc {
@@ -15,7 +15,7 @@ abstract class BaseNotificationReceiverBloc extends BaseBloc {
     on<OnReceivedNotification>(_onReceivedNotification);
   }
 
-  NotificationReceived buildNotificationReceiverState(PushNotificationDto noti);
+  NotificationReceived buildNotificationReceiverState(RemotePushNotificationDto noti);
   FutureOr<void> onConfig(OnConfigNotiReceiver event, Emitter<BaseState> emit);
 
   PushNotificationModel? _parsePushNotification(Map<String, dynamic> pushNotiJson) {
@@ -31,7 +31,7 @@ abstract class BaseNotificationReceiverBloc extends BaseBloc {
   FutureOr<void> _onReceivedNotification(OnReceivedNotification event, Emitter<BaseState> emit) {
     PushNotificationModel? notiModel = _parsePushNotification(event.notiData);
     if (notiModel != null) {
-      PushNotificationDto noti = PushNotificationDto.fromModel(notiModel);
+      RemotePushNotificationDto noti = RemotePushNotificationDto.fromModel(notiModel);
       emit(buildNotificationReceiverState(noti));
     }
   }

@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
+import 'package:evievm_app/core/base_bloc/bloc_communication.dart';
 import 'package:evievm_app/core/use_case/use_case.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/core/utils/log.dart';
@@ -18,6 +19,7 @@ import 'package:evievm_app/src/features/order/domain/use_cases/get_complete_proc
 import 'package:evievm_app/src/features/order/domain/use_cases/get_delivering_orders_usecase.dart';
 import 'package:evievm_app/src/features/order/domain/use_cases/get_orders_usecase.dart';
 import 'package:evievm_app/src/features/order/domain/use_cases/get_waiting_delivery_orders_usecase.dart';
+import 'package:evievm_app/src/features/shop/presentation/bloc/shop_order/shop_order_bloc_communication.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -38,7 +40,11 @@ class ShopOrderBloc extends BaseBloc {
   ) : super(InitialState()) {
     onLoad<OnGetShopOrders>(_onGetShopOrders);
     on<OnSelectOrderStatus>(_onSelectedOrderStatus);
+    on<OnDriverTakeDelivery>(_onDriverTakeDelivery);
   }
+
+  @override
+  BlocCommunication<BaseBloc>? get blocCommunication => getIt<ShopOrderBlocCommunication>();
 
   final GetOrdersUseCase _getOrders;
   final GetCompleteProcessingOrdersUseCase _getCompleteProcessingOrders;
@@ -56,6 +62,7 @@ class ShopOrderBloc extends BaseBloc {
   ];
   OrderStatus _selectedStatus = OrderStatus.created;
   OrderStatus get selectedStatus => _selectedStatus;
+  final List<DeliveryWithOrdersResponseDto> _waitingDeliveries = [];
 
   FutureOr<void> _onGetShopOrders(OnGetShopOrders event, Emitter<BaseState> emit) async {
     switch (event.orderStatus) {
@@ -93,6 +100,7 @@ class ShopOrderBloc extends BaseBloc {
           usecaseResult: _getWaitingDeliveryOrders.call(noParam),
           emit: emit.call,
           onSuccess: (List<DeliveryWithOrdersResponseDto> result) {
+            _waitingDeliveries.assignAll(result);
             return GetWaitingDeliveryPartnerOrdersSuccess(result, orderStatus: _selectedStatus);
           },
         );
@@ -115,5 +123,13 @@ class ShopOrderBloc extends BaseBloc {
     _selectedStatus = event.selected!;
     add(OnGetShopOrders(orderStatus: event.selected!));
     emit(DisplayOrderStatusesUpdated(_displayingOrderStatuses, selectedId: event.selected));
+  }
+
+  FutureOr<void> _onDriverTakeDelivery(OnDriverTakeDelivery event, Emitter<BaseState> emit) {
+    _waitingDeliveries.removeWhere((deli) => deli.id == event.deliveryWithOrders.id);
+    emit(GetWaitingDeliveryPartnerOrdersSuccess(
+      _waitingDeliveries,
+      orderStatus: OrderStatus.waitingForDelivering,
+    ));
   }
 }

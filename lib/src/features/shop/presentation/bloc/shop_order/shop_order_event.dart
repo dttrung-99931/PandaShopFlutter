@@ -15,3 +15,13 @@ class OnGetShopOrders extends BaseEvent {
 class OnSelectOrderStatus extends OnSelect<OrderStatus> {
   OnSelectOrderStatus({required super.selected});
 }
+
+class OnDriverTakeDelivery extends BaseEvent {
+  OnDriverTakeDelivery(
+    this.deliveryWithOrders,
+  );
+  final DeliveryWithOrdersResponseDto deliveryWithOrders;
+
+  @override
+  List<Object?> get props => [deliveryWithOrders];
+}

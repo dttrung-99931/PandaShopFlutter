@@ -7,6 +7,7 @@ import 'package:evievm_app/core/failures/failures.dart';
 import 'package:evievm_app/core/utils/error_handlers.dart';
 import 'package:evievm_app/core/utils/log.dart';
 import 'package:evievm_app/src/features/notification/data/models/response/push_notification/push_notification_payload.dart';
+import 'package:evievm_app/src/features/notification/data/models/response/push_notification/push_notification_payload_factory.dart';
 import 'package:evievm_app/src/features/notification/domain/dtos/push_notification/push_notification_dto.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:injectable/injectable.dart';
@@ -83,8 +84,8 @@ class PushNotificationUseCases {
     }
     switch (details.notificationResponseType) {
       case NotificationResponseType.selectedNotification:
-        PushNotificationPayload payload = PushNotificationPayload.fromJsonString(details.payload!);
-        _configuration!.onNotiSelected?.call(payload);
+        final jsonPayload = jsonDecode(details.payload!);
+        _configuration!.onNotiSelected?.call(PushNotificationPayloadFactory.fromJson(jsonPayload));
         break;
       case NotificationResponseType.selectedNotificationAction:
         logd('selectedNotificationAction');
@@ -113,7 +114,7 @@ class PushNotificationUseCases {
             presentAlert: true,
           ),
         ),
-        payload: jsonEncode(noti.getPayload().toJson()),
+        payload: jsonEncode(PushNotificationPayloadFactory.toJson(noti.payload)),
       );
     });
   }

@@ -2,6 +2,7 @@ import 'package:evievm_app/core/base_bloc/bloc_communication.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/user/user_bloc.dart';
 import 'package:evievm_app/src/features/notification/data/models/request/get_notifications_model.dart';
+import 'package:evievm_app/src/features/notification/domain/dtos/push_notification/local_push_notification_dto.dart';
 import 'package:evievm_app/src/features/notification/presentation/bloc/notification_bloc.dart';
 import 'package:evievm_app/src/features/notification/presentation/bloc/push_notification/base/base_notification_receiver_bloc.dart';
 import 'package:evievm_app/src/features/notification/presentation/bloc/push_notification/fcm_bloc/fcm_bloc.dart';
@@ -33,6 +34,14 @@ class PushNotificationCommunication extends BlocCommunication<PushNotificationBl
       if (state is SignalRNotificationReceived) {
         bloc.add(OnPushNotification(noti: state.data));
         notiBloc.add(OnGetNotificationOverview(requestModel: GetNotificationsModel.default_()));
+      }
+      if (state is SinalRDriverTakeDelivery) {
+        bloc.add(OnPushNotification(
+          noti: LocalPushNotificationDto(
+            title: 'Đơn hàng #${state.deliveryWithOrders.id} đã được nhận giao!',
+            description: '',
+          ),
+        ));
       }
     });
 
