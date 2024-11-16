@@ -1,7 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:equatable/equatable.dart';
 import 'package:evievm_app/src/features/order/data/models/response/order/delivery_progress_response_model.dart';
 
-class DeliveryProgressDto {
+class DeliveryProgressDto extends Equatable {
   DeliveryProgressDto({
     required this.distanceInMetter,
     required this.remainingDistance,
@@ -17,6 +18,13 @@ class DeliveryProgressDto {
   final double driverLong;
   final double driverBearingInDegree;
 
+  double get routeCompletePercents {
+    if (distanceInMetter == 0) {
+      return 0;
+    }
+    return (distanceInMetter - remainingDistance) / distanceInMetter;
+  }
+
   factory DeliveryProgressDto.fromModel(DeliveryProgressResponseModel model) {
     return DeliveryProgressDto(
       distanceInMetter: model.distanceInMetter,
@@ -27,4 +35,14 @@ class DeliveryProgressDto {
       driverBearingInDegree: model.driverBearingInDegree,
     );
   }
+
+  @override
+  List<Object?> get props => [
+        distanceInMetter,
+        remainingDistance,
+        durationInMinute,
+        driverLat,
+        driverLong,
+        driverBearingInDegree,
+      ];
 }

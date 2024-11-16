@@ -25,3 +25,11 @@ class OnDriverTakeDelivery extends BaseEvent {
   @override
   List<Object?> get props => [deliveryWithOrders];
 }
+
+class OnDeliveryProgressUpdate extends BaseEvent {
+  OnDeliveryProgressUpdate(this.progress);
+  final DeliveryProgressUpdateDto progress;
+
+  @override
+  List<Object?> get props => [progress];
+}

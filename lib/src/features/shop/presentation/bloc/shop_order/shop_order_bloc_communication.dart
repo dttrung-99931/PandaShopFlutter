@@ -11,7 +11,7 @@ class ShopOrderBlocCommunication extends BlocCommunication<ShopOrderBloc> {
     listenOtherBloc<SignalRBloc>(
       (state) {
         if (state is SinalRDeliveryProgressUpdate) {
-          return;
+          bloc.add(OnDeliveryProgressUpdate(state.progressUpdate));
         }
         if (state is SinalRDriverTakeDelivery) {
           bloc.add(OnDriverTakeDelivery(state.deliveryWithOrders));

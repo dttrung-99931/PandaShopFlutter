@@ -7,12 +7,6 @@ import 'package:evievm_app/src/features/order/domain/dto/order/delivery_progress
 import 'package:evievm_app/src/features/order/domain/dto/order/order_dto.dart';
 
 class DeliveryWithOrdersResponseDto {
-  final int id;
-  final DeliveryStatus status;
-  final DeliveryProgressDto? progress;
-  final List<OrderDto> orders;
-  final AddressDto deliveryPartnerUnitAddress;
-
   DeliveryWithOrdersResponseDto({
     required this.id,
     required this.status,
@@ -20,6 +14,11 @@ class DeliveryWithOrdersResponseDto {
     required this.orders,
     required this.deliveryPartnerUnitAddress,
   });
+  final int id;
+  final DeliveryStatus status;
+  final DeliveryProgressDto? progress;
+  final List<OrderDto> orders;
+  final AddressDto deliveryPartnerUnitAddress;
 
   factory DeliveryWithOrdersResponseDto.fromModel(DeliveryWithOrdersResponseModel model) {
     return DeliveryWithOrdersResponseDto(
@@ -28,6 +27,22 @@ class DeliveryWithOrdersResponseDto {
       deliveryPartnerUnitAddress: AddressDto.fromModel(model.deliveryPartnerUnitAddress),
       status: model.status,
       progress: model.progress != null ? DeliveryProgressDto.fromModel(model.progress!) : null,
+    );
+  }
+
+  DeliveryWithOrdersResponseDto copyWith({
+    int? id,
+    DeliveryStatus? status,
+    DeliveryProgressDto? progress,
+    List<OrderDto>? orders,
+    AddressDto? deliveryPartnerUnitAddress,
+  }) {
+    return DeliveryWithOrdersResponseDto(
+      id: id ?? this.id,
+      status: status ?? this.status,
+      progress: progress ?? this.progress,
+      orders: orders ?? this.orders,
+      deliveryPartnerUnitAddress: deliveryPartnerUnitAddress ?? this.deliveryPartnerUnitAddress,
     );
   }
 }

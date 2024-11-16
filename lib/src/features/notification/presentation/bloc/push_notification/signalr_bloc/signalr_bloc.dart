@@ -13,6 +13,7 @@ import 'package:evievm_app/src/features/common/data/models/response/realtime/rea
 import 'package:evievm_app/src/features/notification/domain/dtos/push_notification/remote_push_notification_dto.dart';
 import 'package:evievm_app/src/features/notification/presentation/bloc/push_notification/base/base_notification_receiver_bloc.dart';
 import 'package:evievm_app/src/features/notification/presentation/bloc/push_notification/push_notification_bloc.dart';
+import 'package:evievm_app/src/features/order/data/models/response/order/delivery_progress_update_response.dart';
 import 'package:evievm_app/src/features/order/data/models/response/order/delivery_with_orders_response_model.dart';
 import 'package:evievm_app/src/features/order/domain/dto/order/delivery_progress_update_dto.dart';
 import 'package:evievm_app/src/features/order/domain/dto/order/delivery_with_orders_response_dto.dart';
@@ -91,11 +92,11 @@ class SignalRBloc extends BaseNotificationReceiverBloc {
     final event = RealTimeEventModel.fromJson(
       jsonDecode(arguments.first.toString()),
     );
-    final progressJson = jsonDecode(event.data);
+    final model = DeliveryProgressUpdateResponseModel.fromJson(event.data);
     add(
       OnSetState(
         SinalRDeliveryProgressUpdate(
-          progressUpdate: DeliveryProgressUpdateDto.fromModel(progressJson),
+          progressUpdate: DeliveryProgressUpdateDto.fromModel(model),
         ),
       ),
     );

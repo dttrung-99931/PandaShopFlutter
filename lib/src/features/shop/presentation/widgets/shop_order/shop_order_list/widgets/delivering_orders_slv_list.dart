@@ -90,8 +90,7 @@ class _DeliveryProgress extends StatelessWidget {
               if (delivery.progress != null) ...[
                 8.shb,
                 LinearProgressIndicator(
-                  value: 0.3,
-                  // value: delivery.progress!.remainingDistance / delivery.progress!.distanceInMetter,
+                  value: delivery.progress!.routeCompletePercents,
                   color: AppColors.green,
                   backgroundColor: AppColors.grey.withOpacity(0.3),
                 ),

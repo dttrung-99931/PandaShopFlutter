@@ -6,7 +6,7 @@ part 'real_time_event_model.g.dart';
 
 @JsonSerializable(explicitToJson: false)
 class RealTimeEventModel {
-  final dynamic data;
+  final Map<String, dynamic> data;
   final RealTimeEventType type;
 
   RealTimeEventModel(

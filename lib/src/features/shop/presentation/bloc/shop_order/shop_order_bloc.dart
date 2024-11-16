@@ -12,6 +12,7 @@ import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
 import 'package:evievm_app/src/features/order/data/models/request/get_orders_request_model.dart';
 import 'package:evievm_app/src/features/order/data/models/response/order/order_response_model.dart';
+import 'package:evievm_app/src/features/order/domain/dto/order/delivery_progress_update_dto.dart';
 import 'package:evievm_app/src/features/order/domain/dto/order/delivery_with_orders_response_dto.dart';
 import 'package:evievm_app/src/features/order/domain/dto/order/order_dto.dart';
 import 'package:evievm_app/src/features/order/domain/dto/order/temp_delivery_response_dto.dart';
@@ -41,6 +42,7 @@ class ShopOrderBloc extends BaseBloc {
     onLoad<OnGetShopOrders>(_onGetShopOrders);
     on<OnSelectOrderStatus>(_onSelectedOrderStatus);
     on<OnDriverTakeDelivery>(_onDriverTakeDelivery);
+    on<OnDeliveryProgressUpdate>(_onDeliveryProgressUpdate);
   }
 
   @override
@@ -63,6 +65,7 @@ class ShopOrderBloc extends BaseBloc {
   OrderStatus _selectedStatus = OrderStatus.created;
   OrderStatus get selectedStatus => _selectedStatus;
   final List<DeliveryWithOrdersResponseDto> _waitingDeliveries = [];
+  List<DeliveryWithOrdersResponseDto>? _deliveringDeliveries;
 
   FutureOr<void> _onGetShopOrders(OnGetShopOrders event, Emitter<BaseState> emit) async {
     switch (event.orderStatus) {
@@ -110,6 +113,7 @@ class ShopOrderBloc extends BaseBloc {
           usecaseResult: _getDeliveringOrders.call(noParam),
           emit: emit.call,
           onSuccess: (List<DeliveryWithOrdersResponseDto> result) {
+            _deliveringDeliveries = result;
             return GetDeliveringOrdersSuccess(result, orderStatus: _selectedStatus);
           },
         );
@@ -131,5 +135,21 @@ class ShopOrderBloc extends BaseBloc {
       _waitingDeliveries,
       orderStatus: OrderStatus.waitingForDelivering,
     ));
+  }
+
+  FutureOr<void> _onDeliveryProgressUpdate(OnDeliveryProgressUpdate event, Emitter<BaseState> emit) async {
+    int? updateIdx = _deliveringDeliveries?.indexWhere(
+      (deli) => deli.id == event.progress.id,
+    );
+    if (![null, -1].contains(updateIdx)) {
+      DeliveryWithOrdersResponseDto delivery = _deliveringDeliveries![updateIdx!];
+      _deliveringDeliveries?[updateIdx] = delivery.copyWith(
+        progress: event.progress.progress,
+      );
+      emit(GetDeliveringOrdersSuccess(
+        _deliveringDeliveries!,
+        orderStatus: OrderStatus.delivering,
+      ));
+    }
   }
 }

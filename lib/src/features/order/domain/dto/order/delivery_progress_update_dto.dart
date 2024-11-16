@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:evievm_app/src/features/order/data/models/response/order/delivery_progress_update_response.dart';
 import 'package:evievm_app/src/features/order/data/models/response/order/delivery_response_model.dart';
 import 'package:evievm_app/src/features/order/domain/dto/order/delivery_progress_dto.dart';
 
-class DeliveryProgressUpdateDto {
-  DeliveryProgressUpdateDto({
+class DeliveryProgressUpdateDto extends Equatable {
+  const DeliveryProgressUpdateDto({
     required this.id,
     required this.status,
     required this.progress,
@@ -19,4 +20,7 @@ class DeliveryProgressUpdateDto {
       progress: DeliveryProgressDto.fromModel(model.progress),
     );
   }
+
+  @override
+  List<Object?> get props => [id, status, progress];
 }
