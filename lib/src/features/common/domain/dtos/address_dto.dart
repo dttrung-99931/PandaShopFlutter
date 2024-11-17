@@ -1,11 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 import 'package:evievm_app/src/features/common/data/models/response/address_model.dart';
-import 'package:json_annotation/json_annotation.dart';
 
-@JsonSerializable(explicitToJson: true)
 class AddressDto extends Equatable {
-  AddressDto({
+  const AddressDto({
     required this.id,
     required this.provinceOrCity,
     required this.provinceOrCityCode,
@@ -14,6 +12,8 @@ class AddressDto extends Equatable {
     required this.communeOrWard,
     required this.streetAndHouseNum,
     required this.name,
+    required this.lat,
+    required this.long,
   });
 
   final int id;
@@ -24,11 +24,13 @@ class AddressDto extends Equatable {
   final String communeOrWard;
   final String streetAndHouseNum;
   final String name;
+  final double lat;
+  final double long;
 
   String get address => "$provinceOrCity, $district, $communeOrWard, $streetAndHouseNum";
   String get shortAddress => "$provinceOrCity, $district";
 
-  static AddressDto add = AddressDto(
+  static AddressDto add = const AddressDto(
     id: -1,
     provinceOrCity: '',
     provinceOrCityCode: '',
@@ -37,6 +39,8 @@ class AddressDto extends Equatable {
     communeOrWard: '',
     streetAndHouseNum: '',
     name: '',
+    lat: 0,
+    long: 0,
   );
 
   factory AddressDto.fromModel(AddressModel model) {
@@ -49,6 +53,8 @@ class AddressDto extends Equatable {
       communeOrWard: model.communeOrWard,
       streetAndHouseNum: model.streetAndHouseNum,
       name: model.name ?? '',
+      lat: model.lat,
+      long: model.long,
     );
   }
 

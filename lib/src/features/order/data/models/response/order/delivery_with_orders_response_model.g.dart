@@ -20,6 +20,10 @@ DeliveryWithOrdersResponseModel _$DeliveryWithOrdersResponseModelFromJson(
           .toList(),
       deliveryPartnerUnitAddress: AddressModel.fromJson(
           json['deliveryPartnerUnitAddress'] as Map<String, dynamic>),
+      deliveryLocations: (json['deliveryLocations'] as List<dynamic>)
+          .map((e) =>
+              DeliveryLocationResponseModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 const _$DeliveryStatusEnumMap = {

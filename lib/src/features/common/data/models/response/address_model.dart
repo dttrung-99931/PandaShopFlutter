@@ -13,6 +13,8 @@ class AddressModel {
   final String communeOrWard;
   final String streetAndHouseNum;
   final String? name;
+  final double lat;
+  final double long;
 
   AddressModel(
     this.id,
@@ -23,6 +25,8 @@ class AddressModel {
     this.communeOrWard,
     this.streetAndHouseNum,
     this.name,
+    this.lat,
+    this.long,
   );
 
   factory AddressModel.fromJson(Map<String, dynamic> json) => _$AddressModelFromJson(json);

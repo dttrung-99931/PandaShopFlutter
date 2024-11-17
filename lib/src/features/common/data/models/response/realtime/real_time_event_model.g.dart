@@ -8,7 +8,7 @@ part of 'real_time_event_model.dart';
 
 RealTimeEventModel _$RealTimeEventModelFromJson(Map<String, dynamic> json) =>
     RealTimeEventModel(
-      json['data'],
+      json['data'] as Map<String, dynamic>,
       $enumDecode(_$RealTimeEventTypeEnumMap, json['type']),
     );
 

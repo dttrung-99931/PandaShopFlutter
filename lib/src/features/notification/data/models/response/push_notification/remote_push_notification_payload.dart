@@ -6,7 +6,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import 'package:evievm_app/src/features/notification/data/models/response/notification_model.dart';
 
-part 'push_notification_payload.g.dart';
+part 'remote_push_notification_payload.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class RemotePushNotificationPayload extends PushNotificationPayload {
@@ -18,10 +18,11 @@ class RemotePushNotificationPayload extends PushNotificationPayload {
     required this.notiType,
   });
 
-  factory RemotePushNotificationPayload.fromJson(Map<String, dynamic> json) => _$PushNotificationPayloadFromJson(json);
+  factory RemotePushNotificationPayload.fromJson(Map<String, dynamic> json) =>
+      _$RemotePushNotificationPayloadFromJson(json);
   factory RemotePushNotificationPayload.fromJsonString(String json) {
     return RemotePushNotificationPayload.fromJson(jsonDecode(json));
   }
   @override
-  Map<String, dynamic> toJson() => _$PushNotificationPayloadToJson(this);
+  Map<String, dynamic> toJson() => _$RemotePushNotificationPayloadToJson(this);
 }

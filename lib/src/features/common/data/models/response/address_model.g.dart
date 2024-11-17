@@ -15,6 +15,8 @@ AddressModel _$AddressModelFromJson(Map<String, dynamic> json) => AddressModel(
       json['communeOrWard'] as String,
       json['streetAndHouseNum'] as String,
       json['name'] as String?,
+      (json['lat'] as num).toDouble(),
+      (json['long'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$AddressModelToJson(AddressModel instance) =>
@@ -27,4 +29,6 @@ Map<String, dynamic> _$AddressModelToJson(AddressModel instance) =>
       'communeOrWard': instance.communeOrWard,
       'streetAndHouseNum': instance.streetAndHouseNum,
       'name': instance.name,
+      'lat': instance.lat,
+      'long': instance.long,
     };
