@@ -26,7 +26,7 @@ class MapDeliveryTrackingBloc extends BaseMapBloc with AddressBlocMixin {
   MapDeliveryTrackingBloc(
     this._mapTrackingUsecase,
   ) : super() {
-    onLoad<OnStartDeliveryTracking>(_onStartDeliveryTracking);
+    on<OnStartDeliveryTracking>(_onStartDeliveryTracking);
     on<OnStopDeliveryTracking>(_onStopDeliveryTracking);
     on<OnMapDeliveryProgressUpdate>(_onMapDeliveryProgressUpdate);
   }
@@ -41,10 +41,18 @@ class MapDeliveryTrackingBloc extends BaseMapBloc with AddressBlocMixin {
 
   FutureOr<void> _onStartDeliveryTracking(OnStartDeliveryTracking event, Emitter<BaseState> emit) async {
     _currentTrackingDelivery = event.deliveryId;
+    await handleUsecaseResult(
+      usecaseResult: _mapTrackingUsecase.startTracking(event.options),
+      emit: emit.call,
+    );
   }
 
   FutureOr<void> _onStopDeliveryTracking(OnStopDeliveryTracking event, Emitter<BaseState> emit) async {
     _currentTrackingDelivery = null;
+    await handleUsecaseResult(
+      usecaseResult: _mapTrackingUsecase.stopTracking(),
+      emit: emit.call,
+    );
   }
 
   FutureOr<void> _onMapDeliveryProgressUpdate(OnMapDeliveryProgressUpdate event, Emitter<BaseState> emit) async {

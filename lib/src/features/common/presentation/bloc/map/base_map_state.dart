@@ -5,3 +5,8 @@ class MapSDKInitilized extends LoadingCompleteState {
   @override
   List<Object?> get props => [now.toString()];
 }
+
+class MapSDKDisposed extends LoadingCompleteState {
+  @override
+  List<Object?> get props => [now.toString()];
+}

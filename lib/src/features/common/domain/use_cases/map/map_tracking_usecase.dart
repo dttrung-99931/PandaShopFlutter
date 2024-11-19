@@ -7,7 +7,7 @@ import 'package:panda_map/core/models/map_current_location.dart';
 
 @lazySingleton
 class MapTrackingUsecase {
-  final MapTrackingController trackingController = MapTrackingController();
+  late final MapTrackingController trackingController = MapTrackingController();
 
   Future<Either<Failure, void>> updateCurrentLocation(MapCurrentLocation location) async {
     return executeWithTryCatch(() async {

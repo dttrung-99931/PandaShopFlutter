@@ -5,6 +5,7 @@ import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
+import 'package:evievm_app/src/features/common/presentation/widgets/map/delivery_tracking_bottom_sheet.dart';
 import 'package:evievm_app/src/features/order/data/models/response/order/delivery_response_model.dart';
 import 'package:evievm_app/src/features/order/domain/dto/order/delivery_with_orders_response_dto.dart';
 import 'package:evievm_app/src/features/order/domain/dto/order/order_dto.dart';
@@ -80,9 +81,10 @@ class _DeliveryProgress extends StatelessWidget {
                       color: AppColors.primaryShop,
                       padding: const EdgeInsets.all(2),
                       onPressed: () {
-                        // TODO: Open map showing driver moving
-                        // Shop no need to view more detail -> try this to impl map
-                        // It's better to impl this for  buyer
+                        DeliveryTrackingBottomSheet.show(
+                          context: context,
+                          args: DeliveryTrackingArgs(deliveryWithOrders: delivery),
+                        );
                       },
                     )
                 ],

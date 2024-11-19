@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:bloc/src/bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_bloc.dart';
@@ -36,6 +35,7 @@ abstract class BaseMapBloc extends BaseBloc {
   }
 
   FutureOr<void> _onDisposeMapSDK(OnDisposeMapSDK event, Emitter<BaseState> emit) {
+    emit(MapSDKDisposed());
     PandaMap.dispose();
   }
 }

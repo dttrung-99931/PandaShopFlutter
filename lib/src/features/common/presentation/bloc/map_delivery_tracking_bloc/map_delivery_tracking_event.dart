@@ -2,14 +2,16 @@
 part of 'map_delivery_tracking_bloc.dart';
 
 class OnStartDeliveryTracking extends BaseEvent {
+  final MapTrackingOptions options;
   final int deliveryId;
 
   OnStartDeliveryTracking({
+    required this.options,
     required this.deliveryId,
   });
 
   @override
-  List<Object?> get props => [deliveryId];
+  List<Object?> get props => [options, deliveryId];
 }
 
 class OnStopDeliveryTracking extends BaseEventWithoutProps {}

@@ -9,7 +9,7 @@ import 'package:evievm_app/src/features/order/data/models/response/order/order_r
 
 part 'delivery_with_orders_response_model.g.dart';
 
-@JsonSerializable(createToJson: false)
+@JsonSerializable(createToJson: false, explicitToJson: true)
 class DeliveryWithOrdersResponseModel {
   final int id;
   final DeliveryStatus status;
