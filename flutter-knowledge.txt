@@ -1,0 +1,18 @@
+App:
+    - Create flutter package 
+        + Factory package (panda_map)
+    - Impl basic here map navigation by self
+        + Draw polyline
+        + Handle remove passed coordinate from route polyline
+            - Use Haversine formula -> calc distance btw 2 coordinates 
+            - Use PolygoneUtil.locationIndexOnPath 
+        + Draw driver moving on map by cuustom MapMarker:
+            - Load driver from assets
+            - Rotate driver by bearing degree 
+            - Display the roated driver on map
+    - Create basic shopping app, delivery app by myself
+
+API:
+    - Apply Migration when current data is conflicted 
+    - Handle signalr 
+    - Apply factory pattern in send notification feature (Send by sender), realtime feature  
