@@ -8,7 +8,7 @@ App:
             - Use PolygoneUtil.locationIndexOnPath 
         + Draw driver moving on map by cuustom MapMarker:
             - Load driver from assets
-            - Rotate driver by bearing degree 
+            - Rotate driver by bearing degree (Using CustomPainter canvas)
             - Display the roated driver on map
     - Create basic shopping app, delivery app by myself
 
