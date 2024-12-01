@@ -18,7 +18,7 @@ Future<void> configDev() async {
     logRequest: true,
     logBloc: true,
     sinalRUrl: 'http://localhost:44444/SignalR',
-    hereMapAPIKey: 'bb6rs_Rbb7Vz0qOXSaF_CnVL7Z3rJ53N4uJ8-fUjEM-TBSGPU6hUsWxAocMuZ1cB57oJ_v8QaXpdWEmKVCgNFg',
-    hereMapAPIKeyId: 'GWunhRPgdFdBJcKsfrCaqg',
+    hereMapAPIKey: 'yourMapAPIKey',
+    hereMapAPIKeyId: 'yourMapAPIKeyId',
   );
 }
