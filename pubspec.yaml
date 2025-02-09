@@ -59,7 +59,7 @@ dependencies:
   another_flushbar: ^1.12.29
   package_info_plus: ^8.0.0
   expandable_page_view: ^1.0.17 # Page view wrap height content    
-  carousel_slider: ^4.2.1
+  carousel_slider: ^5.0.0
   dotted_border: ^2.1.0
   flutter_image_compress: ^2.3.0
   dio_cache_interceptor: ^3.5.0

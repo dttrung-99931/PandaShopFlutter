@@ -29,16 +29,17 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 34
-    ndkVersion "25.1.8937393"
-    
+    namespace "pantech.panshop_app"
+    compileSdkVersion 35
+    ndkVersion = "26.1.10909125"
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
 
         // Flag to enable support for the new language APIs
         // TODO: Used in the furture if lcoal noti get eorror
-        // coreLibraryDesugaringEnabled true
+        coreLibraryDesugaringEnabled true
     }
 
     kotlinOptions {
@@ -51,8 +52,8 @@ android {
 
     defaultConfig {
         applicationId "pantech.panshop_app"
-        minSdkVersion 23 // HERE MAP SDK REQUIRED
-        targetSdkVersion 33
+        minSdkVersion 24 // HERE MAP SDK REQUIRED
+        targetSdkVersion 35
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
@@ -121,5 +122,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.window:window:1.0.0'
     implementation 'androidx.window:window-java:1.0.0'
-   
+
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3' // support for local notification
 }
