@@ -725,9 +725,9 @@ packages:
     source: path
     version: "0.0.1"
   here_sdk:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      path: "../here_panda_map/plugins/heresdk-explore-flutter"
+      path: "package/heresdk-explore-flutter"
       relative: true
     source: path
     version: "4.21.2"
@@ -1487,5 +1487,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.5.4 <4.0.0"
-  flutter: ">=3.24.5"
+  dart: ">=3.4.1 <4.0.0"
+  flutter: ">=3.22.0"
