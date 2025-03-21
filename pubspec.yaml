@@ -40,10 +40,9 @@ dependencies:
 
   # Map
   panda_map:
-    #
-    # git: https://github.com/dttrung-99931/PandaMap.git
+    git: https://github.com/dttrung-99931/PandaMap.git
   here_panda_map:
-    #
+    git: https://github.com/dttrung-99931/HerePandaMap.git
 
   # --------------- UI ---------------
   cupertino_icons: ^1.0.2
@@ -63,6 +62,12 @@ dependencies:
   dotted_border: ^2.1.0
   flutter_image_compress: ^2.3.0
   dio_cache_interceptor: ^3.5.0
+
+
+dependency_overrides:
+  here_sdk:
+    path: plugins/heresdk-explore-flutter # 4.21.2
+
 
 dev_dependencies:
   flutter_test:

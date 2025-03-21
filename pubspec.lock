@@ -720,14 +720,16 @@ packages:
   here_panda_map:
     dependency: "direct main"
     description:
-      path: "/Users/msv/projects/flutter/here_panda_map"
-      relative: false
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "4077e753ef7849439e6a6f18129ef6cb31159e59"
+      url: "https://github.com/dttrung-99931/HerePandaMap.git"
+    source: git
     version: "0.0.1"
   here_sdk:
     dependency: "direct overridden"
     description:
-      path: "package/heresdk-explore-flutter"
+      path: "plugins/heresdk-explore-flutter"
       relative: true
     source: path
     version: "4.21.2"
@@ -966,9 +968,11 @@ packages:
   panda_map:
     dependency: "direct main"
     description:
-      path: "/Users/msv/projects/flutter/panda_map"
-      relative: false
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "2c3d12601554ad3d9119845d6e4f408472a3eeb0"
+      url: "https://github.com/dttrung-99931/PandaMap.git"
+    source: git
     version: "0.0.1"
   path:
     dependency: transitive

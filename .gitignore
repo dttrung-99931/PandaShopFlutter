@@ -77,3 +77,9 @@ app.*.map.json
 
 # FVM Version Cache
 .fvm/
+
+# Firebase config key
+lib/firebase_options.dart
+
+# Plugins
+plugins/heresdk-explore-flutter/
