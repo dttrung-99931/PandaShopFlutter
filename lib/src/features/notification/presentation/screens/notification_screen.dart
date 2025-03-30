@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/constants.dart';
-import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/core/utils/format_utils.dart';
@@ -52,30 +51,31 @@ class _NotificationScreenState extends State<NotificationScreen> {
             style: textTheme.titleSmall?.withColor(AppColors.white),
           ),
         ),
-        body: Stack(
-          children: [
-            CustomBlocBuilder<NotificationBloc>(
-              buildForStates: const [GetNotificationsSuccesss],
-              builder: (state) {
-                if (state is! GetNotificationsSuccesss) {
-                  return emptyWidget;
-                }
-                if (state.data.isEmpty) {
-                  return const EmptyData(title: 'Bạn chưa có thông báo!');
-                }
-                return ListView(
+        body: CustomBlocBuilder<NotificationBloc>(
+          buildForStates: const [GetNotificationsSuccesss],
+          builder: (state) {
+            if (state is! GetNotificationsSuccesss) {
+              return emptyWidget;
+            }
+            return Stack(
+              children: [
+                ListView.builder(
                   physics: const AlwaysScrollableScrollPhysics(),
-                  children: state.data.data.mapList(
-                    (element) => NotificationItem(noti: element),
+                  itemCount: state.data.data.length,
+                  itemBuilder: (context, index) {
+                    return NotificationItem(noti: state.data.data[index]);
+                  },
+                ),
+                if (state.data.isEmpty) ...[
+                  const EmptyData(title: 'Bạn chưa có thông báo!'),
+                  // Make RefreshIndicator working even no data / error
+                  ListView(
+                    physics: const AlwaysScrollableScrollPhysics(),
                   ),
-                );
-              },
-            ),
-            // Make RefreshIndicator working even no data / error
-            ListView(
-              physics: const AlwaysScrollableScrollPhysics(),
-            ),
-          ],
+                ]
+              ],
+            );
+          },
         ),
       ),
     );
@@ -91,28 +91,42 @@ class NotificationItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 12.r, horizontal: 16.r),
+      padding: EdgeInsets.symmetric(vertical: 20.r, horizontal: 20.r),
       margin: EdgeInsets.only(left: 12.w, right: 12.w, top: 8.h),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4.r),
-        color: noti.status == UserNotificationStatus.seen ? AppColors.white.withOpacity(0.4) : AppColors.white,
+        borderRadius: BorderRadius.circular(5.r),
+        color: noti.status == UserNotificationStatus.seen ? AppColors.white.withOpacity(0.6) : AppColors.white,
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.black.withOpacity(0.02),
+            blurRadius: 2.r,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Text(
+            noti.title,
+            style: textTheme.bodySmall.withOpacity(0.6),
+            maxLines: 1,
+          ),
+          2.shb,
           Row(
             children: [
               Text(noti.data.order?.productAndOptionNames ?? '', style: textTheme.bodyLarge.bold()),
-              const Spacer(),
-              Text(noti.title, style: textTheme.bodyMedium.withOpacity(0.6)),
             ],
           ),
           4.shb,
           Text(noti.description, style: textTheme.bodyLarge),
-          4.shb,
-          Text(
-            FormatUtils.formatDateTime(noti.createdDate),
-            style: textTheme.bodySmall.withOpacity(0.6),
+          8.shb,
+          Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              FormatUtils.formatDateTime(noti.createdDate),
+              style: textTheme.bodySmall.withOpacity(0.6),
+            ),
           ),
         ],
       ),
