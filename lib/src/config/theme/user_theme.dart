@@ -2,7 +2,7 @@ part of 'app_theme.dart';
 
 ThemeData buildUserTheme() {
   return ThemeData(
-    fontFamily: 'NotoSansJP',
+    fontFamily: 'Arial',
     colorScheme: const ColorScheme.light(
       primary: AppColors.primary,
     ),

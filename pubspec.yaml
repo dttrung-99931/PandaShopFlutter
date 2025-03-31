@@ -88,16 +88,6 @@ flutter:
     - assets/translations/
 
   fonts:
-    - family: NotoSansJP
-      fonts:
-        - asset: assets/fonts/NotoSansJP-Thin.otf
-          weight: 100
-        - asset: assets/fonts/NotoSansJP-Light.otf
-          weight: 300
-        - asset: assets/fonts/NotoSansJP-Regular.otf
-          weight: 400
-        - asset: assets/fonts/NotoSansJP-Medium.otf
-          weight: 500
     - family: Arial
       fonts:
         - asset: assets/fonts/Arial-Light.ttf
