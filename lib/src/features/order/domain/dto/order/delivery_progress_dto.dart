@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:evievm_app/src/features/order/data/models/response/order/delivery_progress_response_model.dart';
 
 class DeliveryProgressDto extends Equatable {
-  DeliveryProgressDto({
+  const DeliveryProgressDto({
     required this.distanceInMetter,
     required this.remainingDistance,
     required this.durationInMinute,

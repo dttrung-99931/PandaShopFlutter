@@ -57,7 +57,7 @@ abstract class BaseRepo {
           statusCode: response.statusCode,
         )..log(),
       );
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       loge('$e\n${e.response?.data}');
       if (e.error is SocketException) {
         return Left(NetworkFailure());
