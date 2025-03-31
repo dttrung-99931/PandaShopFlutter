@@ -13,9 +13,13 @@ import 'package:evievm_app/src/config/firebase_config.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Future<void> appMain() async {
+  final bining = WidgetsFlutterBinding.ensureInitialized();
+  // Keep splash showing, splash will be removed in SplashScreen
+  FlutterNativeSplash.preserve(widgetsBinding: bining);
   await AppConfig.config.validateFlavorMatchingBundleId();
   await EasyLocalization.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
