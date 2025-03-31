@@ -1,0 +1,5 @@
+AJwfowNJH8skkgjVVaQ7QlUIgiFqlH8-hSTaJJP4_-_1p3d4007ktf9yeDGzdOE58ZJcD67y8gAPaNnZ1DqTtA==>yourMapAPIKey
+r6zgCSmJPMvTWXpZU3cMrA==>yourMapAPIKeyId
+path: /Users/msv/projects/flutter/panda_map==>#
+path: D:\flutter-packages-plugins\HerePandaMap==>#
+path: /Users/msv/projects/flutter/here_panda_map==>#

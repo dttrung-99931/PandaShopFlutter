@@ -17,7 +17,7 @@ Future<void> configDevHome() async {
     logResponse: true,
     logRequest: true,
     logBloc: true,
-    sinalRUrl: 'https://localhost:5001/SignalR',
+    sinalRUrl: 'https://192.168.1.31:5001/SignalR',
     hereMapAPIKey: 'yourMapAPIKey',
     hereMapAPIKeyId: 'yourMapAPIKeyId',
   );
