@@ -26,10 +26,7 @@ dependencies:
   json_annotation: ^4.8.0
   easy_localization: ^3.0.1
   retrofit: ">=4.0.0 <5.0.0"
-  http_parser: ^4.0.2
   socket_io_client: ^2.0.2
-  camera: ^0.11.0
-  mobile_scanner: ^5.1.1
   file_picker: ^8.0.3
   
   # Notification
@@ -51,13 +48,9 @@ dependencies:
   flutter_svg: ^2.0.10+1
   responsive_framework: ^1.4.0
   # rive: ^0.8.4
-  expandable: ^5.0.1
-  syncfusion_flutter_datepicker:
-    path: package/syncfusion_flutter_datepicker
   flutter_screenutil: ^5.7.0
   another_flushbar: ^1.12.29
   package_info_plus: ^8.0.0
-  expandable_page_view: ^1.0.17 # Page view wrap height content    
   carousel_slider: ^5.0.0
   dotted_border: ^2.1.0
   flutter_image_compress: ^2.3.0
