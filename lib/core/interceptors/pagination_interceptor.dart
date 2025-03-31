@@ -17,7 +17,7 @@ class PaginationInterceptor extends Interceptor {
   }
 
   @override
-  void onError(DioError err, ErrorInterceptorHandler handler) async {
+  void onError(DioException err, ErrorInterceptorHandler handler) async {
     if (AppConfig.config.logCurl) {
       handler.next(err);
     } else {
