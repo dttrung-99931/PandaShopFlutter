@@ -67,7 +67,19 @@
             "args": [
                 "--flavor",
                 "dev"
-            ]
+            ],
+
+        },
+        {
+            "name": "dev home wifi release",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "program": "lib/main_dev_home_wifi.dart",
+            "args": [
+                "--flavor",
+                "dev"
+            ],
 
         },
     ]

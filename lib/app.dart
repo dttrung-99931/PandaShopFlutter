@@ -25,7 +25,7 @@ Future<void> appMain() async {
   await ScreenUtil.ensureScreenSize();
   configureDependencies();
   HttpOverrides.global = PandaHttpOverrides();
-  FirebaseConfig.config();
+  await FirebaseConfig.config();
   runApp(EasyLocalization(
     supportedLocales: AppTranslation.supportedLocales,
     path: AppTranslation.path,
