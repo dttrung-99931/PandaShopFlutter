@@ -1,3 +1,4 @@
+import 'package:evievm_app/core/ui/auto_reset_bloc_state.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:evievm_app/src/features/home/presentation/bloc/home_bloc.dart';
@@ -17,7 +18,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends AutoResetBlocState<HomeScreen, HomeBloc> {
   final _pageStorageBucket = PageStorageBucket();
 
   @override

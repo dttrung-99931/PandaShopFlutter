@@ -1,4 +1,5 @@
 import 'package:evievm_app/core/base_bloc/base_event.dart';
+import 'package:evievm_app/core/ui/auto_reset_bloc_state.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
@@ -24,7 +25,7 @@ class SearchProductsScreen extends StatefulWidget {
   State<SearchProductsScreen> createState() => _SearchProductsScreenState();
 }
 
-class _SearchProductsScreenState extends State<SearchProductsScreen> {
+class _SearchProductsScreenState extends AutoResetBlocState<SearchProductsScreen, SearchProductsBloc> {
   @override
   void initState() {
     super.initState();

@@ -8,6 +8,7 @@ import '../../../../../../../core/base_bloc/bloc_communication.dart';
 class ProductOptionCommunication extends BlocCommunication<ProductOptionBloc> {
   @override
   void startCommunication(ProductOptionBloc bloc) {
+    super.startCommunication(bloc);
     listenOtherBloc<ProductDetailBloc>((state) {
       if (state is GetProductDetailSucess && state.data != null) {
         bloc.add(

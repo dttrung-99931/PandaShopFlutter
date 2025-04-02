@@ -1,3 +1,4 @@
+import 'package:evievm_app/core/ui/auto_reset_bloc_state.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
@@ -40,7 +41,7 @@ class ProductDetailScreen extends StatefulWidget {
   State<ProductDetailScreen> createState() => _ProductDetailScreenState();
 }
 
-class _ProductDetailScreenState extends State<ProductDetailScreen> {
+class _ProductDetailScreenState extends AutoResetBlocState<ProductDetailScreen, ProductDetailBloc> {
   final _scrollContorller = ScrollController();
 
   @override

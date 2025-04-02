@@ -9,6 +9,7 @@ import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/core/utils/overlay_utils.dart';
 import 'package:evievm_app/core/utils/validate.dart';
 import 'package:evievm_app/global.dart';
+import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/sign_up/sign_up_bloc.dart';
@@ -34,6 +35,12 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends ValidationState<SignUpScreen, SignUpBloc> {
+  @override
+  void dispose() {
+    super.dispose();
+    getIt.resetLazySingleton<SignUpBloc>();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
