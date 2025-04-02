@@ -2,9 +2,9 @@
 import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
-import 'package:evievm_app/src/features/common/presentation/bloc/main/main_bloc.dart';
-import 'package:evievm_app/src/features/common/presentation/screens/main_shop_screen.dart';
-import 'package:evievm_app/src/features/common/presentation/screens/main_user_screen.dart';
+import 'package:evievm_app/src/features/main/presentation/blocs/main/main_bloc.dart';
+import 'package:evievm_app/src/features/main/presentation/screens/main_shop_screen.dart';
+import 'package:evievm_app/src/features/main/presentation/screens/main_user_screen.dart';
 import 'package:evievm_app/src/features/notification/presentation/bloc/push_notification/push_notification_bloc.dart';
 import 'package:evievm_app/src/features/notification/presentation/screens/widgets/notification_pressed_listener.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_consumer.dart';

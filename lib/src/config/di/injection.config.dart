@@ -11,11 +11,11 @@
 import 'package:dio/dio.dart' as _i38;
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart' as _i3;
 import 'package:evievm_app/core/cache/panda_cache_provider.dart' as _i37;
-import 'package:evievm_app/core/interceptors/api_log_interceptor.dart' as _i21;
-import 'package:evievm_app/core/interceptors/auth_interceptor.dart' as _i35;
+import 'package:evievm_app/core/interceptors/api_log_interceptor.dart' as _i5;
+import 'package:evievm_app/core/interceptors/auth_interceptor.dart' as _i28;
 import 'package:evievm_app/core/interceptors/pagination_interceptor.dart'
     as _i4;
-import 'package:evievm_app/core/utils/storage.dart' as _i5;
+import 'package:evievm_app/core/utils/storage.dart' as _i6;
 import 'package:evievm_app/src/config/di/injection.dart' as _i139;
 import 'package:evievm_app/src/features/auth/data/data_sources/auth_remote_data_soruce.dart'
     as _i41;
@@ -24,13 +24,13 @@ import 'package:evievm_app/src/features/auth/data/repositories/auth_repo_impl.da
 import 'package:evievm_app/src/features/auth/domain/repositories/auth_repo.dart'
     as _i51;
 import 'package:evievm_app/src/features/auth/domain/use_cases/check_login_usecase.dart'
-    as _i29;
-import 'package:evievm_app/src/features/auth/domain/use_cases/get_remember_login_email_usecase.dart'
     as _i30;
+import 'package:evievm_app/src/features/auth/domain/use_cases/get_remember_login_email_usecase.dart'
+    as _i31;
 import 'package:evievm_app/src/features/auth/domain/use_cases/login_usecase.dart'
     as _i62;
 import 'package:evievm_app/src/features/auth/domain/use_cases/logout_usecase.dart'
-    as _i28;
+    as _i29;
 import 'package:evievm_app/src/features/auth/domain/use_cases/qr_barcode_reader_login_usecase.dart'
     as _i67;
 import 'package:evievm_app/src/features/auth/domain/use_cases/sign_up_usecase.dart'
@@ -56,13 +56,13 @@ import 'package:evievm_app/src/features/common/domain/use_cases/get_communes_and
 import 'package:evievm_app/src/features/common/domain/use_cases/get_district_usecase_usecase.dart'
     as _i59;
 import 'package:evievm_app/src/features/common/domain/use_cases/get_map_place_detail_usecase.dart'
-    as _i18;
+    as _i21;
 import 'package:evievm_app/src/features/common/domain/use_cases/get_my_addresses_usecase.dart'
     as _i58;
 import 'package:evievm_app/src/features/common/domain/use_cases/get_provinces_and_cities_usecase.dart'
     as _i57;
 import 'package:evievm_app/src/features/common/domain/use_cases/map/map_tracking_usecase.dart'
-    as _i23;
+    as _i20;
 import 'package:evievm_app/src/features/common/domain/use_cases/save_my_address_usecase.dart'
     as _i60;
 import 'package:evievm_app/src/features/common/domain/use_cases/user/get_user_detail_usecase.dart'
@@ -70,25 +70,25 @@ import 'package:evievm_app/src/features/common/domain/use_cases/user/get_user_de
 import 'package:evievm_app/src/features/common/domain/use_cases/utils/pick_local_image_as_base64_use_case.dart'
     as _i27;
 import 'package:evievm_app/src/features/common/domain/use_cases/utils/pick_local_image_use_case.dart'
-    as _i17;
+    as _i19;
 import 'package:evievm_app/src/features/common/presentation/bloc/address/address_bloc.dart'
     as _i66;
 import 'package:evievm_app/src/features/common/presentation/bloc/address_input_bloc/address_input_bloc.dart'
-    as _i105;
-import 'package:evievm_app/src/features/common/presentation/bloc/main/main_bloc.dart'
-    as _i34;
-import 'package:evievm_app/src/features/common/presentation/bloc/main/main_bloc_communicaton.dart'
-    as _i20;
+    as _i96;
 import 'package:evievm_app/src/features/common/presentation/bloc/map_address/map_address_bloc.dart'
-    as _i19;
+    as _i22;
 import 'package:evievm_app/src/features/common/presentation/bloc/map_delivery_tracking_bloc/map_delivery_tracking_bloc.dart'
     as _i26;
 import 'package:evievm_app/src/features/common/presentation/bloc/map_delivery_tracking_bloc/map_delivery_tracking_communicaton.dart'
-    as _i24;
+    as _i23;
 import 'package:evievm_app/src/features/common/presentation/bloc/user/user_bloc.dart'
     as _i137;
 import 'package:evievm_app/src/features/home/presentation/bloc/home_bloc.dart'
-    as _i96;
+    as _i97;
+import 'package:evievm_app/src/features/main/presentation/blocs/main/main_bloc.dart'
+    as _i35;
+import 'package:evievm_app/src/features/main/presentation/blocs/main/main_bloc_communicaton.dart'
+    as _i24;
 import 'package:evievm_app/src/features/notification/data/data_sources/notification_data_source.dart'
     as _i42;
 import 'package:evievm_app/src/features/notification/data/repos/notification_repo_impl.dart'
@@ -98,55 +98,55 @@ import 'package:evievm_app/src/features/notification/domain/repos/notification_r
 import 'package:evievm_app/src/features/notification/domain/use_cases/create_notification_receiver_usecase.dart'
     as _i70;
 import 'package:evievm_app/src/features/notification/domain/use_cases/fcm_notification_usecases.dart'
-    as _i9;
+    as _i10;
 import 'package:evievm_app/src/features/notification/domain/use_cases/get_notifications_overview_usecase.dart'
     as _i72;
 import 'package:evievm_app/src/features/notification/domain/use_cases/get_notifications_usecase.dart'
     as _i71;
 import 'package:evievm_app/src/features/notification/domain/use_cases/push_notification_usecases.dart'
-    as _i8;
+    as _i9;
 import 'package:evievm_app/src/features/notification/presentation/bloc/notification_bloc.dart'
     as _i133;
 import 'package:evievm_app/src/features/notification/presentation/bloc/push_notification/fcm_bloc/fcm_bloc.dart'
-    as _i98;
+    as _i99;
 import 'package:evievm_app/src/features/notification/presentation/bloc/push_notification/push_notification_bloc.dart'
     as _i25;
 import 'package:evievm_app/src/features/notification/presentation/bloc/push_notification/push_notification_communication.dart'
-    as _i10;
+    as _i11;
 import 'package:evievm_app/src/features/notification/presentation/bloc/push_notification/signalr_bloc/signalr_bloc.dart'
-    as _i31;
+    as _i32;
 import 'package:evievm_app/src/features/order/data/data_sources/order_data_source.dart'
     as _i40;
 import 'package:evievm_app/src/features/order/data/data_sources/payment_data_soruce.dart'
     as _i39;
 import 'package:evievm_app/src/features/order/data/repos/order_repo_impl.dart'
-    as _i100;
+    as _i101;
 import 'package:evievm_app/src/features/order/data/repos/payment_repo_impl.dart'
     as _i75;
 import 'package:evievm_app/src/features/order/domain/repos/order_repo.dart'
-    as _i99;
+    as _i100;
 import 'package:evievm_app/src/features/order/domain/repos/payment_repo.dart'
     as _i74;
 import 'package:evievm_app/src/features/order/domain/use_cases/create_order_usecase.dart'
-    as _i108;
+    as _i110;
 import 'package:evievm_app/src/features/order/domain/use_cases/get_complete_processing_orders_usecase.dart'
-    as _i111;
+    as _i112;
 import 'package:evievm_app/src/features/order/domain/use_cases/get_delivering_orders_usecase.dart'
-    as _i114;
+    as _i108;
 import 'package:evievm_app/src/features/order/domain/use_cases/get_orders_usecase.dart'
     as _i107;
 import 'package:evievm_app/src/features/order/domain/use_cases/get_payment_methods_usecase.dart'
     as _i130;
 import 'package:evievm_app/src/features/order/domain/use_cases/get_waiting_delivery_orders_usecase.dart'
-    as _i113;
+    as _i109;
 import 'package:evievm_app/src/features/order/domain/use_cases/request_partner_delivery_usecase.dart'
-    as _i112;
+    as _i111;
 import 'package:evievm_app/src/features/order/presentation/bloc/delivery_method_inp/delivery_method_inp_bloc.dart'
-    as _i6;
+    as _i7;
 import 'package:evievm_app/src/features/order/presentation/bloc/order_bloc.dart'
     as _i132;
 import 'package:evievm_app/src/features/order/presentation/bloc/order_bloc_communicaton.dart'
-    as _i7;
+    as _i8;
 import 'package:evievm_app/src/features/order/presentation/bloc/payment_method_inp/payment_method_inp_bloc.dart'
     as _i138;
 import 'package:evievm_app/src/features/product/data/data_sources/ads/ads_data_soruce.dart'
@@ -190,11 +190,11 @@ import 'package:evievm_app/src/features/product/domain/use_cases/product/search_
 import 'package:evievm_app/src/features/product/domain/use_cases/product/update_product_usecase.dart'
     as _i79;
 import 'package:evievm_app/src/features/product/presentation/bloc/product_detail/product_detail_bloc.dart'
-    as _i97;
+    as _i98;
 import 'package:evievm_app/src/features/product/presentation/bloc/product_detail/product_option/product_option_bloc.dart'
-    as _i16;
+    as _i18;
 import 'package:evievm_app/src/features/product/presentation/bloc/product_detail/product_option/product_option_bloc_communicaton.dart'
-    as _i15;
+    as _i17;
 import 'package:evievm_app/src/features/product/presentation/bloc/search/search_products_bloc.dart'
     as _i120;
 import 'package:evievm_app/src/features/shop/data/data_sources/shop_remote_data_soruce.dart'
@@ -210,23 +210,23 @@ import 'package:evievm_app/src/features/shop/domain/repositories/shop_repo.dart'
 import 'package:evievm_app/src/features/shop/domain/repositories/warehouse_repo.dart'
     as _i89;
 import 'package:evievm_app/src/features/shop/domain/use_cases/get_remember_login_email_usecase.dart'
-    as _i33;
+    as _i34;
 import 'package:evievm_app/src/features/shop/domain/use_cases/logout_usecase.dart'
-    as _i32;
+    as _i33;
 import 'package:evievm_app/src/features/shop/domain/use_cases/product_inventory/create_product_batches_usecase.dart'
-    as _i104;
+    as _i105;
 import 'package:evievm_app/src/features/shop/domain/use_cases/product_inventory/create_warehouse_input_usecase.dart'
-    as _i103;
+    as _i104;
 import 'package:evievm_app/src/features/shop/domain/use_cases/product_inventory/get_product_inventory_usecase.dart'
-    as _i101;
-import 'package:evievm_app/src/features/shop/domain/use_cases/product_inventory/get_warehouses_usecase.dart'
     as _i102;
+import 'package:evievm_app/src/features/shop/domain/use_cases/product_inventory/get_warehouses_usecase.dart'
+    as _i103;
 import 'package:evievm_app/src/features/shop/domain/use_cases/register_shop_usecase.dart'
     as _i116;
 import 'package:evievm_app/src/features/shop/domain/use_cases/shop_order/order_process/complete_processing_order_usecase.dart'
-    as _i110;
+    as _i114;
 import 'package:evievm_app/src/features/shop/domain/use_cases/shop_order/order_process/start_processing_order_usecase.dart'
-    as _i109;
+    as _i113;
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_cate_input/product_cate_input_bloc.dart'
     as _i136;
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_inventory/product_inventory_bloc.dart'
@@ -236,9 +236,9 @@ import 'package:evievm_app/src/features/shop/presentation/bloc/product_inventory
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_inventory/product_inventory_input/product_inventory_input_bloc.dart'
     as _i123;
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_inventory/product_inventory_input/product_inventory_input_communicaton.dart'
-    as _i11;
+    as _i12;
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_options_input/product_options_input_bloc.dart'
-    as _i14;
+    as _i15;
 import 'package:evievm_app/src/features/shop/presentation/bloc/product_properties_input/product_properties_input_bloc.dart'
     as _i128;
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop/shop_bloc.dart'
@@ -248,15 +248,15 @@ import 'package:evievm_app/src/features/shop/presentation/bloc/shop_order/order_
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_order/shop_order_bloc.dart'
     as _i129;
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_order/shop_order_bloc_communication.dart'
-    as _i22;
+    as _i16;
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product/shop_bloc_communicaton.dart'
-    as _i13;
+    as _i14;
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product/shop_product_bloc.dart'
     as _i106;
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product_detail/shop_product_detail_bloc.dart'
     as _i119;
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product_detail/shop_product_detail_communicaton.dart'
-    as _i12;
+    as _i13;
 import 'package:evievm_app/src/features/shopping_cart/data/data_sources/shopping_cart_data_soruce.dart'
     as _i50;
 import 'package:evievm_app/src/features/shopping_cart/data/repos/shopping_cart_repo_impl.dart'
@@ -307,67 +307,67 @@ extension GetItInjectableX on _i1.GetIt {
     gh.singleton<_i3.CacheStore>(() => cacheProvider.provideCacheStore());
     gh.lazySingleton<_i4.PaginationInterceptor>(
         () => _i4.PaginationInterceptor());
-    await gh.lazySingletonAsync<_i5.Storage>(
+    gh.lazySingleton<_i5.ApiLogInterceptor>(() => _i5.ApiLogInterceptor());
+    await gh.lazySingletonAsync<_i6.Storage>(
       () => appModuleDepedenciesProvider.provideStorage(),
       preResolve: true,
     );
-    gh.lazySingleton<_i6.DeliveryMethodInpBloc>(
-        () => _i6.DeliveryMethodInpBloc());
-    gh.lazySingleton<_i7.OrderBlocCommunication>(
-        () => _i7.OrderBlocCommunication());
-    gh.lazySingleton<_i8.PushNotificationUseCases>(
-        () => _i8.PushNotificationUseCases());
-    gh.lazySingleton<_i9.FCMNotificationsUseCases>(
-        () => _i9.FCMNotificationsUseCases());
-    gh.lazySingleton<_i10.PushNotificationCommunication>(
-        () => _i10.PushNotificationCommunication());
-    gh.lazySingleton<_i11.ProductInventoryInputCommunication>(
-        () => _i11.ProductInventoryInputCommunication());
-    gh.lazySingleton<_i12.ShopProductDetailCommunication>(
-        () => _i12.ShopProductDetailCommunication());
-    gh.lazySingleton<_i13.ShopProductCommunication>(
-        () => _i13.ShopProductCommunication());
-    gh.lazySingleton<_i14.ProductOptionsInputBloc>(
-        () => _i14.ProductOptionsInputBloc());
-    gh.lazySingleton<_i15.ProductOptionCommunication>(
-        () => _i15.ProductOptionCommunication());
-    gh.lazySingleton<_i16.ProductOptionBloc>(() => _i16.ProductOptionBloc());
-    gh.lazySingleton<_i17.PickLocalImageUseCase>(
-        () => _i17.PickLocalImageUseCase());
-    gh.lazySingleton<_i18.GetMapPlaceDetailUseCase>(
-        () => _i18.GetMapPlaceDetailUseCase());
-    gh.lazySingleton<_i19.MapAddressBloc>(() => _i19.MapAddressBloc());
-    gh.lazySingleton<_i20.MainCommunication>(() => _i20.MainCommunication());
-    gh.lazySingleton<_i21.ApiLogInterceptor>(() => _i21.ApiLogInterceptor());
-    gh.lazySingleton<_i22.ShopOrderBlocCommunication>(
-        () => _i22.ShopOrderBlocCommunication());
-    gh.lazySingleton<_i23.MapTrackingUsecase>(() => _i23.MapTrackingUsecase());
-    gh.lazySingleton<_i24.MapDeliveryTrackingCommunication>(
-        () => _i24.MapDeliveryTrackingCommunication());
+    gh.lazySingleton<_i7.DeliveryMethodInpBloc>(
+        () => _i7.DeliveryMethodInpBloc());
+    gh.lazySingleton<_i8.OrderBlocCommunication>(
+        () => _i8.OrderBlocCommunication());
+    gh.lazySingleton<_i9.PushNotificationUseCases>(
+        () => _i9.PushNotificationUseCases());
+    gh.lazySingleton<_i10.FCMNotificationsUseCases>(
+        () => _i10.FCMNotificationsUseCases());
+    gh.lazySingleton<_i11.PushNotificationCommunication>(
+        () => _i11.PushNotificationCommunication());
+    gh.lazySingleton<_i12.ProductInventoryInputCommunication>(
+        () => _i12.ProductInventoryInputCommunication());
+    gh.lazySingleton<_i13.ShopProductDetailCommunication>(
+        () => _i13.ShopProductDetailCommunication());
+    gh.lazySingleton<_i14.ShopProductCommunication>(
+        () => _i14.ShopProductCommunication());
+    gh.lazySingleton<_i15.ProductOptionsInputBloc>(
+        () => _i15.ProductOptionsInputBloc());
+    gh.lazySingleton<_i16.ShopOrderBlocCommunication>(
+        () => _i16.ShopOrderBlocCommunication());
+    gh.lazySingleton<_i17.ProductOptionCommunication>(
+        () => _i17.ProductOptionCommunication());
+    gh.lazySingleton<_i18.ProductOptionBloc>(() => _i18.ProductOptionBloc());
+    gh.lazySingleton<_i19.PickLocalImageUseCase>(
+        () => _i19.PickLocalImageUseCase());
+    gh.lazySingleton<_i20.MapTrackingUsecase>(() => _i20.MapTrackingUsecase());
+    gh.lazySingleton<_i21.GetMapPlaceDetailUseCase>(
+        () => _i21.GetMapPlaceDetailUseCase());
+    gh.lazySingleton<_i22.MapAddressBloc>(() => _i22.MapAddressBloc());
+    gh.lazySingleton<_i23.MapDeliveryTrackingCommunication>(
+        () => _i23.MapDeliveryTrackingCommunication());
+    gh.lazySingleton<_i24.MainCommunication>(() => _i24.MainCommunication());
     gh.lazySingleton<_i25.PushNotificationBloc>(
-        () => _i25.PushNotificationBloc(gh<_i8.PushNotificationUseCases>()));
+        () => _i25.PushNotificationBloc(gh<_i9.PushNotificationUseCases>()));
     gh.lazySingleton<_i26.MapDeliveryTrackingBloc>(
-        () => _i26.MapDeliveryTrackingBloc(gh<_i23.MapTrackingUsecase>()));
+        () => _i26.MapDeliveryTrackingBloc(gh<_i20.MapTrackingUsecase>()));
     gh.singleton<_i3.CacheOptions>(
         () => cacheProvider.provideBaseCacheOptions(gh<_i3.CacheStore>()));
     gh.lazySingleton<_i27.PickLocalImageCompressedBase64UseCase>(() =>
         _i27.PickLocalImageCompressedBase64UseCase(
-            gh<_i17.PickLocalImageUseCase>()));
-    gh.lazySingleton<_i28.LogoutUseCase>(
-        () => _i28.LogoutUseCase(gh<_i5.Storage>()));
-    gh.lazySingleton<_i29.CheckLoginUseCase>(
-        () => _i29.CheckLoginUseCase(gh<_i5.Storage>()));
-    gh.lazySingleton<_i30.GetRememberLoginEmailUserCase>(
-        () => _i30.GetRememberLoginEmailUserCase(gh<_i5.Storage>()));
-    gh.lazySingleton<_i31.SignalRBloc>(
-        () => _i31.SignalRBloc(gh<_i5.Storage>()));
-    gh.lazySingleton<_i32.LogoutUseCase>(
-        () => _i32.LogoutUseCase(gh<_i5.Storage>()));
-    gh.lazySingleton<_i33.GetRememberLoginEmailUserCase>(
-        () => _i33.GetRememberLoginEmailUserCase(gh<_i5.Storage>()));
-    gh.lazySingleton<_i34.MainBloc>(() => _i34.MainBloc(gh<_i5.Storage>()));
-    gh.lazySingleton<_i35.AuthInterceptor>(
-        () => _i35.AuthInterceptor(gh<_i5.Storage>()));
+            gh<_i19.PickLocalImageUseCase>()));
+    gh.lazySingleton<_i28.AuthInterceptor>(
+        () => _i28.AuthInterceptor(gh<_i6.Storage>()));
+    gh.lazySingleton<_i29.LogoutUseCase>(
+        () => _i29.LogoutUseCase(gh<_i6.Storage>()));
+    gh.lazySingleton<_i30.CheckLoginUseCase>(
+        () => _i30.CheckLoginUseCase(gh<_i6.Storage>()));
+    gh.lazySingleton<_i31.GetRememberLoginEmailUserCase>(
+        () => _i31.GetRememberLoginEmailUserCase(gh<_i6.Storage>()));
+    gh.lazySingleton<_i32.SignalRBloc>(
+        () => _i32.SignalRBloc(gh<_i6.Storage>()));
+    gh.lazySingleton<_i33.LogoutUseCase>(
+        () => _i33.LogoutUseCase(gh<_i6.Storage>()));
+    gh.lazySingleton<_i34.GetRememberLoginEmailUserCase>(
+        () => _i34.GetRememberLoginEmailUserCase(gh<_i6.Storage>()));
+    gh.lazySingleton<_i35.MainBloc>(() => _i35.MainBloc(gh<_i6.Storage>()));
     gh.lazySingleton<_i36.ImageInputBloc>(() =>
         _i36.ImageInputBloc(gh<_i27.PickLocalImageCompressedBase64UseCase>()));
     gh.singleton<_i37.CacheMaxStaleModifierInterceptor>(() => cacheProvider
@@ -375,8 +375,8 @@ extension GetItInjectableX on _i1.GetIt {
     gh.singleton<_i3.DioCacheInterceptor>(
         () => cacheProvider.provideDioCacheInterceptor(gh<_i3.CacheOptions>()));
     gh.singleton<_i38.Dio>(() => appModuleDepedenciesProvider.provideNetworkDio(
-          gh<_i35.AuthInterceptor>(),
-          gh<_i21.ApiLogInterceptor>(),
+          gh<_i28.AuthInterceptor>(),
+          gh<_i5.ApiLogInterceptor>(),
           gh<_i37.CacheMaxStaleModifierInterceptor>(),
           gh<_i3.DioCacheInterceptor>(),
         ));
@@ -426,7 +426,7 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i61.GetCommunesAndWardsUseCase(gh<_i55.AddressRepo>()));
     gh.lazySingleton<_i62.EmailLoginUseCase>(() => _i62.EmailLoginUseCase(
           gh<_i51.AuthRepo>(),
-          gh<_i5.Storage>(),
+          gh<_i6.Storage>(),
         ));
     gh.lazySingleton<_i63.SignUpUseCase>(
         () => _i63.SignUpUseCase(gh<_i51.AuthRepo>()));
@@ -482,39 +482,37 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i91.LoginBloc>(() => _i91.LoginBloc(
           gh<_i62.EmailLoginUseCase>(),
           gh<_i67.QrBarcodeLoginUseCase>(),
-          gh<_i29.CheckLoginUseCase>(),
-          gh<_i28.LogoutUseCase>(),
-          gh<_i30.GetRememberLoginEmailUserCase>(),
+          gh<_i30.CheckLoginUseCase>(),
+          gh<_i29.LogoutUseCase>(),
+          gh<_i31.GetRememberLoginEmailUserCase>(),
         ));
     gh.lazySingleton<_i92.ProductCateRepo>(
         () => _i93.ProductRepoImpl(gh<_i46.ProductCateDatasource>()));
     gh.lazySingleton<_i94.UserRepo>(
         () => _i95.UserRepoImpl(gh<_i49.UserDatasource>()));
-    gh.lazySingleton<_i96.HomeBloc>(() => _i96.HomeBloc(
+    gh.lazySingleton<_i96.AddressInputBloc>(
+        () => _i96.AddressInputBloc(gh<_i60.SaveMyAddressUseCase>()));
+    gh.lazySingleton<_i97.HomeBloc>(() => _i97.HomeBloc(
           gh<_i83.GetProductsUseCase>(),
           gh<_i82.GetProductCatesUseCase>(),
           gh<_i73.GetHomeBannersUseCase>(),
         ));
-    gh.lazySingleton<_i97.ProductDetailBloc>(
-        () => _i97.ProductDetailBloc(gh<_i84.GetProductDetailUseCase>()));
-    gh.lazySingleton<_i98.FCMBloc>(() => _i98.FCMBloc(
+    gh.lazySingleton<_i98.ProductDetailBloc>(
+        () => _i98.ProductDetailBloc(gh<_i84.GetProductDetailUseCase>()));
+    gh.lazySingleton<_i99.FCMBloc>(() => _i99.FCMBloc(
           gh<_i70.CreateNotificationReceiverUseCase>(),
-          gh<_i9.FCMNotificationsUseCases>(),
+          gh<_i10.FCMNotificationsUseCases>(),
         ));
-    gh.lazySingleton<_i99.OrderRepo>(
-        () => _i100.OrderRepoImpl(gh<_i40.OrderDatasource>()));
-    gh.lazySingleton<_i101.GetProductInventoryUseCase>(
-        () => _i101.GetProductInventoryUseCase(gh<_i89.WarehouseRepo>()));
-    gh.lazySingleton<_i102.GetWarehousesUseCase>(
-        () => _i102.GetWarehousesUseCase(gh<_i89.WarehouseRepo>()));
-    gh.lazySingleton<_i103.CreateWarehouseInputUseCase>(
-        () => _i103.CreateWarehouseInputUseCase(gh<_i89.WarehouseRepo>()));
-    gh.lazySingleton<_i104.CreateProductBatchesUseCase>(
-        () => _i104.CreateProductBatchesUseCase(gh<_i89.WarehouseRepo>()));
-    gh.lazySingleton<_i105.AddressInputBloc>(() => _i105.AddressInputBloc(
-          gh<_i60.SaveMyAddressUseCase>(),
-          gh<_i18.GetMapPlaceDetailUseCase>(),
-        ));
+    gh.lazySingleton<_i100.OrderRepo>(
+        () => _i101.OrderRepoImpl(gh<_i40.OrderDatasource>()));
+    gh.lazySingleton<_i102.GetProductInventoryUseCase>(
+        () => _i102.GetProductInventoryUseCase(gh<_i89.WarehouseRepo>()));
+    gh.lazySingleton<_i103.GetWarehousesUseCase>(
+        () => _i103.GetWarehousesUseCase(gh<_i89.WarehouseRepo>()));
+    gh.lazySingleton<_i104.CreateWarehouseInputUseCase>(
+        () => _i104.CreateWarehouseInputUseCase(gh<_i89.WarehouseRepo>()));
+    gh.lazySingleton<_i105.CreateProductBatchesUseCase>(
+        () => _i105.CreateProductBatchesUseCase(gh<_i89.WarehouseRepo>()));
     gh.lazySingleton<_i106.ShopProductBloc>(() => _i106.ShopProductBloc(
           gh<_i83.GetProductsUseCase>(),
           gh<_i82.GetProductCatesUseCase>(),
@@ -522,21 +520,21 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i80.DeleteProductUseCase>(),
         ));
     gh.lazySingleton<_i107.GetOrdersUseCase>(
-        () => _i107.GetOrdersUseCase(gh<_i99.OrderRepo>()));
-    gh.lazySingleton<_i108.CreateOrderUseCase>(
-        () => _i108.CreateOrderUseCase(gh<_i99.OrderRepo>()));
-    gh.lazySingleton<_i109.StartProcessingOrderUseCase>(
-        () => _i109.StartProcessingOrderUseCase(gh<_i99.OrderRepo>()));
-    gh.lazySingleton<_i110.CompleteProcessingOrderUseCase>(
-        () => _i110.CompleteProcessingOrderUseCase(gh<_i99.OrderRepo>()));
-    gh.lazySingleton<_i111.GetCompleteProcessingOrdersUseCase>(
-        () => _i111.GetCompleteProcessingOrdersUseCase(gh<_i99.OrderRepo>()));
-    gh.lazySingleton<_i112.RequestPartnerDeliveryUsecase>(
-        () => _i112.RequestPartnerDeliveryUsecase(gh<_i99.OrderRepo>()));
-    gh.lazySingleton<_i113.GetWaitingDeliveryOrdersUseCase>(
-        () => _i113.GetWaitingDeliveryOrdersUseCase(gh<_i99.OrderRepo>()));
-    gh.lazySingleton<_i114.GetDeliveringOrdersUseCase>(
-        () => _i114.GetDeliveringOrdersUseCase(gh<_i99.OrderRepo>()));
+        () => _i107.GetOrdersUseCase(gh<_i100.OrderRepo>()));
+    gh.lazySingleton<_i108.GetDeliveringOrdersUseCase>(
+        () => _i108.GetDeliveringOrdersUseCase(gh<_i100.OrderRepo>()));
+    gh.lazySingleton<_i109.GetWaitingDeliveryOrdersUseCase>(
+        () => _i109.GetWaitingDeliveryOrdersUseCase(gh<_i100.OrderRepo>()));
+    gh.lazySingleton<_i110.CreateOrderUseCase>(
+        () => _i110.CreateOrderUseCase(gh<_i100.OrderRepo>()));
+    gh.lazySingleton<_i111.RequestPartnerDeliveryUsecase>(
+        () => _i111.RequestPartnerDeliveryUsecase(gh<_i100.OrderRepo>()));
+    gh.lazySingleton<_i112.GetCompleteProcessingOrdersUseCase>(
+        () => _i112.GetCompleteProcessingOrdersUseCase(gh<_i100.OrderRepo>()));
+    gh.lazySingleton<_i113.StartProcessingOrderUseCase>(
+        () => _i113.StartProcessingOrderUseCase(gh<_i100.OrderRepo>()));
+    gh.lazySingleton<_i114.CompleteProcessingOrderUseCase>(
+        () => _i114.CompleteProcessingOrderUseCase(gh<_i100.OrderRepo>()));
     gh.lazySingleton<_i115.ProductBatchInputBloc>(
         () => _i115.ProductBatchInputBloc(gh<_i84.GetProductDetailUseCase>()));
     gh.lazySingleton<_i116.RegisterShopUseCase>(
@@ -561,13 +559,13 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i121.SignUpBloc>(
         () => _i121.SignUpBloc(gh<_i63.SignUpUseCase>()));
     gh.lazySingleton<_i122.ProductInventoryBloc>(() =>
-        _i122.ProductInventoryBloc(gh<_i101.GetProductInventoryUseCase>()));
+        _i122.ProductInventoryBloc(gh<_i102.GetProductInventoryUseCase>()));
     gh.lazySingleton<_i123.ProductInventoryInputBloc>(
       () => _i123.ProductInventoryInputBloc(
         gh<_i83.GetProductsUseCase>(),
-        gh<_i103.CreateWarehouseInputUseCase>(),
-        gh<_i104.CreateProductBatchesUseCase>(),
-        gh<_i102.GetWarehousesUseCase>(),
+        gh<_i104.CreateWarehouseInputUseCase>(),
+        gh<_i105.CreateProductBatchesUseCase>(),
+        gh<_i103.GetWarehousesUseCase>(),
       ),
       dispose: (i) => i.close(),
     );
@@ -584,16 +582,16 @@ extension GetItInjectableX on _i1.GetIt {
             gh<_i86.GetPropertyTemplateOfCateUseCase>()));
     gh.lazySingleton<_i129.ShopOrderBloc>(() => _i129.ShopOrderBloc(
           gh<_i107.GetOrdersUseCase>(),
-          gh<_i111.GetCompleteProcessingOrdersUseCase>(),
-          gh<_i113.GetWaitingDeliveryOrdersUseCase>(),
-          gh<_i114.GetDeliveringOrdersUseCase>(),
+          gh<_i112.GetCompleteProcessingOrdersUseCase>(),
+          gh<_i109.GetWaitingDeliveryOrdersUseCase>(),
+          gh<_i108.GetDeliveringOrdersUseCase>(),
         ));
     gh.lazySingleton<_i130.GetPaymentMethodsUseCase>(
         () => _i130.GetPaymentMethodsUseCase(gh<_i74.PaymentRepo>()));
     gh.lazySingleton<_i131.GetProductCateByIdUseCase>(
         () => _i131.GetProductCateByIdUseCase(gh<_i92.ProductCateRepo>()));
     gh.lazySingleton<_i132.OrderBloc>(
-      () => _i132.OrderBloc(gh<_i108.CreateOrderUseCase>()),
+      () => _i132.OrderBloc(gh<_i110.CreateOrderUseCase>()),
       dispose: (i) => i.close(),
     );
     gh.lazySingleton<_i133.NotificationBloc>(() => _i133.NotificationBloc(
@@ -606,9 +604,9 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i125.DeleteCartItemsUseCase>(),
         ));
     gh.lazySingleton<_i135.OrderProcessBloc>(() => _i135.OrderProcessBloc(
-          gh<_i109.StartProcessingOrderUseCase>(),
-          gh<_i110.CompleteProcessingOrderUseCase>(),
-          gh<_i112.RequestPartnerDeliveryUsecase>(),
+          gh<_i113.StartProcessingOrderUseCase>(),
+          gh<_i114.CompleteProcessingOrderUseCase>(),
+          gh<_i111.RequestPartnerDeliveryUsecase>(),
         ));
     gh.lazySingleton<_i136.ProductCateInputBloc>(
         () => _i136.ProductCateInputBloc(

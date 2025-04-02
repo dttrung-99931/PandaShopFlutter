@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/global.dart';
-import 'package:evievm_app/src/features/common/presentation/screens/main_screen.dart';
+import 'package:evievm_app/src/features/main/presentation/screens/main_screen.dart';
 import 'package:evievm_app/src/features/notification/data/models/response/notification_model.dart';
 import 'package:evievm_app/src/features/notification/data/models/response/push_notification/remote_push_notification_payload.dart';
 import 'package:evievm_app/src/features/notification/presentation/bloc/push_notification/push_notification_bloc.dart';

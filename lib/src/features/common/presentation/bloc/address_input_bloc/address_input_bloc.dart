@@ -7,7 +7,6 @@ import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/failures/failures.dart';
 import 'package:evievm_app/src/features/common/data/models/request/save_address_model.dart';
 import 'package:evievm_app/src/features/common/domain/dtos/address_dto.dart';
-import 'package:evievm_app/src/features/common/domain/use_cases/get_map_place_detail_usecase.dart';
 import 'package:evievm_app/src/features/common/domain/use_cases/save_my_address_usecase.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/address/address_bloc_mixin.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,14 +20,12 @@ part 'address_input_state.dart';
 class AddressInputBloc extends BaseBloc with AddressBlocMixin {
   AddressInputBloc(
     this._saveAddress,
-    this._getPlaceDetail,
   ) : super(InitialState()) {
     onLoad<OnSaveMyAddress>(_onSaveMyAddress);
     on<OnGetHouseNumberFromMapPlace>(_onGetHouseNumberFromMapPlace);
   }
   final SaveMyAddressUseCase _saveAddress;
   // Get placeDetail.addressCompoenents => get houseNumber
-  final GetMapPlaceDetailUseCase _getPlaceDetail;
   MapPlace? _selectedPlace; // hold houseNumber, lat, long that users search on map
 
   FutureOr<void> _onSaveMyAddress(OnSaveMyAddress event, Emitter<BaseState> emit) async {

@@ -10,7 +10,7 @@ import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:evievm_app/src/features/auth/presentation/screens/sign_up_screen.dart';
-import 'package:evievm_app/src/features/common/presentation/screens/main_screen.dart';
+import 'package:evievm_app/src/features/main/presentation/screens/main_screen.dart';
 import 'package:evievm_app/src/shared/widgets/common/app_custom_checkbox.dart';
 import 'package:evievm_app/src/shared/widgets/common/triangle_clip_path.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';

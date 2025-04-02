@@ -10,7 +10,7 @@ import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:evievm_app/src/features/auth/presentation/widgets/info_input.dart';
-import 'package:evievm_app/src/features/common/presentation/bloc/main/main_bloc.dart';
+import 'package:evievm_app/src/features/main/presentation/blocs/main/main_bloc.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/user/user_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop/shop_bloc.dart';
 import 'package:evievm_app/src/shared/widgets/app_alert_dialog.dart';
