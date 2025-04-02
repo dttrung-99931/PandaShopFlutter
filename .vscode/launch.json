@@ -59,6 +59,18 @@
             ]
         },
         {
+            "name": "dev home release",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "program": "lib/main_dev_home.dart",
+            "preLaunchTask": "reverse-tcp-home",
+            "args": [
+                "--flavor",
+                "dev"
+            ]
+        },
+        {
             "name": "dev home wifi",
             "request": "launch",
             "type": "dart",

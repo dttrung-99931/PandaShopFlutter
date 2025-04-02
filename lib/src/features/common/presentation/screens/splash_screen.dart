@@ -2,7 +2,7 @@ import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
-import 'package:evievm_app/src/features/common/presentation/screens/main_screen.dart';
+import 'package:evievm_app/src/features/main/presentation/screens/main_screen.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';

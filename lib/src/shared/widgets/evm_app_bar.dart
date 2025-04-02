@@ -1,5 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:evievm_app/src/features/common/presentation/screens/main_screen.dart';
+import 'package:evievm_app/src/features/main/presentation/screens/main_screen.dart';
 import 'package:evievm_app/src/shared/widgets/question_mark.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:flutter/material.dart';

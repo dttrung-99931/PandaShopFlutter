@@ -1,5 +1,5 @@
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
-import 'package:evievm_app/src/features/common/presentation/bloc/main/main_bloc.dart';
+import 'package:evievm_app/src/features/main/presentation/blocs/main/main_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../../../../core/base_bloc/bloc_communication.dart';

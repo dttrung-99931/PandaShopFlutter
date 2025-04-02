@@ -4,7 +4,7 @@ import 'package:evievm_app/src/features/shop/domain/dtos/shop_response_dto.dart'
 import 'package:flutter/material.dart';
 
 import 'src/features/common/domain/dtos/user_detail_dto.dart';
-import 'src/features/common/presentation/bloc/main/main_bloc.dart';
+import 'src/features/main/presentation/blocs/main/main_bloc.dart';
 
 class Global {
   static final globalKey = GlobalKey<NavigatorState>();

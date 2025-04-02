@@ -4,7 +4,7 @@ import 'dart:convert';
 
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/src/features/auth/data/models/response/user_profile_model.dart';
-import 'package:evievm_app/src/features/common/presentation/bloc/main/main_bloc.dart';
+import 'package:evievm_app/src/features/main/presentation/blocs/main/main_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const _KEY_TOKEN = '_KEY_TOKEN';

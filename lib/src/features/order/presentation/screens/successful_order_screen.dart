@@ -8,7 +8,7 @@ import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/user/user_bloc.dart';
-import 'package:evievm_app/src/features/common/presentation/screens/main_screen.dart';
+import 'package:evievm_app/src/features/main/presentation/screens/main_screen.dart';
 import 'package:evievm_app/src/features/home/presentation/bloc/home_bloc.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/product/product_slidergrid_bloc_builder.dart';
 import 'package:evievm_app/src/shared/widgets/app_alert_dialog.dart';
