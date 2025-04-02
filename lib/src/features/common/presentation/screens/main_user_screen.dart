@@ -46,17 +46,23 @@ class _MainUserScreenState extends State<MainUserScreen> {
       userBloc.add(OnGetUserDetail());
     });
     _pageController = PageController();
-    _currentPageIndex.addListener(() {
-      if (_pageController.hasClients && mounted) {
-        _pageController.jumpToPage(_currentPageIndex.value);
-      }
-    });
+    _currentPageIndex.addListener(_onPageIndexChanged);
     super.initState();
+  }
+
+  void _onPageIndexChanged() {
+    if (_pageController.hasClients && mounted) {
+      _pageController.jumpToPage(_currentPageIndex.value);
+    }
   }
 
   @override
   void dispose() {
     _pageController.dispose();
+    _homeScrollController.dispose();
+    _notiScrollController.dispose();
+    _accountScrollController.dispose();
+    _currentPageIndex.removeListener(_onPageIndexChanged);
     super.dispose();
   }
 

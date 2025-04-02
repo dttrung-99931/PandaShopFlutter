@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evievm_app/core/ui/auto_reset_bloc_state.dart';
 import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/features/auth/presentation/screens/account_screen.dart';
@@ -22,7 +23,7 @@ class MainShopScreen extends StatefulWidget {
   State<MainShopScreen> createState() => _MainShopScreenState();
 }
 
-class _MainShopScreenState extends State<MainShopScreen> {
+class _MainShopScreenState extends AutoResetBlocState<MainShopScreen, UserBloc> {
   late PageController _pageController;
   ValueNotifier<int> get _currentPageIndex => Global.mainPageIndexNotifier;
   late final _shopScrollController = ScrollController();
@@ -57,6 +58,9 @@ class _MainShopScreenState extends State<MainShopScreen> {
 
   @override
   void dispose() {
+    _shopScrollController.dispose();
+    _notiScrollController.dispose();
+    _accountScrollController.dispose();
     _pageController.dispose();
     super.dispose();
   }

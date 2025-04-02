@@ -6,6 +6,7 @@ import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/core/utils/validate.dart';
 import 'package:evievm_app/global.dart';
+import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:evievm_app/src/features/auth/presentation/widgets/info_input.dart';
@@ -33,6 +34,12 @@ class _RegisterShopScreenState extends ValidationState<RegisterShopScreen, ShopB
   void initState() {
     super.initState();
     loginBloc.add(OnCheckLogin());
+  }
+
+  @override
+  void dispose() {
+    getIt.resetLazySingleton<ShopBloc>();
+    super.dispose();
   }
 
   @override

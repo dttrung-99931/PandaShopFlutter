@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evievm_app/core/ui/auto_reset_bloc_state.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
@@ -22,7 +23,7 @@ class ShoppingCartScreen extends StatefulWidget {
   State<ShoppingCartScreen> createState() => _ShoppingCartScreenState();
 }
 
-class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
+class _ShoppingCartScreenState extends AutoResetBlocState<ShoppingCartScreen, ShoppingCartBloc> {
   @override
   void initState() {
     super.initState();
