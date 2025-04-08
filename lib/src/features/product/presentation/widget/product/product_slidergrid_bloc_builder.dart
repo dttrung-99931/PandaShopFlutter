@@ -1,5 +1,6 @@
 import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_event.dart';
+import 'package:evievm_app/src/features/product/domain/dto/product/product_dto.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/product/product_slidergrid.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,10 @@ class ProductSliverGridBlocBuilder<TBLoc extends BaseBloc> extends StatelessWidg
         initialEvent: inititalEvent,
         buildForStates: const [LoadingState, ErrorState, GetProductsSucess],
         isSliver: true,
+        loadingWidgetBuilder: () {
+          final emptyProducts = List.generate(4, (index) => ProductDto.loading);
+          return ProductSliverGrid(emptyProducts);
+        },
         builder: (state) {
           if (state is GetProductsSucess) {
             return ProductSliverGrid(state.data);

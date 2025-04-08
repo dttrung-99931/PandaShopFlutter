@@ -1,5 +1,7 @@
 import 'package:evievm_app/core/utils/assets/assets.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
+import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
+import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_dto.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/product_detail_screen.dart';
@@ -26,16 +28,7 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onPressed != null
-          ? () {
-              onPressed?.call(product);
-            }
-          : () {
-              Global.pushNamed(
-                ProductDetailScreen.router,
-                args: ProductDetailScreenArgs(product.id),
-              );
-            },
+      onTap: _onPressed,
       child: Container(
         // padding: const EdgeInsets.fromLTRB(18, 18, 18, 18),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -60,7 +53,7 @@ class ProductItem extends StatelessWidget {
               child: Center(
                 child: AspectRatio(
                   aspectRatio: 3 / 4,
-                  child: product.thumbnailUrl != null
+                  child: !isNullOrEmpty(product.thumbnailUrl)
                       ? ExtendedImage.network(
                           alignment: Alignment.center,
                           product.thumbnailUrl!,
@@ -80,15 +73,11 @@ class ProductItem extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                PriceWidget(product.price),
-                PriceWidget(
-                  product.originalPrice,
-                  isOriginalPrice: true,
-                ),
-              ],
+            // Prices
+            PriceWidget(product.price),
+            PriceWidget(
+              product.originalPrice,
+              isOriginalPrice: true,
             ),
             sh(4.h),
             // TODO:
@@ -124,17 +113,30 @@ class ProductItem extends StatelessWidget {
                   allowHalfRating: true,
                   itemCount: 5,
                   itemSize: 12,
-                  itemBuilder: (context, _) => const Icon(
+                  itemBuilder: (context, _) => Icon(
                     Icons.star,
-                    color: Colors.amber,
+                    color: product.isLoading ? Colors.grey : Colors.amber,
                   ),
                   onRatingUpdate: (_) {},
                 ),
               ],
             ),
           ],
-        ),
+        ).skeleton(product, context),
       ),
     );
+  }
+
+  Function _onPressed() {
+    return onPressed != null
+        ? () {
+            onPressed?.call(product);
+          }
+        : () {
+            Global.pushNamed(
+              ProductDetailScreen.router,
+              args: ProductDetailScreenArgs(product.id),
+            );
+          };
   }
 }

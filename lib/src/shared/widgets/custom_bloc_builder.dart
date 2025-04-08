@@ -18,6 +18,7 @@ class CustomBlocBuilder<T extends BaseBloc> extends StatefulWidget {
   // true -> get bloc for BlocBuilder from context instead of getIt or param
   final bool useProvider;
   final bool buildForErrorState;
+  final Widget Function()? loadingWidgetBuilder;
 
   CustomBlocBuilder({
     super.key,
@@ -30,6 +31,7 @@ class CustomBlocBuilder<T extends BaseBloc> extends StatefulWidget {
     this.buildCondition,
     this.buildForErrorState = true,
     T? bloc,
+    this.loadingWidgetBuilder,
     this.useProvider = false,
   })  : bloc = useProvider ? null : bloc ?? getIt(),
         assert((useProvider && bloc == null) || true, 'bloc must be null when useProvider = true');
@@ -78,7 +80,8 @@ class _CustomBlocBuilderState<T extends BaseBloc> extends State<CustomBlocBuilde
       },
       builder: (context, state) {
         if (widget.handleLoading && state.runtimeType == widget.loadingStateType) {
-          return widget.isSliver ? const SliverFillRemaining(child: LoadingWidget()) : const LoadingWidget();
+          return widget.loadingWidgetBuilder?.call() ??
+              (widget.isSliver ? const SliverFillRemaining(child: LoadingWidget()) : const LoadingWidget());
         }
         return widget.builder(state);
         // throw 'State ${state.runtimeType} has been not handled UI';
