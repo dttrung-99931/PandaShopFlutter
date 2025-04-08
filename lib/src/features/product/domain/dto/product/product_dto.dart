@@ -1,9 +1,9 @@
-import 'package:evievm_app/core/dtos/loading_dto.dart';
+import 'package:evievm_app/core/utils/mixins/is_loading_mixin.dart';
 import 'package:evievm_app/src/features/product/data/models/response/product/short_product_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 @JsonSerializable(explicitToJson: true)
-class ProductDto extends LoadingDto {
+class ProductDto with IsLoadingMixin {
   const ProductDto({
     required this.id,
     required this.name,
