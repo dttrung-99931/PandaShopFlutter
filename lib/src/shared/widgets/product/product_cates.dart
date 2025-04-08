@@ -1,6 +1,8 @@
 import 'dart:math';
 
-import 'package:evievm_app/core/utils/constants.dart';
+import 'package:evievm_app/core/utils/assets/assets.dart';
+import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
+import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_category_dto.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
@@ -44,7 +46,9 @@ class ProductCates extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               for (int menuIndex = fromIndex; menuIndex <= toIndex; menuIndex++)
-                _Item(cates: cates, menuIndex: menuIndex),
+                _Item(
+                  cates[menuIndex],
+                ),
             ],
           );
         },
@@ -60,57 +64,60 @@ double get _height => 102.r;
 double get _width => 100.r;
 
 class _Item extends StatelessWidget {
-  const _Item({
-    required this.cates,
-    required this.menuIndex,
-  });
+  const _Item(this.cate);
 
-  final List<ProductCategoryDto> cates;
-  final int menuIndex;
+  final ProductCategoryDto cate;
 
   @override
   Widget build(BuildContext context) {
-    return IntrinsicHeight(
-      child: Container(
-        width: _width,
-        margin: EdgeInsets.fromLTRB(8.r, 8.r, 8.r, 4.r),
-        padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 2.w),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(2.r),
-          boxShadow: [
-            BoxShadow(
-              // offset: Offset(1, 3),
-              spreadRadius: 1,
-              color: AppColors.primary.withOpacity(.4),
-              blurRadius: 1,
-            )
-          ],
-        ),
-        child: Column(
-          children: [
-            cates[menuIndex].imgLink != null
-                ? ExtendedImage.network(
-                    cates[menuIndex].imgLink!,
-                    fit: BoxFit.contain,
-                    width: 40.r,
-                    height: 40.r,
-                  )
-                : emptyWidget,
-            // const Spacer(),
-            sh(8.h),
-            Expanded(
-              child: Text(
-                cates[menuIndex].name,
-                style: textTheme.labelMedium?.copyWith(height: 1.3),
-                maxLines: 2,
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
-        ),
+    final content = Container(
+      width: _width,
+      margin: EdgeInsets.fromLTRB(8.r, 8.r, 8.r, 4.r),
+      padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 2.w),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(2.r),
+        boxShadow: [
+          BoxShadow(
+            // offset: Offset(1, 3),
+            spreadRadius: 1,
+            color: AppColors.primary.withOpacity(.4),
+            blurRadius: 1,
+          )
+        ],
       ),
+      child: Column(
+        children: [
+          !isNullOrEmpty(cate.imgLink)
+              ? ExtendedImage.network(
+                  cate.imgLink!,
+                  fit: BoxFit.contain,
+                  width: 40.r,
+                  height: 40.r,
+                )
+              : Assets.img.noImage.build(
+                  width: 40.r,
+                  height: 40.r,
+                ),
+          // const Spacer(),
+          sh(8.h),
+          Expanded(
+            child: Text(
+              cate.name,
+              style: textTheme.labelMedium?.copyWith(height: 1.3),
+              maxLines: 2,
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      ).skeletonBy(cate, context, fillTextLong: false),
     );
+    if (!cate.isLoading) {
+      return IntrinsicHeight(
+        child: content,
+      );
+    }
+    return SizedBox(height: _height, child: content);
   }
 }

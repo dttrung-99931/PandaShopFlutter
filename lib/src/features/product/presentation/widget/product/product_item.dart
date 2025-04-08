@@ -122,7 +122,7 @@ class ProductItem extends StatelessWidget {
               ],
             ),
           ],
-        ).skeleton(product, context),
+        ).skeletonBy(product, context),
       ),
     );
   }

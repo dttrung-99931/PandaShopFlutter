@@ -1,7 +1,8 @@
+import 'package:evievm_app/core/utils/mixins/is_loading_mixin.dart';
 import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/src/features/product/data/models/response/product/product_category_model.dart';
 
-class ProductCategoryDto {
+class ProductCategoryDto with IsLoadingMixin {
   ProductCategoryDto({
     required this.id,
     required this.name,
@@ -35,6 +36,15 @@ class ProductCategoryDto {
     parentId: Constants.idEmpty - 1,
   );
 
+  static final loading = ProductCategoryDto(
+    id: Constants.idLoading,
+    name: '',
+    imgLink: '',
+    templateId: Constants.idEmpty,
+    level: 0,
+    parentId: Constants.idEmpty - 1,
+  );
+
   final int id;
   final String name;
   final String? imgLink;
@@ -45,6 +55,9 @@ class ProductCategoryDto {
   int? get categoryIdLV1 => level == 1 ? id : null;
   int? get categoryIdLV2 => level == 2 ? id : null;
   int? get categoryIdLV3 => level == 3 ? id : null;
+
+  @override
+  bool get isLoading => id == loading.id;
 
   factory ProductCategoryDto.fromModel(ProductCategoryModel model) {
     return ProductCategoryDto(

@@ -9,6 +9,7 @@ class Constants {
 
   static const int noLimit = -1;
   static const int idEmpty = -1;
+  static const int idLoading = -2;
   static const String codeEmpty = 'empty';
   static final Duration defaultAPICacheTime = 5.minutes;
 }
