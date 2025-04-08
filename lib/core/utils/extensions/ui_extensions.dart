@@ -1,4 +1,7 @@
+import 'package:evievm_app/core/dtos/loading_dto.dart';
+import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:flutter/widgets.dart';
+import 'package:redacted/redacted.dart';
 
 extension ContextExt on BuildContext {
   MediaQueryData get mediaQuery => MediaQuery.of(this);
@@ -36,8 +39,22 @@ extension GlobalKeyExt on GlobalKey {
   }
 }
 
+final RedactedConfiguration skeletonConfiguration = RedactedConfiguration(
+  redactedColor: AppColors.grey3,
+  autoFillText: 'Loading skeleton ... ...',
+  autoFillTexts: true,
+);
+
 extension WidgetExt on Widget {
   SliverToBoxAdapter toSliver() {
     return SliverToBoxAdapter(child: this);
+  }
+
+  Widget skeleton(LoadingDto loadingDto, BuildContext context) {
+    return redacted(
+      context: context,
+      redact: loadingDto.isLoading,
+      configuration: skeletonConfiguration,
+    );
   }
 }

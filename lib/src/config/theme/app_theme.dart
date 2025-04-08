@@ -1,15 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evievm_app/core/utils/app_colors.dart';
+import 'package:evievm_app/core/utils/evm_colors.dart';
+import 'package:evievm_app/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:evievm_app/core/utils/app_colors.dart';
-import 'package:evievm_app/core/utils/evm_colors.dart';
-import 'package:evievm_app/global.dart';
-
 part 'shop_theme.dart';
-part 'user_theme.dart';
 part 'text_theme.dart';
+part 'user_theme.dart';
 
 ThemeData get theme => Theme.of(Global.context);
 

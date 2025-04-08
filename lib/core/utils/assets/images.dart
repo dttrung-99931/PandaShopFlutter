@@ -5,6 +5,5 @@ class _Image {
 
   final background = '$_path/background.webp';
   final logo = '$_path/logo.webp';
-  final splash = '$_path/splash.png';
-  final noImage = '$_path/no_image.jpg';
+  final noImage = '$_path/no_image.webp';
 }
