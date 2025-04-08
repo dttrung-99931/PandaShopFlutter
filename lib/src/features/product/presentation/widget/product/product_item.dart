@@ -127,16 +127,14 @@ class ProductItem extends StatelessWidget {
     );
   }
 
-  Function _onPressed() {
-    return onPressed != null
-        ? () {
-            onPressed?.call(product);
-          }
-        : () {
-            Global.pushNamed(
-              ProductDetailScreen.router,
-              args: ProductDetailScreenArgs(product.id),
-            );
-          };
+  void _onPressed() {
+    if (onPressed != null) {
+      onPressed!(product);
+    } else {
+      Global.pushNamed(
+        ProductDetailScreen.router,
+        args: ProductDetailScreenArgs(product.id),
+      );
+    }
   }
 }
