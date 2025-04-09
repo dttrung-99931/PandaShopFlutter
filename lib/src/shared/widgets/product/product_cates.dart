@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:evievm_app/core/utils/assets/assets.dart';
-import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
+import 'package:evievm_app/core/utils/extensions/skeleton_extension.dart';
 import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_category_dto.dart';
@@ -113,7 +113,7 @@ class _Item extends StatelessWidget {
               ),
             ),
           ],
-        ).skeletonBy(cate, context, fillTextLong: false),
+        ).skeletonBy(cate, context, textLongLevel: TextLongLevel.short),
       ),
     );
     if (!cate.isLoading) {

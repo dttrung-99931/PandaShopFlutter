@@ -1,6 +1,7 @@
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
+import 'package:evievm_app/core/utils/extensions/skeleton_extension.dart';
 import 'package:evievm_app/core/utils/overlay_utils.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
@@ -57,7 +58,7 @@ class ProductDetailAppBar extends StatelessWidget {
         color: AppColors.black,
       ),
       actions: _actionsButtons(context),
-    );
+    ).skeletonBy(productDetail, context);
   }
 
   List<Widget> _actionsButtons(BuildContext context) {

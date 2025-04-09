@@ -30,6 +30,7 @@ class ProductDetailBloc extends BaseBloc {
   }
 
   Future<void> _onGetProductDetail(OnGetProductDetail event, Emitter<BaseState> emit) async {
+    await Future.delayed(const Duration(milliseconds: 500));
     await handleUsecaseResult(
       usecaseResult: _getProductDetailUsecase.call(event.id),
       emit: emit.call,

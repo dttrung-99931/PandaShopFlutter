@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
+import 'package:evievm_app/core/utils/extensions/skeleton_extension.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_detail_dto.dart';
@@ -43,7 +44,7 @@ class ProductOptions extends StatelessWidget {
                 )
                 .toList()
                 .addBetweenEvery(sh(2.h)),
-          );
+          ).skeletonBy(productDetail, context);
         },
       ),
     );

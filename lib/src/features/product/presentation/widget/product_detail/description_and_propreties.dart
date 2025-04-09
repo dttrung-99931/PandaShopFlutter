@@ -1,4 +1,5 @@
 import 'package:evievm_app/core/utils/evm_colors.dart';
+import 'package:evievm_app/core/utils/extensions/skeleton_extension.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_detail_dto.dart';
@@ -44,7 +45,7 @@ class ProductDescriptionAndProperties extends StatelessWidget {
             )
           ]
         ],
-      ),
+      ).skeletonBy(productDetail, context, textLongLevel: TextLongLevel.multipleLines),
     );
   }
 }
