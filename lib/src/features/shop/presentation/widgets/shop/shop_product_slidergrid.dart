@@ -1,4 +1,5 @@
 import 'package:evievm_app/global.dart';
+import 'package:evievm_app/src/features/product/domain/dto/product/product_dto.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/product_detail_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/product/product_slidergrid.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product/shop_product_bloc.dart';
@@ -29,16 +30,32 @@ class _ShopProductSliverGridState extends State<ShopProductSliverGrid> {
     return CustomBlocBuilder<ShopProductBloc>(
         buildForStates: const [LoadingState, ErrorState, GetShopProductsSucess],
         isSliver: true,
+        loadingWidgetBuilder: () {
+          return ProductSliverGrid(
+            List.generate(4, (_) => ProductDto.loading),
+            onPressed: (product) {
+              Global.pushNamed(
+                ProductDetailScreen.router,
+                args: ProductDetailScreenArgs(
+                  product.id,
+                  viewMode: ProductDetailViewMode.shopView,
+                ),
+              );
+            },
+          );
+        },
         builder: (state) {
           if (state is GetShopProductsSucess) {
             return ProductSliverGrid(
               state.data,
               onPressed: (product) {
-                Global.pushNamed(ProductDetailScreen.router,
-                    args: ProductDetailScreenArgs(
-                      product.id,
-                      viewMode: ProductDetailViewMode.shopView,
-                    ));
+                Global.pushNamed(
+                  ProductDetailScreen.router,
+                  args: ProductDetailScreenArgs(
+                    product.id,
+                    viewMode: ProductDetailViewMode.shopView,
+                  ),
+                );
               },
             );
           }

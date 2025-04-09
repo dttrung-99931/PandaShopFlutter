@@ -29,16 +29,19 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return NotificationPressedHandler(
-      child: CustomBlocConsumer<MainBloc>(listener: (state) {
-        if (state is GetAppModeSuccess) {
-          AppTheme.of(context).updateTheme();
-        }
-      }, builder: (state) {
-        if (state is! GetAppModeSuccess) {
-          return emptyWidget;
-        }
-        return state.data == AppMode.shop ? const MainShopScreen() : const MainUserScreen();
-      }),
+      child: CustomBlocConsumer<MainBloc>(
+        listener: (state) {
+          if (state is GetAppModeSuccess) {
+            AppTheme.of(context).updateTheme();
+          }
+        },
+        builder: (state) {
+          if (state is! GetAppModeSuccess) {
+            return emptyWidget;
+          }
+          return state.data == AppMode.shop ? const MainShopScreen() : const MainUserScreen();
+        },
+      ),
     );
   }
 }

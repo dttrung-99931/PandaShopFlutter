@@ -19,15 +19,18 @@ class ProductGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return products.isNotEmpty
-        ? GridView.count(
+        ? GridView.builder(
             padding: padding,
-            crossAxisCount: 2,
-            childAspectRatio: Dimensions.productGridRatio,
-            mainAxisSpacing: 8.r,
-            crossAxisSpacing: 8.r,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: Dimensions.productGridRatio,
+              mainAxisSpacing: 8.r,
+              crossAxisSpacing: 8.r,
+            ),
             physics: physics,
             shrinkWrap: true,
-            children: [...products.map((product) => ProductItem(product))],
+            itemCount: products.length,
+            itemBuilder: (context, index) => ProductItem(products[index]),
           )
         : const NotFound();
   }

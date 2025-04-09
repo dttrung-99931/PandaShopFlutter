@@ -23,19 +23,21 @@ class ProductSliverGrid extends StatelessWidget {
     return products.isNotEmpty
         ? SliverPadding(
             padding: padding,
-            sliver: SliverGrid.count(
-              crossAxisCount: 2,
-              childAspectRatio: Dimensions.productGridRatio,
-              mainAxisSpacing: 8.r,
-              crossAxisSpacing: 8.r,
-              children: [
-                ...products.map(
-                  (product) => ProductItem(
-                    product,
-                    onPressed: onPressed,
-                  ),
-                )
-              ],
+            sliver: SliverGrid.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: Dimensions.productGridRatio,
+                mainAxisSpacing: 8.r,
+                crossAxisSpacing: 8.r,
+              ),
+              itemCount: products.length,
+              itemBuilder: (context, index) {
+                final product = products[index];
+                return ProductItem(
+                  product,
+                  onPressed: onPressed,
+                );
+              },
             ),
           )
         : const NotFound(isSliver: true);
