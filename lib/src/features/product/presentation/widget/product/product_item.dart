@@ -6,8 +6,8 @@ import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_dto.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/product_detail_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/product/price_widget.dart';
+import 'package:evievm_app/src/shared/widgets/app_image.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -54,8 +54,7 @@ class ProductItem extends StatelessWidget {
                 child: AspectRatio(
                   aspectRatio: 3 / 4,
                   child: !isNullOrEmpty(product.thumbnailUrl)
-                      ? ExtendedImage.network(
-                          alignment: Alignment.center,
+                      ? AppImage.network(
                           product.thumbnailUrl!,
                           fit: BoxFit.scaleDown,
                         )

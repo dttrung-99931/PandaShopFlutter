@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/constants.dart';
+import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/user/user_bloc.dart';
 import 'package:evievm_app/src/features/notification/data/models/request/get_notifications_model.dart';
@@ -26,10 +27,8 @@ class MainShopBottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomBlocBuilder<UserBloc>(
         buildForStates: const [GetUserDetailSuccess],
+        handleLoading: false,
         builder: (state) {
-          if (state is LoadingState) {
-            return emptyWidget;
-          }
           // Show main bottom app bar only after GetUserDetailSuccess
           return Stack(
             children: [
@@ -77,7 +76,7 @@ class MainShopBottomNavBar extends StatelessWidget {
                         selectedFontSize: 12,
                         unselectedFontSize: 12,
                         elevation: 10,
-                      ),
+                      ).skeleton(state is LoadingState, context),
                     );
                   }),
               // Make shadow

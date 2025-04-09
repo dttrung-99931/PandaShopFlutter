@@ -9,8 +9,8 @@ import 'package:evievm_app/src/features/shop/presentation/bloc/shop_order/shop_o
 import 'package:evievm_app/src/shared/widgets/custom_bloc_listener.dart';
 import 'package:flutter/material.dart';
 
-class NotificationPressedListener extends StatelessWidget {
-  const NotificationPressedListener({
+class NotificationPressedHandler extends StatelessWidget {
+  const NotificationPressedHandler({
     super.key,
     required this.child,
   });

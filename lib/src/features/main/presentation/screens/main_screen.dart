@@ -28,7 +28,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return NotificationPressedListener(
+    return NotificationPressedHandler(
       child: CustomBlocConsumer<MainBloc>(listener: (state) {
         if (state is GetAppModeSuccess) {
           AppTheme.of(context).updateTheme();
