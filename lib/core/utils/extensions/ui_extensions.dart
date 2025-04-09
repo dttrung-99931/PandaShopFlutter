@@ -1,7 +1,4 @@
-import 'package:evievm_app/core/utils/mixins/is_loading_mixin.dart';
-import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:flutter/widgets.dart';
-import 'package:redacted/redacted.dart';
 
 extension ContextExt on BuildContext {
   MediaQueryData get mediaQuery => MediaQuery.of(this);
@@ -39,46 +36,8 @@ extension GlobalKeyExt on GlobalKey {
   }
 }
 
-final RedactedConfiguration skeletonConfiguration = RedactedConfiguration(
-  redactedColor: AppColors.grey3,
-  autoFillText: 'Loading skeleton ... ...',
-  autoFillTexts: true,
-);
-
-final RedactedConfiguration skeletonTextShortConfiguration = RedactedConfiguration(
-  redactedColor: AppColors.grey3,
-  autoFillText: 'Loading',
-  autoFillTexts: true,
-);
-
 extension WidgetExt on Widget {
   SliverToBoxAdapter toSliver() {
     return SliverToBoxAdapter(child: this);
-  }
-
-  /// Convert widget to sekeleton
-  /// [isLoading] is true, the widget will be shown as skeleton
-  /// [fillTextLong] is true, the skeleton will be filled with long text
-  Widget skeleton(
-    bool isLoading,
-    BuildContext context, {
-    bool fillTextLong = true,
-  }) {
-    return redacted(
-      context: context,
-      redact: isLoading,
-      configuration: fillTextLong ? skeletonConfiguration : skeletonTextShortConfiguration,
-    );
-  }
-
-  /// Convert widget to sekeleton
-  /// [loading] is a IsLoadingMixin that provides isLoading getter
-  /// [fillTextLong] is true, the skeleton will be filled with long text
-  Widget skeletonBy(
-    IsLoadingMixin loading,
-    BuildContext context, {
-    bool fillTextLong = true,
-  }) {
-    return skeleton(loading.isLoading, context, fillTextLong: fillTextLong);
   }
 }

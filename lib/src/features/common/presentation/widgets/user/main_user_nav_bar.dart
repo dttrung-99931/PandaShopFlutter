@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/base_bloc/base_state.dart';
-import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
+import 'package:evievm_app/core/utils/extensions/skeleton_extension.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/user/user_bloc.dart';
 import 'package:evievm_app/src/features/common/presentation/widgets/shop/main_shop_nav_bar.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
@@ -66,7 +66,7 @@ class MainUserBottomNavBar extends StatelessWidget {
                       selectedFontSize: 12,
                       unselectedFontSize: 12,
                       elevation: 10,
-                    ).skeleton(state is LoadingState, context, fillTextLong: false),
+                    ).skeleton(state is LoadingState, context, textLongLevel: TextLongLevel.short),
                   );
                 }),
             // Make shadow

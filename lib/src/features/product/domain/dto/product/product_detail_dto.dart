@@ -1,11 +1,13 @@
+import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
+import 'package:evievm_app/core/utils/mixins/is_loading_mixin.dart';
 import 'package:evievm_app/src/features/product/domain/dto/cate_property_template/property_value_dto.dart';
 import 'package:evievm_app/src/shared/dtos/image_dto.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../../data/models/response/product/product_detail_model.dart';
 
-class ProductDetailDto {
+class ProductDetailDto with IsLoadingMixin {
   final int id;
   final String name;
   final String description;
@@ -14,6 +16,17 @@ class ProductDetailDto {
   final List<ProductOptionDto> options;
   final int categoryId;
   final int addressId;
+
+  static final ProductDetailDto loading = ProductDetailDto(
+    id: Constants.idLoading,
+    name: '',
+    description: '',
+    images: [],
+    propertyValues: [],
+    options: [],
+    categoryId: Constants.idLoading,
+    addressId: Constants.idLoading,
+  );
 
   // Map<propertyName, all values of options of property>
   Map<String, Set<String>> get optionProperties {
@@ -131,6 +144,9 @@ class ProductDetailDto {
   ProductOptionDto? findOption(Map<String, String> optionPropValMap) {
     return options.firstWhereOrNull((option) => mapEquals(optionPropValMap, option.propertyValuesMap));
   }
+
+  @override
+  bool get isLoading => id == Constants.idLoading;
 }
 
 class SelectableValueDto {
