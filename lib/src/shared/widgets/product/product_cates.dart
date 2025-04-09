@@ -5,8 +5,8 @@ import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_category_dto.dart';
+import 'package:evievm_app/src/shared/widgets/app_image.dart';
 import 'package:evievm_app/src/shared/widgets/sized_box.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -90,7 +90,7 @@ class _Item extends StatelessWidget {
       child: Column(
         children: [
           !isNullOrEmpty(cate.imgLink)
-              ? ExtendedImage.network(
+              ? AppImage.network(
                   cate.imgLink!,
                   fit: BoxFit.contain,
                   width: 40.r,

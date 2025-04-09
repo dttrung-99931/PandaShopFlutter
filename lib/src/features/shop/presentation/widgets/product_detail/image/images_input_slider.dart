@@ -11,11 +11,11 @@ import 'package:evievm_app/src/features/shop/domain/dtos/image/image_input_dto.d
 import 'package:evievm_app/src/shared/bloc/image_input/image_input_bloc.dart';
 import 'package:evievm_app/src/shared/enums/edit_action.dart';
 import 'package:evievm_app/src/shared/widgets/app_alert_dialog.dart';
+import 'package:evievm_app/src/shared/widgets/app_image.dart';
 import 'package:evievm_app/src/shared/widgets/common/adding_pannel.dart';
 import 'package:evievm_app/src/shared/widgets/common/app_icon_button.dart';
 import 'package:evievm_app/src/shared/widgets/common/page_indicator.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_consumer.dart';
-import 'package:evievm_app/src/shared/widgets/image_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -69,7 +69,7 @@ class _ImagesInputSliderState extends State<ImagesInputSlider> {
                     ? Stack(
                         children: [
                           Positioned.fill(
-                            child: AppImage(image: state.data[index]),
+                            child: AppImage(state.data[index].imageProvider),
                           ),
                           Positioned.fill(
                             child: _EditOptions(imageIndex: index),
