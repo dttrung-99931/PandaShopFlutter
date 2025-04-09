@@ -51,11 +51,11 @@ enum TextLongLevel {
       case TextLongLevel.veryLong:
         return 'Loading skeleton ... ... ... ... Loading skeleton ... ... ... ... Loading skeleton ... ... ... ...';
       case TextLongLevel.multipleLines:
-        return 'Loading skeleton ... ... ... ... ... ... '
-            'Loading skeleton ... ... ... ...  ... ...'
-            'Loading skeleton ... ... ... ...  ... ...'
-            'Loading skeleton ... ... ... ...  ... ...'
-            'Loading skeleton ... ... ... ... ...';
+        return 'Loading skeleton ... ... ... ...'
+            'Loading skeleton ... ... ... ...'
+            'Loading skeleton ... ... ... ...'
+            'Loading skeleton ... ... ... ...'
+            'Loading skeleton ... ... ...';
     }
   }
 }
