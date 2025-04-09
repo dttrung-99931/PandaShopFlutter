@@ -70,48 +70,51 @@ class _Item extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final content = Container(
-      width: _width,
-      margin: EdgeInsets.fromLTRB(8.r, 8.r, 8.r, 4.r),
-      padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 2.w),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(2.r),
-        boxShadow: [
-          BoxShadow(
-            // offset: Offset(1, 3),
-            spreadRadius: 1,
-            color: AppColors.primary.withOpacity(.4),
-            blurRadius: 1,
-          )
-        ],
-      ),
-      child: Column(
-        children: [
-          !isNullOrEmpty(cate.imgLink)
-              ? AppImage.network(
-                  cate.imgLink!,
-                  fit: BoxFit.contain,
-                  width: 40.r,
-                  height: 40.r,
-                )
-              : Assets.img.noImage.build(
-                  width: 40.r,
-                  height: 40.r,
-                ),
-          // const Spacer(),
-          sh(8.h),
-          Expanded(
-            child: Text(
-              cate.name,
-              style: textTheme.labelMedium?.copyWith(height: 1.3),
-              maxLines: 2,
-              textAlign: TextAlign.center,
+    final content = Padding(
+      // Use padding here because below Container will be used to make skeleton loading
+      padding: EdgeInsets.fromLTRB(8.r, 8.r, 8.r, 4.r),
+      child: Container(
+        width: _width,
+        padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 2.w),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(2.r),
+          boxShadow: [
+            BoxShadow(
+              // offset: Offset(1, 3),
+              spreadRadius: 1,
+              color: AppColors.primary.withOpacity(.4),
+              blurRadius: 1,
+            )
+          ],
+        ),
+        child: Column(
+          children: [
+            !isNullOrEmpty(cate.imgLink)
+                ? AppImage.network(
+                    cate.imgLink!,
+                    fit: BoxFit.contain,
+                    width: 40.r,
+                    height: 40.r,
+                  )
+                : Assets.img.noImage.build(
+                    width: 40.r,
+                    height: 40.r,
+                  ),
+            // const Spacer(),
+            sh(8.h),
+            Expanded(
+              child: Text(
+                cate.name,
+                style: textTheme.labelMedium?.copyWith(height: 1.3),
+                maxLines: 2,
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-        ],
-      ).skeletonBy(cate, context, fillTextLong: false),
+          ],
+        ).skeletonBy(cate, context, fillTextLong: false),
+      ),
     );
     if (!cate.isLoading) {
       return IntrinsicHeight(
