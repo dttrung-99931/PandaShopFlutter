@@ -13,6 +13,7 @@ Base64ImageRequestModel _$Base64ImageRequestModelFromJson(
       based64Img: json['based64Img'] as String,
       orderIndex: (json['orderIndex'] as num).toInt(),
       description: json['description'] as String,
+      avgColor: (json['avgColor'] as num).toInt(),
     );
 
 Map<String, dynamic> _$Base64ImageRequestModelToJson(
@@ -29,5 +30,6 @@ Map<String, dynamic> _$Base64ImageRequestModelToJson(
   val['based64Img'] = instance.based64Img;
   val['orderIndex'] = instance.orderIndex;
   val['description'] = instance.description;
+  val['avgColor'] = instance.avgColor;
   return val;
 }

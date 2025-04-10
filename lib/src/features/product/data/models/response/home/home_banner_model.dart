@@ -6,9 +6,11 @@ part 'home_banner_model.g.dart';
 @JsonSerializable(createToJson: false)
 class HomeBannerModel {
   final String imageLink;
+  final int avgColor;
 
   HomeBannerModel(
     this.imageLink,
+    this.avgColor,
   );
 
   factory HomeBannerModel.fromJson(Map<String, dynamic> json) => _$HomeBannerModelFromJson(json);

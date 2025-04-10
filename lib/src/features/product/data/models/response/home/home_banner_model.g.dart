@@ -9,4 +9,5 @@ part of 'home_banner_model.dart';
 HomeBannerModel _$HomeBannerModelFromJson(Map<String, dynamic> json) =>
     HomeBannerModel(
       json['imageLink'] as String,
+      (json['avgColor'] as num).toInt(),
     );

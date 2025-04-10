@@ -9,12 +9,14 @@ class Base64ImageRequestModel {
   final String based64Img;
   final int orderIndex;
   final String description;
+  final int avgColor;
 
   Base64ImageRequestModel({
     required this.id,
     required this.based64Img,
     required this.orderIndex,
     required this.description,
+    required this.avgColor,
   });
 
   Map<String, dynamic> toJson() => _$Base64ImageRequestModelToJson(this);
