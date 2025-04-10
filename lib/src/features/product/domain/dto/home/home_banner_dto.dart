@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/src/features/product/data/models/response/home/home_banner_model.dart';
 import 'package:evievm_app/src/shared/dtos/image_dto.dart';
@@ -18,7 +19,7 @@ class HomeBannerDto extends ImageDto {
       link: model.imageLink,
       description: '',
       id: Constants.idEmpty,
-      avgColor: Color(0xff000000 + model.avgColor),
+      avgColor: AppColors.fromInt(model.avgColor),
     );
   }
 }

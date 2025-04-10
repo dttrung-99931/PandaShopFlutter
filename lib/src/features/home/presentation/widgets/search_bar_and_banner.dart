@@ -66,8 +66,8 @@ class _SearchBarAndBannerState extends State<SearchBarAndBanner> with SingleTick
               return BannerSlider(
                 images: state.data,
                 onPageChanged: (index, reason) {
-                  final beginColor = state.data[index].avgColor;
-                  final endColor = state.data[(index + 1) % state.data.length].avgColor;
+                  final beginColor = state.data[(index - 1) % state.data.length].avgColor;
+                  final endColor = state.data[index].avgColor;
                   _bgAnim = _getColorTween(
                     begin: beginColor,
                     end: endColor,

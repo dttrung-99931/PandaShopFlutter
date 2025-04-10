@@ -75,4 +75,12 @@ class AppColors {
   static const sellNumber = Color(0xFF999999);
 
   static const indicatorInactive = Color(0xFFB7B7B7);
+
+  static Color fromInt(int color) {
+    return Color(0xff000000 + color);
+  }
+
+  static int toInt(Color color) {
+    return color.value - 0xff000000;
+  }
 }

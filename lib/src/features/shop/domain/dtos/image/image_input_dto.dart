@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/encode_utils.dart';
 import 'package:evievm_app/core/utils/image_utils.dart';
 import 'package:evievm_app/src/features/product/data/models/request/image/base64_image_request_model.dart';
@@ -70,7 +71,7 @@ class ImageInputDto extends BaseImageDto {
       based64Img: based64Img.split('base64,').last,
       orderIndex: orderIndex,
       description: description,
-      avgColor: (await extractImageBackground(imageProvider)).value,
+      avgColor: AppColors.toInt(await extractImageBackground(imageProvider)),
     );
   }
 }
