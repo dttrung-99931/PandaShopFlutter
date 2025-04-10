@@ -11,15 +11,16 @@ import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
+import 'package:evievm_app/src/features/product/data/models/request/image/base64_image_request_model.dart';
 import 'package:evievm_app/src/features/product/data/models/request/product/create_product_request_model.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_category_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_detail_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_dto.dart';
 import 'package:evievm_app/src/features/product/domain/dto/product/product_option_input_dto.dart';
 import 'package:evievm_app/src/features/product/domain/repos/product_repo.dart';
+import 'package:evievm_app/src/features/product/domain/use_cases/image/create_product_image_usecase.dart';
 import 'package:evievm_app/src/features/product/domain/use_cases/product/create_product_usecase.dart';
 import 'package:evievm_app/src/features/product/domain/use_cases/product/get_product_detail_usecase.dart';
-import 'package:evievm_app/src/features/product/domain/use_cases/image/create_product_image_usecase.dart';
 import 'package:evievm_app/src/features/product/domain/use_cases/product/update_product_usecase.dart';
 import 'package:evievm_app/src/features/shop/domain/dtos/image/image_input_dto.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product_detail/shop_product_detail_communicaton.dart';
@@ -98,11 +99,14 @@ class ShopProductDetailBloc extends BaseBloc {
     );
 
     if (created != null && !isNullOrEmpty(images)) {
+      final List<Base64ImageRequestModel> requestImages = await Future.wait(
+        images!.mapList((ImageInputDto element) => element.toRequestModel()),
+      );
       await handleUsecaseResult(
         usecaseResult: _createImages.call(
           ProductImagesParams(
             productId: created.id,
-            images: images!.mapList((ImageInputDto element) => element.toRequestModel()),
+            images: requestImages,
           ),
         ),
         emit: emit.call,
