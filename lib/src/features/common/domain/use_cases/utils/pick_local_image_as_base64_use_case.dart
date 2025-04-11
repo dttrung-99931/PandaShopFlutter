@@ -36,6 +36,7 @@ class PickLocalImageCompressedBase64UseCase extends EitherUseCase<String?, NoPar
         String format = file.uri.path.split('.').lastWhereOrNull((p0) => true) ?? 'png';
         String header = 'data:image/$format;base64';
         String base64 = '$header,${base64Encode(bytes)}';
+        file.delete();
         return Right(base64);
       }
       return const Right(null);
