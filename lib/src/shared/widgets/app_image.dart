@@ -1,10 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
-import 'package:evievm_app/core/utils/extensions/skeleton_extension.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 
-class AppImage extends StatelessWidget {
+class AppImage extends StatefulWidget {
   const AppImage(
     this.image, {
     this.fit = BoxFit.scaleDown,
@@ -41,20 +40,50 @@ class AppImage extends StatelessWidget {
   final BoxShape shape;
 
   @override
+  State<AppImage> createState() => _AppImageState();
+}
+
+class _AppImageState extends State<AppImage> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ExtendedImage(
-      width: width,
-      height: height,
-      image: image,
-      fit: fit,
-      borderRadius: borderRadius,
-      shape: shape,
+      width: widget.width,
+      height: widget.height,
+      image: widget.image,
+      fit: widget.fit,
+      borderRadius: widget.borderRadius,
+      shape: widget.shape,
       loadStateChanged: (ExtendedImageState state) {
         switch (state.extendedImageLoadState) {
           case LoadState.loading:
-            return const SizedBox.expand().skeleton(true, context);
+            return const SizedBox.expand();
           case LoadState.completed:
-            return null; // Use the default image rendering
+            return FadeTransition(
+              opacity: _controller..forward(),
+              child: ExtendedRawImage(
+                image: state.extendedImageInfo?.image,
+                fit: widget.fit,
+                width: widget.width,
+                height: widget.height,
+              ),
+            );
           case LoadState.failed:
             return const SizedBox.shrink();
         }
