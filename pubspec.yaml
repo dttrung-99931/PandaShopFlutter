@@ -59,6 +59,8 @@ dependencies:
   redacted: ^1.0.13
   # Get backgorund color of images
   palette_generator: ^0.3.3
+  # Crop, scale product image...
+  image_cropper: ^9.1.0
 
 dependency_overrides:
   here_sdk:

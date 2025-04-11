@@ -77,4 +77,7 @@ class ImageInputBloc extends BaseBloc {
   }
 
   bool _validateIndex(int index) => index >= 0 && index < _images.length;
+
+  @disposeMethod
+  void onClose() {}
 }
