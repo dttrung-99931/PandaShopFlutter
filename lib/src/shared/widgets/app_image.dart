@@ -10,6 +10,8 @@ class AppImage extends StatelessWidget {
     this.fit = BoxFit.scaleDown,
     this.width,
     this.height,
+    this.borderRadius,
+    this.shape = BoxShape.rectangle,
     super.key,
   });
 
@@ -18,12 +20,16 @@ class AppImage extends StatelessWidget {
     BoxFit fit = BoxFit.scaleDown,
     double? width,
     double? height,
+    BorderRadius? borderRadius,
+    BoxShape shape = BoxShape.rectangle,
   }) {
     return AppImage(
-      NetworkImage(url),
+      ExtendedNetworkImageProvider(url),
       fit: fit,
       width: width,
       height: height,
+      borderRadius: borderRadius,
+      shape: shape,
     );
   }
 
@@ -31,6 +37,8 @@ class AppImage extends StatelessWidget {
   final double? height;
   final ImageProvider image;
   final double? width;
+  final BorderRadius? borderRadius;
+  final BoxShape shape;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +47,8 @@ class AppImage extends StatelessWidget {
       height: height,
       image: image,
       fit: fit,
+      borderRadius: borderRadius,
+      shape: shape,
       loadStateChanged: (ExtendedImageState state) {
         switch (state.extendedImageLoadState) {
           case LoadState.loading:
