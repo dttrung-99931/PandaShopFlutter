@@ -65,10 +65,9 @@ class ProductItem extends StatelessWidget {
                 product.name,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
+                style: textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
               ),
             ),
-            8.shb,
             // Prices
             PriceWidget(product.price),
             PriceWidget(
@@ -99,7 +98,7 @@ class ProductItem extends StatelessWidget {
                 const SizedBox(width: 8),
                 Text(
                   'HCM 1d',
-                  style: textTheme.bodySmall,
+                  style: textTheme.labelLarge,
                 ),
                 const Spacer(),
                 RatingBar.builder(

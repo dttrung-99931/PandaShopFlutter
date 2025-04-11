@@ -19,8 +19,8 @@ class PriceWidget extends StatelessWidget {
   final String unit;
   final bool isLarge;
 
-  TextStyle get originPriceStyle => isLarge ? textTheme.bodyLarge! : textTheme.bodyMedium!;
-  TextStyle get currentPriceStyle => isLarge ? textTheme.titleMedium! : textTheme.bodyLarge!;
+  TextStyle get originPriceStyle => isLarge ? textTheme.bodyMedium! : textTheme.bodySmall!;
+  TextStyle get currentPriceStyle => isLarge ? textTheme.bodyLarge! : textTheme.bodyMedium!;
   double get opacity => isOriginalPrice
       ? isLarge
           ? 1
