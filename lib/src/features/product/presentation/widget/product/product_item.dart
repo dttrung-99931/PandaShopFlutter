@@ -1,5 +1,6 @@
 import 'package:evievm_app/core/utils/assets/assets.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
+import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/core/utils/extensions/skeleton_extension.dart';
 import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/global.dart';
@@ -7,7 +8,6 @@ import 'package:evievm_app/src/features/product/domain/dto/product/product_dto.d
 import 'package:evievm_app/src/features/product/presentation/screens/product_detail_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/widget/product/price_widget.dart';
 import 'package:evievm_app/src/shared/widgets/app_image.dart';
-import 'package:evievm_app/src/shared/widgets/sized_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,7 +31,7 @@ class ProductItem extends StatelessWidget {
       onTap: _onPressed,
       child: Container(
         // padding: const EdgeInsets.fromLTRB(18, 18, 18, 18),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.circular(8.r),
@@ -47,38 +47,35 @@ class ProductItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            2.shb,
             // TODO: hanlde responsive with other image sizes
-            Expanded(
-              flex: 5,
-              child: Center(
-                child: AspectRatio(
-                  aspectRatio: 3 / 4,
-                  child: !isNullOrEmpty(product.thumbnailUrl)
-                      ? AppImage.network(
-                          product.thumbnailUrl!,
-                          fit: BoxFit.scaleDown,
-                        )
-                      : Assets.img.noImage.build(),
-                ),
-              ),
+            AspectRatio(
+              aspectRatio: 1,
+              child: !isNullOrEmpty(product.thumbnailUrl)
+                  ? AppImage.network(
+                      product.thumbnailUrl!,
+                      fit: BoxFit.cover,
+                      borderRadius: BorderRadius.circular(8.r),
+                    )
+                  : Assets.img.noImage.build(),
             ),
-            const SizedBox(height: 12),
+            4.shb,
             Expanded(
               child: Text(
                 product.name,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
+                style: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
               ),
             ),
-            const SizedBox(height: 8),
+            8.shb,
             // Prices
             PriceWidget(product.price),
             PriceWidget(
               product.originalPrice,
               isOriginalPrice: true,
             ),
-            sh(4.h),
+            4.shb,
             // TODO:
             Align(
               alignment: Alignment.centerRight,
@@ -120,6 +117,7 @@ class ProductItem extends StatelessWidget {
                 ),
               ],
             ),
+            2.shb,
           ],
         ).skeletonBy(product, context),
       ),
