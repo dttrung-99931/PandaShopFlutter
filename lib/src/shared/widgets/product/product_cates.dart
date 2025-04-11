@@ -121,6 +121,6 @@ class _Item extends StatelessWidget {
         child: content,
       );
     }
-    return SizedBox(height: _height, child: content);
+    return SizedBox(height: _height + 2.h, child: content);
   }
 }
