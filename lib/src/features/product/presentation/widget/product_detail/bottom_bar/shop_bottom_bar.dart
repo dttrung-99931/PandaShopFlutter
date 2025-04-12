@@ -28,6 +28,7 @@ class ShopProductDetailBottomBar extends StatelessWidget {
               return emptyWidget;
             }
             return Column(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Row(

@@ -2,9 +2,7 @@
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/extensions/skeleton_extension.dart';
-import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/user/user_bloc.dart';
-import 'package:evievm_app/src/features/notification/data/models/request/get_notifications_model.dart';
 import 'package:evievm_app/src/features/notification/presentation/bloc/notification_bloc.dart';
 import 'package:evievm_app/src/shared/widgets/common/badge.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
@@ -19,9 +17,15 @@ class MainShopBottomNavBar extends StatelessWidget {
     super.key,
     required this.selectedIndexNotifier,
   });
+  static const int panVideoIndex = 2;
+
   final ValueNotifier<int> selectedIndexNotifier;
   int get _selectIndex => selectedIndexNotifier.value;
   set _selectIndex(value) => selectedIndexNotifier.value = value;
+
+  Color get backgroundColor {
+    return _selectIndex != panVideoIndex ? AppColors.white : AppColors.black;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,34 +36,39 @@ class MainShopBottomNavBar extends StatelessWidget {
           // Show main bottom app bar only after GetUserDetailSuccess
           return Stack(
             children: [
-              ValueListenableBuilder(
-                  valueListenable: selectedIndexNotifier,
-                  builder: (_, __, ___) {
-                    return Theme(
-                      data: ThemeData(
-                        // Disable ripple anim on press
-                        splashColor: AppColors.transparent,
-                      ),
-                      child: BottomNavigationBar(
-                        backgroundColor: AppColors.white,
+              Theme(
+                data: ThemeData(
+                  // Disable ripple anim on press
+                  splashColor: AppColors.transparent,
+                ),
+                child: ValueListenableBuilder(
+                    valueListenable: selectedIndexNotifier,
+                    builder: (_, __, ___) {
+                      return BottomNavigationBar(
+                        backgroundColor: backgroundColor,
                         items: [
                           BottomNavigationBarItem(
-                            backgroundColor: Colors.white,
+                            backgroundColor: backgroundColor,
                             icon: CardIcon.zeroPadding(Icons.shop_outlined),
                             label: "Cửa hàng",
                           ),
                           BottomNavigationBarItem(
-                            backgroundColor: Colors.white,
+                            backgroundColor: backgroundColor,
                             icon: CardIcon.zeroPadding(Icons.menu_book_outlined),
                             label: "Đơn hàng",
                           ),
-                          const BottomNavigationBarItem(
-                            backgroundColor: Colors.white,
-                            icon: NotiIconWithBadge(),
+                          BottomNavigationBarItem(
+                            backgroundColor: backgroundColor,
+                            icon: CardIcon.zeroPadding(Icons.movie_outlined),
+                            label: "Videos",
+                          ),
+                          BottomNavigationBarItem(
+                            backgroundColor: backgroundColor,
+                            icon: const NotiIconWithBadge(),
                             label: "Thông báo",
                           ),
                           BottomNavigationBarItem(
-                            backgroundColor: Colors.white,
+                            backgroundColor: backgroundColor,
                             icon: CardIcon.zeroPadding(Icons.account_box_outlined),
                             label: "Tài khoản",
                           ),
@@ -76,9 +85,9 @@ class MainShopBottomNavBar extends StatelessWidget {
                         selectedFontSize: 12,
                         unselectedFontSize: 12,
                         elevation: 10,
-                      ).skeleton(state is LoadingState, context),
-                    );
-                  }),
+                      ).skeleton(state is LoadingState, context);
+                    }),
+              ),
               // Make shadow
               Container(
                 height: 1.h,
@@ -94,23 +103,10 @@ class MainShopBottomNavBar extends StatelessWidget {
   }
 }
 
-class NotiIconWithBadge extends StatefulWidget {
+class NotiIconWithBadge extends StatelessWidget {
   const NotiIconWithBadge({
     super.key,
   });
-
-  @override
-  State<NotiIconWithBadge> createState() => _NotiIconWithBadgeState();
-}
-
-class _NotiIconWithBadgeState extends State<NotiIconWithBadge> {
-  @override
-  void initState() {
-    doIfLoggedIn(() {
-      notiBloc.add(OnGetNotificationOverview(requestModel: GetNotificationsModel.default_()));
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
