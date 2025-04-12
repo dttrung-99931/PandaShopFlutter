@@ -54,6 +54,7 @@ android {
         applicationId "pantech.panshop_app"
         minSdkVersion 24 // HERE MAP SDK REQUIRED
         targetSdkVersion 35
+        compileSdkVersion 35
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true

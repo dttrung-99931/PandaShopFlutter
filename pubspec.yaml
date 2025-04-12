@@ -7,7 +7,7 @@ publish_to: "none"
 version: 1.0.0+4
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 dependencies:
   flutter:
     sdk: flutter
@@ -18,7 +18,7 @@ dependencies:
   equatable: ^2.0.5
   dio: ^5.0.0
   dartz: ^0.10.1
-  rxdart: ^0.27.5
+  rxdart: ^0.28.0
   connectivity_plus: ^6.0.3
   intl: ^0.19.0
   injectable: ^2.4.2
@@ -62,10 +62,13 @@ dependencies:
   # Crop, scale product image...
   image_cropper: ^9.1.0
 
+  camerawesome: ^2.3.0
+  # Fix compileSdkVersion is not specified error of geolocator_android
+  geolocator_android: 4.6.1
+
 dependency_overrides:
   here_sdk:
     path: plugins/heresdk-explore-flutter # 4.21.2
-
 
 dev_dependencies:
   flutter_test:
