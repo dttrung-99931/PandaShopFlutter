@@ -26,6 +26,9 @@ Future<void> appMain() async {
   configureDependencies();
   HttpOverrides.global = PandaHttpOverrides();
   await FirebaseConfig.config();
+  if (AppConfig.config.logBloc) {
+    Bloc.observer = AppBlocObserver();
+  }
   runApp(EasyLocalization(
     supportedLocales: AppTranslation.supportedLocales,
     path: AppTranslation.path,
@@ -40,10 +43,6 @@ class PandaShopApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (AppConfig.config.logBloc) {
-      Bloc.observer = AppBlocObserver();
-    }
-
     return GestureDetector(
       onTap: removeCurrentFocus,
       child: ScreenUtilInit(

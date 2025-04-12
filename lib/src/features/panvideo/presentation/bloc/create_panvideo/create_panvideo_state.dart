@@ -1,0 +1,15 @@
+part of 'create_panvideo_bloc.dart';
+
+class LogoutSuccess extends LoadingCompleteStateWithoutProps {}
+
+class GetProductsSucess extends FullDataLoadedState<List<ProductDto>> {
+  GetProductsSucess(super.data);
+}
+
+class GetProductCatesSucess extends FullDataLoadedState<List<ProductCategoryDto>> {
+  GetProductCatesSucess(super.data);
+}
+
+class GetHomeBannersSucess extends FullDataLoadedState<List<HomeBannerDto>> {
+  GetHomeBannersSucess(super.data);
+}

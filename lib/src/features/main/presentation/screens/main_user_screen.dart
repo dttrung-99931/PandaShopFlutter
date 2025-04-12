@@ -5,12 +5,13 @@ import 'package:evievm_app/src/features/auth/presentation/screens/account_screen
 import 'package:evievm_app/src/features/common/presentation/bloc/user/user_bloc.dart';
 import 'package:evievm_app/src/features/common/presentation/widgets/user/main_user_nav_bar.dart';
 import 'package:evievm_app/src/features/home/presentation/screens/home_screen.dart';
+import 'package:evievm_app/src/features/notification/data/models/request/get_notifications_model.dart';
+import 'package:evievm_app/src/features/notification/presentation/bloc/notification_bloc.dart';
 import 'package:evievm_app/src/features/notification/presentation/screens/notification_screen.dart';
 import 'package:evievm_app/src/shared/widgets/common/keep_page_alive.dart';
 import 'package:evievm_app/src/shared/widgets/common/refresh_widget.dart';
 import 'package:evievm_app/src/shared/widgets/hidden_on_scroll_bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/utils/app_colors.dart';
 
@@ -47,6 +48,11 @@ class _MainUserScreenState extends State<MainUserScreen> {
     });
     _pageController = PageController();
     _currentPageIndex.addListener(_onPageIndexChanged);
+
+    doIfLoggedIn(() {
+      notiBloc.add(OnGetNotificationOverview(requestModel: GetNotificationsModel.default_()));
+    });
+
     super.initState();
   }
 
@@ -106,7 +112,6 @@ class _MainUserScreenState extends State<MainUserScreen> {
       ),
       bottomNavigationBar: HiddenOnSrollWidget(
         scrollController: _scrollController,
-        height: 72.h,
         child: MainUserBottomNavBar(selectedIndexNotifier: _currentPageIndex),
       ),
     );
