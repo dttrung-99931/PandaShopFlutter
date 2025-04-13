@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/utils/constants.dart';
+import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
+import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/main/presentation/blocs/main/main_bloc.dart';
@@ -9,9 +11,10 @@ import 'package:evievm_app/src/features/notification/presentation/bloc/push_noti
 import 'package:evievm_app/src/features/notification/presentation/screens/widgets/notification_pressed_listener.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_consumer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 class MainScreen extends StatefulWidget {
-  static const router = '/main';
+  static const router = '/';
   const MainScreen({super.key});
 
   @override
@@ -30,9 +33,11 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return NotificationPressedHandler(
       child: CustomBlocConsumer<MainBloc>(
-        listener: (state) {
+        listener: (state) async {
           if (state is GetAppModeSuccess) {
             AppTheme.of(context).updateTheme();
+            await delay(300.milliseconds);
+            FlutterNativeSplash.remove();
           }
         },
         builder: (state) {
