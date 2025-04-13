@@ -27,6 +27,10 @@ class MainShopBottomNavBar extends StatelessWidget {
     return _selectIndex != panVideoIndex ? AppColors.white : AppColors.black;
   }
 
+  Color get unselectedItemColor {
+    return _selectIndex != panVideoIndex ? AppColors.black : AppColors.white;
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomBlocBuilder<UserBloc>(
@@ -60,7 +64,7 @@ class MainShopBottomNavBar extends StatelessWidget {
                           BottomNavigationBarItem(
                             backgroundColor: backgroundColor,
                             icon: CardIcon.zeroPadding(Icons.movie_outlined),
-                            label: "Videos",
+                            label: "Video",
                           ),
                           BottomNavigationBarItem(
                             backgroundColor: backgroundColor,
@@ -74,7 +78,9 @@ class MainShopBottomNavBar extends StatelessWidget {
                           ),
                         ],
                         selectedItemColor: AppColors.primaryShop,
-                        unselectedItemColor: AppColors.black.withOpacity(0.8),
+                        unselectedItemColor: unselectedItemColor,
+                        selectedIconTheme: Theme.of(context).iconTheme.copyWith(color: AppColors.primaryShop),
+                        unselectedIconTheme: Theme.of(context).iconTheme.copyWith(color: AppColors.black),
                         showUnselectedLabels: true,
                         type: BottomNavigationBarType.fixed,
                         currentIndex: _selectIndex,

@@ -42,8 +42,15 @@ class ShopScreen extends StatelessWidget {
           bucket: _pageStorageBucket,
           child: CustomBlocBuilder<UserBloc>(
             buildForStates: const [GetUserDetailSuccess],
-            handleLoading: false,
+            // TODO: implement ShopBodyLoading
+            loadingWidgetBuilder: () {
+              return _ShopBody(scrollController: scrollController).skeletonLoading(context);
+            },
             builder: (state) {
+              // TODO: implement ShopBodyLoading
+              if (state is! GetUserDetailSuccess) {
+                return _ShopBody(scrollController: scrollController).skeletonLoading(context);
+              }
               return Scaffold(
                 body: Global.userDetail == null
                     ? const Center(child: NotLoginWidget())

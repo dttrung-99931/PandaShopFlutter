@@ -5,6 +5,7 @@ import 'package:evievm_app/src/features/common/presentation/screens/splash_scree
 import 'package:evievm_app/src/features/order/presentation/screens/order_screen.dart';
 import 'package:evievm_app/src/features/order/presentation/screens/successful_order_screen.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/screens/create_panvideo_screen.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/screens/edit_panvideo_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/product_detail_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/search_products_screen.dart';
 import 'package:evievm_app/src/features/shop/presentation/screens/product_inventory_screen.dart';
@@ -14,7 +15,7 @@ import 'package:evievm_app/src/features/shopping_cart/presentation/screens/shopp
 import 'package:flutter/material.dart';
 
 class AppRouter {
-  static String get initialRouter => SplashScreen.router;
+  static String get initialRouter => MainScreen.router;
 
   static Widget _buildScreen(RouteSettings settings, BuildContext context) {
     switch (settings.name) {
@@ -57,6 +58,8 @@ class AppRouter {
       // Panvideo
       case CreatePanvideoScreen.router:
         return const CreatePanvideoScreen();
+      case EditPanvideoScreen.router:
+        return EditPanvideoScreen(settings.arguments as dynamic);
     }
     return const SizedBox.shrink();
   }

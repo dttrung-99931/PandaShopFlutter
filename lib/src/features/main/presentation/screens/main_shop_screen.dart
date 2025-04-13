@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/ui/auto_reset_bloc_state.dart';
+import 'package:evievm_app/core/utils/ui_utils.dart';
 import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/features/auth/presentation/screens/account_screen.dart';
@@ -55,13 +56,19 @@ class _MainShopScreenState extends AutoResetBlocState<MainShopScreen, UserBloc> 
       notiBloc.add(OnGetNotificationOverview(requestModel: GetNotificationsModel.default_()));
     });
     _pageController = PageController();
-    _currentPageIndex.addListener(() {
-      if (!_pageController.hasClients || !mounted) {
-        return;
-      }
-      _pageController.jumpToPage(_currentPageIndex.value);
-    });
+    _currentPageIndex.addListener(_onPageChanged);
     super.initState();
+  }
+
+  void _onPageChanged() {
+    if (!_pageController.hasClients || !mounted) {
+      return;
+    }
+    final currentPageIdx = _currentPageIndex.value;
+    _pageController.jumpToPage(currentPageIdx);
+    UIUtils.changeUIMode(
+      currentPageIdx == MainShopBottomNavBar.panVideoIndex ? UIMode.fullScreen : UIMode.normal,
+    );
   }
 
   @override
@@ -71,6 +78,7 @@ class _MainShopScreenState extends AutoResetBlocState<MainShopScreen, UserBloc> 
     _accountScrollController.dispose();
     _panVideoController.dispose();
     _pageController.dispose();
+    _currentPageIndex.removeListener(_onPageChanged);
     super.dispose();
   }
 
