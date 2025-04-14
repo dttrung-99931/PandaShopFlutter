@@ -23,6 +23,16 @@ allprojects {
 
 rootProject.buildDir = '../build'
 subprojects {
+    afterEvaluate { project ->
+        // Fix thumbnail_video namespace not specified error 
+        if (project.hasProperty('android')) {
+            project.android {
+                if (namespace == null) {
+                    namespace project.group
+                }
+            }
+        }
+    }
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
 subprojects {

@@ -6,17 +6,20 @@ part of 'product_remote_data_soruce.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
 class _ProductRemoteDatasource implements ProductRemoteDatasource {
   _ProductRemoteDatasource(
     this._dio, {
     this.baseUrl,
+    this.errorLogger,
   });
 
   final Dio _dio;
 
   String? baseUrl;
+
+  final ParseErrorLogger? errorLogger;
 
   @override
   Future<BaseResponse<List<ShortProductModel>>> getProducts(
@@ -26,7 +29,7 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
     queryParameters.addAll(params.toJson());
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
+    final _options =
         _setStreamType<BaseResponse<List<ShortProductModel>>>(Options(
       method: 'GET',
       headers: _headers,
@@ -42,17 +45,24 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
                 baseUrl: _combineBaseUrls(
               _dio.options.baseUrl,
               baseUrl,
-            ))));
-    final value = BaseResponse<List<ShortProductModel>>.fromJson(
-      _result.data!,
-      (json) => json is List<dynamic>
-          ? json
-              .map<ShortProductModel>(
-                  (i) => ShortProductModel.fromJson(i as Map<String, dynamic>))
-              .toList()
-          : List.empty(),
-    );
-    return value;
+            )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late BaseResponse<List<ShortProductModel>> _value;
+    try {
+      _value = BaseResponse<List<ShortProductModel>>.fromJson(
+        _result.data!,
+        (json) => json is List<dynamic>
+            ? json
+                .map<ShortProductModel>((i) =>
+                    ShortProductModel.fromJson(i as Map<String, dynamic>))
+                .toList()
+            : List.empty(),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   @override
@@ -63,28 +73,34 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
     queryParameters.addAll(params.toJson());
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<SearchProductModel>>(Options(
+    final _options = _setStreamType<BaseResponse<SearchProductModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/v1/Products/SearchSuggestions',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = BaseResponse<SearchProductModel>.fromJson(
-      _result.data!,
-      (json) => SearchProductModel.fromJson(json as Map<String, dynamic>),
-    );
-    return value;
+        .compose(
+          _dio.options,
+          '/v1/Products/SearchSuggestions',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late BaseResponse<SearchProductModel> _value;
+    try {
+      _value = BaseResponse<SearchProductModel>.fromJson(
+        _result.data!,
+        (json) => SearchProductModel.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   @override
@@ -93,30 +109,36 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<ProductDetailModel>>(Options(
+    final _options = _setStreamType<BaseResponse<ProductDetailModel>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/v1/Products/${id}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = BaseResponse<ProductDetailModel?>.fromJson(
-      _result.data!,
-      (json) => json == null
-          ? null
-          : ProductDetailModel.fromJson(json as Map<String, dynamic>),
-    );
-    return value;
+        .compose(
+          _dio.options,
+          '/v1/Products/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late BaseResponse<ProductDetailModel?> _value;
+    try {
+      _value = BaseResponse<ProductDetailModel?>.fromJson(
+        _result.data!,
+        (json) => json == null
+            ? null
+            : ProductDetailModel.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   @override
@@ -127,7 +149,7 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
     queryParameters.addAll(params.toJson());
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
+    final _options =
         _setStreamType<BaseResponse<List<ProductCategoryModel>>>(Options(
       method: 'GET',
       headers: _headers,
@@ -143,17 +165,24 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
                 baseUrl: _combineBaseUrls(
               _dio.options.baseUrl,
               baseUrl,
-            ))));
-    final value = BaseResponse<List<ProductCategoryModel>>.fromJson(
-      _result.data!,
-      (json) => json is List<dynamic>
-          ? json
-              .map<ProductCategoryModel>((i) =>
-                  ProductCategoryModel.fromJson(i as Map<String, dynamic>))
-              .toList()
-          : List.empty(),
-    );
-    return value;
+            )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late BaseResponse<List<ProductCategoryModel>> _value;
+    try {
+      _value = BaseResponse<List<ProductCategoryModel>>.fromJson(
+        _result.data!,
+        (json) => json is List<dynamic>
+            ? json
+                .map<ProductCategoryModel>((i) =>
+                    ProductCategoryModel.fromJson(i as Map<String, dynamic>))
+                .toList()
+            : List.empty(),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   @override
@@ -163,7 +192,7 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
+    final _options =
         _setStreamType<BaseResponse<PropertyTemplateModel>>(Options(
       method: 'GET',
       headers: _headers,
@@ -179,12 +208,19 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
                 baseUrl: _combineBaseUrls(
               _dio.options.baseUrl,
               baseUrl,
-            ))));
-    final value = BaseResponse<PropertyTemplateModel>.fromJson(
-      _result.data!,
-      (json) => PropertyTemplateModel.fromJson(json as Map<String, dynamic>),
-    );
-    return value;
+            )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late BaseResponse<PropertyTemplateModel> _value;
+    try {
+      _value = BaseResponse<PropertyTemplateModel>.fromJson(
+        _result.data!,
+        (json) => PropertyTemplateModel.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   @override
@@ -195,28 +231,34 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(params.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<ShortProductModel>>(Options(
+    final _options = _setStreamType<BaseResponse<ShortProductModel>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/v1/Products',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = BaseResponse<ShortProductModel>.fromJson(
-      _result.data!,
-      (json) => ShortProductModel.fromJson(json as Map<String, dynamic>),
-    );
-    return value;
+        .compose(
+          _dio.options,
+          '/v1/Products',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late BaseResponse<ShortProductModel> _value;
+    try {
+      _value = BaseResponse<ShortProductModel>.fromJson(
+        _result.data!,
+        (json) => ShortProductModel.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   @override
@@ -229,28 +271,34 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(params.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<dynamic>>(Options(
+    final _options = _setStreamType<BaseResponse<dynamic>>(Options(
       method: 'PUT',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/v1/Products/${id}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = BaseResponse<dynamic>.fromJson(
-      _result.data!,
-      (json) => json as dynamic,
-    );
-    return value;
+        .compose(
+          _dio.options,
+          '/v1/Products/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late BaseResponse<dynamic> _value;
+    try {
+      _value = BaseResponse<dynamic>.fromJson(
+        _result.data!,
+        (json) => json as dynamic,
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   @override
@@ -259,28 +307,34 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final String? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<dynamic>>(Options(
+    final _options = _setStreamType<BaseResponse<dynamic>>(Options(
       method: 'DELETE',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/v1/Products/${id}',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = BaseResponse<dynamic>.fromJson(
-      _result.data!,
-      (json) => json as dynamic,
-    );
-    return value;
+        .compose(
+          _dio.options,
+          '/v1/Products/${id}',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late BaseResponse<dynamic> _value;
+    try {
+      _value = BaseResponse<dynamic>.fromJson(
+        _result.data!,
+        (json) => json as dynamic,
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   @override
@@ -292,28 +346,34 @@ class _ProductRemoteDatasource implements ProductRemoteDatasource {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = body;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<dynamic>>(Options(
+    final _options = _setStreamType<BaseResponse<dynamic>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/v1/Products/${productId}/Images',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = BaseResponse<dynamic>.fromJson(
-      _result.data!,
-      (json) => json as dynamic,
-    );
-    return value;
+        .compose(
+          _dio.options,
+          '/v1/Products/${productId}/Images',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late BaseResponse<dynamic> _value;
+    try {
+      _value = BaseResponse<dynamic>.fromJson(
+        _result.data!,
+        (json) => json as dynamic,
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

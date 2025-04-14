@@ -12,16 +12,8 @@ ShopRequestModel _$ShopRequestModelFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
     );
 
-Map<String, dynamic> _$ShopRequestModelToJson(ShopRequestModel instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('id', instance.id);
-  val['name'] = instance.name;
-  return val;
-}
+Map<String, dynamic> _$ShopRequestModelToJson(ShopRequestModel instance) =>
+    <String, dynamic>{
+      if (instance.id case final value?) 'id': value,
+      'name': instance.name,
+    };

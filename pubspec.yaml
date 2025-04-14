@@ -66,6 +66,8 @@ dependencies:
   # Fix compileSdkVersion is not specified error of geolocator_android
   geolocator_android: 4.6.1
   video_player: ^2.9.5
+  # Get thumnail image of a video
+  video_thumbnail: ^0.5.3
 
 dependency_overrides:
   here_sdk:

@@ -7,56 +7,32 @@ part of 'create_product_request_model.dart';
 // **************************************************************************
 
 Map<String, dynamic> _$CreateProductRequestModelToJson(
-    CreateProductRequestModel instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('id', instance.id);
-  val['name'] = instance.name;
-  val['description'] = instance.description;
-  val['sellingNum'] = instance.sellingNum;
-  val['categoryId'] = instance.categoryId;
-  val['shopId'] = instance.shopId;
-  val['addressId'] = instance.addressId;
-  val['productOptions'] = instance.productOptions;
-  val['properties'] = instance.properties;
-  return val;
-}
+        CreateProductRequestModel instance) =>
+    <String, dynamic>{
+      if (instance.id case final value?) 'id': value,
+      'name': instance.name,
+      'description': instance.description,
+      'sellingNum': instance.sellingNum,
+      'categoryId': instance.categoryId,
+      'shopId': instance.shopId,
+      'addressId': instance.addressId,
+      'productOptions': instance.productOptions,
+      'properties': instance.properties,
+    };
 
 Map<String, dynamic> _$ProductOptionRequestModelToJson(
-    ProductOptionRequestModel instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('id', instance.id);
-  val['name'] = instance.name;
-  val['price'] = instance.price;
-  val['properties'] = instance.properties;
-  return val;
-}
+        ProductOptionRequestModel instance) =>
+    <String, dynamic>{
+      if (instance.id case final value?) 'id': value,
+      'name': instance.name,
+      'price': instance.price,
+      'properties': instance.properties,
+    };
 
 Map<String, dynamic> _$PropertyValueRequestModelToJson(
-    PropertyValueRequestModel instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('id', instance.id);
-  val['propertyId'] = instance.propertyId;
-  val['value'] = instance.value;
-  return val;
-}
+        PropertyValueRequestModel instance) =>
+    <String, dynamic>{
+      if (instance.id case final value?) 'id': value,
+      'propertyId': instance.propertyId,
+      'value': instance.value,
+    };

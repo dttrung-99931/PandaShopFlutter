@@ -15,18 +15,9 @@ QrBarCodeLoginRequestModel _$QrBarCodeLoginRequestModelFromJson(
     );
 
 Map<String, dynamic> _$QrBarCodeLoginRequestModelToJson(
-    QrBarCodeLoginRequestModel instance) {
-  final val = <String, dynamic>{
-    'user_type': instance.userType,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('qr_token', instance.qrToken);
-  writeNotNull('barcode', instance.barcode);
-  return val;
-}
+        QrBarCodeLoginRequestModel instance) =>
+    <String, dynamic>{
+      'user_type': instance.userType,
+      if (instance.qrToken case final value?) 'qr_token': value,
+      if (instance.barcode case final value?) 'barcode': value,
+    };

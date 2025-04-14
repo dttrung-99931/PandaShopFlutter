@@ -15,17 +15,9 @@ WarehouseRequestModel _$WarehouseRequestModelFromJson(
     );
 
 Map<String, dynamic> _$WarehouseRequestModelToJson(
-    WarehouseRequestModel instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('id', instance.id);
-  val['addressId'] = instance.addressId;
-  val['name'] = instance.name;
-  return val;
-}
+        WarehouseRequestModel instance) =>
+    <String, dynamic>{
+      if (instance.id case final value?) 'id': value,
+      'addressId': instance.addressId,
+      'name': instance.name,
+    };

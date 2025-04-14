@@ -17,19 +17,11 @@ Base64ImageRequestModel _$Base64ImageRequestModelFromJson(
     );
 
 Map<String, dynamic> _$Base64ImageRequestModelToJson(
-    Base64ImageRequestModel instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('id', instance.id);
-  val['based64Img'] = instance.based64Img;
-  val['orderIndex'] = instance.orderIndex;
-  val['description'] = instance.description;
-  val['avgColor'] = instance.avgColor;
-  return val;
-}
+        Base64ImageRequestModel instance) =>
+    <String, dynamic>{
+      if (instance.id case final value?) 'id': value,
+      'based64Img': instance.based64Img,
+      'orderIndex': instance.orderIndex,
+      'description': instance.description,
+      'avgColor': instance.avgColor,
+    };

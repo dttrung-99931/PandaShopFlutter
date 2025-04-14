@@ -6,17 +6,20 @@ part of 'address_data_soruce.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
 class _AddressDatasource implements AddressDatasource {
   _AddressDatasource(
     this._dio, {
     this.baseUrl,
+    this.errorLogger,
   });
 
   final Dio _dio;
 
   String? baseUrl;
+
+  final ParseErrorLogger? errorLogger;
 
   @override
   Future<BaseResponse<List<AddressModel>>> get() async {
@@ -24,33 +27,39 @@ class _AddressDatasource implements AddressDatasource {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<List<AddressModel>>>(Options(
+    final _options = _setStreamType<BaseResponse<List<AddressModel>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/v1/Addresses',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = BaseResponse<List<AddressModel>>.fromJson(
-      _result.data!,
-      (json) => json is List<dynamic>
-          ? json
-              .map<AddressModel>(
-                  (i) => AddressModel.fromJson(i as Map<String, dynamic>))
-              .toList()
-          : List.empty(),
-    );
-    return value;
+        .compose(
+          _dio.options,
+          '/v1/Addresses',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late BaseResponse<List<AddressModel>> _value;
+    try {
+      _value = BaseResponse<List<AddressModel>>.fromJson(
+        _result.data!,
+        (json) => json is List<dynamic>
+            ? json
+                .map<AddressModel>(
+                    (i) => AddressModel.fromJson(i as Map<String, dynamic>))
+                .toList()
+            : List.empty(),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   @override
@@ -60,28 +69,34 @@ class _AddressDatasource implements AddressDatasource {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(param.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<AddressModel>>(Options(
+    final _options = _setStreamType<BaseResponse<AddressModel>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/v1/Addresses',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = BaseResponse<AddressModel>.fromJson(
-      _result.data!,
-      (json) => AddressModel.fromJson(json as Map<String, dynamic>),
-    );
-    return value;
+        .compose(
+          _dio.options,
+          '/v1/Addresses',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late BaseResponse<AddressModel> _value;
+    try {
+      _value = BaseResponse<AddressModel>.fromJson(
+        _result.data!,
+        (json) => AddressModel.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   @override
@@ -90,7 +105,7 @@ class _AddressDatasource implements AddressDatasource {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
+    final _options =
         _setStreamType<BaseResponse<List<AddressFieldModel>>>(Options(
       method: 'GET',
       headers: _headers,
@@ -106,17 +121,24 @@ class _AddressDatasource implements AddressDatasource {
                 baseUrl: _combineBaseUrls(
               _dio.options.baseUrl,
               baseUrl,
-            ))));
-    final value = BaseResponse<List<AddressFieldModel>>.fromJson(
-      _result.data!,
-      (json) => json is List<dynamic>
-          ? json
-              .map<AddressFieldModel>(
-                  (i) => AddressFieldModel.fromJson(i as Map<String, dynamic>))
-              .toList()
-          : List.empty(),
-    );
-    return value;
+            )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late BaseResponse<List<AddressFieldModel>> _value;
+    try {
+      _value = BaseResponse<List<AddressFieldModel>>.fromJson(
+        _result.data!,
+        (json) => json is List<dynamic>
+            ? json
+                .map<AddressFieldModel>((i) =>
+                    AddressFieldModel.fromJson(i as Map<String, dynamic>))
+                .toList()
+            : List.empty(),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   @override
@@ -126,7 +148,7 @@ class _AddressDatasource implements AddressDatasource {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
+    final _options =
         _setStreamType<BaseResponse<List<AddressFieldModel>>>(Options(
       method: 'GET',
       headers: _headers,
@@ -142,17 +164,24 @@ class _AddressDatasource implements AddressDatasource {
                 baseUrl: _combineBaseUrls(
               _dio.options.baseUrl,
               baseUrl,
-            ))));
-    final value = BaseResponse<List<AddressFieldModel>>.fromJson(
-      _result.data!,
-      (json) => json is List<dynamic>
-          ? json
-              .map<AddressFieldModel>(
-                  (i) => AddressFieldModel.fromJson(i as Map<String, dynamic>))
-              .toList()
-          : List.empty(),
-    );
-    return value;
+            )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late BaseResponse<List<AddressFieldModel>> _value;
+    try {
+      _value = BaseResponse<List<AddressFieldModel>>.fromJson(
+        _result.data!,
+        (json) => json is List<dynamic>
+            ? json
+                .map<AddressFieldModel>((i) =>
+                    AddressFieldModel.fromJson(i as Map<String, dynamic>))
+                .toList()
+            : List.empty(),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   @override
@@ -162,7 +191,7 @@ class _AddressDatasource implements AddressDatasource {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
+    final _options =
         _setStreamType<BaseResponse<List<AddressFieldModel>>>(Options(
       method: 'GET',
       headers: _headers,
@@ -178,17 +207,24 @@ class _AddressDatasource implements AddressDatasource {
                 baseUrl: _combineBaseUrls(
               _dio.options.baseUrl,
               baseUrl,
-            ))));
-    final value = BaseResponse<List<AddressFieldModel>>.fromJson(
-      _result.data!,
-      (json) => json is List<dynamic>
-          ? json
-              .map<AddressFieldModel>(
-                  (i) => AddressFieldModel.fromJson(i as Map<String, dynamic>))
-              .toList()
-          : List.empty(),
-    );
-    return value;
+            )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late BaseResponse<List<AddressFieldModel>> _value;
+    try {
+      _value = BaseResponse<List<AddressFieldModel>>.fromJson(
+        _result.data!,
+        (json) => json is List<dynamic>
+            ? json
+                .map<AddressFieldModel>((i) =>
+                    AddressFieldModel.fromJson(i as Map<String, dynamic>))
+                .toList()
+            : List.empty(),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

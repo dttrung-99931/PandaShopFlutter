@@ -15,17 +15,9 @@ WarehouseInputRequestModel _$WarehouseInputRequestModelFromJson(
     );
 
 Map<String, dynamic> _$WarehouseInputRequestModelToJson(
-    WarehouseInputRequestModel instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('id', instance.id);
-  val['warehouseId'] = instance.warehouseId;
-  val['date'] = instance.date.toIso8601String();
-  return val;
-}
+        WarehouseInputRequestModel instance) =>
+    <String, dynamic>{
+      if (instance.id case final value?) 'id': value,
+      'warehouseId': instance.warehouseId,
+      'date': instance.date.toIso8601String(),
+    };

@@ -16,18 +16,10 @@ GetProductCatesRequestModel _$GetProductCatesRequestModelFromJson(
     );
 
 Map<String, dynamic> _$GetProductCatesRequestModelToJson(
-    GetProductCatesRequestModel instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('level', instance.level);
-  writeNotNull('parentId', instance.parentId);
-  writeNotNull('q', instance.q);
-  writeNotNull('shopId', instance.shopId);
-  return val;
-}
+        GetProductCatesRequestModel instance) =>
+    <String, dynamic>{
+      if (instance.level case final value?) 'level': value,
+      if (instance.parentId case final value?) 'parentId': value,
+      if (instance.q case final value?) 'q': value,
+      if (instance.shopId case final value?) 'shopId': value,
+    };
