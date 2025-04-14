@@ -7,21 +7,14 @@ part of 'product_batch_request_model.dart';
 // **************************************************************************
 
 Map<String, dynamic> _$ProductBatchRequestModelToJson(
-    ProductBatchRequestModel instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('id', instance.id);
-  val['productOptionId'] = instance.productOptionId;
-  val['warehouseInputId'] = instance.warehouseInputId;
-  val['number'] = instance.number;
-  val['manufactureDate'] = instance.manufactureDate.toIso8601String();
-  val['expireDate'] = instance.expireDate.toIso8601String();
-  writeNotNull('arriveDate', instance.arriveDate?.toIso8601String());
-  return val;
-}
+        ProductBatchRequestModel instance) =>
+    <String, dynamic>{
+      if (instance.id case final value?) 'id': value,
+      'productOptionId': instance.productOptionId,
+      'warehouseInputId': instance.warehouseInputId,
+      'number': instance.number,
+      'manufactureDate': instance.manufactureDate.toIso8601String(),
+      'expireDate': instance.expireDate.toIso8601String(),
+      if (instance.arriveDate?.toIso8601String() case final value?)
+        'arriveDate': value,
+    };

@@ -7,20 +7,13 @@ part of 'get_orders_request_model.dart';
 // **************************************************************************
 
 Map<String, dynamic> _$GetOrdersRequestModelToJson(
-    GetOrdersRequestModel instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('userId', instance.userId);
-  writeNotNull('shopId', instance.shopId);
-  writeNotNull('status', _$OrderStatusEnumMap[instance.status]);
-  return val;
-}
+        GetOrdersRequestModel instance) =>
+    <String, dynamic>{
+      if (instance.userId case final value?) 'userId': value,
+      if (instance.shopId case final value?) 'shopId': value,
+      if (_$OrderStatusEnumMap[instance.status] case final value?)
+        'status': value,
+    };
 
 const _$OrderStatusEnumMap = {
   OrderStatus.created: 1,

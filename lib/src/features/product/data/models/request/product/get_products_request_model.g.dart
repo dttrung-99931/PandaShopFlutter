@@ -19,21 +19,13 @@ GetProductsRequestModel _$GetProductsRequestModelFromJson(
     );
 
 Map<String, dynamic> _$GetProductsRequestModelToJson(
-    GetProductsRequestModel instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('q', instance.q);
-  writeNotNull('categoryIdLV1', instance.categoryIdLV1);
-  writeNotNull('categoryIdLV2', instance.categoryIdLV2);
-  writeNotNull('categoryIdLV3', instance.categoryIdLV3);
-  writeNotNull('orderBy', instance.orderBy);
-  writeNotNull('shopId', instance.shopId);
-  writeNotNull('available', instance.available);
-  return val;
-}
+        GetProductsRequestModel instance) =>
+    <String, dynamic>{
+      if (instance.q case final value?) 'q': value,
+      if (instance.categoryIdLV1 case final value?) 'categoryIdLV1': value,
+      if (instance.categoryIdLV2 case final value?) 'categoryIdLV2': value,
+      if (instance.categoryIdLV3 case final value?) 'categoryIdLV3': value,
+      if (instance.orderBy case final value?) 'orderBy': value,
+      if (instance.shopId case final value?) 'shopId': value,
+      if (instance.available case final value?) 'available': value,
+    };

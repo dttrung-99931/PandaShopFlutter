@@ -37,3 +37,7 @@ class UnexpectedFailure extends Failure {
   UnexpectedFailure() : super('UnexpectedFailure');
 }
 // class UnExcepected extends Failure {}
+
+class ThumbnailImageFailure extends Failure {
+  ThumbnailImageFailure(super.msg) : super();
+}

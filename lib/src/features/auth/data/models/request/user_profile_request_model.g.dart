@@ -13,15 +13,8 @@ UserProfileRequestModel _$UserProfileRequestModelFromJson(
     );
 
 Map<String, dynamic> _$UserProfileRequestModelToJson(
-    UserProfileRequestModel instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('pass_chosse_manufacture', instance.passChooseManufacturer);
-  return val;
-}
+        UserProfileRequestModel instance) =>
+    <String, dynamic>{
+      if (instance.passChooseManufacturer case final value?)
+        'pass_chosse_manufacture': value,
+    };

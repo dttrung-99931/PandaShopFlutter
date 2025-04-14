@@ -6,17 +6,20 @@ part of 'ads_data_soruce.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
 class _AdsDatasource implements AdsDatasource {
   _AdsDatasource(
     this._dio, {
     this.baseUrl,
+    this.errorLogger,
   });
 
   final Dio _dio;
 
   String? baseUrl;
+
+  final ParseErrorLogger? errorLogger;
 
   @override
   Future<BaseResponse<List<HomeBannerModel>>> getHomeBanners() async {
@@ -24,7 +27,7 @@ class _AdsDatasource implements AdsDatasource {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio.fetch<Map<String, dynamic>>(
+    final _options =
         _setStreamType<BaseResponse<List<HomeBannerModel>>>(Options(
       method: 'GET',
       headers: _headers,
@@ -40,17 +43,24 @@ class _AdsDatasource implements AdsDatasource {
                 baseUrl: _combineBaseUrls(
               _dio.options.baseUrl,
               baseUrl,
-            ))));
-    final value = BaseResponse<List<HomeBannerModel>>.fromJson(
-      _result.data!,
-      (json) => json is List<dynamic>
-          ? json
-              .map<HomeBannerModel>(
-                  (i) => HomeBannerModel.fromJson(i as Map<String, dynamic>))
-              .toList()
-          : List.empty(),
-    );
-    return value;
+            )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late BaseResponse<List<HomeBannerModel>> _value;
+    try {
+      _value = BaseResponse<List<HomeBannerModel>>.fromJson(
+        _result.data!,
+        (json) => json is List<dynamic>
+            ? json
+                .map<HomeBannerModel>(
+                    (i) => HomeBannerModel.fromJson(i as Map<String, dynamic>))
+                .toList()
+            : List.empty(),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
