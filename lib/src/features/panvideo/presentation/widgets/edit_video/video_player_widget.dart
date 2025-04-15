@@ -43,6 +43,7 @@ class _VideoPlayerWidgetBuilderState<T> extends State<VideoPlayerWidgetBuilder<T
   void _listener() {
     T updatedValue = widget.getValue(widget.controller);
     if (updatedValue != _value && mounted) {
+      _value = updatedValue;
       // Rebuild when tracking value from CameraController changed
       setState(() {});
     }
