@@ -163,10 +163,16 @@ import 'package:evievm_app/src/features/panvideo/domain/use_cases/create/gen_thu
     as _i826;
 import 'package:evievm_app/src/features/panvideo/domain/use_cases/my_panvideos/get_my_panvideos_usecase.dart'
     as _i369;
+import 'package:evievm_app/src/features/panvideo/domain/use_cases/panvideos/get_panvideos_usecase.dart'
+    as _i175;
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/create_panvideo/create_panvideo_bloc.dart'
     as _i582;
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/my_panvideo/my_panvideo_bloc.dart'
     as _i1054;
+import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_bloc.dart'
+    as _i529;
+import 'package:evievm_app/src/features/panvideo/presentation/widgets/panvideos/panvideo_manager.dart'
+    as _i906;
 import 'package:evievm_app/src/features/product/data/data_sources/ads/ads_data_soruce.dart'
     as _i293;
 import 'package:evievm_app/src/features/product/data/data_sources/product_cate_data_soruce.dart'
@@ -364,6 +370,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i635.MapDeliveryTrackingCommunication>(
         () => _i635.MapDeliveryTrackingCommunication());
     gh.lazySingleton<_i43.MainCommunication>(() => _i43.MainCommunication());
+    gh.lazySingleton<_i906.PanvideoManager>(
+      () => _i906.PanvideoManager(),
+      dispose: (i) => i.disposed(),
+    );
     gh.lazySingleton<_i523.PickLocalImageUseCase>(
         () => _i523.PickLocalImageUseCase(gh<_i674.EditImageUseCase>()));
     gh.lazySingleton<_i195.PushNotificationBloc>(
@@ -629,6 +639,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i704.GetPaymentMethodsUseCase(gh<_i875.PaymentRepo>()));
     gh.lazySingleton<_i369.GetMyPanvideosUseCase>(
         () => _i369.GetMyPanvideosUseCase(gh<_i490.PanvideoRepo>()));
+    gh.lazySingleton<_i175.GetPanvideosUseCase>(
+        () => _i175.GetPanvideosUseCase(gh<_i490.PanvideoRepo>()));
     gh.lazySingleton<_i121.GetProductCateByIdUseCase>(
         () => _i121.GetProductCateByIdUseCase(gh<_i1021.ProductCateRepo>()));
     gh.lazySingleton<_i683.OrderBloc>(
@@ -656,6 +668,13 @@ extension GetItInjectableX on _i174.GetIt {
             ));
     gh.lazySingleton<_i895.UserBloc>(
         () => _i895.UserBloc(gh<_i894.GetUserDetailUseCase>()));
+    gh.lazySingleton<_i529.PanVideoBloc>(
+      () => _i529.PanVideoBloc(
+        gh<_i175.GetPanvideosUseCase>(),
+        gh<_i906.PanvideoManager>(),
+      ),
+      dispose: (i) => i.onClose(),
+    );
     gh.lazySingleton<_i1054.MyPanVideoBloc>(
         () => _i1054.MyPanVideoBloc(gh<_i369.GetMyPanvideosUseCase>()));
     gh.lazySingleton<_i701.PaymentMethodInpBloc>(

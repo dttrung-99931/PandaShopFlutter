@@ -5,7 +5,7 @@ import 'package:video_player/video_player.dart';
 /// Widget build on [controller] changed
 class VideoPlayerWidgetBuilder<T> extends StatefulWidget {
   final VideoPlayerController controller;
-  final Function(BuildContext context, T value) builder;
+  final Widget Function(BuildContext context, T value) builder;
 
   /// Get value to check whether should rebuild
   final T Function(VideoPlayerController controller) getValue;
@@ -22,13 +22,22 @@ class VideoPlayerWidgetBuilder<T> extends StatefulWidget {
 }
 
 class _VideoPlayerWidgetBuilderState<T> extends State<VideoPlayerWidgetBuilder<T>> {
-  dynamic _value;
+  late T _value;
 
   @override
   void initState() {
     super.initState();
-    widget.getValue(widget.controller);
+    _value = widget.getValue(widget.controller);
     widget.controller.addListener(_listener);
+  }
+
+  @override
+  void didUpdateWidget(covariant VideoPlayerWidgetBuilder<T> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.controller != oldWidget.controller) {
+      oldWidget.controller.removeListener(_listener);
+      widget.controller.removeListener(_listener);
+    }
   }
 
   void _listener() {
@@ -42,7 +51,6 @@ class _VideoPlayerWidgetBuilderState<T> extends State<VideoPlayerWidgetBuilder<T
   @override
   void dispose() {
     widget.controller.removeListener(_listener);
-    widget.controller.dispose();
     super.dispose();
   }
 

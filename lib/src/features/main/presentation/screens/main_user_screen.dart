@@ -8,6 +8,7 @@ import 'package:evievm_app/src/features/home/presentation/screens/home_screen.da
 import 'package:evievm_app/src/features/notification/data/models/request/get_notifications_model.dart';
 import 'package:evievm_app/src/features/notification/presentation/bloc/notification_bloc.dart';
 import 'package:evievm_app/src/features/notification/presentation/screens/notification_screen.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/screens/panvideos_screen.dart';
 import 'package:evievm_app/src/shared/widgets/common/keep_page_alive.dart';
 import 'package:evievm_app/src/shared/widgets/common/refresh_widget.dart';
 import 'package:evievm_app/src/shared/widgets/hidden_on_scroll_bottom_bar.dart';
@@ -27,14 +28,17 @@ class _MainUserScreenState extends State<MainUserScreen> {
   ValueNotifier<int> get _currentPageIndex => Global.mainPageIndexNotifier;
   late final _homeScrollController = ScrollController();
   late final _notiScrollController = ScrollController();
+  late final _panvideosScrollController = ScrollController();
   late final _accountScrollController = ScrollController();
   ScrollController get _scrollController {
     switch (_currentPageIndex.value) {
       case 0:
         return _homeScrollController;
       case 1:
-        return _notiScrollController;
+        return _panvideosScrollController;
       case 2:
+        return _notiScrollController;
+      case 3:
         return _accountScrollController;
       default:
         throw 'Invalid tab index';
@@ -67,6 +71,7 @@ class _MainUserScreenState extends State<MainUserScreen> {
     _pageController.dispose();
     _homeScrollController.dispose();
     _notiScrollController.dispose();
+    _panvideosScrollController.dispose();
     _accountScrollController.dispose();
     _currentPageIndex.removeListener(_onPageIndexChanged);
     super.dispose();
@@ -82,7 +87,7 @@ class _MainUserScreenState extends State<MainUserScreen> {
             _currentPageIndex.value = index;
           },
           controller: _pageController,
-          itemCount: 3,
+          itemCount: 4,
           itemBuilder: (context, index) {
             switch (index) {
               case 0:
@@ -92,12 +97,16 @@ class _MainUserScreenState extends State<MainUserScreen> {
                   ),
                 );
               case 1:
+                return RefreshChildBuilder(
+                  builder: (_) => PanvideosScreen(scrollController: _panvideosScrollController),
+                );
+              case 2:
                 return KeepAlivePage(
                   child: RefreshChildBuilder(
                     builder: (_) => const NotificationScreen(),
                   ),
                 );
-              case 2:
+              case 3:
                 return KeepAlivePage(
                   child: RefreshChildBuilder(
                     builder: (_) => const AccountScreen(),

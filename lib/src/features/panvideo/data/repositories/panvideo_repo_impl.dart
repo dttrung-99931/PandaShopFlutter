@@ -62,4 +62,13 @@ class PanvideoRepoImpl extends PanvideoRepo {
       ),
     );
   }
+
+  @override
+  Future<Either<Failure, PaginatedList<PanvideoResponse>>> getPanvideos(GetPanvideosRequest request) {
+    return handleNetwork(
+      onRemote: handleServerErrors(
+        datasourceResponse: _datasource.getPanvideos(request),
+      ),
+    );
+  }
 }

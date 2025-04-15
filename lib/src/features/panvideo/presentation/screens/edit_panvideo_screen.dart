@@ -8,6 +8,7 @@ import 'package:evievm_app/src/features/panvideo/presentation/widgets/edit_video
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/edit_video/video_edit_actions.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/edit_video/video_pause_player_button.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/edit_video/video_timer.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/widgets/panvideo_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:panda_map/widgets/loading_widget.dart';
@@ -89,14 +90,9 @@ class _EditPanvideoScreenState extends State<EditPanvideoScreen> {
                       bottom: 20.h,
                       left: 0,
                       right: 0,
-                      child: VideoProgressIndicator(
-                        _controller,
-                        allowScrubbing: true,
-                        padding: EdgeInsets.symmetric(vertical: 16.h),
-                        colors: const VideoProgressColors(
-                          playedColor: AppColors.primaryShop,
-                          backgroundColor: AppColors.white,
-                        ),
+                      child: PanvideoProgressIndicator(
+                        controller: _controller,
+                        playedColor: AppColors.primaryShop,
                       ),
                     ),
                     Positioned(

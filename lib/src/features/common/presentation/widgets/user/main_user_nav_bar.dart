@@ -15,9 +15,26 @@ class MainUserBottomNavBar extends StatelessWidget {
     super.key,
     required this.selectedIndexNotifier,
   });
+  static int panVideoIndex = 1;
   final ValueNotifier<int> selectedIndexNotifier;
   int get _selectIndex => selectedIndexNotifier.value;
   set _selectIndex(value) => selectedIndexNotifier.value = value;
+
+  Color get backgroundColor {
+    return _selectIndex != panVideoIndex ? AppColors.white : AppColors.black;
+  }
+
+  Color get unselectedItemColor {
+    return _selectIndex != panVideoIndex ? AppColors.black : AppColors.white;
+  }
+
+  Color get iconBackgroundColor {
+    return _selectIndex != panVideoIndex ? AppColors.white : AppColors.transparent;
+  }
+
+  Color get iconColor {
+    return _selectIndex != panVideoIndex ? AppColors.black : AppColors.white;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,25 +54,11 @@ class MainUserBottomNavBar extends StatelessWidget {
                       splashColor: AppColors.transparent,
                     ),
                     child: BottomNavigationBar(
-                      items: [
-                        BottomNavigationBarItem(
-                          backgroundColor: Colors.white,
-                          icon: CardIcon.zeroPadding(Icons.home_outlined),
-                          label: "Trang chủ",
-                        ),
-                        const BottomNavigationBarItem(
-                          backgroundColor: Colors.white,
-                          icon: NotiIconWithBadge(),
-                          label: "Thông báo",
-                        ),
-                        BottomNavigationBarItem(
-                          backgroundColor: Colors.white,
-                          icon: CardIcon.zeroPadding(Icons.account_box_outlined),
-                          label: "Tài khoản",
-                        ),
-                      ],
+                      backgroundColor: backgroundColor,
                       selectedItemColor: AppColors.primary,
-                      unselectedItemColor: AppColors.black.withOpacity(0.8),
+                      unselectedItemColor: unselectedItemColor,
+                      selectedIconTheme: Theme.of(context).iconTheme.copyWith(color: AppColors.primary),
+                      unselectedIconTheme: Theme.of(context).iconTheme.copyWith(color: iconColor),
                       showUnselectedLabels: true,
                       type: BottomNavigationBarType.fixed,
                       currentIndex: _selectIndex,
@@ -66,6 +69,39 @@ class MainUserBottomNavBar extends StatelessWidget {
                       selectedFontSize: 12,
                       unselectedFontSize: 12,
                       elevation: 10,
+                      items: [
+                        BottomNavigationBarItem(
+                          backgroundColor: backgroundColor,
+                          icon: CardIcon.zeroPadding(
+                            Icons.home_outlined,
+                            backgroundColor: backgroundColor,
+                          ),
+                          label: "Trang chủ",
+                        ),
+                        BottomNavigationBarItem(
+                          backgroundColor: backgroundColor,
+                          icon: CardIcon.zeroPadding(
+                            Icons.movie_outlined,
+                            backgroundColor: backgroundColor,
+                          ),
+                          label: "Panvideo",
+                        ),
+                        BottomNavigationBarItem(
+                          backgroundColor: backgroundColor,
+                          icon: NotiIconWithBadge(
+                            backgroundColor: iconBackgroundColor,
+                          ),
+                          label: "Thông báo",
+                        ),
+                        BottomNavigationBarItem(
+                          backgroundColor: backgroundColor,
+                          icon: CardIcon.zeroPadding(
+                            Icons.account_box_outlined,
+                            backgroundColor: backgroundColor,
+                          ),
+                          label: "Tài khoản",
+                        ),
+                      ],
                     ).skeleton(state is LoadingState, context, textLongLevel: TextLongLevel.short),
                   );
                 }),

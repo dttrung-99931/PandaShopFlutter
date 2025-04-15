@@ -27,7 +27,15 @@ class MainShopBottomNavBar extends StatelessWidget {
     return _selectIndex != panVideoIndex ? AppColors.white : AppColors.black;
   }
 
+  Color get iconBackgroundColor {
+    return _selectIndex != panVideoIndex ? AppColors.white : AppColors.transparent;
+  }
+
   Color get unselectedItemColor {
+    return _selectIndex != panVideoIndex ? AppColors.black : AppColors.white;
+  }
+
+  Color get iconColor {
     return _selectIndex != panVideoIndex ? AppColors.black : AppColors.white;
   }
 
@@ -53,34 +61,49 @@ class MainShopBottomNavBar extends StatelessWidget {
                         items: [
                           BottomNavigationBarItem(
                             backgroundColor: backgroundColor,
-                            icon: CardIcon.zeroPadding(Icons.shop_outlined),
+                            icon: CardIcon.zeroPadding(
+                              Icons.shop_outlined,
+                              backgroundColor: iconBackgroundColor,
+                              color: iconColor,
+                            ),
                             label: "Cửa hàng",
                           ),
                           BottomNavigationBarItem(
                             backgroundColor: backgroundColor,
-                            icon: CardIcon.zeroPadding(Icons.menu_book_outlined),
+                            icon: CardIcon.zeroPadding(
+                              Icons.menu_book_outlined,
+                              backgroundColor: iconBackgroundColor,
+                            ),
                             label: "Đơn hàng",
                           ),
                           BottomNavigationBarItem(
                             backgroundColor: backgroundColor,
-                            icon: CardIcon.zeroPadding(Icons.movie_outlined),
+                            icon: CardIcon.zeroPadding(
+                              Icons.movie_outlined,
+                              backgroundColor: iconBackgroundColor,
+                            ),
                             label: "Video",
                           ),
                           BottomNavigationBarItem(
                             backgroundColor: backgroundColor,
-                            icon: const NotiIconWithBadge(),
+                            icon: NotiIconWithBadge(
+                              backgroundColor: iconBackgroundColor,
+                            ),
                             label: "Thông báo",
                           ),
                           BottomNavigationBarItem(
                             backgroundColor: backgroundColor,
-                            icon: CardIcon.zeroPadding(Icons.account_box_outlined),
+                            icon: CardIcon.zeroPadding(
+                              Icons.account_box_outlined,
+                              backgroundColor: iconBackgroundColor,
+                            ),
                             label: "Tài khoản",
                           ),
                         ],
                         selectedItemColor: AppColors.primaryShop,
                         unselectedItemColor: unselectedItemColor,
                         selectedIconTheme: Theme.of(context).iconTheme.copyWith(color: AppColors.primaryShop),
-                        unselectedIconTheme: Theme.of(context).iconTheme.copyWith(color: AppColors.black),
+                        unselectedIconTheme: Theme.of(context).iconTheme.copyWith(color: iconColor),
                         showUnselectedLabels: true,
                         type: BottomNavigationBarType.fixed,
                         currentIndex: _selectIndex,
@@ -112,7 +135,9 @@ class MainShopBottomNavBar extends StatelessWidget {
 class NotiIconWithBadge extends StatelessWidget {
   const NotiIconWithBadge({
     super.key,
+    required this.backgroundColor,
   });
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +145,10 @@ class NotiIconWithBadge extends StatelessWidget {
       alignment: Alignment.topRight,
       clipBehavior: Clip.none,
       children: [
-        CardIcon.zeroPadding(Icons.notifications_outlined),
+        CardIcon.zeroPadding(
+          Icons.notifications_outlined,
+          backgroundColor: backgroundColor,
+        ),
         Positioned(
           right: -8.w,
           top: 2.h,

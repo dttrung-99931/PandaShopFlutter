@@ -6,6 +6,8 @@ part of 'get_panvideos_request.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Map<String, dynamic> _$GetPanvideosRequestToJson(GetPanvideosRequest instance) => <String, dynamic>{
+Map<String, dynamic> _$GetPanvideosRequestToJson(
+        GetPanvideosRequest instance) =>
+    <String, dynamic>{
       if (instance.q case final value?) 'q': value,
     };
