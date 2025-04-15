@@ -13,4 +13,5 @@ abstract class PanvideoRepo extends BaseRepo {
   Future<Either<Failure, CreatePanvideoResponse>> createPanvideo(CreatePanvideoRequest request);
   Future<Either<Failure, File>> genThumbnailImage(File video);
   Future<Either<Failure, PaginatedList<PanvideoResponse>>> getMyPanvideos(GetPanvideosRequest request);
+  Future<Either<Failure, PaginatedList<PanvideoResponse>>> getPanvideos(GetPanvideosRequest request);
 }
