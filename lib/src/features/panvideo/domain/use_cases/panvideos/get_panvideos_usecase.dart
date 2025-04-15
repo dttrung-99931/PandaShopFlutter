@@ -17,7 +17,7 @@ class GetPanvideosUseCase extends EitherUseCase<PaginatedList<PanvideoDto>, GetP
   @override
   Future<Either<Failure, PaginatedList<PanvideoDto>>> call(GetPanvideosRequest param) async {
     return handleRepoResult(
-      repoResult: _repo.getMyPanvideos(param),
+      repoResult: _repo.getPanvideos(param),
       onSuccess: (PaginatedList<PanvideoResponse> model) async {
         return model.mapList((e) => PanvideoDto.fromModel(e));
       },

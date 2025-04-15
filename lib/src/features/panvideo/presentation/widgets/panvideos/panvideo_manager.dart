@@ -41,6 +41,7 @@ class PanvideoManager {
 
   VideoPlayerController _addVideoController(int videoIndex) {
     final controller = _createVideoController(videoIndex);
+    controller.setLooping(true);
     controller.initialize();
     if (videoIndex == _lastCachePanvideoIdx + 1) {
       _controllers.add(controller);

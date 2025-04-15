@@ -62,24 +62,23 @@ class _PanvideoDatasource implements PanvideoDatasource {
       'durationInSecs',
       durationInSecs.toString(),
     ));
-    final _options =
-        _setStreamType<BaseResponse<CreatePanvideoResponse>>(Options(
+    final _options = _setStreamType<BaseResponse<CreatePanvideoResponse>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
       contentType: 'multipart/form-data',
     )
-            .compose(
-              _dio.options,
-              '/v1/PanVideos',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            )));
+        .compose(
+          _dio.options,
+          '/v1/PanVideos',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late BaseResponse<CreatePanvideoResponse> _value;
     try {
@@ -95,30 +94,28 @@ class _PanvideoDatasource implements PanvideoDatasource {
   }
 
   @override
-  Future<PaginatedListResponse<PanvideoResponse>> getMyPanvideos(
-      GetPanvideosRequest request) async {
+  Future<PaginatedListResponse<PanvideoResponse>> getMyPanvideos(GetPanvideosRequest request) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.addAll(request.toJson());
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options =
-        _setStreamType<PaginatedListResponse<PanvideoResponse>>(Options(
+    final _options = _setStreamType<PaginatedListResponse<PanvideoResponse>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/v1/PanVideos/my',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            )));
+        .compose(
+          _dio.options,
+          '/v1/PanVideos/my',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late PaginatedListResponse<PanvideoResponse> _value;
     try {
@@ -134,30 +131,28 @@ class _PanvideoDatasource implements PanvideoDatasource {
   }
 
   @override
-  Future<PaginatedListResponse<PanvideoResponse>> getPanvideos(
-      GetPanvideosRequest request) async {
+  Future<PaginatedListResponse<PanvideoResponse>> getPanvideos(GetPanvideosRequest request) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.addAll(request.toJson());
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options =
-        _setStreamType<PaginatedListResponse<PanvideoResponse>>(Options(
+    final _options = _setStreamType<PaginatedListResponse<PanvideoResponse>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/v1/PanVideos/feeds',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            )));
+        .compose(
+          _dio.options,
+          '/v1/PanVideos/feed',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late PaginatedListResponse<PanvideoResponse> _value;
     try {
@@ -174,8 +169,7 @@ class _PanvideoDatasource implements PanvideoDatasource {
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
-        !(requestOptions.responseType == ResponseType.bytes ||
-            requestOptions.responseType == ResponseType.stream)) {
+        !(requestOptions.responseType == ResponseType.bytes || requestOptions.responseType == ResponseType.stream)) {
       if (T == String) {
         requestOptions.responseType = ResponseType.plain;
       } else {

@@ -5,12 +5,11 @@ import 'package:evievm_app/core/utils/overlay_utils.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
-import 'package:evievm_app/src/features/auth/presentation/screens/login_screen.dart';
-import 'package:evievm_app/src/features/main/presentation/blocs/main/main_bloc.dart';
+import 'package:evievm_app/src/features/auth/presentation/widgets/not_login_widget.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/user/user_bloc.dart';
+import 'package:evievm_app/src/features/main/presentation/blocs/main/main_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/screens/register_shop_screen.dart';
 import 'package:evievm_app/src/shared/widgets/app_alert_dialog.dart';
-import 'package:evievm_app/src/shared/widgets/common/unregister_widget.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:evievm_app/src/shared/widgets/spacing_row.dart';
 import 'package:flutter/material.dart';
@@ -64,23 +63,6 @@ class _AccountScreenState extends State<AccountScreen> {
           ),
         ),
       ],
-    );
-  }
-}
-
-class NotLoginWidget extends StatelessWidget {
-  const NotLoginWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return UnregisterWidget(
-      title: 'Bạn chưa đăng nhập!',
-      buttonTitle: 'Đăng nhập',
-      onPressed: () {
-        Global.pushNamed(LoginScreen.router);
-      },
     );
   }
 }
