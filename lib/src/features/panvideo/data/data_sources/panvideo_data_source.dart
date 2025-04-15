@@ -33,7 +33,7 @@ abstract class PanvideoDatasource {
     @Queries() GetPanvideosRequest request,
   );
 
-  @GET('/v1/PanVideos/feeds')
+  @GET('/v1/PanVideos/feed')
   Future<PaginatedListResponse<PanvideoResponse>> getPanvideos(
     @Queries() GetPanvideosRequest request,
   );

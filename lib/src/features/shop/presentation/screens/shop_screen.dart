@@ -4,7 +4,7 @@ import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/extensions/skeleton_extension.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
-import 'package:evievm_app/src/features/auth/presentation/screens/account_screen.dart';
+import 'package:evievm_app/src/features/auth/presentation/widgets/not_login_widget.dart';
 import 'package:evievm_app/src/features/common/presentation/bloc/user/user_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/bloc/shop_product/shop_product_bloc.dart';
 import 'package:evievm_app/src/features/shop/presentation/screens/register_shop_screen.dart';
