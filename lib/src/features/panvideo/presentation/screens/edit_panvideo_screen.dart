@@ -87,7 +87,7 @@ class _EditPanvideoScreenState extends State<EditPanvideoScreen> {
                     ),
                     Positioned(
                       height: 36.h,
-                      bottom: 20.h,
+                      bottom: 40.h,
                       left: 0,
                       right: 0,
                       child: PanvideoProgressIndicator(
@@ -96,7 +96,7 @@ class _EditPanvideoScreenState extends State<EditPanvideoScreen> {
                       ),
                     ),
                     Positioned(
-                      bottom: 14.h,
+                      bottom: 16.h,
                       left: 4.w,
                       child: VideoTimer(controller: _controller),
                     ),
