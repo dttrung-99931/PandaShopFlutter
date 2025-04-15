@@ -6,6 +6,7 @@ import 'package:evievm_app/src/features/order/presentation/screens/order_screen.
 import 'package:evievm_app/src/features/order/presentation/screens/successful_order_screen.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/screens/create_panvideo_screen.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/screens/edit_panvideo_screen.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/screens/my_panvideos_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/product_detail_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/search_products_screen.dart';
 import 'package:evievm_app/src/features/shop/presentation/screens/product_inventory_screen.dart';

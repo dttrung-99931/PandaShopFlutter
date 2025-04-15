@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/ui/auto_reset_bloc_state.dart';
-import 'package:evievm_app/core/utils/ui_utils.dart';
 import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/features/auth/presentation/screens/account_screen.dart';
@@ -9,7 +8,7 @@ import 'package:evievm_app/src/features/common/presentation/widgets/shop/main_sh
 import 'package:evievm_app/src/features/notification/data/models/request/get_notifications_model.dart';
 import 'package:evievm_app/src/features/notification/presentation/bloc/notification_bloc.dart';
 import 'package:evievm_app/src/features/notification/presentation/screens/notification_screen.dart';
-import 'package:evievm_app/src/features/panvideo/presentation/screens/create_panvideo_screen.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/screens/my_panvideos_screen.dart';
 import 'package:evievm_app/src/features/shop/presentation/screens/shop_order_screen.dart';
 import 'package:evievm_app/src/features/shop/presentation/screens/shop_screen.dart';
 import 'package:evievm_app/src/shared/widgets/common/keep_page_alive.dart';
@@ -35,18 +34,17 @@ class _MainShopScreenState extends AutoResetBlocState<MainShopScreen, UserBloc> 
   late final _panVideoController = ScrollController();
 
   ScrollController get _scrollController {
-    return _shopScrollController;
-    // switch (_currentPageIndex.value) {
-    //   case 0:
-    //   case 1:
-    //     return _notiScrollController;
-    //   case 2:
-    //     return _accountScrollController;
-    //   case 3:
-    //     return _panVideoController;
-    //   default:
-    //     throw 'Invalid tab index';
-    // }
+    switch (_currentPageIndex.value) {
+      case 0:
+      case 1:
+      case 3:
+      case 4:
+        return _shopScrollController;
+      case 2:
+        return _panVideoController;
+      default:
+        throw 'Invalid tab index';
+    }
   }
 
   @override
@@ -66,9 +64,9 @@ class _MainShopScreenState extends AutoResetBlocState<MainShopScreen, UserBloc> 
     }
     final currentPageIdx = _currentPageIndex.value;
     _pageController.jumpToPage(currentPageIdx);
-    UIUtils.changeUIMode(
-      currentPageIdx == MainShopBottomNavBar.panVideoIndex ? UIMode.fullScreen : UIMode.normal,
-    );
+    // UIUtils.changeUIMode(
+    //   currentPageIdx == MainShopBottomNavBar.panVideoIndex ? UIMode.fullScreen : UIMode.normal,
+    // );
   }
 
   @override
@@ -109,7 +107,9 @@ class _MainShopScreenState extends AutoResetBlocState<MainShopScreen, UserBloc> 
                 );
               case 2:
                 return RefreshChildBuilder(
-                  builder: (_) => const CreatePanvideoScreen(),
+                  builder: (_) => MyPanvideosScreen(
+                    scrollController: _panVideoController,
+                  ),
                 );
               case 3:
                 return KeepAlivePage(
@@ -130,9 +130,12 @@ class _MainShopScreenState extends AutoResetBlocState<MainShopScreen, UserBloc> 
           },
         ),
       ),
-      bottomNavigationBar: HiddenOnSrollWidget(
-        scrollController: _scrollController,
-        child: MainShopBottomNavBar(selectedIndexNotifier: _currentPageIndex),
+      bottomNavigationBar: ValueListenableBuilder(
+        valueListenable: _currentPageIndex,
+        builder: (_, __, ___) => HiddenOnSrollWidget(
+          scrollController: _scrollController,
+          child: MainShopBottomNavBar(selectedIndexNotifier: _currentPageIndex),
+        ),
       ),
     );
   }

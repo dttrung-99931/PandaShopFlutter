@@ -28,7 +28,7 @@ class VideoEditActions extends StatelessWidget {
               // Add apply filter functionality here
             },
           ),
-          16.swb,
+          32.swb,
           _buildAction(
             icon: Icons.text_fields,
             onPressed: () {

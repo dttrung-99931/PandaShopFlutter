@@ -2,10 +2,13 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:evievm_app/core/failures/failures.dart';
+import 'package:evievm_app/core/model/paginated_list.dart';
 import 'package:evievm_app/core/utils/error_handlers.dart';
 import 'package:evievm_app/src/features/panvideo/data/data_sources/panvideo_data_source.dart';
 import 'package:evievm_app/src/features/panvideo/data/models/create_panvideo_request.dart';
 import 'package:evievm_app/src/features/panvideo/data/models/create_panvideo_response.dart';
+import 'package:evievm_app/src/features/panvideo/data/models/get_panvideos_request.dart';
+import 'package:evievm_app/src/features/panvideo/data/models/panvideo_response.dart';
 import 'package:evievm_app/src/features/panvideo/domain/repositories/panvideo_repo.dart';
 import 'package:injectable/injectable.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
@@ -48,6 +51,15 @@ class PanvideoRepoImpl extends PanvideoRepo {
       errorHandler: (error) {
         return ThumbnailImageFailure(error.toString());
       },
+    );
+  }
+
+  @override
+  Future<Either<Failure, PaginatedList<PanvideoResponse>>> getMyPanvideos(GetPanvideosRequest request) {
+    return handleNetwork(
+      onRemote: handleServerErrors(
+        datasourceResponse: _datasource.getMyPanvideos(request),
+      ),
     );
   }
 }

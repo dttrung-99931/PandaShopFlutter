@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:evievm_app/core/model/base_response.dart';
 import 'package:evievm_app/src/features/panvideo/data/models/create_panvideo_response.dart';
+import 'package:evievm_app/src/features/panvideo/data/models/get_panvideos_request.dart';
+import 'package:evievm_app/src/features/panvideo/data/models/panvideo_response.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -25,4 +27,14 @@ abstract class PanvideoDatasource {
     @Part() required String title,
     @Part() required int durationInSecs,
   });
+
+  @GET('/v1/PanVideos/my')
+  Future<PaginatedListResponse<PanvideoResponse>> getMyPanvideos(
+    @Queries() GetPanvideosRequest request,
+  );
+
+  @GET('/v1/PanVideos/feeds')
+  Future<PaginatedListResponse<PanvideoResponse>> getPanvideos(
+    @Queries() GetPanvideosRequest request,
+  );
 }
