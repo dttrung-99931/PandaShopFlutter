@@ -42,4 +42,17 @@ class FormatUtils {
     if (time == null) return null;
     return formatTimeOfDay(time, format: 'HH:mm:ss');
   }
+
+  static String formatDuration(int durationInSecs) {
+    final hours = durationInSecs ~/ 3600;
+    final minutes = (durationInSecs % 3600) ~/ 60;
+    final seconds = durationInSecs % 60;
+
+    String time = '$minutes:$seconds';
+
+    if (hours > 0) {
+      time += '$hours:$time';
+    }
+    return time;
+  }
 }

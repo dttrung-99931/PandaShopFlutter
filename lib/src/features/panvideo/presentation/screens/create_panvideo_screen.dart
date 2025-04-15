@@ -92,12 +92,9 @@ class _CreatePanvideoScreenState extends State<CreatePanvideoScreen> {
     if (CamerawesomePlugin.currentState == CameraRunningState.stopped) {
       return;
     }
-    await CamerawesomePlugin.stop();
-    // Go to panvideo edit screen with recorded video path
     Global.pushNamed(
       EditPanvideoScreen.router,
       args: EditPanvideoArgs(event.captureRequest.path!),
     );
-    await CamerawesomePlugin.start();
   }
 }

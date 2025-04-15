@@ -10,8 +10,8 @@ import 'package:evievm_app/core/utils/log.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/panvideo/data/models/create_panvideo_request.dart';
 import 'package:evievm_app/src/features/panvideo/domain/dtos/create_video_response_dto.dart';
-import 'package:evievm_app/src/features/panvideo/domain/use_cases/create_panvideo_usecase.dart';
-import 'package:evievm_app/src/features/panvideo/domain/use_cases/gen_thumbnail_image_usecase.dart';
+import 'package:evievm_app/src/features/panvideo/domain/use_cases/create/create_panvideo_usecase.dart';
+import 'package:evievm_app/src/features/panvideo/domain/use_cases/create/gen_thumbnail_image_usecase.dart';
 import 'package:injectable/injectable.dart';
 
 part 'create_panvideo_event.dart';

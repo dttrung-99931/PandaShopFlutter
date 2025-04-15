@@ -157,12 +157,16 @@ import 'package:evievm_app/src/features/panvideo/data/repositories/panvideo_repo
     as _i134;
 import 'package:evievm_app/src/features/panvideo/domain/repositories/panvideo_repo.dart'
     as _i490;
-import 'package:evievm_app/src/features/panvideo/domain/use_cases/create_panvideo_usecase.dart'
-    as _i821;
-import 'package:evievm_app/src/features/panvideo/domain/use_cases/gen_thumbnail_image_usecase.dart'
-    as _i841;
+import 'package:evievm_app/src/features/panvideo/domain/use_cases/create/create_panvideo_usecase.dart'
+    as _i1065;
+import 'package:evievm_app/src/features/panvideo/domain/use_cases/create/gen_thumbnail_image_usecase.dart'
+    as _i826;
+import 'package:evievm_app/src/features/panvideo/domain/use_cases/my_panvideos/get_my_panvideos_usecase.dart'
+    as _i369;
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/create_panvideo/create_panvideo_bloc.dart'
     as _i582;
+import 'package:evievm_app/src/features/panvideo/presentation/bloc/my_panvideo/my_panvideo_bloc.dart'
+    as _i1054;
 import 'package:evievm_app/src/features/product/data/data_sources/ads/ads_data_soruce.dart'
     as _i293;
 import 'package:evievm_app/src/features/product/data/data_sources/product_cate_data_soruce.dart'
@@ -515,10 +519,10 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.lazySingleton<_i1021.ProductCateRepo>(
         () => _i287.ProductRepoImpl(gh<_i706.ProductCateDatasource>()));
-    gh.lazySingleton<_i841.GenThumbnailImageUsecase>(
-        () => _i841.GenThumbnailImageUsecase(repo: gh<_i490.PanvideoRepo>()));
-    gh.lazySingleton<_i821.CreatePanvideoUsecase>(
-        () => _i821.CreatePanvideoUsecase(repo: gh<_i490.PanvideoRepo>()));
+    gh.lazySingleton<_i826.GenThumbnailImageUsecase>(
+        () => _i826.GenThumbnailImageUsecase(repo: gh<_i490.PanvideoRepo>()));
+    gh.lazySingleton<_i1065.CreatePanvideoUsecase>(
+        () => _i1065.CreatePanvideoUsecase(repo: gh<_i490.PanvideoRepo>()));
     gh.lazySingleton<_i874.UserRepo>(
         () => _i104.UserRepoImpl(gh<_i282.UserDatasource>()));
     gh.lazySingleton<_i1030.AddressInputBloc>(
@@ -527,6 +531,10 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i1041.GetProductsUseCase>(),
           gh<_i23.GetProductCatesUseCase>(),
           gh<_i906.GetHomeBannersUseCase>(),
+        ));
+    gh.lazySingleton<_i582.CreatePanVideoBloc>(() => _i582.CreatePanVideoBloc(
+          gh<_i1065.CreatePanvideoUsecase>(),
+          gh<_i826.GenThumbnailImageUsecase>(),
         ));
     gh.lazySingleton<_i921.ProductDetailBloc>(
         () => _i921.ProductDetailBloc(gh<_i1034.GetProductDetailUseCase>()));
@@ -619,6 +627,8 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.lazySingleton<_i704.GetPaymentMethodsUseCase>(
         () => _i704.GetPaymentMethodsUseCase(gh<_i875.PaymentRepo>()));
+    gh.lazySingleton<_i369.GetMyPanvideosUseCase>(
+        () => _i369.GetMyPanvideosUseCase(gh<_i490.PanvideoRepo>()));
     gh.lazySingleton<_i121.GetProductCateByIdUseCase>(
         () => _i121.GetProductCateByIdUseCase(gh<_i1021.ProductCateRepo>()));
     gh.lazySingleton<_i683.OrderBloc>(
@@ -639,10 +649,6 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i269.CompleteProcessingOrderUseCase>(),
           gh<_i922.RequestPartnerDeliveryUsecase>(),
         ));
-    gh.lazySingleton<_i582.CreatePanVideoBloc>(() => _i582.CreatePanVideoBloc(
-          gh<_i821.CreatePanvideoUsecase>(),
-          gh<_i841.GenThumbnailImageUsecase>(),
-        ));
     gh.lazySingleton<_i122.ProductCateInputBloc>(
         () => _i122.ProductCateInputBloc(
               gh<_i23.GetProductCatesUseCase>(),
@@ -650,6 +656,8 @@ extension GetItInjectableX on _i174.GetIt {
             ));
     gh.lazySingleton<_i895.UserBloc>(
         () => _i895.UserBloc(gh<_i894.GetUserDetailUseCase>()));
+    gh.lazySingleton<_i1054.MyPanVideoBloc>(
+        () => _i1054.MyPanVideoBloc(gh<_i369.GetMyPanvideosUseCase>()));
     gh.lazySingleton<_i701.PaymentMethodInpBloc>(
         () => _i701.PaymentMethodInpBloc(gh<_i704.GetPaymentMethodsUseCase>()));
     return this;
