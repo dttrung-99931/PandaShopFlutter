@@ -2,7 +2,9 @@
 import 'package:evievm_app/core/ui/auto_reset_bloc_state.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/constants.dart';
+import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_bloc.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_manager_bloc.dart/panvideo_manager_bloc.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/panvideos/panvideo_list.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +25,8 @@ class _PanvideosScreenState extends AutoResetBlocState<PanvideosScreen, PanVideo
   @override
   void initState() {
     super.initState();
+    // Trigger PanvideoManagerBloc created for its communication with panvideosBloc starting
+    getIt<PanvideoManagerBloc>();
     panvideosBloc.add(OnGetPanvideos());
   }
 

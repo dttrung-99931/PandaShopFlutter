@@ -10,7 +10,7 @@ import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/panvideo/data/models/get_panvideos_request.dart';
 import 'package:evievm_app/src/features/panvideo/domain/dtos/panvideo_dto.dart';
 import 'package:evievm_app/src/features/panvideo/domain/use_cases/panvideos/get_panvideos_usecase.dart';
-import 'package:evievm_app/src/features/panvideo/presentation/widgets/panvideos/panvideo_manager.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_manager_bloc.dart/panvideo_manager_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -22,11 +22,11 @@ PanVideoBloc get panvideosBloc => getIt<PanVideoBloc>();
 @lazySingleton
 class PanVideoBloc extends BaseBloc {
   final GetPanvideosUseCase _genPanvideos;
-  final PanvideoManager panvideoManager;
   final List<PanvideoDto> _panvideos = [];
   PaginatedList<PanvideoDto>? _currentPage;
 
-  PanVideoBloc(this._genPanvideos, this.panvideoManager) : super(InitialState()) {
+  PanVideoBloc(this._genPanvideos) : super(InitialState()) {
+    // Init child PanvideoManagerBloc for communication start working
     onLoad<OnGetPanvideos>(_onGetPanvideos);
   }
 
@@ -38,8 +38,6 @@ class PanVideoBloc extends BaseBloc {
         // TODO: hanlde reset page
         _currentPage = page;
         _panvideos.assignAll(page.data);
-        panvideoManager.clearPanvideos();
-        panvideoManager.addPanvideos(page.data);
         return GetPanvideosSuccess(_panvideos);
       },
     );
@@ -47,6 +45,6 @@ class PanVideoBloc extends BaseBloc {
 
   @disposeMethod
   void onClose() {
-    getIt.resetLazySingleton<PanvideoManager>();
+    getIt.resetLazySingleton<PanvideoManagerBloc>();
   }
 }

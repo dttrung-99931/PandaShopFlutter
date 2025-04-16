@@ -1,30 +1,47 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
+import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/panvideo/domain/dtos/panvideo_dto.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_manager_bloc.dart/panvideo_manager_bloc.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/panvideo_progress_indicator.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/panvideos/panvideo_action.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:video_player/video_player.dart';
 
-class PanvideoPage extends StatelessWidget {
+class PanvideoPage extends StatefulWidget {
   const PanvideoPage({
     super.key,
     required this.panvideo,
     required this.videoController,
+    required this.videoIndex,
   });
 
   final PanvideoDto panvideo;
   final VideoPlayerController videoController;
+  final int videoIndex;
+
+  @override
+  State<PanvideoPage> createState() => _PanvideoPageState();
+}
+
+class _PanvideoPageState extends State<PanvideoPage> {
+  @override
+  void initState() {
+    doOnBuildUICompleted(() {
+      panvideoManagerBloc.add(OnPlayPanvideo(videoIndex: widget.videoIndex));
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Positioned.fill(
-          child: VideoPlayer(videoController),
+          child: VideoPlayer(widget.videoController),
         ),
         Positioned(
           right: 16.w,
@@ -59,13 +76,13 @@ class PanvideoPage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                panvideo.title,
+                widget.panvideo.title,
                 style: textTheme.titleMediumSm.withColor(AppColors.white).withHeight(1.4).bold(),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
-                panvideo.description,
+                widget.panvideo.description,
                 style: textTheme.bodyLarge.withColor(AppColors.whiteLight),
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
@@ -79,7 +96,7 @@ class PanvideoPage extends StatelessWidget {
           left: 0,
           right: 0,
           child: PanvideoProgressIndicator(
-            controller: videoController,
+            controller: widget.videoController,
             playedColor: AppColors.primary,
           ),
         )

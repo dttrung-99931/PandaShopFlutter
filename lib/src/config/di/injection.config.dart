@@ -171,8 +171,10 @@ import 'package:evievm_app/src/features/panvideo/presentation/bloc/my_panvideo/m
     as _i1054;
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_bloc.dart'
     as _i529;
-import 'package:evievm_app/src/features/panvideo/presentation/widgets/panvideos/panvideo_manager.dart'
-    as _i906;
+import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_manager_bloc.dart/panvideo_manager_bloc.dart'
+    as _i133;
+import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_manager_bloc.dart/panvideo_manager_communicaton.dart'
+    as _i1026;
 import 'package:evievm_app/src/features/product/data/data_sources/ads/ads_data_soruce.dart'
     as _i293;
 import 'package:evievm_app/src/features/product/data/data_sources/product_cate_data_soruce.dart'
@@ -370,8 +372,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i635.MapDeliveryTrackingCommunication>(
         () => _i635.MapDeliveryTrackingCommunication());
     gh.lazySingleton<_i43.MainCommunication>(() => _i43.MainCommunication());
-    gh.lazySingleton<_i906.PanvideoManager>(
-      () => _i906.PanvideoManager(),
+    gh.lazySingleton<_i1026.PanvideoManagerCommunication>(
+        () => _i1026.PanvideoManagerCommunication());
+    gh.lazySingleton<_i133.PanvideoManagerBloc>(
+      () => _i133.PanvideoManagerBloc(),
       dispose: (i) => i.disposed(),
     );
     gh.lazySingleton<_i523.PickLocalImageUseCase>(
@@ -669,10 +673,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i895.UserBloc>(
         () => _i895.UserBloc(gh<_i894.GetUserDetailUseCase>()));
     gh.lazySingleton<_i529.PanVideoBloc>(
-      () => _i529.PanVideoBloc(
-        gh<_i175.GetPanvideosUseCase>(),
-        gh<_i906.PanvideoManager>(),
-      ),
+      () => _i529.PanVideoBloc(gh<_i175.GetPanvideosUseCase>()),
       dispose: (i) => i.onClose(),
     );
     gh.lazySingleton<_i1054.MyPanVideoBloc>(
