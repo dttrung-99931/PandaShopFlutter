@@ -71,7 +71,7 @@ class AppColors {
   static const borderPanel = Color(0xFF748091);
   static const bgFlipCamera = Color(0xFF5F5F5F);
 
-  static final whiteLight = AppColors.white.withAlpha(190);
+  static final whiteLight = AppColors.white.withAlpha(200);
   static final whiteDisabled = AppColors.white.withAlpha(120);
 
   // PRoduct

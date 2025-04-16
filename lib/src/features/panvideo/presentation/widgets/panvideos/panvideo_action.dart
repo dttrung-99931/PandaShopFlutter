@@ -23,12 +23,12 @@ class PanvideoAction extends StatelessWidget {
       children: [
         Icon(
           icon,
-          color: AppColors.whiteLight,
-          size: 38.r,
+          color: AppColors.white,
+          size: 40.r,
         ),
         Text(
           '$count',
-          style: textTheme.bodyMedium.withColor(AppColors.whiteLight),
+          style: textTheme.bodyLarge.withColor(AppColors.white),
         ),
       ],
     );
