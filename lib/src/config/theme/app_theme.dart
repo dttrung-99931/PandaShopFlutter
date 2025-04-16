@@ -2,6 +2,7 @@
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/evm_colors.dart';
 import 'package:evievm_app/global.dart';
+import 'package:evievm_app/src/config/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,7 +11,7 @@ part 'shop_theme.dart';
 part 'text_theme.dart';
 part 'user_theme.dart';
 
-ThemeData get theme => Theme.of(Global.context);
+ThemeData get theme => AppTheme.themeOf(Global.context);
 
 class AppTheme extends InheritedWidget {
   final AppThemeState themneState;
@@ -64,6 +65,7 @@ class AppThemeState extends State<AppThemeWidget> {
     return AppTheme(
         themneState: this,
         child: Builder(
+          /// widget.builder can access [themeData] via AppTheme.of(context)
           builder: (context) {
             return widget.builder(context);
           },

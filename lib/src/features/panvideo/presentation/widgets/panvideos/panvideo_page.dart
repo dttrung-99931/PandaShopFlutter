@@ -34,39 +34,39 @@ class PanvideoPage extends StatelessWidget {
             children: [
               const PanvideoAction(
                 count: 10,
-                icon: Icons.thumb_up,
+                icon: Icons.thumb_up_outlined,
               ),
               const PanvideoAction(
                 count: 2,
-                icon: Icons.comment,
+                icon: Icons.comment_outlined,
               ),
               const PanvideoAction(
                 count: 4,
                 icon: Icons.shopping_cart_checkout_outlined,
               ),
-              SizedBox(height: 0.16.sh),
+              SizedBox(height: 0.17.sh),
             ],
           ),
         ),
 
         // Second column: Title and description
         Positioned(
-          bottom: 24.r,
-          left: 12.r,
-          right: 12.r,
+          bottom: 32.r,
+          left: 16.r,
+          right: 16.r,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 panvideo.title,
-                style: textTheme.titleSmall.withColor(AppColors.whiteLight).withHeight(1.4).bold(),
+                style: textTheme.titleMediumSm.withColor(AppColors.white).withHeight(1.4).bold(),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
                 panvideo.description,
-                style: textTheme.bodyMedium.withColor(Colors.white60),
+                style: textTheme.bodyLarge.withColor(AppColors.whiteLight),
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
               ),

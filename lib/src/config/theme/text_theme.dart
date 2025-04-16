@@ -1,28 +1,36 @@
 part of 'app_theme.dart';
 
-TextTheme? _textTheme;
+AppTextTheme? _textTheme;
 
-TextTheme get textTheme => _textTheme ?? (_textTheme ??= Theme.of(Global.context).textTheme);
+AppTextTheme get textTheme {
+  return _textTheme ?? (_textTheme ??= AppTheme.of(Global.context).themeData.textTheme as AppTextTheme);
+}
 
-TextTheme buildTextTheme() {
-  return TextTheme(
+AppTextTheme buildTextTheme() {
+  return AppTextTheme(
     /// Title with custom font
     titleLarge: TextStyle(
       fontSize: 32.sp,
       fontWeight: FontWeight.w600,
-      color: EVMColors.blackLight,
+      color: EVMColors.black,
       fontFamily: 'Poppins',
     ),
     titleMedium: TextStyle(
       fontSize: 24.sp,
       fontWeight: FontWeight.w600,
-      color: EVMColors.blackLight,
+      color: EVMColors.black,
+      fontFamily: 'Poppins',
+    ),
+    titleMediumSm: TextStyle(
+      fontSize: 22.sp,
+      fontWeight: FontWeight.w600,
+      color: EVMColors.black,
       fontFamily: 'Poppins',
     ),
     titleSmall: TextStyle(
       fontSize: 20.sp,
       fontWeight: FontWeight.w600,
-      color: EVMColors.blackLight,
+      color: EVMColors.black,
       fontFamily: 'Poppins',
     ),
 
@@ -30,19 +38,19 @@ TextTheme buildTextTheme() {
     bodyLarge: TextStyle(
       fontSize: 18.sp,
       fontWeight: FontWeight.w600,
-      color: EVMColors.blackLight,
+      color: EVMColors.black,
       fontFamily: 'OpenSans',
     ),
     bodyMedium: TextStyle(
       fontSize: 16.sp,
       fontWeight: FontWeight.w600,
-      color: EVMColors.blackLight,
+      color: EVMColors.black,
       fontFamily: 'OpenSans',
     ),
     bodySmall: TextStyle(
       fontSize: 14.sp,
       fontWeight: FontWeight.w600,
-      color: EVMColors.blackLight,
+      color: EVMColors.black,
       fontFamily: 'OpenSans',
     ),
 

@@ -1,7 +1,7 @@
 part of 'app_theme.dart';
 
 ThemeData buildUserTheme() {
-  return ThemeData(
+  final theme = ThemeData(
     colorScheme: const ColorScheme.light(
       primary: AppColors.primary,
     ),
@@ -12,6 +12,10 @@ ThemeData buildUserTheme() {
         color: AppColors.white,
       ),
     ),
+  );
+
+  /// Set textTheme to theme by copyWith to keep AppTextTheme type return by buildTextTheme
+  return theme.copyWith(
     textTheme: buildTextTheme(),
   );
 }
