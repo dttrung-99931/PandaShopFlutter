@@ -65,7 +65,8 @@ dependencies:
   camerawesome: ^2.3.0
   # Fix compileSdkVersion is not specified error of geolocator_android
   geolocator_android: 4.6.1
-  video_player: ^2.9.5
+  awesome_video_player: ^1.0.4
+  # video_player: ^2.9.5
   # Get thumnail image of a video
   video_thumbnail: ^0.5.3
 

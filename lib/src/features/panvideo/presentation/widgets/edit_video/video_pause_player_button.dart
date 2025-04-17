@@ -1,19 +1,19 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:awesome_video_player/awesome_video_player.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/edit_video/video_player_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:video_player/video_player.dart';
 
 class VideoPlayPauseButton extends StatelessWidget {
   const VideoPlayPauseButton({super.key, required this.controller});
-  final VideoPlayerController controller;
+  final BetterPlayerController controller;
 
   @override
   Widget build(BuildContext context) {
     return VideoPlayerWidgetBuilder(
       controller: controller,
-      getValue: (controller) => controller.value.isPlaying,
+      getValue: (controller) => controller.isPlaying() == true,
       builder: (context, isPlaying) {
         return FloatingActionButton(
           elevation: 0,

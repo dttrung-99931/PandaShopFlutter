@@ -1,12 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:awesome_video_player/awesome_video_player.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/core/utils/format_utils.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/edit_video/video_player_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
 
 class VideoTimer extends StatelessWidget {
   const VideoTimer({
@@ -14,16 +14,16 @@ class VideoTimer extends StatelessWidget {
     required this.controller,
   });
 
-  final VideoPlayerController controller;
+  final BetterPlayerController controller;
 
   String _getFormattedDuration() {
-    return '${FormatUtils.formatDuration(controller.value.position.inSeconds)} / ${FormatUtils.formatDuration(controller.value.duration.inSeconds)}';
+    return '${FormatUtils.formatDuration(100)} / ${FormatUtils.formatDuration(1000)}';
   }
 
   @override
   Widget build(BuildContext context) {
     return VideoPlayerWidgetBuilder(
-      getValue: (VideoPlayerController controller) {
+      getValue: (BetterPlayerController controller) {
         return _getFormattedDuration();
       },
       controller: controller,

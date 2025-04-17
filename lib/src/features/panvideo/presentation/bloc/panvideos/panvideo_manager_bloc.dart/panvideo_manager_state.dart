@@ -6,9 +6,19 @@ class GetVideoControllerSuccess extends BaseState {
     required this.controller,
     required this.videoIndex,
   });
-  final VideoPlayerController controller;
+  final BetterPlayerController controller;
   final int videoIndex;
 
   @override
   List<Object?> get props => [controller.hashCode, videoIndex];
+}
+
+class InitVideoControllerSuccess extends BaseState {
+  InitVideoControllerSuccess({
+    required this.controller,
+  });
+  final BetterPlayerController controller;
+
+  @override
+  List<Object?> get props => [controller.hashCode];
 }

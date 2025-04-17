@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:awesome_video_player/awesome_video_player.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/core/utils/utils.dart';
@@ -9,7 +10,6 @@ import 'package:evievm_app/src/features/panvideo/presentation/widgets/panvideo_p
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/panvideos/panvideo_action.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:video_player/video_player.dart';
 
 class PanvideoPage extends StatefulWidget {
   const PanvideoPage({
@@ -20,7 +20,7 @@ class PanvideoPage extends StatefulWidget {
   });
 
   final PanvideoDto panvideo;
-  final VideoPlayerController videoController;
+  final BetterPlayerController videoController;
   final int videoIndex;
 
   @override
@@ -41,7 +41,9 @@ class _PanvideoPageState extends State<PanvideoPage> {
     return Stack(
       children: [
         Positioned.fill(
-          child: VideoPlayer(widget.videoController),
+          child: BetterPlayer(
+            controller: widget.videoController,
+          ),
         ),
         Positioned(
           right: 16.w,

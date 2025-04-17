@@ -1,7 +1,6 @@
-import 'dart:io';
-
+import 'package:awesome_video_player/awesome_video_player.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/widgets/panvideo_controller_builder.dart';
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
 
 class MiniVideoPlayer extends StatefulWidget {
   final String filePath;
@@ -15,29 +14,17 @@ class MiniVideoPlayer extends StatefulWidget {
 }
 
 class _MiniVideoPlayer extends State<MiniVideoPlayer> {
-  VideoPlayerController? _controller;
-
   @override
   void initState() {
-    _controller = VideoPlayerController.file(File(widget.filePath))
-      ..initialize().then((value) => setState(() {
-            _controller?.setLooping(true);
-            _controller?.play();
-          }));
     super.initState();
   }
 
   @override
-  void dispose() {
-    _controller?.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    if (_controller == null || _controller?.value.isInitialized != true) {
-      return const Center(child: CircularProgressIndicator());
-    }
-    return VideoPlayer(_controller!);
+    return PanvideoControllerBuilder(
+      builder: (controller) {
+        return BetterPlayer(controller: controller);
+      },
+    );
   }
 }

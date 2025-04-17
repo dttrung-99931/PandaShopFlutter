@@ -1,3 +1,4 @@
+import 'package:awesome_video_player/awesome_video_player.dart';
 import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:flutter/widgets.dart';
 
