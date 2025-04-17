@@ -44,7 +44,9 @@ class PanVideoBloc extends BaseBloc {
   }
 
   @disposeMethod
-  void onClose() {
+  @override
+  Future<void> close() async {
     getIt.resetLazySingleton<PanvideoManagerBloc>();
+    return super.close();
   }
 }

@@ -30,11 +30,10 @@ class _PanvideoListState extends State<PanvideoList> {
       itemCount: widget.panvideos.length,
       scrollDirection: Axis.vertical,
       pageSnapping: true,
-      onPageChanged: (index) {},
       // Make dragging more reactive
       dragStartBehavior: DragStartBehavior.down,
       itemBuilder: (context, index) {
-        final direction = index >= _currentIndex ? ScrollDirection.down : ScrollDirection.up;
+        final direction = _getScrollDirection(index);
         _currentIndex = index;
         // Load right after when user dragging to new video
         panvideoManagerBloc.add(OnLoadPanvideo(videoIndex: index, direction: direction));
@@ -47,6 +46,10 @@ class _PanvideoListState extends State<PanvideoList> {
         );
       },
     );
+  }
+
+  ScrollDirection _getScrollDirection(int curIndex) {
+    return curIndex >= _currentIndex ? ScrollDirection.down : ScrollDirection.up;
   }
 
   // Future<void> _checkToPlayVideo() async {

@@ -97,12 +97,12 @@ class AppConfig {
   }
 
   // Flavor need match with bundle id like below role
-  // to make background notificaiton working correctly in
+  // to make background notificaiton working correctly
   Future<void> validateFlavorMatchingBundleId() async {
     assert(
       flavorName == await getFlavorByCurrentAppBundleId(),
-      """Native bundle id must contains match env name. 
-      Ex: dev bundle id mus contains 'dev' => dev bundle id may be 'app.test.dev'""",
+      'Native bundle id must contains corresponding env name. '
+      'Ex: dev bundle id must contains "dev" => dev bundle id may be "app.test.dev"',
     );
   }
 }

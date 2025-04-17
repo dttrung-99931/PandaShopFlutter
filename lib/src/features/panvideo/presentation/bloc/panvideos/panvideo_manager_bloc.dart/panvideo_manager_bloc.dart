@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:awesome_video_player/awesome_video_player.dart';
 import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/bloc_concurrency.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
+import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/core/utils/log.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_manager_bloc.dart/panvideo_manager_communicaton.dart';
@@ -29,11 +32,16 @@ class PanvideoManagerBloc extends BaseBloc {
     on<OnPausePanvideo>(_onPauseVideo);
   }
 
+  static Completer? _disposedCompleter;
+
   @override
   PanvideoManagerCommunication get blocCommunication => getIt<PanvideoManagerCommunication>();
 
-  static get maxCacheControllers => 2;
+  static get maxCacheControllers => 10;
+  // Hold all datasources will be played
   final List<BetterPlayerDataSource> _datasources = [];
+
+  // Hold datasources that have been cached
   final List<BetterPlayerDataSource> _cachedDatasources = [];
 
   late BetterPlayerController _videoController;
@@ -73,6 +81,9 @@ class PanvideoManagerBloc extends BaseBloc {
     _currentVideoIndex = event.videoIndex;
     await _setupCurrentDataSource(event.videoIndex, event.direction);
     _handlePendingPlay(event.videoIndex);
+    Future.delayed(100.milliseconds).then(
+      (_) => add(OnPreloadPanvideo(curVideoIndex: event.videoIndex, direction: event.direction)),
+    );
   }
 
   Future<void> _setupCurrentDataSource(int videoIndex, ScrollDirection direction) async {
@@ -82,7 +93,7 @@ class PanvideoManagerBloc extends BaseBloc {
   }
 
   void _handlePendingPlay(int videoIndex) {
-     if (_pendingPlayedVideoIdxList.contains(videoIndex)) {
+    if (_pendingPlayedVideoIdxList.contains(videoIndex)) {
       _videoController.play();
       _pendingPlayedVideoIdxList.remove(videoIndex);
     }
@@ -97,8 +108,10 @@ class PanvideoManagerBloc extends BaseBloc {
   }
 
   Future<void> _playVideo(int videoIndex) async {
-    final BetterPlayerDataSource? datasource = getCachedDatasource(videoIndex);
-    if (datasource != null && _videoController.betterPlayerDataSource == datasource && _videoController.isPlaying() != true) {
+    final BetterPlayerDataSource? datasource = _getCachedDatasource(videoIndex);
+    if (datasource != null &&
+        _videoController.betterPlayerDataSource == datasource &&
+        _videoController.isPlaying() != true) {
       _videoController.play();
       return;
     }
@@ -106,14 +119,16 @@ class PanvideoManagerBloc extends BaseBloc {
   }
 
   Future<void> _pauseVideo(int videoIndex) async {
-    final BetterPlayerDataSource? datasource = getCachedDatasource(videoIndex);
-    if (datasource != null && _videoController.betterPlayerDataSource == datasource && _videoController.isPlaying() == true) {
+    final BetterPlayerDataSource? datasource = _getCachedDatasource(videoIndex);
+    if (datasource != null &&
+        _videoController.betterPlayerDataSource == datasource &&
+        _videoController.isPlaying() == true) {
       _videoController.pause();
     }
     _pendingPlayedVideoIdxList.remove(videoIndex);
   }
 
-  BetterPlayerDataSource? getCachedDatasource(int videoIndex) {
+  BetterPlayerDataSource? _getCachedDatasource(int videoIndex) {
     if (videoIndex >= _firstCachePanvideoIdx && videoIndex <= _lastCachePanvideoIdx) {
       return _cachedDatasources[videoIndex - _firstCachePanvideoIdx];
     }
@@ -121,42 +136,42 @@ class PanvideoManagerBloc extends BaseBloc {
   }
 
   Future<BetterPlayerDataSource> getDatasource(int videoIndex, ScrollDirection direction) async {
-    BetterPlayerDataSource? datasource = getCachedDatasource(videoIndex);
+    BetterPlayerDataSource? datasource = _getCachedDatasource(videoIndex);
     if (datasource != null) {
       return datasource;
     }
 
     if (cacheControllerNum >= maxCacheControllers) {
-      await _freeCacheedDatasource(direction);
+      await _freeCachedDatasource(direction);
     }
-    return _cacheDatasource(videoIndex);
+    return _markDatasourceCached(videoIndex);
   }
 
   Future<void> _onPreloadPanvideo(OnPreloadPanvideo event, Emitter<BaseState> emit) async {
     int nextIndex = event.direction == ScrollDirection.down ? event.curVideoIndex + 1 : event.curVideoIndex - 1;
-    if (nextIndex < 0 || nextIndex >= _datasources.length) {
+    if (nextIndex < 0 || nextIndex >= _datasources.length || _getCachedDatasource(nextIndex) != null) {
       return;
     }
 
     if (cacheControllerNum >= maxCacheControllers) {
-      await _freeCacheedDatasource(event.direction);
+      await _freeCachedDatasource(event.direction);
     }
-    final controller = _cacheDatasource(nextIndex);
-    await _preLoad(controller, nextIndex, event.direction);
+    final datasource = _markDatasourceCached(nextIndex);
+    await _preLoad(datasource, nextIndex, event.direction);
   }
 
   Future<void> _preLoad(BetterPlayerDataSource datasource, int videoIndex, ScrollDirection direction) async {
-    logd('Start load $videoIndex');
+    logd('Preload video $videoIndex');
     await _videoController.preCache(datasource);
-    if (_pendingPlayedVideoIdxList.contains(videoIndex)) {
-      logd('Play $videoIndex');
-      _videoController.play();
-      _pendingPlayedVideoIdxList.remove(videoIndex);
-    }
+    // if (_pendingPlayedVideoIdxList.contains(videoIndex)) {
+    //   logd('Play $videoIndex');
+    //   _videoController.play();
+    //   _pendingPlayedVideoIdxList.remove(videoIndex);
+    // }
     logd('Finish load $videoIndex');
   }
 
-  Future<void> _freeCacheedDatasource(ScrollDirection direction) async {
+  Future<void> _freeCachedDatasource(ScrollDirection direction) async {
     final BetterPlayerDataSource datasource;
     if (direction == ScrollDirection.down) {
       datasource = _cachedDatasources.removeAt(0);
@@ -173,7 +188,7 @@ class PanvideoManagerBloc extends BaseBloc {
     // datasource.dispose();
   }
 
-  BetterPlayerDataSource _cacheDatasource(int videoIndex) {
+  BetterPlayerDataSource _markDatasourceCached(int videoIndex) {
     final datasource = _datasources[videoIndex];
     if (videoIndex == _lastCachePanvideoIdx + 1) {
       _cachedDatasources.add(datasource);
@@ -191,12 +206,13 @@ class PanvideoManagerBloc extends BaseBloc {
   }
 
   @disposeMethod
-  void disposed() {
+  @override
+  Future<void> close() async {
     if (_datasources.isEmpty) {
       return;
     }
     _datasources.clear();
-    _videoController.pause();
-    _videoController.dispose();
+    _videoController.dispose(forceDispose: true);
+    super.close();
   }
 }

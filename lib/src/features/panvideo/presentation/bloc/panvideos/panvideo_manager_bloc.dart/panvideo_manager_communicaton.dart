@@ -8,6 +8,11 @@ import '../../../../../../../core/base_bloc/bloc_communication.dart';
 
 @lazySingleton
 class PanvideoManagerCommunication extends BlocCommunication<PanvideoManagerBloc> {
+  final bufferConfig = const BetterPlayerBufferingConfiguration(
+    bufferForPlaybackMs: 2 * 1000,
+    bufferForPlaybackAfterRebufferMs: 3 * 1000,
+  );
+
   @override
   void startCommunication(PanvideoManagerBloc bloc) {
     super.startCommunication(bloc);
@@ -16,9 +21,11 @@ class PanvideoManagerCommunication extends BlocCommunication<PanvideoManagerBloc
         final datasources = state.data.mapList(
           (e) => BetterPlayerDataSource.network(
             e.videoUrl,
-            cacheConfiguration: const BetterPlayerCacheConfiguration(
+            cacheConfiguration: BetterPlayerCacheConfiguration(
+              key: e.videoUrl,
               useCache: true,
             ),
+            bufferingConfiguration: bufferConfig,
           ),
         );
         bloc.add(OnAddPanvideoDatasources(datasources: datasources));
