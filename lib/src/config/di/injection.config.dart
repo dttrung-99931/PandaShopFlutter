@@ -363,6 +363,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i323.ProductOptionCommunication());
     gh.lazySingleton<_i1067.ProductOptionBloc>(
         () => _i1067.ProductOptionBloc());
+    gh.lazySingleton<_i1026.PanvideoManagerCommunication>(
+        () => _i1026.PanvideoManagerCommunication());
+    gh.lazySingleton<_i133.PanvideoManagerBloc>(
+      () => _i133.PanvideoManagerBloc(),
+      dispose: (i) => i.close(),
+    );
     gh.lazySingleton<_i674.EditImageUseCase>(() => _i674.EditImageUseCase());
     gh.lazySingleton<_i632.MapTrackingUsecase>(
         () => _i632.MapTrackingUsecase());
@@ -372,12 +378,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i635.MapDeliveryTrackingCommunication>(
         () => _i635.MapDeliveryTrackingCommunication());
     gh.lazySingleton<_i43.MainCommunication>(() => _i43.MainCommunication());
-    gh.lazySingleton<_i1026.PanvideoManagerCommunication>(
-        () => _i1026.PanvideoManagerCommunication());
-    gh.lazySingleton<_i133.PanvideoManagerBloc>(
-      () => _i133.PanvideoManagerBloc(),
-      dispose: (i) => i.disposed(),
-    );
     gh.lazySingleton<_i523.PickLocalImageUseCase>(
         () => _i523.PickLocalImageUseCase(gh<_i674.EditImageUseCase>()));
     gh.lazySingleton<_i195.PushNotificationBloc>(
@@ -641,10 +641,10 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.lazySingleton<_i704.GetPaymentMethodsUseCase>(
         () => _i704.GetPaymentMethodsUseCase(gh<_i875.PaymentRepo>()));
-    gh.lazySingleton<_i369.GetMyPanvideosUseCase>(
-        () => _i369.GetMyPanvideosUseCase(gh<_i490.PanvideoRepo>()));
     gh.lazySingleton<_i175.GetPanvideosUseCase>(
         () => _i175.GetPanvideosUseCase(gh<_i490.PanvideoRepo>()));
+    gh.lazySingleton<_i369.GetMyPanvideosUseCase>(
+        () => _i369.GetMyPanvideosUseCase(gh<_i490.PanvideoRepo>()));
     gh.lazySingleton<_i121.GetProductCateByIdUseCase>(
         () => _i121.GetProductCateByIdUseCase(gh<_i1021.ProductCateRepo>()));
     gh.lazySingleton<_i683.OrderBloc>(
@@ -674,7 +674,7 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i895.UserBloc(gh<_i894.GetUserDetailUseCase>()));
     gh.lazySingleton<_i529.PanVideoBloc>(
       () => _i529.PanVideoBloc(gh<_i175.GetPanvideosUseCase>()),
-      dispose: (i) => i.onClose(),
+      dispose: (i) => i.close(),
     );
     gh.lazySingleton<_i1054.MyPanVideoBloc>(
         () => _i1054.MyPanVideoBloc(gh<_i369.GetMyPanvideosUseCase>()));
