@@ -1,17 +1,19 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:awesome_video_player/awesome_video_player.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
+import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
-import 'package:evievm_app/core/utils/utils.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/panvideo/domain/dtos/panvideo_dto.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_manager_bloc.dart/panvideo_manager_bloc.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/panvideo_progress_indicator.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/panvideos/panvideo_action.dart';
+import 'package:evievm_app/src/shared/widgets/app_image.dart';
+import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class PanvideoPage extends StatefulWidget {
+class PanvideoPage extends StatelessWidget {
   const PanvideoPage({
     super.key,
     required this.panvideo,
@@ -19,30 +21,45 @@ class PanvideoPage extends StatefulWidget {
     required this.videoIndex,
   });
 
+  static const Duration fadeInDuration = Duration(milliseconds: 50);
   final PanvideoDto panvideo;
   final BetterPlayerController videoController;
   final int videoIndex;
-
-  @override
-  State<PanvideoPage> createState() => _PanvideoPageState();
-}
-
-class _PanvideoPageState extends State<PanvideoPage> {
-  @override
-  void initState() {
-    doOnBuildUICompleted(() {
-      panvideoManagerBloc.add(OnPlayPanvideo(videoIndex: widget.videoIndex));
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Positioned.fill(
-          child: BetterPlayer(
-            controller: widget.videoController,
+          child: CustomBlocBuilder<PanvideoManagerBloc>(
+            buildForStates: const [PanvideoPlaying],
+            bloc: panvideoManagerBloc,
+            handleLoading: false,
+            builder: (state) {
+              if (state is! PanvideoPlaying) {
+                return emptyWidget;
+              }
+              return AppImage.network(
+                panvideo.thumbImageUrl,
+                fit: BoxFit.fill,
+                fadeInDuration: fadeInDuration,
+              );
+            },
+          ),
+        ),
+        Positioned.fill(
+          child: CustomBlocBuilder<PanvideoManagerBloc>(
+            buildForStates: const [PanvideoPlayed],
+            bloc: panvideoManagerBloc,
+            handleLoading: false,
+            builder: (state) {
+              if (state is PanvideoPlayed && state.videoIndex == videoIndex) {
+                return BetterPlayer(
+                  controller: videoController,
+                );
+              }
+              return emptyWidget;
+            },
           ),
         ),
         Positioned(
@@ -78,13 +95,13 @@ class _PanvideoPageState extends State<PanvideoPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                widget.panvideo.title,
+                panvideo.title,
                 style: textTheme.titleMediumSm.withColor(AppColors.white).withHeight(1.4).bold(),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
-                widget.panvideo.description,
+                panvideo.description,
                 style: textTheme.bodyLarge.withColor(AppColors.whiteLight),
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
@@ -98,7 +115,7 @@ class _PanvideoPageState extends State<PanvideoPage> {
           left: 0,
           right: 0,
           child: PanvideoProgressIndicator(
-            controller: widget.videoController,
+            controller: videoController,
             playedColor: AppColors.primary,
           ),
         )
