@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:camerawesome/camerawesome_plugin.dart';
-import 'package:evievm_app/src/features/panvideo/presentation/widgets/create/mini_video_player.dart';
+import 'package:evievm_app/core/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -103,12 +103,13 @@ class CustomMediaPreview extends StatelessWidget {
           }
         } else {
           return Ink(
-            child: MiniVideoPlayer(
-              filePath: mediaCapture.captureRequest.when(
-                single: (single) => single.file!.path,
-                multiple: (multiple) => multiple.fileBySensor.values.first!.path,
-              ),
-            ),
+            child: emptyWidget,
+            // child: MiniVideoPlayer(
+            //   filePath: mediaCapture.captureRequest.when(
+            //     single: (single) => single.file!.path,
+            //     multiple: (multiple) => multiple.fileBySensor.values.first!.path,
+            //   ),
+            // ),
           );
         }
       case MediaCaptureStatus.failure:

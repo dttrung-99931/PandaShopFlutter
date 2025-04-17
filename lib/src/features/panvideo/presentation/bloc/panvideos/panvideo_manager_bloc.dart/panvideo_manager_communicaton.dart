@@ -1,3 +1,5 @@
+import 'package:awesome_video_player/awesome_video_player.dart';
+import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_bloc.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_manager_bloc.dart/panvideo_manager_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -11,7 +13,15 @@ class PanvideoManagerCommunication extends BlocCommunication<PanvideoManagerBloc
     super.startCommunication(bloc);
     listenOtherBloc<PanVideoBloc>((state) {
       if (state is GetPanvideosSuccess) {
-        bloc.add(OnPanvideosAdded(panvideos: [...state.data]));
+        final datasources = state.data.mapList(
+          (e) => BetterPlayerDataSource.network(
+            e.videoUrl,
+            cacheConfiguration: const BetterPlayerCacheConfiguration(
+              useCache: true,
+            ),
+          ),
+        );
+        bloc.add(OnAddPanvideoDatasources(datasources: datasources));
       }
     });
   }

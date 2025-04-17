@@ -2,8 +2,18 @@
 
 part of 'panvideo_manager_bloc.dart';
 
-class OnGetVideoController extends BaseEvent {
-  OnGetVideoController({
+class OnInitVideoController extends BaseEvent {
+  final double aspectRatio;
+  OnInitVideoController({
+    required this.aspectRatio,
+  });
+
+  @override
+  List<Object?> get props => [aspectRatio];
+}
+
+class OnLoadPanvideo extends BaseEvent {
+  OnLoadPanvideo({
     required this.videoIndex,
     required this.direction,
   });
@@ -28,14 +38,14 @@ class OnPreloadPanvideo extends BaseEvent {
   List<Object?> get props => [curVideoIndex, direction];
 }
 
-class OnPanvideosAdded extends BaseEvent {
-  OnPanvideosAdded({
-    required this.panvideos,
+class OnAddPanvideoDatasources extends BaseEvent {
+  OnAddPanvideoDatasources({
+    required this.datasources,
   });
-  final List<PanvideoDto> panvideos;
+  final List<BetterPlayerDataSource> datasources;
 
   @override
-  List<Object?> get props => [panvideos];
+  List<Object?> get props => [datasources];
 }
 
 class OnPlayPanvideo extends BaseEvent {

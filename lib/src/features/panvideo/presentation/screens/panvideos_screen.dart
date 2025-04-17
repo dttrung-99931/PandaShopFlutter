@@ -5,6 +5,7 @@ import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_bloc.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_manager_bloc.dart/panvideo_manager_bloc.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/widgets/panvideo_controller_builder.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/panvideos/panvideo_list.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_builder.dart';
 import 'package:flutter/material.dart';
@@ -37,24 +38,27 @@ class _PanvideosScreenState extends AutoResetBlocState<PanvideosScreen, PanVideo
       child: Scaffold(
         backgroundColor: AppColors.black,
         body: SizedBox.expand(
-          child: CustomBlocBuilder<PanVideoBloc>(
-            // loadingWidgetBuilder: () {
-            //   final loading = PanvideoDto.loading();
-            //   return MyPanvideoList(
-            //     panvideos: List.generate(6, (_) => loading),
-            //     scrollController: widget.scrollController,
-            //   ).skeletonLoading(context);
-            // },
-            builder: (state) {
-              if (state is! GetPanvideosSuccess) {
-                return emptyWidget;
-              }
-              return PanvideoList(
-                panvideos: state.data,
-                scrollController: widget.scrollController,
-              );
-            },
-          ),
+          child: PanvideoControllerBuilder(builder: (controller) {
+            return CustomBlocBuilder<PanVideoBloc>(
+              // loadingWidgetBuilder: () {
+              //   final loading = PanvideoDto.loading();
+              //   return MyPanvideoList(
+              //     panvideos: List.generate(6, (_) => loading),
+              //     scrollController: widget.scrollController,
+              //   ).skeletonLoading(context);
+              // },
+              builder: (state) {
+                if (state is! GetPanvideosSuccess) {
+                  return emptyWidget;
+                }
+                return PanvideoList(
+                  panvideos: state.data,
+                  scrollController: widget.scrollController,
+                  videoController: controller,
+                );
+              },
+            );
+          }),
         ),
       ),
     );

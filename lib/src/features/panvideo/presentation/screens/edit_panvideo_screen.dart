@@ -1,18 +1,20 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
+import 'package:awesome_video_player/awesome_video_player.dart';
+import 'package:evievm_app/core/ui/auto_reset_bloc_state.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/time_utils.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/create_panvideo/create_panvideo_bloc.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_manager_bloc.dart/panvideo_manager_bloc.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/edit_video/create_panvideo_button.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/edit_video/video_edit_actions.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/edit_video/video_pause_player_button.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/edit_video/video_timer.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/widgets/panvideo_controller_builder.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/panvideo_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:panda_map/widgets/loading_widget.dart';
-import 'package:video_player/video_player.dart';
 
 class EditPanvideoArgs {
   final String videoPath;
@@ -29,35 +31,18 @@ class EditPanvideoScreen extends StatefulWidget {
   State<EditPanvideoScreen> createState() => _EditPanvideoScreenState();
 }
 
-class _EditPanvideoScreenState extends State<EditPanvideoScreen> {
-  late VideoPlayerController _controller;
+class _EditPanvideoScreenState extends AutoResetBlocState<EditPanvideoScreen, PanvideoManagerBloc> {
   late OnCreatePanvideo _createVideoEvent;
 
   @override
   void initState() {
     super.initState();
-    _initController();
     _createVideoEvent = OnCreatePanvideo(
       File(widget.args.videoPath),
       'Description $now',
       'Title $now',
-      _controller.value.duration.inSeconds,
+      100,
     );
-  }
-
-  void _initController() {
-    _controller = VideoPlayerController.file(
-      File(widget.args.videoPath),
-    );
-    _controller.initialize().then((_) {
-      setState(() {}); // Refresh the UI once the video is initialized
-    });
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 
   @override
@@ -74,35 +59,32 @@ class _EditPanvideoScreenState extends State<EditPanvideoScreen> {
           ),
         ),
         body: SizedBox.expand(
-          child: !_controller.value.isInitialized
-              ? const LoadingWidget()
-              : Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Positioned.fill(
-                      child: AspectRatio(
-                        aspectRatio: _controller.value.aspectRatio,
-                        child: VideoPlayer(_controller),
-                      ),
-                    ),
-                    Positioned(
-                      height: 36.h,
-                      bottom: 40.h,
-                      left: 0,
-                      right: 0,
-                      child: PanvideoProgressIndicator(
-                        controller: _controller,
-                        playedColor: AppColors.primaryShop,
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 16.h,
-                      left: 4.w,
-                      child: VideoTimer(controller: _controller),
-                    ),
-                    VideoPlayPauseButton(controller: _controller),
-                  ],
+          child: PanvideoControllerBuilder(builder: (controller) {
+            return Stack(
+              alignment: Alignment.center,
+              children: [
+                Positioned.fill(
+                  child: BetterPlayer(controller: controller),
                 ),
+                Positioned(
+                  height: 36.h,
+                  bottom: 40.h,
+                  left: 0,
+                  right: 0,
+                  child: PanvideoProgressIndicator(
+                    controller: controller,
+                    playedColor: AppColors.primaryShop,
+                  ),
+                ),
+                Positioned(
+                  bottom: 16.h,
+                  left: 4.w,
+                  child: VideoTimer(controller: controller),
+                ),
+                VideoPlayPauseButton(controller: controller),
+              ],
+            );
+          }),
         ),
         bottomNavigationBar: const VideoEditActions(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
