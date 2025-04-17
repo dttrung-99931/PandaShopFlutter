@@ -10,7 +10,8 @@ import '../../../../../../../core/base_bloc/bloc_communication.dart';
 class PanvideoManagerCommunication extends BlocCommunication<PanvideoManagerBloc> {
   final bufferConfig = const BetterPlayerBufferingConfiguration(
     bufferForPlaybackMs: 2 * 1000,
-    bufferForPlaybackAfterRebufferMs: 3 * 1000,
+    bufferForPlaybackAfterRebufferMs: 2 * 1000,
+    minBufferMs: 2 * 1000,
   );
 
   @override
@@ -19,13 +20,15 @@ class PanvideoManagerCommunication extends BlocCommunication<PanvideoManagerBloc
     listenOtherBloc<PanVideoBloc>((state) {
       if (state is GetPanvideosSuccess) {
         final datasources = state.data.mapList(
-          (e) => BetterPlayerDataSource.network(
+          (e) => VideoDatasource(
+            BetterPlayerDataSourceType.network,
             e.videoUrl,
             cacheConfiguration: BetterPlayerCacheConfiguration(
               key: e.videoUrl,
               useCache: true,
             ),
             bufferingConfiguration: bufferConfig,
+            thumbImageUrl: e.thumbImageUrl,
           ),
         );
         bloc.add(OnAddPanvideoDatasources(datasources: datasources));

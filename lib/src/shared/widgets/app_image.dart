@@ -11,6 +11,7 @@ class AppImage extends StatefulWidget {
     this.height,
     this.borderRadius,
     this.shape = BoxShape.rectangle,
+    this.fadeInDuration = const Duration(milliseconds: 300),
     super.key,
   });
 
@@ -21,6 +22,7 @@ class AppImage extends StatefulWidget {
     double? height,
     BorderRadius? borderRadius,
     BoxShape shape = BoxShape.rectangle,
+    Duration fadeInDuration = const Duration(milliseconds: 300),
   }) {
     return AppImage(
       ExtendedNetworkImageProvider(url),
@@ -29,9 +31,11 @@ class AppImage extends StatefulWidget {
       height: height,
       borderRadius: borderRadius,
       shape: shape,
+      fadeInDuration: fadeInDuration,
     );
   }
 
+  final Duration fadeInDuration;
   final BoxFit fit;
   final double? height;
   final ImageProvider image;
@@ -51,7 +55,7 @@ class _AppImageState extends State<AppImage> with SingleTickerProviderStateMixin
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 300),
+      duration: widget.fadeInDuration,
     );
   }
 

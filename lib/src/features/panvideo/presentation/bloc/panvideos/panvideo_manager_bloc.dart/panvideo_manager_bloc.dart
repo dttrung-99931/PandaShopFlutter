@@ -6,10 +6,11 @@ import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/bloc_concurrency.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
-import 'package:evievm_app/core/utils/extensions/num_extensions.dart';
 import 'package:evievm_app/core/utils/log.dart';
+import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_manager_bloc.dart/panvideo_manager_communicaton.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -32,24 +33,24 @@ class PanvideoManagerBloc extends BaseBloc {
     on<OnPausePanvideo>(_onPauseVideo);
   }
 
-  static Completer? _disposedCompleter;
+  static get maxCacheedDatasources => 10;
 
   @override
   PanvideoManagerCommunication get blocCommunication => getIt<PanvideoManagerCommunication>();
 
-  static get maxCacheControllers => 10;
+  late BetterPlayerController _videoController;
+
+  int _currentVideoIndex = -1;
+
   // Hold all datasources will be played
-  final List<BetterPlayerDataSource> _datasources = [];
+  final List<VideoDatasource> _datasources = [];
 
   // Hold datasources that have been cached
-  final List<BetterPlayerDataSource> _cachedDatasources = [];
-
-  late BetterPlayerController _videoController;
+  final List<VideoDatasource> _cachedDatasources = [];
 
   int _firstCachePanvideoIdx = -1, _lastCachePanvideoIdx = -1;
   int get cacheControllerNum => _lastCachePanvideoIdx - _firstCachePanvideoIdx + 1;
 
-  int _currentVideoIndex = -1;
   final Set<int> _pendingPlayedVideoIdxList = {};
 
   Future<void> _onInitVideoController(OnInitVideoController event, Emitter<BaseState> emit) async {
@@ -78,12 +79,12 @@ class PanvideoManagerBloc extends BaseBloc {
     if (_currentVideoIndex != -1) {
       await _pauseVideo(_currentVideoIndex);
     }
+    if (event.videoIndex == _currentVideoIndex) {
+      return;
+    }
     _currentVideoIndex = event.videoIndex;
     await _setupCurrentDataSource(event.videoIndex, event.direction);
-    _handlePendingPlay(event.videoIndex);
-    Future.delayed(100.milliseconds).then(
-      (_) => add(OnPreloadPanvideo(curVideoIndex: event.videoIndex, direction: event.direction)),
-    );
+    await _handlePlaying(event, emit);
   }
 
   Future<void> _setupCurrentDataSource(int videoIndex, ScrollDirection direction) async {
@@ -92,30 +93,32 @@ class PanvideoManagerBloc extends BaseBloc {
     );
   }
 
-  void _handlePendingPlay(int videoIndex) {
-    if (_pendingPlayedVideoIdxList.contains(videoIndex)) {
-      _videoController.play();
-      _pendingPlayedVideoIdxList.remove(videoIndex);
+  Future<void> _handlePlaying(OnLoadPanvideo event, Emitter<BaseState> emit) async {
+    if (event.playAfterLoaded || _pendingPlayedVideoIdxList.contains(event.videoIndex)) {
+      await _playVideo(event.videoIndex, emit);
     }
   }
 
   Future<void> _onPlayVideo(OnPlayPanvideo event, Emitter<BaseState> emit) async {
-    _playVideo(event.videoIndex);
+    await _playVideo(event.videoIndex, emit);
   }
 
   Future<void> _onPauseVideo(OnPausePanvideo event, Emitter<BaseState> emit) async {
     _pauseVideo(event.videoIndex);
   }
 
-  Future<void> _playVideo(int videoIndex) async {
+  Future<void> _playVideo(int videoIndex, Emitter<BaseState> emit) async {
+    emit(PanvideoPlaying(videoIndex: videoIndex));
     final BetterPlayerDataSource? datasource = _getCachedDatasource(videoIndex);
     if (datasource != null &&
         _videoController.betterPlayerDataSource == datasource &&
         _videoController.isPlaying() != true) {
-      _videoController.play();
-      return;
+      _pendingPlayedVideoIdxList.remove(videoIndex);
+      await _videoController.play();
+    } else {
+      _pendingPlayedVideoIdxList.add(videoIndex);
     }
-    _pendingPlayedVideoIdxList.add(videoIndex);
+    emit(PanvideoPlayed(videoIndex: videoIndex));
   }
 
   Future<void> _pauseVideo(int videoIndex) async {
@@ -141,7 +144,7 @@ class PanvideoManagerBloc extends BaseBloc {
       return datasource;
     }
 
-    if (cacheControllerNum >= maxCacheControllers) {
+    if (cacheControllerNum >= maxCacheedDatasources) {
       await _freeCachedDatasource(direction);
     }
     return _markDatasourceCached(videoIndex);
@@ -153,22 +156,21 @@ class PanvideoManagerBloc extends BaseBloc {
       return;
     }
 
-    if (cacheControllerNum >= maxCacheControllers) {
+    if (cacheControllerNum >= maxCacheedDatasources) {
       await _freeCachedDatasource(event.direction);
     }
     final datasource = _markDatasourceCached(nextIndex);
     await _preLoad(datasource, nextIndex, event.direction);
   }
 
-  Future<void> _preLoad(BetterPlayerDataSource datasource, int videoIndex, ScrollDirection direction) async {
+  Future<void> _preLoad(VideoDatasource datasource, int videoIndex, ScrollDirection direction) async {
     logd('Preload video $videoIndex');
-    await _videoController.preCache(datasource);
-    // if (_pendingPlayedVideoIdxList.contains(videoIndex)) {
-    //   logd('Play $videoIndex');
-    //   _videoController.play();
-    //   _pendingPlayedVideoIdxList.remove(videoIndex);
-    // }
-    logd('Finish load $videoIndex');
+    await Future.wait([
+      precacheImage(ExtendedNetworkImageProvider(datasource.thumbImageUrl), Global.context),
+      _videoController.preCache(datasource)
+    ]);
+
+    logd('Preloaded video $videoIndex');
   }
 
   Future<void> _freeCachedDatasource(ScrollDirection direction) async {
@@ -188,7 +190,7 @@ class PanvideoManagerBloc extends BaseBloc {
     // datasource.dispose();
   }
 
-  BetterPlayerDataSource _markDatasourceCached(int videoIndex) {
+  VideoDatasource _markDatasourceCached(int videoIndex) {
     final datasource = _datasources[videoIndex];
     if (videoIndex == _lastCachePanvideoIdx + 1) {
       _cachedDatasources.add(datasource);
