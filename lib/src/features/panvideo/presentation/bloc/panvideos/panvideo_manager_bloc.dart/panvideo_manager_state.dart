@@ -23,22 +23,19 @@ class InitVideoControllerSuccess extends BaseState {
   List<Object?> get props => [controller.hashCode];
 }
 
-class PanvideoPlaying extends BaseState {
+abstract class PanvideoStatusState extends BaseState {
   final int videoIndex;
-  PanvideoPlaying({
+  PanvideoStatusState({
     required this.videoIndex,
   });
-
   @override
   List<Object?> get props => [videoIndex];
 }
 
-class PanvideoPlayed extends BaseState {
-  final int videoIndex;
-  PanvideoPlayed({
-    required this.videoIndex,
-  });
+class PanvideoPlaying extends PanvideoStatusState {
+  PanvideoPlaying({required super.videoIndex});
+}
 
-  @override
-  List<Object?> get props => [videoIndex];
+class PanvideoPlayed extends PanvideoStatusState {
+  PanvideoPlayed({required super.videoIndex});
 }

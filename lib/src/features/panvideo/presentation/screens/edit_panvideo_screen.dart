@@ -59,32 +59,47 @@ class _EditPanvideoScreenState extends AutoResetBlocState<EditPanvideoScreen, Pa
           ),
         ),
         body: SizedBox.expand(
-          child: PanvideoControllerBuilder(builder: (controller) {
-            return Stack(
-              alignment: Alignment.center,
-              children: [
-                Positioned.fill(
-                  child: BetterPlayer(controller: controller),
-                ),
-                Positioned(
-                  height: 36.h,
-                  bottom: 40.h,
-                  left: 0,
-                  right: 0,
-                  child: PanvideoProgressIndicator(
-                    controller: controller,
-                    playedColor: AppColors.primaryShop,
+          child: PanvideoControllerBuilder(
+            onInitilized: (_) {
+              panvideoManagerBloc
+                ..add(
+                  OnAddPanvideoDatasources(
+                    datasources: [
+                      VideoDatasource(BetterPlayerDataSourceType.file, widget.args.videoPath, thumbImageUrl: ''),
+                    ],
                   ),
-                ),
-                Positioned(
-                  bottom: 16.h,
-                  left: 4.w,
-                  child: VideoTimer(controller: controller),
-                ),
-                VideoPlayPauseButton(controller: controller),
-              ],
-            );
-          }),
+                )
+                ..add(
+                  OnLoadPanvideo(videoIndex: 0, direction: ScrollDirection.down, playAfterLoaded: true),
+                );
+            },
+            builder: (controller) {
+              return Stack(
+                alignment: Alignment.center,
+                children: [
+                  Positioned.fill(
+                    child: BetterPlayer(controller: controller),
+                  ),
+                  Positioned(
+                    height: 36.h,
+                    bottom: 40.h,
+                    left: 0,
+                    right: 0,
+                    child: PanvideoProgressIndicator(
+                      controller: controller,
+                      playedColor: AppColors.primaryShop,
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 16.h,
+                    left: 4.w,
+                    child: VideoTimer(controller: controller),
+                  ),
+                  VideoPlayPauseButton(controller: controller),
+                ],
+              );
+            },
+          ),
         ),
         bottomNavigationBar: const VideoEditActions(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
