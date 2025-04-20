@@ -151,16 +151,16 @@ class PanvideoManagerBloc extends BaseBloc {
   }
 
   Future<void> _onPreloadPanvideo(OnPreloadPanvideo event, Emitter<BaseState> emit) async {
-    int nextIndex = event.direction == ScrollDirection.down ? event.curVideoIndex + 1 : event.curVideoIndex - 1;
-    if (nextIndex < 0 || nextIndex >= _datasources.length || _getCachedDatasource(nextIndex) != null) {
+    int videoIndex = event.videoIndex;
+    if (_getCachedDatasource(videoIndex) != null) {
       return;
     }
 
     if (cacheControllerNum >= maxCacheedDatasources) {
       await _freeCachedDatasource(event.direction);
     }
-    final datasource = _markDatasourceCached(nextIndex);
-    await _preLoad(datasource, nextIndex, event.direction);
+    final datasource = _markDatasourceCached(videoIndex);
+    await _preLoad(datasource, videoIndex, event.direction);
   }
 
   Future<void> _preLoad(VideoDatasource datasource, int videoIndex, ScrollDirection direction) async {

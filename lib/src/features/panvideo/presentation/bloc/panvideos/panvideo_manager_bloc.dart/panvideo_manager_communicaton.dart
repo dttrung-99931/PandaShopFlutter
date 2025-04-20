@@ -20,19 +20,31 @@ class PanvideoManagerCommunication extends BlocCommunication<PanvideoManagerBloc
     listenOtherBloc<PanVideoBloc>((state) {
       if (state is GetPanvideosSuccess) {
         final datasources = state.data.mapList(
-          (e) => VideoDatasource(
+          (panvideo) => VideoDatasource(
             BetterPlayerDataSourceType.network,
-            e.videoUrl,
+            panvideo.videoUrl,
             cacheConfiguration: BetterPlayerCacheConfiguration(
-              key: e.videoUrl,
+              key: panvideo.videoUrl,
               useCache: true,
             ),
             bufferingConfiguration: bufferConfig,
-            thumbImageUrl: e.thumbImageUrl,
+            thumbImageUrl: panvideo.thumbImageUrl,
+            videoFormat: _getVideoType(panvideo.videoUrl),
           ),
         );
         bloc.add(OnAddPanvideoDatasources(datasources: datasources));
       }
     });
+  }
+
+  final extVideoType = {
+    'mpd': BetterPlayerVideoFormat.dash,
+    'u3m8': BetterPlayerVideoFormat.hls,
+  };
+  BetterPlayerVideoFormat _getVideoType(String videoUrl) {
+    if (videoUrl.isEmpty || !videoUrl.contains('.')) {
+      return BetterPlayerVideoFormat.other;
+    }
+    return extVideoType[videoUrl.split('.').last] ?? BetterPlayerVideoFormat.other;
   }
 }

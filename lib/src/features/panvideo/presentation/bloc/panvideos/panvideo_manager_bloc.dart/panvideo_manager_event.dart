@@ -29,15 +29,15 @@ class OnLoadPanvideo extends BaseEvent {
 
 class OnPreloadPanvideo extends BaseEvent {
   OnPreloadPanvideo({
-    required this.curVideoIndex,
+    required this.videoIndex,
     required this.direction,
   });
 
-  final int curVideoIndex;
+  final int videoIndex;
   final ScrollDirection direction;
 
   @override
-  List<Object?> get props => [curVideoIndex, direction];
+  List<Object?> get props => [videoIndex, direction];
 }
 
 class VideoDatasource extends BetterPlayerDataSource {
@@ -49,6 +49,7 @@ class VideoDatasource extends BetterPlayerDataSource {
     required this.thumbImageUrl,
     super.cacheConfiguration,
     super.bufferingConfiguration,
+    super.videoFormat,
   });
 
   List<Object?> get props => [type, super.url, thumbImageUrl];

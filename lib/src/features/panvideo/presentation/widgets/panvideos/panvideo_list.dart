@@ -24,6 +24,7 @@ class PanvideoList extends StatefulWidget {
 
 class _PanvideoListState extends State<PanvideoList> {
   int _currentIndex = -1;
+  bool _wasFirstVideoIgnoredPreload = false;
 
   @override
   void initState() {
@@ -41,9 +42,15 @@ class _PanvideoListState extends State<PanvideoList> {
       preloadPagesCount: 2,
       itemBuilder: (context, index) {
         final panvideo = widget.panvideos[index];
-        panvideoManagerBloc.add(
-          OnPreloadPanvideo(curVideoIndex: index, direction: _getScrollDirection(index)),
-        );
+        // Ignore preload first video because it no need
+        if (index != 0 || !_wasFirstVideoIgnoredPreload) {
+          // Preload vidoe
+          panvideoManagerBloc.add(
+            OnPreloadPanvideo(videoIndex: index, direction: _getScrollDirection(index)),
+          );
+        } else {
+          _wasFirstVideoIgnoredPreload = true;
+        }
         return VisibilityDetector(
           key: ValueKey(index),
           onVisibilityChanged: (info) {

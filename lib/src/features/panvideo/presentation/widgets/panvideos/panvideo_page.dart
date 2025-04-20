@@ -21,7 +21,7 @@ class PanvideoPage extends StatelessWidget {
     required this.videoIndex,
   });
 
-  static const Duration fadeInDuration = Duration(milliseconds: 50);
+  static const Duration fadeDuration = Duration(milliseconds: 150);
   final PanvideoDto panvideo;
   final BetterPlayerController videoController;
   final int videoIndex;
@@ -30,23 +30,6 @@ class PanvideoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Positioned.fill(
-          child: CustomBlocBuilder<PanvideoManagerBloc>(
-            buildForStates: const [PanvideoPlaying],
-            bloc: panvideoManagerBloc,
-            handleLoading: false,
-            builder: (state) {
-              if (state is! PanvideoPlaying) {
-                return emptyWidget;
-              }
-              return AppImage.network(
-                panvideo.thumbImageUrl,
-                fit: BoxFit.fill,
-                fadeInDuration: fadeInDuration,
-              );
-            },
-          ),
-        ),
         Positioned.fill(
           child: CustomBlocBuilder<PanvideoManagerBloc>(
             buildForStates: const [PanvideoPlayed],
@@ -62,6 +45,32 @@ class PanvideoPage extends StatelessWidget {
             },
           ),
         ),
+        Positioned.fill(
+          child: CustomBlocBuilder<PanvideoManagerBloc>(
+            buildForStates: const [PanvideoPlaying, PanvideoPlayed],
+            bloc: panvideoManagerBloc,
+            handleLoading: false,
+            builder: (state) {
+              if (state is! PanvideoStatusState && state is! InitVideoControllerSuccess) {
+                return emptyWidget;
+              }
+              final thumbnailImage = AppImage.network(
+                panvideo.thumbImageUrl,
+                fit: BoxFit.fill,
+                fadeInDuration: Duration.zero,
+              );
+              if (state is PanvideoPlayed && state.videoIndex == videoIndex) {
+                return FadeInOutWidget(
+                  duration: fadeDuration,
+                  isFadeIn: false,
+                  child: thumbnailImage,
+                );
+              }
+              return thumbnailImage;
+            },
+          ),
+        ),
+
         Positioned(
           right: 16.w,
           bottom: 0,
@@ -120,6 +129,58 @@ class PanvideoPage extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+}
+
+class FadeInOutWidget extends StatefulWidget {
+  const FadeInOutWidget({
+    super.key,
+    required this.duration,
+    required this.child,
+    required this.isFadeIn,
+  });
+  final Duration duration;
+  final Widget child;
+  final bool isFadeIn;
+
+  @override
+  State<FadeInOutWidget> createState() => _FadeInOutWidgetState();
+}
+
+class _FadeInOutWidgetState extends State<FadeInOutWidget> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _fadeAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: widget.duration,
+      vsync: this,
+    );
+    _fadeAnimation = Tween<double>(
+      begin: widget.isFadeIn ? 0 : 1,
+      end: widget.isFadeIn ? 1 : 0,
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeOut,
+    ));
+
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FadeTransition(
+      opacity: _fadeAnimation,
+      child: widget.child,
     );
   }
 }
