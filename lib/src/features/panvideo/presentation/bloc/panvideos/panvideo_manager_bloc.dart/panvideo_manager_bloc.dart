@@ -83,7 +83,9 @@ class PanvideoManagerBloc extends BaseBloc {
       return;
     }
     _currentVideoIndex = event.videoIndex;
-    await _setupCurrentDataSource(event.videoIndex, event.direction);
+    if (_videoController.betterPlayerDataSource != _datasources[event.videoIndex]) {
+      await _setupCurrentDataSource(event.videoIndex, event.direction);
+    }
     await _handlePlaying(event, emit);
   }
 
@@ -167,7 +169,10 @@ class PanvideoManagerBloc extends BaseBloc {
     logd('Preload video $videoIndex');
     await Future.wait([
       precacheImage(ExtendedNetworkImageProvider(datasource.thumbImageUrl), Global.context),
-      _videoController.preCache(datasource)
+
+      // Use setupDatasource for preCache seem to be more efficiant
+      _setupCurrentDataSource(videoIndex, direction)
+      // _videoController.preCache(datasource)
     ]);
 
     logd('Preloaded video $videoIndex');

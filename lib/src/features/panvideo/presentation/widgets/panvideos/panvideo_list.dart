@@ -43,7 +43,7 @@ class _PanvideoListState extends State<PanvideoList> {
       itemBuilder: (context, index) {
         final panvideo = widget.panvideos[index];
         // Ignore preload first video because it no need
-        if (index != 0 || !_wasFirstVideoIgnoredPreload) {
+        if (index != 0 || _wasFirstVideoIgnoredPreload) {
           // Preload vidoe
           panvideoManagerBloc.add(
             OnPreloadPanvideo(videoIndex: index, direction: _getScrollDirection(index)),
