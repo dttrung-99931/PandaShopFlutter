@@ -63,7 +63,8 @@ class PanvideoManagerBloc extends BaseBloc {
         autoDispose: false,
         expandToFill: true,
         controlsConfiguration: const BetterPlayerControlsConfiguration(
-          showControls: false,
+          showControls: false, // use custom controls
+          // icon
         ),
       ),
     );

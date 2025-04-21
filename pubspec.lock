@@ -73,10 +73,11 @@ packages:
   awesome_video_player:
     dependency: "direct main"
     description:
-      name: awesome_video_player
-      sha256: "4af34c6696df846375ad9cab43c622e929be42b25b6503be722bda728f75c9fd"
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: "0a0f3ab7cf0e835b8d362410be88319534e007b4"
+      url: "https://github.com/dttrung-99931/awesome_video_player.git"
+    source: git
     version: "1.0.4"
   bloc:
     dependency: transitive
