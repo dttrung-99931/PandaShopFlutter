@@ -26,6 +26,7 @@ class PanvideoManagerCommunication extends BlocCommunication<PanvideoManagerBloc
             cacheConfiguration: BetterPlayerCacheConfiguration(
               key: panvideo.videoUrl,
               useCache: true,
+              preCacheSize: (1.7 * 1024 * 1024).toInt(),
             ),
             bufferingConfiguration: bufferConfig,
             thumbImageUrl: panvideo.thumbImageUrl,
