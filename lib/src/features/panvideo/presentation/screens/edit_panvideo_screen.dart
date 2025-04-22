@@ -9,7 +9,7 @@ import 'package:evievm_app/src/features/panvideo/presentation/bloc/create_panvid
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_manager_bloc.dart/panvideo_manager_bloc.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/edit_video/create_panvideo_button.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/edit_video/video_edit_actions.dart';
-import 'package:evievm_app/src/features/panvideo/presentation/widgets/edit_video/video_pause_player_button.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/widgets/edit_video/panvideo_play_pause_button.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/edit_video/video_timer.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/panvideo_controller_builder.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/panvideo_progress_indicator.dart';
@@ -95,7 +95,9 @@ class _EditPanvideoScreenState extends AutoResetBlocState<EditPanvideoScreen, Pa
                     left: 4.w,
                     child: VideoTimer(controller: controller),
                   ),
-                  VideoPlayPauseButton(controller: controller),
+                  Positioned.fill(
+                    child: PanvideoPlayPauseButton(controller: controller),
+                  ),
                 ],
               );
             },

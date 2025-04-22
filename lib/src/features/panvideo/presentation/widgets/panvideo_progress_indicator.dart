@@ -41,6 +41,7 @@ class _PanvideoProgressIndicatorState extends State<PanvideoProgressIndicator> {
   _onPlayerEvent(BetterPlayerEvent event) {
     bool hasUpdate = false;
     switch (event.betterPlayerEventType) {
+      case BetterPlayerEventType.pause:
       case BetterPlayerEventType.bufferingStart:
         if (!_isProgressShowing) {
           _showProgress();
@@ -48,6 +49,7 @@ class _PanvideoProgressIndicatorState extends State<PanvideoProgressIndicator> {
         }
         break;
 
+      case BetterPlayerEventType.play:
       case BetterPlayerEventType.bufferingEnd:
         if (!_isProgressShowing) {
           break;
@@ -101,7 +103,7 @@ class _PanvideoProgressIndicatorState extends State<PanvideoProgressIndicator> {
         eventListener: _onPlayerEvent,
         child: ProgressIndicatorTheme(
           data: ProgressIndicatorThemeData(
-            linearMinHeight: 2.5.h, // progress stroke width
+            linearMinHeight: 3.h, // progress stroke width
           ),
           child: _videoController != null
               ? VideoProgressIndicator(

@@ -57,6 +57,6 @@ class _VideoPlayerWidgetBuilderState<T> extends State<VideoPlayerWidgetBuilder<T
 
   @override
   Widget build(BuildContext context) {
-    return widget.builder(context, widget.getValue(widget.controller));
+    return widget.builder(context, _value);
   }
 }
