@@ -6,6 +6,7 @@ import 'package:evievm_app/core/utils/extensions/ui_extensions.dart';
 import 'package:evievm_app/src/config/theme/app_theme.dart';
 import 'package:evievm_app/src/features/panvideo/domain/dtos/panvideo_dto.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_manager_bloc.dart/panvideo_manager_bloc.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/widgets/edit_video/panvideo_play_pause_button.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/panvideo_progress_indicator.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/panvideos/panvideo_action.dart';
 import 'package:evievm_app/src/shared/widgets/app_image.dart';
@@ -29,6 +30,7 @@ class PanvideoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
+      alignment: Alignment.center,
       children: [
         Positioned.fill(
           child: CustomBlocBuilder<PanvideoManagerBloc>(
@@ -116,6 +118,12 @@ class PanvideoPage extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ],
+          ),
+        ),
+
+        Positioned.fill(
+          child: PanvideoPlayPauseButton(
+            controller: videoController,
           ),
         ),
 
