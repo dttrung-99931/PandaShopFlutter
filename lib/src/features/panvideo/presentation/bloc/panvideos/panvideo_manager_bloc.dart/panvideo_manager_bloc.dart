@@ -5,6 +5,7 @@ import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/bloc_concurrency.dart';
+import 'package:evievm_app/core/utils/extensions/better_player_controller_extension.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/core/utils/log.dart';
 import 'package:evievm_app/global.dart';
@@ -77,11 +78,11 @@ class PanvideoManagerBloc extends BaseBloc {
   }
 
   Future<void> _onLoadPanvideo(OnLoadPanvideo event, Emitter<BaseState> emit) async {
-    if (_currentVideoIndex != -1) {
-      await _pauseVideo(_currentVideoIndex);
-    }
     if (event.videoIndex == _currentVideoIndex) {
       return;
+    }
+    if (_currentVideoIndex != -1) {
+      await _pauseVideo(_currentVideoIndex);
     }
     _currentVideoIndex = event.videoIndex;
     if (_videoController.betterPlayerDataSource != _datasources[event.videoIndex]) {
@@ -113,9 +114,7 @@ class PanvideoManagerBloc extends BaseBloc {
   Future<void> _playVideo(int videoIndex, Emitter<BaseState> emit) async {
     emit(PanvideoPlaying(videoIndex: videoIndex));
     final BetterPlayerDataSource? datasource = _getCachedDatasource(videoIndex);
-    if (datasource != null &&
-        _videoController.betterPlayerDataSource == datasource &&
-        _videoController.isPlaying() != true) {
+    if (datasource != null && _videoController.betterPlayerDataSource == datasource && _videoController.isPlayingSafe) {
       _pendingPlayedVideoIdxList.remove(videoIndex);
       await _videoController.play();
     } else {
@@ -126,9 +125,7 @@ class PanvideoManagerBloc extends BaseBloc {
 
   Future<void> _pauseVideo(int videoIndex) async {
     final BetterPlayerDataSource? datasource = _getCachedDatasource(videoIndex);
-    if (datasource != null &&
-        _videoController.betterPlayerDataSource == datasource &&
-        _videoController.isPlaying() == true) {
+    if (datasource != null && _videoController.isPlayingSafe) {
       _videoController.pause();
     }
     _pendingPlayedVideoIdxList.remove(videoIndex);

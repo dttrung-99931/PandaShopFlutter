@@ -81,22 +81,23 @@ class _EditPanvideoScreenState extends AutoResetBlocState<EditPanvideoScreen, Pa
                     child: BetterPlayer(controller: controller),
                   ),
                   Positioned(
-                    height: 36.h,
-                    bottom: 40.h,
-                    left: 0,
-                    right: 0,
-                    child: PanvideoProgressIndicator(
-                      controller: controller,
-                      playedColor: AppColors.primaryShop,
-                    ),
-                  ),
-                  Positioned(
                     bottom: 16.h,
                     left: 4.w,
                     child: VideoTimer(controller: controller),
                   ),
                   Positioned.fill(
                     child: PanvideoPlayPauseButton(controller: controller),
+                  ),
+                  Positioned(
+                    height: 36.h,
+                    bottom: 100.h,
+                    left: 0,
+                    right: 0,
+                    child: PanvideoProgressIndicator(
+                      controller: controller,
+                      playedColor: AppColors.primaryShop,
+                      alwaysShowProgressBar: true,
+                    ),
                   ),
                 ],
               );

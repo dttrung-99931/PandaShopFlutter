@@ -15,6 +15,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyPanvideosScreen extends StatefulWidget {
   static const router = '/myPanvideos';
+  static const hereTagAddVideo = 'hereTagAddVideo';
 
   const MyPanvideosScreen({
     super.key,
@@ -71,6 +72,8 @@ class _MyPanvideosScreenState extends State<MyPanvideosScreen> {
           ],
         ),
         floatingActionButton: FloatingActionButton(
+          // Fix same tag error
+          heroTag: MyPanvideosScreen.hereTagAddVideo,
           shape: const CircleBorder(),
           onPressed: () {
             Global.pushNamed(CreatePanvideoScreen.router);

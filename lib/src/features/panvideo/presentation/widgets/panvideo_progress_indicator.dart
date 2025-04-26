@@ -15,9 +15,11 @@ class PanvideoProgressIndicator extends StatefulWidget {
     super.key,
     required this.controller,
     required this.playedColor,
+    this.alwaysShowProgressBar = false,
   });
   final BetterPlayerController controller;
   final Color playedColor;
+  final bool alwaysShowProgressBar;
 
   @override
   State<PanvideoProgressIndicator> createState() => _PanvideoProgressIndicatorState();
@@ -39,6 +41,20 @@ class _PanvideoProgressIndicatorState extends State<PanvideoProgressIndicator> {
   }
 
   _onPlayerEvent(BetterPlayerEvent event) {
+    bool hasUpdate = false;
+    if (!widget.alwaysShowProgressBar) {
+      hasUpdate = _handleProgressBarVisibility(event);
+    }
+    if (widget.controller.videoPlayerController != _videoController) {
+      _videoController = widget.controller.videoPlayerController;
+      hasUpdate = true;
+    }
+    if (hasUpdate) {
+      setState(() {});
+    }
+  }
+
+  bool _handleProgressBarVisibility(BetterPlayerEvent event) {
     bool hasUpdate = false;
     switch (event.betterPlayerEventType) {
       case BetterPlayerEventType.pause:
@@ -69,13 +85,7 @@ class _PanvideoProgressIndicatorState extends State<PanvideoProgressIndicator> {
         break;
       default:
     }
-    if (widget.controller.videoPlayerController != _videoController) {
-      _videoController = widget.controller.videoPlayerController;
-      hasUpdate = true;
-    }
-    if (hasUpdate) {
-      setState(() {});
-    }
+    return hasUpdate;
   }
 
   void _showProgress() {
