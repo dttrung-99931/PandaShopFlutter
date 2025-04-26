@@ -23,7 +23,7 @@ class _PanvideoPlayPauseButtonState extends State<PanvideoPlayPauseButton> {
   Widget build(BuildContext context) {
     return VideoPlayerWidgetBuilder(
       controller: widget.controller,
-      getValue: (controller) => controller.isPlayingSaffe,
+      getValue: (controller) => controller.isPlayingSafe,
       builder: (context, isPlaying) {
         onPressed() {
           isPressed = true;
