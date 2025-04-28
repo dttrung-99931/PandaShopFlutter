@@ -114,7 +114,9 @@ class PanvideoManagerBloc extends BaseBloc {
   Future<void> _playVideo(int videoIndex, Emitter<BaseState> emit) async {
     emit(PanvideoPlaying(videoIndex: videoIndex));
     final BetterPlayerDataSource? datasource = _getCachedDatasource(videoIndex);
-    if (datasource != null && _videoController.betterPlayerDataSource == datasource && _videoController.isPlayingSafe) {
+    if (datasource != null &&
+        _videoController.betterPlayerDataSource == datasource &&
+        !_videoController.isPlayingSafe) {
       _pendingPlayedVideoIdxList.remove(videoIndex);
       await _videoController.play();
     } else {
