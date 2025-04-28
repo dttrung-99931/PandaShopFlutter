@@ -49,9 +49,6 @@ class _CreatePanvideoButtonState extends State<CreatePanvideoButton> with Single
                 _animationController.repeat();
               case (CreatePanvideoSuccess _):
                 _animationController.stop();
-                myPanVideoBloc.add(OnGetMyPanvideos());
-                Global.popUntilNamed(MainScreen.router);
-                showSnackBar('Tải lên thành công');
               default:
                 _animationController.stop();
             }

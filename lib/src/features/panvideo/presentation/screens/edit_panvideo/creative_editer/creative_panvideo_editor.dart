@@ -13,7 +13,9 @@ class CreativePanvideoEditor extends PanvideoEditor {
   Future<EditPanvideoResultDto?> editVdieo(EditPanvideoArgs args) async {
     final video = Video(args.videoPath);
     final VideoEditorResult? editted = await VESDK.openEditor(video);
-    final edittedVideo = editted?.video != null ? File(editted!.video) : null;
+    // Extract video path, editted?.video like: file:///data...
+    final edittedPath = editted?.video.substring(7);
+    final edittedVideo = edittedPath != null ? File(edittedPath) : null;
     return EditPanvideoResultDto(
       video: edittedVideo,
       title: 'Video title $now',

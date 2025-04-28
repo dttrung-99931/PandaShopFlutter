@@ -6,11 +6,21 @@ class CreatePanvideoSuccess extends FullDataLoadedState<CreatePanvideoResponseDt
 }
 
 class EditPanvideoSuccess extends BaseState {
-  final EditPanvideoResultDto panvideo;
+  final EditPanvideoResultDto? panvideo;
   EditPanvideoSuccess({
     required this.panvideo,
   });
 
   @override
   List<Object?> get props => [panvideo];
+}
+
+class EditingPanvideo extends LoadingState {
+  final EditPanvideoArgs args;
+  EditingPanvideo({
+    required this.args,
+  });
+
+  @override
+  List<Object?> get props => [args];
 }

@@ -31,7 +31,11 @@ class CreatePanVideoBloc extends BaseBloc {
 
   CreatePanVideoBloc(this._createPanvideo, this._genThumbImage, this._editPanvideo) : super(InitialState()) {
     onLoad<OnCreatePanvideo>(_onCreatePanvideo, transformer: BlocConcurrency.droppable());
-    on<OnEditPanvideo>(_onEditPanvideo, transformer: BlocConcurrency.droppable());
+    onLoad<OnEditPanvideo>(
+      _onEditPanvideo,
+      transformer: BlocConcurrency.droppable(),
+      loadingBuilder: (event) => EditingPanvideo(args: event.args),
+    );
   }
 
   Future<void> _onCreatePanvideo(OnCreatePanvideo event, Emitter<BaseState> emit) async {
@@ -76,9 +80,7 @@ class CreatePanVideoBloc extends BaseBloc {
       usecaseResult: _editPanvideo.call(event.args),
       emit: emit.call,
       onSuccess: (EditPanvideoResultDto? edittedVideo) {
-        if (edittedVideo != null) {
-          return EditPanvideoSuccess(panvideo: edittedVideo);
-        }
+        return EditPanvideoSuccess(panvideo: edittedVideo);
       },
     );
   }

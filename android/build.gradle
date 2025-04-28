@@ -40,16 +40,18 @@ subprojects {
                 }
             }
         }
-        def javaVersion = JavaVersion.VERSION_18
-        android {
-            compileOptions {
-                sourceCompatibility javaVersion
-                targetCompatibility javaVersion
-            }
-        }
-        tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
-            kotlinOptions {
-                jvmTarget = javaVersion.toString()
+        if (project.name == 'imgly_sdk' || project.name == 'video_editor_sdk') {
+            project.android {
+                def javaVersion = JavaVersion.VERSION_1_8
+                compileOptions {
+                    sourceCompatibility javaVersion
+                    targetCompatibility javaVersion
+                }
+                tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+                    kotlinOptions {
+                        jvmTarget = javaVersion.toString()
+                    }
+                }
             }
         }
     }

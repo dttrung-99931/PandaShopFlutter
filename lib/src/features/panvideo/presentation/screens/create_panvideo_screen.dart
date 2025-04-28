@@ -1,6 +1,10 @@
 import 'package:camerawesome/camerawesome_plugin.dart';
 import 'package:camerawesome/pigeon.dart';
+import 'package:evievm_app/core/utils/overlay_utils.dart';
+import 'package:evievm_app/global.dart';
+import 'package:evievm_app/src/features/main/presentation/screens/main_screen.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/create_panvideo/create_panvideo_bloc.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/bloc/my_panvideo/my_panvideo_bloc.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/screens/edit_panvideo/panvideo_editor.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/create/video_overlay.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/create/video_recording_overlay.dart';
@@ -36,8 +40,32 @@ class _CreatePanvideoScreenState extends State<CreatePanvideoScreen> {
       child: Scaffold(
         body: CustomBlocListener<CreatePanVideoBloc>(
           listener: (state) {
-            if (state is EditPanvideoSuccess) {
-              createPanVideoBloc.add(OnCreatePanvideo(state.panvideo));
+            switch (state) {
+              case (CreatePanvideoSuccess _):
+                myPanVideoBloc.add(OnGetMyPanvideos());
+                Global.popUntilNamed(MainScreen.router);
+                showSnackBar('Tải lên thành công');
+                break;
+
+              case (EditingPanvideo editting):
+                if (![CameraRunningState.stopped, CameraRunningState.stopping]
+                    .contains(CamerawesomePlugin.currentState)) {
+                  CamerawesomePlugin.stop();
+                }
+                break;
+
+              case (EditPanvideoSuccess editSuccess):
+                if (editSuccess.panvideo == null) {
+                  if (![CameraRunningState.started, CameraRunningState.starting]
+                      .contains(CamerawesomePlugin.currentState)) {
+                    CamerawesomePlugin.start();
+                  }
+                  break;
+                }
+                createPanVideoBloc.add(OnCreatePanvideo(editSuccess.panvideo!));
+                break;
+
+              default:
             }
           },
           child: CameraAwesomeBuilder.custom(
