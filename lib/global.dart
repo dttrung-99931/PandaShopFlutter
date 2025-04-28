@@ -63,8 +63,8 @@ class Global {
     navigator.pushReplacementNamed(routeName, arguments: args);
   }
 
-  static void pop() {
-    navigator.pop();
+  static void pop<T>([T? result]) {
+    navigator.pop(result);
   }
 
   static Future<T?> swapCurrentAndPrevRoute<T extends Object?>({

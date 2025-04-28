@@ -5,7 +5,7 @@ import 'package:evievm_app/src/features/common/presentation/screens/splash_scree
 import 'package:evievm_app/src/features/order/presentation/screens/order_screen.dart';
 import 'package:evievm_app/src/features/order/presentation/screens/successful_order_screen.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/screens/create_panvideo_screen.dart';
-import 'package:evievm_app/src/features/panvideo/presentation/screens/edit_panvideo_screen.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/screens/edit_panvideo/custom_editor/custom_panvideo_editor_screen.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/screens/my_panvideos_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/product_detail_screen.dart';
 import 'package:evievm_app/src/features/product/presentation/screens/search_products_screen.dart';
@@ -59,8 +59,8 @@ class AppRouter {
       // Panvideo
       case CreatePanvideoScreen.router:
         return const CreatePanvideoScreen();
-      case EditPanvideoScreen.router:
-        return EditPanvideoScreen(settings.arguments as dynamic);
+      case CustomPanvideoEditorScreen.router:
+        return CustomPanvideoEditorScreen(settings.arguments as dynamic);
     }
     return const SizedBox.shrink();
   }

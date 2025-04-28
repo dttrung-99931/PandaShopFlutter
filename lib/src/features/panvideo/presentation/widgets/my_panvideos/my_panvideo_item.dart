@@ -66,11 +66,12 @@ class MyPanvideoItem extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   spacing: 8.w,
-                  children: const [
+                  children: [
                     _ActionCount(
                       count: 10,
                       icon: Icons.thumb_up,
                     ),
+                    8.swb,
                     _ActionCount(
                       count: 2,
                       icon: Icons.comment,

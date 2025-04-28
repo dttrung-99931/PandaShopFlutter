@@ -3,6 +3,7 @@ import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/utils/overlay_utils.dart';
 import 'package:evievm_app/global.dart';
 import 'package:evievm_app/src/features/main/presentation/screens/main_screen.dart';
+import 'package:evievm_app/src/features/panvideo/domain/dtos/edit_panvideo_result_dto.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/create_panvideo/create_panvideo_bloc.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/my_panvideo/my_panvideo_bloc.dart';
 import 'package:evievm_app/src/shared/widgets/custom_bloc_consumer.dart';
@@ -10,8 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CreatePanvideoButton extends StatefulWidget {
-  const CreatePanvideoButton(this.createPanvideoEvent, {super.key});
-  final OnCreatePanvideo createPanvideoEvent;
+  const CreatePanvideoButton(this.panvideoEdtResult, {super.key});
+  final EditPanvideoResultDto panvideoEdtResult;
   @override
   State<CreatePanvideoButton> createState() => _CreatePanvideoButtonState();
 }
@@ -70,7 +71,7 @@ class _CreatePanvideoButtonState extends State<CreatePanvideoButton> with Single
                       child: Icon(
                         Icons.upload_outlined,
                         size: 48.r,
-                        color: Colors.white,
+                        color: const Color.fromARGB(255, 140, 39, 39),
                       ),
                     );
                   },
@@ -90,6 +91,6 @@ class _CreatePanvideoButtonState extends State<CreatePanvideoButton> with Single
   }
 
   void _createPanvideo() {
-    createPanVideoBloc.add(widget.createPanvideoEvent);
+    Global.pop(widget.panvideoEdtResult);
   }
 }

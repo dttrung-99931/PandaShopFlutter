@@ -5,43 +5,38 @@ import 'package:awesome_video_player/awesome_video_player.dart';
 import 'package:evievm_app/core/ui/auto_reset_bloc_state.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/time_utils.dart';
-import 'package:evievm_app/src/features/panvideo/presentation/bloc/create_panvideo/create_panvideo_bloc.dart';
+import 'package:evievm_app/src/features/panvideo/domain/dtos/edit_panvideo_result_dto.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_manager_bloc.dart/panvideo_manager_bloc.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/screens/edit_panvideo/panvideo_editor.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/edit_video/create_panvideo_button.dart';
-import 'package:evievm_app/src/features/panvideo/presentation/widgets/edit_video/video_edit_actions.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/edit_video/panvideo_play_pause_button.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/widgets/edit_video/video_edit_actions.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/edit_video/video_timer.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/panvideo_controller_builder.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/panvideo_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class EditPanvideoArgs {
-  final String videoPath;
-
-  EditPanvideoArgs(this.videoPath);
-}
-
-class EditPanvideoScreen extends StatefulWidget {
+class CustomPanvideoEditorScreen extends StatefulWidget {
   static const router = '/editPanvideo';
-  const EditPanvideoScreen(this.args, {super.key});
+  const CustomPanvideoEditorScreen(this.args, {super.key});
   final EditPanvideoArgs args;
 
   @override
-  State<EditPanvideoScreen> createState() => _EditPanvideoScreenState();
+  State<CustomPanvideoEditorScreen> createState() => _CustomPanvideoEditorScreenState();
 }
 
-class _EditPanvideoScreenState extends AutoResetBlocState<EditPanvideoScreen, PanvideoManagerBloc> {
-  late OnCreatePanvideo _createVideoEvent;
+class _CustomPanvideoEditorScreenState extends AutoResetBlocState<CustomPanvideoEditorScreen, PanvideoManagerBloc> {
+  late EditPanvideoResultDto _panvideoEdtResult;
 
   @override
   void initState() {
     super.initState();
-    _createVideoEvent = OnCreatePanvideo(
-      File(widget.args.videoPath),
-      'Description $now',
-      'Title $now',
-      100,
+    _panvideoEdtResult = EditPanvideoResultDto(
+      video: File(widget.args.videoPath),
+      description: 'Description $now',
+      title: 'Title $now',
+      durationInSecs: 100,
     );
   }
 
@@ -106,7 +101,7 @@ class _EditPanvideoScreenState extends AutoResetBlocState<EditPanvideoScreen, Pa
         ),
         bottomNavigationBar: const VideoEditActions(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: CreatePanvideoButton(_createVideoEvent),
+        floatingActionButton: CreatePanvideoButton(_panvideoEdtResult),
       ),
     );
   }

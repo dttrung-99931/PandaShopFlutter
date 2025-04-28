@@ -1,9 +1,10 @@
 import 'package:camerawesome/camerawesome_plugin.dart';
 import 'package:camerawesome/pigeon.dart';
-import 'package:evievm_app/global.dart';
-import 'package:evievm_app/src/features/panvideo/presentation/screens/edit_panvideo_screen.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/bloc/create_panvideo/create_panvideo_bloc.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/screens/edit_panvideo/panvideo_editor.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/create/video_overlay.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/create/video_recording_overlay.dart';
+import 'package:evievm_app/src/shared/widgets/custom_bloc_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:panda_map/widgets/loading_widget.dart';
@@ -33,44 +34,51 @@ class _CreatePanvideoScreenState extends State<CreatePanvideoScreen> {
     return SafeArea(
       top: false, // camera overlay the status bar
       child: Scaffold(
-        body: CameraAwesomeBuilder.custom(
-          saveConfig: SaveConfig.video(
-            videoOptions: VideoOptions(
-              quality: VideoRecordingQuality.highest,
-              android: AndroidVideoOptions(
-                fallbackStrategy: QualityFallbackStrategy.higher,
-              ),
-              enableAudio: true,
-            ),
-          ),
-          filters: [
-            AwesomeFilter.AddictiveBlue,
-            AwesomeFilter.Amaro,
-          ],
-          sensorConfig: SensorConfig.single(
-            aspectRatio: CameraAspectRatios.ratio_16_9,
-          ),
-          onMediaCaptureEvent: _onVideoCaptureEvent,
-          progressIndicator: Container(
-            constraints: const BoxConstraints.expand(),
-            color: Colors.black,
-            child: LoadingWidget(
-              size: 40.r,
-            ),
-          ),
-          builder: (CameraState state, Preview preview) {
-            return state.when(
-              onVideoMode: (VideoCameraState state) {
-                return VideoOverlay(state);
-              },
-              onVideoRecordingMode: (VideoRecordingCameraState state) {
-                return VideoRecordingOverlay(state);
-              },
-              // onPreviewMode: (PreviewCameraState state) {
-              //   return VideoPreviewOverlay(state);
-              // },
-            );
+        body: CustomBlocListener<CreatePanVideoBloc>(
+          listener: (state) {
+            if (state is EditPanvideoSuccess) {
+              createPanVideoBloc.add(OnCreatePanvideo(state.panvideo));
+            }
           },
+          child: CameraAwesomeBuilder.custom(
+            saveConfig: SaveConfig.video(
+              videoOptions: VideoOptions(
+                quality: VideoRecordingQuality.highest,
+                android: AndroidVideoOptions(
+                  fallbackStrategy: QualityFallbackStrategy.higher,
+                ),
+                enableAudio: true,
+              ),
+            ),
+            filters: [
+              AwesomeFilter.AddictiveBlue,
+              AwesomeFilter.Amaro,
+            ],
+            sensorConfig: SensorConfig.single(
+              aspectRatio: CameraAspectRatios.ratio_16_9,
+            ),
+            onMediaCaptureEvent: _onVideoCaptureEvent,
+            progressIndicator: Container(
+              constraints: const BoxConstraints.expand(),
+              color: Colors.black,
+              child: LoadingWidget(
+                size: 40.r,
+              ),
+            ),
+            builder: (CameraState state, Preview preview) {
+              return state.when(
+                onVideoMode: (VideoCameraState state) {
+                  return VideoOverlay(state);
+                },
+                onVideoRecordingMode: (VideoRecordingCameraState state) {
+                  return VideoRecordingOverlay(state);
+                },
+                // onPreviewMode: (PreviewCameraState state) {
+                //   return VideoPreviewOverlay(state);
+                // },
+              );
+            },
+          ),
         ),
       ),
     );
@@ -89,12 +97,12 @@ class _CreatePanvideoScreenState extends State<CreatePanvideoScreen> {
   }
 
   Future<void> _onVideoRecordComplete(MediaCapture event) async {
+    // Check to ignore callback called twice
     if (CamerawesomePlugin.currentState == CameraRunningState.stopped) {
       return;
     }
-    Global.pushNamed(
-      EditPanvideoScreen.router,
-      args: EditPanvideoArgs(event.captureRequest.path!),
+    createPanVideoBloc.add(
+      OnEditPanvideo(EditPanvideoArgs(event.captureRequest.path!)),
     );
   }
 }

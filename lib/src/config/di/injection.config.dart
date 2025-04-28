@@ -159,6 +159,8 @@ import 'package:evievm_app/src/features/panvideo/domain/repositories/panvideo_re
     as _i490;
 import 'package:evievm_app/src/features/panvideo/domain/use_cases/create/create_panvideo_usecase.dart'
     as _i1065;
+import 'package:evievm_app/src/features/panvideo/domain/use_cases/create/edit_panvideo_usecase.dart'
+    as _i82;
 import 'package:evievm_app/src/features/panvideo/domain/use_cases/create/gen_thumbnail_image_usecase.dart'
     as _i826;
 import 'package:evievm_app/src/features/panvideo/domain/use_cases/my_panvideos/get_my_panvideos_usecase.dart'
@@ -175,6 +177,10 @@ import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/pan
     as _i133;
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_manager_bloc.dart/panvideo_manager_communicaton.dart'
     as _i1026;
+import 'package:evievm_app/src/features/panvideo/presentation/screens/edit_panvideo/creative_editer/creative_panvideo_editor.dart'
+    as _i71;
+import 'package:evievm_app/src/features/panvideo/presentation/screens/edit_panvideo/custom_editor/custom_panvideo_editor.dart'
+    as _i437;
 import 'package:evievm_app/src/features/product/data/data_sources/ads/ads_data_soruce.dart'
     as _i293;
 import 'package:evievm_app/src/features/product/data/data_sources/product_cate_data_soruce.dart'
@@ -331,6 +337,9 @@ extension GetItInjectableX on _i174.GetIt {
     final addressDatasourceProvider = _$AddressDatasourceProvider();
     final userDatasourceProvider = _$UserDatasourceProvider();
     final shoppingCartDatasourceProvider = _$ShoppingCartDatasourceProvider();
+    gh.factory<_i437.CustomPanvideoEditor>(() => _i437.CustomPanvideoEditor());
+    gh.factory<_i71.CreativePanvideoEditor>(
+        () => _i71.CreativePanvideoEditor());
     gh.singleton<_i695.CacheStore>(() => cacheProvider.provideCacheStore());
     gh.lazySingleton<_i597.PaginationInterceptor>(
         () => _i597.PaginationInterceptor());
@@ -533,6 +542,8 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.lazySingleton<_i1021.ProductCateRepo>(
         () => _i287.ProductRepoImpl(gh<_i706.ProductCateDatasource>()));
+    gh.lazySingleton<_i82.EditPanvideoUsecase>(
+        () => _i82.EditPanvideoUsecase(repo: gh<_i490.PanvideoRepo>()));
     gh.lazySingleton<_i826.GenThumbnailImageUsecase>(
         () => _i826.GenThumbnailImageUsecase(repo: gh<_i490.PanvideoRepo>()));
     gh.lazySingleton<_i1065.CreatePanvideoUsecase>(
@@ -545,10 +556,6 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i1041.GetProductsUseCase>(),
           gh<_i23.GetProductCatesUseCase>(),
           gh<_i906.GetHomeBannersUseCase>(),
-        ));
-    gh.lazySingleton<_i582.CreatePanVideoBloc>(() => _i582.CreatePanVideoBloc(
-          gh<_i1065.CreatePanvideoUsecase>(),
-          gh<_i826.GenThumbnailImageUsecase>(),
         ));
     gh.lazySingleton<_i921.ProductDetailBloc>(
         () => _i921.ProductDetailBloc(gh<_i1034.GetProductDetailUseCase>()));
@@ -659,6 +666,11 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i932.GetShoppingCartUseCase>(),
           gh<_i350.UpsertCartItemUseCase>(),
           gh<_i312.DeleteCartItemsUseCase>(),
+        ));
+    gh.lazySingleton<_i582.CreatePanVideoBloc>(() => _i582.CreatePanVideoBloc(
+          gh<_i1065.CreatePanvideoUsecase>(),
+          gh<_i826.GenThumbnailImageUsecase>(),
+          gh<_i82.EditPanvideoUsecase>(),
         ));
     gh.lazySingleton<_i584.OrderProcessBloc>(() => _i584.OrderProcessBloc(
           gh<_i261.StartProcessingOrderUseCase>(),

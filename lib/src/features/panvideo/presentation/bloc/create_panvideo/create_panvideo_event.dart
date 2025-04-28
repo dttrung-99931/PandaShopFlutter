@@ -2,22 +2,18 @@
 part of 'create_panvideo_bloc.dart';
 
 class OnCreatePanvideo extends BaseEvent {
-  OnCreatePanvideo(
-    this.video,
-    this.description,
-    this.title,
-    this.durationInSecs,
-  );
-  final File video;
-  final String? description;
-  final String title;
-  final int durationInSecs;
+  OnCreatePanvideo(this.panvideo);
+  final EditPanvideoResultDto panvideo;
 
   @override
-  List<Object?> get props => [
-        title,
-        video.path,
-        description,
-        durationInSecs,
-      ];
+  List<Object?> get props => [panvideo];
+}
+
+class OnEditPanvideo extends BaseEvent {
+  final EditPanvideoArgs args;
+
+  OnEditPanvideo(this.args);
+
+  @override
+  List<Object?> get props => [args];
 }
