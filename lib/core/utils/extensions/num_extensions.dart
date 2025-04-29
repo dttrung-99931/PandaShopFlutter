@@ -16,3 +16,9 @@ extension DurationExt on num {
   SizedBox get swb => SizedBox(width: toDouble());
   SizedBox get shb => SizedBox(height: toDouble());
 }
+
+extension NumExt on num {
+  List<T> genList<T>(T Function(int index) generator) {
+    return List.generate(toInt(), generator);
+  }
+}
