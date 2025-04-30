@@ -11,3 +11,17 @@ class PanMusicSelected extends BaseState {
   @override
   List<Object?> get props => [music];
 }
+
+class PanvideoRecordingStarted extends BaseState {
+  final PanvideoDuration duration;
+  PanvideoRecordingStarted(this.duration);
+
+  @override
+  List<Object?> get props => [duration];
+}
+
+class PanvideoRecordingPaused extends BaseStateWithoutProps {}
+
+class PanvideoRecordingResumed extends BaseStateWithoutProps {}
+
+class PanvideoRecordingComplete extends BaseStateWithoutProps {}

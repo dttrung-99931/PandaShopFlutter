@@ -33,7 +33,7 @@ class _MusicSelectState extends State<MusicSelect> {
     super.initState();
   }
 
-  didWidgetUpdate(MusicSelect oldWidget) {
+  void didWidgetUpdate(MusicSelect oldWidget) {
     if (oldWidget.initSelectedMusic != widget.initSelectedMusic) {
       _selectedMusic = widget.initSelectedMusic;
     }

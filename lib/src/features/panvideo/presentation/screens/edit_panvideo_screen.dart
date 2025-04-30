@@ -90,7 +90,7 @@ class _EditPanvideoScreenState extends AutoResetBlocState<EditPanvideoScreen, Pa
                   ),
                   Positioned(
                     height: 36.h,
-                    bottom: 100.h,
+                    bottom: 116.h,
                     left: 0,
                     right: 0,
                     child: PanvideoProgressIndicator(

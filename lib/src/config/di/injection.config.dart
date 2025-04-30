@@ -107,6 +107,7 @@ import 'package:evievm_app/src/features/panvideo/domain/use_cases/panvideos/get_
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/create_panvideo/create_panvideo_bloc.dart' as _i582;
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/my_panvideo/my_panvideo_bloc.dart' as _i1054;
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/panmusic/panmusic/panmusic_bloc.dart' as _i482;
+import 'package:evievm_app/src/features/panvideo/presentation/bloc/panmusic/player/panmusic_player.dart' as _i660;
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/panmusic/player/panmusic_player_bloc.dart' as _i306;
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_bloc.dart' as _i529;
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_manager_bloc.dart/panvideo_manager_bloc.dart'
@@ -253,12 +254,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i590.MapAddressBloc>(() => _i590.MapAddressBloc());
     gh.lazySingleton<_i635.MapDeliveryTrackingCommunication>(() => _i635.MapDeliveryTrackingCommunication());
     gh.lazySingleton<_i43.MainCommunication>(() => _i43.MainCommunication());
+    gh.lazySingleton<_i660.PanMusicPlayer>(() => _i660.PanMusicPlayer());
     gh.lazySingleton<_i523.PickLocalImageUseCase>(() => _i523.PickLocalImageUseCase(gh<_i674.EditImageUseCase>()));
     gh.lazySingleton<_i195.PushNotificationBloc>(
         () => _i195.PushNotificationBloc(gh<_i849.PushNotificationUseCases>()));
     gh.lazySingleton<_i357.MapDeliveryTrackingBloc>(
         () => _i357.MapDeliveryTrackingBloc(gh<_i632.MapTrackingUsecase>()));
     gh.singleton<_i695.CacheOptions>(() => cacheProvider.provideBaseCacheOptions(gh<_i695.CacheStore>()));
+    gh.lazySingleton<_i306.PanMusicPlayerBloc>(
+      () => _i306.PanMusicPlayerBloc(gh<_i660.PanMusicPlayer>()),
+      dispose: (i) => i.close(),
+    );
     gh.lazySingleton<_i357.PickLocalImageCompressedBase64UseCase>(
         () => _i357.PickLocalImageCompressedBase64UseCase(gh<_i523.PickLocalImageUseCase>()));
     gh.lazySingleton<_i144.AuthInterceptor>(() => _i144.AuthInterceptor(gh<_i606.Storage>()));
@@ -371,14 +377,15 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i23.GetProductCatesUseCase>(),
           gh<_i906.GetHomeBannersUseCase>(),
         ));
-    gh.lazySingleton<_i582.CreatePanVideoBloc>(() => _i582.CreatePanVideoBloc(
-          gh<_i1065.CreatePanvideoUsecase>(),
-          gh<_i826.GenThumbnailImageUsecase>(),
-        ));
     gh.lazySingleton<_i921.ProductDetailBloc>(() => _i921.ProductDetailBloc(gh<_i1034.GetProductDetailUseCase>()));
     gh.lazySingleton<_i899.FCMBloc>(() => _i899.FCMBloc(
           gh<_i588.CreateNotificationReceiverUseCase>(),
           gh<_i64.FCMNotificationsUseCases>(),
+        ));
+    gh.lazySingleton<_i582.CreatePanVideoBloc>(() => _i582.CreatePanVideoBloc(
+          gh<_i1065.CreatePanvideoUsecase>(),
+          gh<_i826.GenThumbnailImageUsecase>(),
+          gh<_i660.PanMusicPlayer>(),
         ));
     gh.lazySingleton<_i819.OrderRepo>(() => _i606.OrderRepoImpl(gh<_i1031.OrderDatasource>()));
     gh.lazySingleton<_i303.GetProductInventoryUseCase>(
@@ -454,7 +461,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i175.GetPanvideosUseCase>(() => _i175.GetPanvideosUseCase(gh<_i490.PanvideoRepo>()));
     gh.lazySingleton<_i369.GetMyPanvideosUseCase>(() => _i369.GetMyPanvideosUseCase(gh<_i490.PanvideoRepo>()));
     gh.lazySingleton<_i482.PanMusicBloc>(() => _i482.PanMusicBloc(gh<_i309.GetPanMusicsUseCase>()));
-    gh.lazySingleton<_i306.PanMusicPlayerBloc>(() => _i306.PanMusicPlayerBloc());
     gh.lazySingleton<_i121.GetProductCateByIdUseCase>(
         () => _i121.GetProductCateByIdUseCase(gh<_i1021.ProductCateRepo>()));
     gh.lazySingleton<_i683.OrderBloc>(

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bloc/src/bloc.dart';
+import 'package:camerawesome/camerawesome_plugin.dart';
 import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
@@ -13,6 +14,8 @@ import 'package:evievm_app/src/features/panvideo/domain/dtos/create_video_respon
 import 'package:evievm_app/src/features/panvideo/domain/dtos/panmusic_dto.dart';
 import 'package:evievm_app/src/features/panvideo/domain/use_cases/create/create_panvideo_usecase.dart';
 import 'package:evievm_app/src/features/panvideo/domain/use_cases/create/gen_thumbnail_image_usecase.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/bloc/create_panvideo/panvideo_duration.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/bloc/panmusic/player/panmusic_player.dart';
 import 'package:injectable/injectable.dart';
 
 part 'create_panvideo_event.dart';
@@ -22,14 +25,54 @@ CreatePanVideoBloc get createPanVideoBloc => getIt<CreatePanVideoBloc>();
 
 @lazySingleton
 class CreatePanVideoBloc extends BaseBloc {
-  CreatePanVideoBloc(this._createPanvideo, this._genThumbImage) : super(InitialState()) {
+  CreatePanVideoBloc(
+    this._createPanvideo,
+    this._genThumbImage,
+    this._panMusicPlayer,
+  ) : super(InitialState()) {
     onLoad<OnCreatePanvideo>(_onCreatePanvideo);
     on<OnPanMusicSelected>(_onPanMusicSelected);
+    on<OnStartRecording>(_onStartRecording);
+    on<OnCompleteRecording>(_onCompleteRecording);
+    on<OnPauseRecording>(_onPauseRecording);
+    on<OnResumeRecording>(_onResumeRecording);
   }
   final CreatePanvideoUsecase _createPanvideo;
   final GenThumbnailImageUsecase _genThumbImage;
+
+  final PanMusicPlayer _panMusicPlayer;
+
   PanMusicDto? _selectedMusic;
   PanMusicDto? get selectedMusic => _selectedMusic;
+
+  Future<void> _onStartRecording(OnStartRecording event, Emitter<BaseState> emit) async {
+    if (_selectedMusic != null) {
+      _panMusicPlayer.play(_selectedMusic!, resetPlayingMusic: true);
+    }
+    emit(PanvideoRecordingStarted(event.duration));
+  }
+
+  Future<void> _onCompleteRecording(OnCompleteRecording event, Emitter<BaseState> emit) async {
+    if (_selectedMusic != null) {
+      _panMusicPlayer.pause(_selectedMusic!);
+      _selectedMusic = null;
+    }
+    emit(PanvideoRecordingComplete());
+  }
+
+  Future<void> _onPauseRecording(OnPauseRecording event, Emitter<BaseState> emit) async {
+    emit(PanvideoRecordingPaused());
+    if (_selectedMusic != null) {
+      _panMusicPlayer.pause(_selectedMusic!);
+    }
+  }
+
+  Future<void> _onResumeRecording(OnResumeRecording event, Emitter<BaseState> emit) async {
+    emit(PanvideoRecordingResumed());
+    if (_selectedMusic != null) {
+      _panMusicPlayer.play(_selectedMusic!);
+    }
+  }
 
   Future<void> _onPanMusicSelected(OnPanMusicSelected event, Emitter<BaseState> emit) async {
     if (_selectedMusic == event.music) {

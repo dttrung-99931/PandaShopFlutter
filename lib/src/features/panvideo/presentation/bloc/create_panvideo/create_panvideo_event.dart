@@ -29,3 +29,18 @@ class OnPanMusicSelected extends BaseEvent {
   @override
   List<Object?> get props => [music];
 }
+
+class OnStartRecording extends BaseEvent {
+  final PanvideoDuration duration;
+
+  OnStartRecording({this.duration = PanvideoDuration.short});
+
+  @override
+  List<Object?> get props => [duration];
+}
+
+class OnCompleteRecording extends BaseEventWithoutProps {}
+
+class OnPauseRecording extends BaseEventWithoutProps {}
+
+class OnResumeRecording extends BaseEventWithoutProps {}

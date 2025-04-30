@@ -36,7 +36,7 @@ class MusicButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         padding: const EdgeInsets.symmetric(
-          vertical: 2.0,
+          vertical: 4.0,
           horizontal: 8.0,
         ),
         child: Row(
