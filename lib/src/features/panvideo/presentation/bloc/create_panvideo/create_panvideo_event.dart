@@ -21,3 +21,11 @@ class OnCreatePanvideo extends BaseEvent {
         durationInSecs,
       ];
 }
+
+class OnPanMusicSelected extends BaseEvent {
+  final PanMusicDto music;
+  OnPanMusicSelected(this.music);
+
+  @override
+  List<Object?> get props => [music];
+}

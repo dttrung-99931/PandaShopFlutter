@@ -10,8 +10,13 @@ abstract class AutoResetBlocState<T extends StatefulWidget, Bloc extends BaseBlo
     super.dispose();
   }
 
+  void onDisposeMoreBlocs() {
+    // Override this method to reset more blocs if needed
+  }
+
   @mustCallSuper
   void resetBloc() {
     getIt.resetLazySingleton<Bloc>();
+    onDisposeMoreBlocs();
   }
 }

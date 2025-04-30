@@ -1,15 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'panmusic_player_bloc.dart';
 
-class OnGetPanMusics extends BaseEvent {
-  final String? q;
-
-  OnGetPanMusics({this.q});
-
-  @override
-  List<Object?> get props => [q];
-}
-
 class PanMusicEvent extends BaseEvent {
   final PanMusicDto music;
 
@@ -20,7 +11,8 @@ class PanMusicEvent extends BaseEvent {
 }
 
 class OnPlayPanMusic extends PanMusicEvent {
-  OnPlayPanMusic(super.music);
+  OnPlayPanMusic(super.music, {this.resetPlayingMusic = false});
+  final bool resetPlayingMusic;
 }
 
 class OnPausePanMusic extends PanMusicEvent {

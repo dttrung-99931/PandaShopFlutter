@@ -16,9 +16,13 @@ class PanMusicItem extends StatelessWidget {
   const PanMusicItem({
     super.key,
     required this.music,
+    required this.isSelected,
   });
 
   final PanMusicDto music;
+  final bool isSelected;
+
+  Color get color => isSelected ? AppColors.primary : AppColors.whiteLight;
 
   @override
   Widget build(BuildContext context) {
@@ -29,18 +33,18 @@ class PanMusicItem extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: AppColors.whiteLight,
+          color: color,
           width: 1.0,
         ),
       ),
       child: Row(
         children: [
-          Icon(Icons.music_note_outlined, color: AppColors.white, size: 24.r),
+          Icon(Icons.music_note_outlined, color: color, size: 24.r),
           8.swb,
           Expanded(
             child: Text(
               music.title,
-              style: textTheme.bodyMedium.withColor(AppColors.white),
+              style: textTheme.bodyMedium.withColor(color),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
@@ -68,7 +72,7 @@ class PanMusicItem extends StatelessWidget {
                     ? const LoadingWidget()
                     : Icon(
                         state is PanMusicPlaying && state.music == music ? Icons.pause : Icons.play_arrow,
-                        color: AppColors.white,
+                        color: color,
                         size: 24.r,
                       ),
               );

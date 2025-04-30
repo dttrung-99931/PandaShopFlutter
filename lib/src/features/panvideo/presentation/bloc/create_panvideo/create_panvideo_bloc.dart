@@ -10,6 +10,7 @@ import 'package:evievm_app/core/utils/log.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/panvideo/data/models/create_panvideo_request.dart';
 import 'package:evievm_app/src/features/panvideo/domain/dtos/create_video_response_dto.dart';
+import 'package:evievm_app/src/features/panvideo/domain/dtos/panmusic_dto.dart';
 import 'package:evievm_app/src/features/panvideo/domain/use_cases/create/create_panvideo_usecase.dart';
 import 'package:evievm_app/src/features/panvideo/domain/use_cases/create/gen_thumbnail_image_usecase.dart';
 import 'package:injectable/injectable.dart';
@@ -21,11 +22,21 @@ CreatePanVideoBloc get createPanVideoBloc => getIt<CreatePanVideoBloc>();
 
 @lazySingleton
 class CreatePanVideoBloc extends BaseBloc {
-  final CreatePanvideoUsecase _createPanvideo;
-  final GenThumbnailImageUsecase _genThumbImage;
-
   CreatePanVideoBloc(this._createPanvideo, this._genThumbImage) : super(InitialState()) {
     onLoad<OnCreatePanvideo>(_onCreatePanvideo);
+    on<OnPanMusicSelected>(_onPanMusicSelected);
+  }
+  final CreatePanvideoUsecase _createPanvideo;
+  final GenThumbnailImageUsecase _genThumbImage;
+  PanMusicDto? _selectedMusic;
+  PanMusicDto? get selectedMusic => _selectedMusic;
+
+  Future<void> _onPanMusicSelected(OnPanMusicSelected event, Emitter<BaseState> emit) async {
+    if (_selectedMusic == event.music) {
+      return;
+    }
+    _selectedMusic = event.music;
+    emit(PanMusicSelected(event.music));
   }
 
   Future<void> _onCreatePanvideo(OnCreatePanvideo event, Emitter<BaseState> emit) async {

@@ -10,6 +10,7 @@ import 'package:evievm_app/src/features/panvideo/domain/dtos/panmusic_dto.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:panda_map/widgets/disposable_mixin.dart';
 
 part 'panmusic_player_event.dart';
 part 'panmusic_player_state.dart';
@@ -17,7 +18,7 @@ part 'panmusic_player_state.dart';
 PanMusicPlayerBloc get panMusicPlayerBloc => getIt<PanMusicPlayerBloc>();
 
 @lazySingleton
-class PanMusicPlayerBloc extends BaseBloc {
+class PanMusicPlayerBloc extends BaseBloc with DisposableMixin {
   PanMusicPlayerBloc() : super(InitialState()) {
     on<OnPlayPanMusic>(_onPlayPanMusic);
     on<OnPausePanMusic>(_onPausePanMusic);
@@ -37,6 +38,12 @@ class PanMusicPlayerBloc extends BaseBloc {
 
   void _initPlayer() {
     _player = AudioPlayer();
+    addSubscription(_player!.playerStateStream.listen((PlayerState state) {
+      // Emit pause state when music is completed playing
+      if (state.processingState == ProcessingState.completed) {
+        add(OnPausePanMusic(_playingMusic!));
+      }
+    }));
   }
 
   Future<void> _onPlayPanMusic(OnPlayPanMusic event, Emitter<BaseState> emit) async {
@@ -56,12 +63,15 @@ class PanMusicPlayerBloc extends BaseBloc {
 
     _playingMusic = event.music;
     try {
-      await _player!.setAudioSource(
+      await _player?.setAudioSource(
         AudioSource.uri(
           Uri.parse(event.music.musicUrl),
         ),
       );
-      _player!.play();
+      if (event.resetPlayingMusic || _player?.position == _player?.duration) {
+        await _player?.seek(Duration.zero);
+      }
+      _player?.play();
       emit(PanMusicPlaying(event.music));
     } catch (e) {
       emit(
