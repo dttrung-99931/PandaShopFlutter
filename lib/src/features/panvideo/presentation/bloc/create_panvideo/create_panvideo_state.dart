@@ -24,4 +24,12 @@ class PanvideoRecordingPaused extends BaseStateWithoutProps {}
 
 class PanvideoRecordingResumed extends BaseStateWithoutProps {}
 
-class PanvideoRecordingComplete extends BaseStateWithoutProps {}
+class PanvideoRecordingComplete extends BaseState {
+  final String videoPath;
+  PanvideoRecordingComplete(this.videoPath);
+
+  @override
+  List<Object?> get props => [videoPath];
+}
+
+class PanvideoCompletingRecording extends BaseStateWithoutProps {}

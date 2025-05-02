@@ -39,7 +39,15 @@ class OnStartRecording extends BaseEvent {
   List<Object?> get props => [duration];
 }
 
-class OnCompleteRecording extends BaseEventWithoutProps {}
+class OnRecordingComplete extends BaseEvent {
+  final String videoPath;
+  OnRecordingComplete(this.videoPath);
+
+  @override
+  List<Object?> get props => [videoPath];
+}
+
+class OnCompletingRecording extends BaseEventWithoutProps {}
 
 class OnPauseRecording extends BaseEventWithoutProps {}
 

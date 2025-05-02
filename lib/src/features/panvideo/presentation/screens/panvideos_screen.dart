@@ -38,7 +38,7 @@ class _PanvideosScreenState extends AutoResetBlocState<PanvideosScreen, PanVideo
       child: Scaffold(
         backgroundColor: AppColors.black,
         body: SizedBox.expand(
-          child: PanvideoControllerBuilder(builder: (controller) {
+          child: PanvideoControllerBuilder<PanvideoManagerBloc>(builder: (controller) {
             return CustomBlocBuilder<PanVideoBloc>(
               // loadingWidgetBuilder: () {
               //   final loading = PanvideoDto.loading();

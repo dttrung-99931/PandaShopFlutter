@@ -3,7 +3,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bloc/src/bloc.dart';
-import 'package:camerawesome/camerawesome_plugin.dart';
 import 'package:evievm_app/core/base_bloc/base_bloc.dart';
 import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
@@ -16,6 +15,7 @@ import 'package:evievm_app/src/features/panvideo/domain/use_cases/create/create_
 import 'package:evievm_app/src/features/panvideo/domain/use_cases/create/gen_thumbnail_image_usecase.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/create_panvideo/panvideo_duration.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/panmusic/player/panmusic_player.dart';
+import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 
 part 'create_panvideo_event.dart';
@@ -33,7 +33,8 @@ class CreatePanVideoBloc extends BaseBloc {
     onLoad<OnCreatePanvideo>(_onCreatePanvideo);
     on<OnPanMusicSelected>(_onPanMusicSelected);
     on<OnStartRecording>(_onStartRecording);
-    on<OnCompleteRecording>(_onCompleteRecording);
+    on<OnRecordingComplete>(_onCompleteRecording);
+    on<OnCompletingRecording>(_onCompletingRecording);
     on<OnPauseRecording>(_onPauseRecording);
     on<OnResumeRecording>(_onResumeRecording);
   }
@@ -52,18 +53,21 @@ class CreatePanVideoBloc extends BaseBloc {
     emit(PanvideoRecordingStarted(event.duration));
   }
 
-  Future<void> _onCompleteRecording(OnCompleteRecording event, Emitter<BaseState> emit) async {
+  Future<void> _onCompleteRecording(OnRecordingComplete event, Emitter<BaseState> emit) async {
     if (_selectedMusic != null) {
-      _panMusicPlayer.pause(_selectedMusic!);
-      _selectedMusic = null;
+      await _panMusicPlayer.pause();
     }
-    emit(PanvideoRecordingComplete());
+    emit(PanvideoRecordingComplete(event.videoPath));
+  }
+
+  Future<void> _onCompletingRecording(OnCompletingRecording event, Emitter<BaseState> emit) async {
+    emit(PanvideoCompletingRecording());
   }
 
   Future<void> _onPauseRecording(OnPauseRecording event, Emitter<BaseState> emit) async {
     emit(PanvideoRecordingPaused());
     if (_selectedMusic != null) {
-      _panMusicPlayer.pause(_selectedMusic!);
+      _panMusicPlayer.pause();
     }
   }
 
@@ -114,5 +118,12 @@ class CreatePanVideoBloc extends BaseBloc {
         return CreatePanvideoSuccess(result);
       },
     );
+  }
+
+  @override
+  @mustCallSuper
+  @disposeMethod
+  Future<void> close() {
+    return super.close();
   }
 }

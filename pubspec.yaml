@@ -75,6 +75,14 @@ dependencies:
   preload_page_view: ^0.2.0
   visibility_detector: ^0.4.0+2
   just_audio: ^0.10.1
+  
+  # Custom ffmpeg lib for video editting, the original one was retired
+  ffmpeg_kit_flutter:
+    git:
+      url: https://github.com/dttrung-99931/ffmpeg-kit
+      path: flutter/flutter
+      ref: flutter_fix_retired_v6.0.3  # For version 6.0.3  
+
 
 dependency_overrides:
   here_sdk:

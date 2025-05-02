@@ -29,7 +29,7 @@ class PanMusicPlayerBloc extends BaseBloc with DisposableMixin {
   PanMusicDto? get playingMusic => _panMusicPlayer.playingMusic;
 
   Future<void> _onPausePanMusic(OnPausePanMusic event, Emitter<BaseState> emit) async {
-    await _panMusicPlayer.pause(event.music);
+    await _panMusicPlayer.pause();
     emit(PanMusicPaused(event.music));
   }
 

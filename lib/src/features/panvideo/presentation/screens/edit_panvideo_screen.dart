@@ -5,7 +5,10 @@ import 'package:awesome_video_player/awesome_video_player.dart';
 import 'package:evievm_app/core/ui/auto_reset_bloc_state.dart';
 import 'package:evievm_app/core/utils/app_colors.dart';
 import 'package:evievm_app/core/utils/time_utils.dart';
+import 'package:evievm_app/src/features/panvideo/domain/dtos/panmusic_dto.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/create_panvideo/create_panvideo_bloc.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/bloc/edit_panvideo/edit_panvideo_bloc.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_manager_bloc.dart/panvideo_manager.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_manager_bloc.dart/panvideo_manager_bloc.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/edit_video/create_panvideo_button.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/edit_video/video_edit_actions.dart';
@@ -18,8 +21,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EditPanvideoArgs {
   final String videoPath;
+  final PanMusicDto? music;
 
-  EditPanvideoArgs(this.videoPath);
+  EditPanvideoArgs(this.videoPath, {this.music});
 }
 
 class EditPanvideoScreen extends StatefulWidget {
@@ -31,7 +35,7 @@ class EditPanvideoScreen extends StatefulWidget {
   State<EditPanvideoScreen> createState() => _EditPanvideoScreenState();
 }
 
-class _EditPanvideoScreenState extends AutoResetBlocState<EditPanvideoScreen, PanvideoManagerBloc> {
+class _EditPanvideoScreenState extends AutoResetBlocState<EditPanvideoScreen, EditPanVideoBloc> {
   late OnCreatePanvideo _createVideoEvent;
 
   @override
@@ -43,6 +47,9 @@ class _EditPanvideoScreenState extends AutoResetBlocState<EditPanvideoScreen, Pa
       'Title $now',
       100,
     );
+    if (widget.args.music != null) {
+      editPanVideoBloc.add(OnInitPanMusic(widget.args.music!));
+    }
   }
 
   @override
@@ -59,9 +66,9 @@ class _EditPanvideoScreenState extends AutoResetBlocState<EditPanvideoScreen, Pa
           ),
         ),
         body: SizedBox.expand(
-          child: PanvideoControllerBuilder(
+          child: PanvideoControllerBuilder<EditPanVideoBloc>(
             onInitilized: (_) {
-              panvideoManagerBloc
+              editPanVideoBloc
                 ..add(
                   OnAddPanvideoDatasources(
                     datasources: [
@@ -70,7 +77,7 @@ class _EditPanvideoScreenState extends AutoResetBlocState<EditPanvideoScreen, Pa
                   ),
                 )
                 ..add(
-                  OnLoadPanvideo(videoIndex: 0, direction: ScrollDirection.down, playAfterLoaded: true),
+                  OnLoadPanvideo(videoIndex: 0, direction: ScrollDirection.down, playAfterLoaded: false),
                 );
             },
             builder: (controller) {

@@ -40,21 +40,6 @@ class OnPreloadPanvideo extends BaseEvent {
   List<Object?> get props => [videoIndex, direction];
 }
 
-class VideoDatasource extends BetterPlayerDataSource {
-  final String thumbImageUrl;
-
-  VideoDatasource(
-    super.type,
-    super.source, {
-    required this.thumbImageUrl,
-    super.cacheConfiguration,
-    super.bufferingConfiguration,
-    super.videoFormat,
-  });
-
-  List<Object?> get props => [type, super.url, thumbImageUrl];
-}
-
 class OnAddPanvideoDatasources extends BaseEvent {
   OnAddPanvideoDatasources({
     required this.datasources,

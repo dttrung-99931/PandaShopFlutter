@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
+import 'dart:io';
 
 import 'package:camerawesome/camerawesome_plugin.dart';
 import 'package:camerawesome/pigeon.dart';
@@ -40,7 +41,7 @@ class CameraWidget extends StatelessWidget {
                 child: RecordingTimeProgress(
                   durationInSecs: state.duration.durationInSecs,
                   onComplete: () {
-                    createPanVideoBloc.add(OnCompleteRecording());
+                    createPanVideoBloc.add(OnCompletingRecording());
                   },
                 ),
               );
@@ -52,68 +53,89 @@ class CameraWidget extends StatelessWidget {
   }
 }
 
-class _Camera extends StatelessWidget {
+class _Camera extends StatefulWidget {
+  @override
+  State<_Camera> createState() => _CameraState();
+}
+
+class _CameraState extends State<_Camera> {
+  String? _recordedVideoPath;
+
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Positioned.fill(
-          child: CameraAwesomeBuilder.custom(
-            saveConfig: SaveConfig.video(
-              videoOptions: VideoOptions(
-                quality: VideoRecordingQuality.highest,
-                android: AndroidVideoOptions(
-                  fallbackStrategy: QualityFallbackStrategy.higher,
+    return CustomBlocListener<CreatePanVideoBloc>(
+      listener: (state) {
+        if (state is PanvideoRecordingComplete) {
+          _onVideoRecordComplete(state);
+        }
+      },
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: CameraAwesomeBuilder.custom(
+              saveConfig: SaveConfig.video(
+                videoOptions: VideoOptions(
+                  quality: VideoRecordingQuality.highest,
+                  android: AndroidVideoOptions(
+                    fallbackStrategy: QualityFallbackStrategy.higher,
+                  ),
+                  enableAudio: true,
                 ),
-                enableAudio: true,
               ),
-            ),
-            filters: [
-              AwesomeFilter.AddictiveBlue,
-              AwesomeFilter.Amaro,
-            ],
-            sensorConfig: SensorConfig.single(
-              aspectRatio: CameraAspectRatios.ratio_16_9,
-            ),
-            onMediaCaptureEvent: _onVideoCaptureEvent,
-            progressIndicator: Container(
-              constraints: const BoxConstraints.expand(),
-              color: Colors.black,
-              child: LoadingWidget(
-                size: 40.r,
+              filters: [
+                AwesomeFilter.AddictiveBlue,
+                AwesomeFilter.Amaro,
+              ],
+              sensorConfig: SensorConfig.single(
+                aspectRatio: CameraAspectRatios.ratio_16_9,
               ),
+              onMediaCaptureEvent: _onVideoCaptureEvent,
+              progressIndicator: Container(
+                constraints: const BoxConstraints.expand(),
+                color: Colors.black,
+                child: LoadingWidget(
+                  size: 40.r,
+                ),
+              ),
+              builder: (CameraState state, Preview preview) {
+                return state.when(
+                  onVideoMode: (VideoCameraState state) {
+                    return VideoOverlay(state);
+                  },
+                  onVideoRecordingMode: (VideoRecordingCameraState state) {
+                    return CustomBlocListener<CreatePanVideoBloc>(
+                      listener: (blocState) async {
+                        // TODO: move pause camerate logic to bloc for being clearly
+                        if (blocState is PanvideoCompletingRecording) {
+                          await state.stopRecording();
+                          createPanVideoBloc.add(
+                            OnRecordingComplete(
+                              state.captureState!.captureRequest.path!,
+                            ),
+                          );
+                        }
+                      },
+                      child: VideoRecordingOverlay(state),
+                    );
+                  },
+                  // onPreviewMode: (PreviewCameraState state) {
+                  //   return VideoPreviewOverlay(state);
+                  // },
+                );
+              },
             ),
-            builder: (CameraState state, Preview preview) {
-              return state.when(
-                onVideoMode: (VideoCameraState state) {
-                  return VideoOverlay(state);
-                },
-                onVideoRecordingMode: (VideoRecordingCameraState state) {
-                  return CustomBlocListener<CreatePanVideoBloc>(
-                    listener: (blocState) {
-                      // TODO: move pause camerate logic to bloc for being clearly
-                      if (blocState is PanvideoRecordingComplete) {
-                        state.stopRecording();
-                      }
-                    },
-                    child: VideoRecordingOverlay(state),
-                  );
-                },
-                // onPreviewMode: (PreviewCameraState state) {
-                //   return VideoPreviewOverlay(state);
-                // },
-              );
-            },
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
   Future<void> _onVideoCaptureEvent(MediaCapture event) async {
     switch ((event.status, event.isVideo, event.videoState)) {
       case (MediaCaptureStatus.capturing, true, VideoState.started):
-        createPanVideoBloc.add(OnStartRecording());
+        if (event.isRecordingVideo) {
+          createPanVideoBloc.add(OnStartRecording());
+        }
         break;
       case (MediaCaptureStatus.capturing, true, VideoState.paused):
         createPanVideoBloc.add(OnPauseRecording());
@@ -124,19 +146,34 @@ class _Camera extends StatelessWidget {
       // Complete video recording
       case (MediaCaptureStatus.success, true, VideoState.stopped):
         if (event.videoState == VideoState.stopped) {
-          await _onVideoRecordComplete(event);
+          createPanVideoBloc.add(OnRecordingComplete(
+            event.captureRequest.path!,
+          ));
         }
       default:
     }
   }
 
-  Future<void> _onVideoRecordComplete(MediaCapture event) async {
+  Future<void> _onVideoRecordComplete(PanvideoRecordingComplete state) async {
     if (CamerawesomePlugin.currentState == CameraRunningState.stopped) {
       return;
     }
+    _recordedVideoPath = state.videoPath;
     Global.pushNamed(
       EditPanvideoScreen.router,
-      args: EditPanvideoArgs(event.captureRequest.path!),
+      args: EditPanvideoArgs(
+        state.videoPath,
+        music: createPanVideoBloc.selectedMusic,
+      ),
     );
+  }
+
+  @override
+  void dispose() {
+    // Remove recorded video file
+    if (_recordedVideoPath != null) {
+      File(_recordedVideoPath!).delete();
+    }
+    super.dispose();
   }
 }

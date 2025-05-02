@@ -53,25 +53,17 @@ class PanMusicPlayer with DisposableMixin {
   }
 
   Future<void> play(PanMusicDto music, {bool resetPlayingMusic = false}) async {
-    if (_player == null) {
-      _initPlayer();
-    }
-
     if (_playingMusic == music && _player?.playing == true) {
       return;
     }
 
     if (_playingMusic != null) {
-      await pause(_playingMusic!);
+      await pause();
     }
 
     _playingMusic = music;
 
-    await _player?.setAudioSource(
-      AudioSource.uri(
-        Uri.parse(music.musicUrl),
-      ),
-    );
+    await setPanMusicSource(music);
 
     if (resetPlayingMusic || _player?.position == _player?.duration) {
       await _player?.seek(Duration.zero);
@@ -80,10 +72,26 @@ class PanMusicPlayer with DisposableMixin {
     await _player?.play();
   }
 
-  Future<void> pause(PanMusicDto music) async {
-    if (_playingMusic == music && _player?.playing != false) {
+  Future<void> setPanMusicSource(PanMusicDto music) async {
+    if (_player == null) {
+      _initPlayer();
+    }
+
+    await _player?.setAudioSource(
+      AudioSource.uri(
+        Uri.parse(music.musicUrl),
+      ),
+    );
+  }
+
+  Future<void> pause() async {
+    if (_player?.playing == true) {
       await _player?.pause();
     }
+  }
+
+  Future<void> seekTo(Duration position) async {
+    await _player?.seek(position);
   }
 
   void dispose() {
