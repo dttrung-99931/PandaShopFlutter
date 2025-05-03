@@ -6,6 +6,7 @@ import 'package:evievm_app/src/features/panvideo/presentation/bloc/panmusic/panm
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/panmusic/player/panmusic_player_bloc.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/create/camera_widget.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/create/music_button.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/widgets/create/video_record_actions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -41,6 +42,7 @@ class _CreatePanvideoScreenState extends AutoResetBlocState<CreatePanvideoScreen
             ),
           ],
         ),
+        bottomNavigationBar: const VideoRecordActions(),
       ),
     );
   }

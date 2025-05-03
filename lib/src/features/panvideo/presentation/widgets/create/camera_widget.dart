@@ -155,12 +155,14 @@ class _CameraState extends State<_Camera> {
     if (CamerawesomePlugin.currentState == CameraRunningState.stopped) {
       return;
     }
-    Global.pushNamed(
+    await CamerawesomePlugin.stop();
+    await Global.pushNamed(
       EditPanvideoScreen.router,
       args: EditPanvideoScreenArgs(
         state.videoPath,
         music: createPanVideoBloc.selectedMusic,
       ),
     );
+    await CamerawesomePlugin.start();
   }
 }
