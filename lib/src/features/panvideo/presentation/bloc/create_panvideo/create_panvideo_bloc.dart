@@ -46,6 +46,8 @@ class CreatePanVideoBloc extends BaseBloc {
   PanMusicDto? _selectedMusic;
   PanMusicDto? get selectedMusic => _selectedMusic;
 
+  final List<File> _recordedVideos = [];
+
   Future<void> _onStartRecording(OnStartRecording event, Emitter<BaseState> emit) async {
     if (_selectedMusic != null) {
       _panMusicPlayer.play(_selectedMusic!, resetPlayingMusic: true);
@@ -57,6 +59,7 @@ class CreatePanVideoBloc extends BaseBloc {
     if (_selectedMusic != null) {
       await _panMusicPlayer.pause();
     }
+    _recordedVideos.add(File(event.videoPath));
     emit(PanvideoRecordingComplete(event.videoPath));
   }
 
@@ -112,9 +115,8 @@ class CreatePanVideoBloc extends BaseBloc {
       ),
       emit: emit.call,
       onSuccess: (CreatePanvideoResponseDto result) {
-        // Remove thumbimage, video from local
+        // Remove thumbimage, even.video will be removed in EditPanvideoBloc
         thumbImage.delete();
-        event.video.delete();
         return CreatePanvideoSuccess(result);
       },
     );
@@ -125,12 +127,10 @@ class CreatePanVideoBloc extends BaseBloc {
   @disposeMethod
   Future<void> close() async {
     // Remove recorded video files
-    List<BaseState> videoCompleteStates = await stream.where((state) => state is PanvideoRecordingComplete).toList();
-    for (var state in videoCompleteStates) {
-      if (state is PanvideoRecordingComplete) {
-        File(state.videoPath).delete();
-      }
+    for (File video in _recordedVideos) {
+      video.delete();
     }
+    _recordedVideos.clear();
     return super.close();
   }
 }

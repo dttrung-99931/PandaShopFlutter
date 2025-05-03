@@ -32,6 +32,8 @@ class EditPanVideoBloc extends PanvideoManagerBloc with DisposableMixin {
   PanMusicDto? _panMusic;
   late File _panvideo;
 
+  final List<File> _editedVideos = [];
+
   /// Remove communication of parent which is used for panvideo feed feature
   /// TODO: make PanvideoManagerBloc abstract class,
   /// create separated FeedPanvideoManagerBloc for feed
@@ -101,8 +103,8 @@ class EditPanVideoBloc extends PanvideoManagerBloc with DisposableMixin {
         ),
       ),
       onSuccess: (File edited) {
+        _editedVideos.add(edited);
         _setUpPlayingEditedVideo(edited);
-
         return EditPanvideoSuccess(edited);
       },
       emit: emit.call,
@@ -165,11 +167,9 @@ class EditPanVideoBloc extends PanvideoManagerBloc with DisposableMixin {
     disposeAllSubscriptions();
     _panMusicPlayer.dispose();
     // Remove edited video files
-    List<BaseState> videoCompleteStates = await stream.where((state) => state is EditPanvideoSuccess).toList();
-    for (var state in videoCompleteStates) {
-      if (state is EditPanvideoSuccess) {
-        state.editedVideo.delete();
-      }
+    for (File video in _editedVideos) {
+      video.delete();
     }
+    _editedVideos.clear();
   }
 }
