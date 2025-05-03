@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
-import 'dart:io';
 
 import 'package:camerawesome/camerawesome_plugin.dart';
 import 'package:camerawesome/pigeon.dart';
@@ -59,8 +58,6 @@ class _Camera extends StatefulWidget {
 }
 
 class _CameraState extends State<_Camera> {
-  String? _recordedVideoPath;
-
   @override
   Widget build(BuildContext context) {
     return CustomBlocListener<CreatePanVideoBloc>(
@@ -158,22 +155,12 @@ class _CameraState extends State<_Camera> {
     if (CamerawesomePlugin.currentState == CameraRunningState.stopped) {
       return;
     }
-    _recordedVideoPath = state.videoPath;
     Global.pushNamed(
       EditPanvideoScreen.router,
-      args: EditPanvideoArgs(
+      args: EditPanvideoScreenArgs(
         state.videoPath,
         music: createPanVideoBloc.selectedMusic,
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    // Remove recorded video file
-    if (_recordedVideoPath != null) {
-      File(_recordedVideoPath!).delete();
-    }
-    super.dispose();
   }
 }

@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'dart:async';
+import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/src/features/panvideo/domain/dtos/panmusic_dto.dart';
 import 'package:injectable/injectable.dart';
 import 'package:just_audio/just_audio.dart';
@@ -24,8 +25,9 @@ class PanMusicPlayer with DisposableMixin {
   final _playerStateStream = StreamController<PanMusicPlayerState>.broadcast();
   Stream<PanMusicPlayerState> get playerStateStream => _playerStateStream.stream;
 
-  void _initPlayer() {
+  Future<void> _initPlayer() async {
     _player = AudioPlayer();
+    await _player?.setVolume(Constants.defaultVolumne);
     addSubscription(
       _player!.playerStateStream.listen((PlayerState state) {
         switch (state.processingState) {
@@ -74,7 +76,7 @@ class PanMusicPlayer with DisposableMixin {
 
   Future<void> setPanMusicSource(PanMusicDto music) async {
     if (_player == null) {
-      _initPlayer();
+      await _initPlayer();
     }
 
     await _player?.setAudioSource(

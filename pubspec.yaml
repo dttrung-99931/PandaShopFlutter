@@ -82,6 +82,9 @@ dependencies:
       url: https://github.com/dttrung-99931/ffmpeg-kit
       path: flutter/flutter
       ref: flutter_fix_retired_v6.0.3  # For version 6.0.3  
+  
+  # Used to download panmusic & caching downloaded panmusic
+  flutter_cache_manager: ^3.4.1
 
 
 dependency_overrides:

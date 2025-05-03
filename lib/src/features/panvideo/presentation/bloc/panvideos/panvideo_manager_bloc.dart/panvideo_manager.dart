@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:awesome_video_player/awesome_video_player.dart';
+import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/extensions/better_player_controller_extension.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/core/utils/log.dart';
@@ -12,6 +13,8 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class PanvideoManager {
+  static const int maxCachedDatasources = 10;
+
   late BetterPlayerController _videoController;
 
   VideoPlayerValue get controllerValue => _videoController.videoPlayerController!.value;
@@ -30,20 +33,19 @@ class PanvideoManager {
 
   final Set<int> _pendingPlayedVideoIdxList = {};
 
-  static const int maxCachedDatasources = 10;
+  late VideoPlayerConfiguration _configuration;
 
   Future<BetterPlayerController> initVideoController({
     required VideoPlayerConfiguration configuration,
   }) async {
-    double volume = configuration.voulume;
+    double volume = configuration.volumne;
     assert(volume >= 0 && volume <= 1, 'Volume must be between 0 and 1');
-
+    _configuration = configuration;
     _videoController = BetterPlayerController(configuration.baseConfiguration);
-    _videoController.setVolume(volume);
     return _videoController;
   }
 
-  void addPanvideoDatasources(List<VideoDatasource> datasources) {
+  void setPanvideoDatasources(List<VideoDatasource> datasources) {
     _datasources.assignAll(datasources);
   }
 
@@ -53,30 +55,45 @@ class PanvideoManager {
     bool playAfterLoaded = false,
     VoidCallback? onPrePlayVideo,
     VoidCallback? onPostPlayVideo,
+    double volumne = Constants.defaultVolumne,
   }) async {
     if (videoIndex == _currentVideoIndex) {
       return;
     }
     if (_currentVideoIndex != -1) {
-      await _pauseVideo(_currentVideoIndex);
+      await pauseVideo(_currentVideoIndex);
     }
     _currentVideoIndex = videoIndex;
     if (_videoController.betterPlayerDataSource != _datasources[videoIndex]) {
       await _setupCurrentDataSource(videoIndex, direction);
+      await _videoController.seekTo(Duration.zero);
+      await _videoController.setVolume(volumne);
     }
     if (playAfterLoaded || _pendingPlayedVideoIdxList.contains(videoIndex)) {
       onPrePlayVideo?.call();
-      await _playVideo(videoIndex);
+      await playVideo(videoIndex);
       onPostPlayVideo?.call();
     }
   }
 
   Future<void> playVideo(int videoIndex) async {
-    await _playVideo(videoIndex);
+    final BetterPlayerDataSource? datasource = _getCachedDatasource(videoIndex);
+    if (datasource != null &&
+        _videoController.betterPlayerDataSource == datasource &&
+        !_videoController.isPlayingSafe) {
+      _pendingPlayedVideoIdxList.remove(videoIndex);
+      await _videoController.play();
+    } else {
+      _pendingPlayedVideoIdxList.add(videoIndex);
+    }
   }
 
   Future<void> pauseVideo(int videoIndex) async {
-    await _pauseVideo(videoIndex);
+    final BetterPlayerDataSource? datasource = _getCachedDatasource(videoIndex);
+    if (datasource != null && _videoController.isPlayingSafe) {
+      _videoController.pause();
+    }
+    _pendingPlayedVideoIdxList.remove(videoIndex);
   }
 
   Future<void> preloadPanvideo(int videoIndex, ScrollDirection direction) async {
@@ -95,26 +112,6 @@ class PanvideoManager {
     await _videoController.setupDataSource(
       await getDatasource(videoIndex, direction),
     );
-  }
-
-  Future<void> _playVideo(int videoIndex) async {
-    final BetterPlayerDataSource? datasource = _getCachedDatasource(videoIndex);
-    if (datasource != null &&
-        _videoController.betterPlayerDataSource == datasource &&
-        !_videoController.isPlayingSafe) {
-      _pendingPlayedVideoIdxList.remove(videoIndex);
-      await _videoController.play();
-    } else {
-      _pendingPlayedVideoIdxList.add(videoIndex);
-    }
-  }
-
-  Future<void> _pauseVideo(int videoIndex) async {
-    final BetterPlayerDataSource? datasource = _getCachedDatasource(videoIndex);
-    if (datasource != null && _videoController.isPlayingSafe) {
-      _videoController.pause();
-    }
-    _pendingPlayedVideoIdxList.remove(videoIndex);
   }
 
   BetterPlayerDataSource? _getCachedDatasource(int videoIndex) {
@@ -176,8 +173,8 @@ class PanvideoManager {
     _videoController.dispose(forceDispose: true);
   }
 
-  void setVolumne(double volume) {
-    _videoController.setVolume(volume);
+  Future<void> setVolumne(double volume) async {
+    await _videoController.setVolume(volume);
   }
 }
 

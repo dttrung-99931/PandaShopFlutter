@@ -6,6 +6,7 @@ import 'package:evievm_app/core/base_bloc/base_event.dart';
 import 'package:evievm_app/core/base_bloc/base_state.dart';
 import 'package:evievm_app/core/base_bloc/bloc_communication.dart';
 import 'package:evievm_app/core/utils/bloc_concurrency.dart';
+import 'package:evievm_app/core/utils/constants.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_manager_bloc.dart/panvideo_manager.dart';
@@ -26,7 +27,7 @@ class PanvideoManagerBloc extends BaseBloc {
     on<OnInitVideoController>(_onInitVideoController);
     onLoad<OnLoadPanvideo>(_onLoadPanvideo);
     on<OnPreloadPanvideo>(_onPreloadPanvideo, transformer: BlocConcurrency.sequential());
-    on<OnAddPanvideoDatasources>(_onAddPanvideoDatasources);
+    on<OnSetPanvideoDatasources>(_onSetPanvideoDatasources);
     on<OnPlayPanvideo>(_onPlayVideo);
     on<OnPausePanvideo>(_onPauseVideo);
   }
@@ -51,7 +52,7 @@ class PanvideoManagerBloc extends BaseBloc {
           showControls: false,
         ),
       ),
-      voulume: 0.4,
+      volumne: Constants.defaultVolumne,
     );
   }
 
@@ -62,8 +63,8 @@ class PanvideoManagerBloc extends BaseBloc {
     emit(InitVideoControllerSuccess(controller: controller));
   }
 
-  Future<void> _onAddPanvideoDatasources(OnAddPanvideoDatasources event, Emitter<BaseState> emit) async {
-    panvideoManager.addPanvideoDatasources(event.datasources);
+  Future<void> _onSetPanvideoDatasources(OnSetPanvideoDatasources event, Emitter<BaseState> emit) async {
+    panvideoManager.setPanvideoDatasources(event.datasources);
   }
 
   Future<void> _onLoadPanvideo(OnLoadPanvideo event, Emitter<BaseState> emit) async {
@@ -71,6 +72,7 @@ class PanvideoManagerBloc extends BaseBloc {
       videoIndex: event.videoIndex,
       direction: event.direction,
       playAfterLoaded: event.playAfterLoaded,
+      volumne: event.volumne,
       onPrePlayVideo: () {
         emit(PanvideoPlaying(videoIndex: event.videoIndex));
       },

@@ -34,7 +34,7 @@ class PanvideoManagerCommunication extends BlocCommunication<PanvideoManagerBloc
             videoFormat: _getVideoType(panvideo.videoUrl),
           ),
         );
-        bloc.add(OnAddPanvideoDatasources(datasources: datasources));
+        bloc.add(OnSetPanvideoDatasources(datasources: datasources));
       }
     });
   }

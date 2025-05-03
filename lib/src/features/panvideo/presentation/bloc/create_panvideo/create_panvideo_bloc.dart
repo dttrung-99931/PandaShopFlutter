@@ -123,7 +123,14 @@ class CreatePanVideoBloc extends BaseBloc {
   @override
   @mustCallSuper
   @disposeMethod
-  Future<void> close() {
+  Future<void> close() async {
+    // Remove recorded video files
+    List<BaseState> videoCompleteStates = await stream.where((state) => state is PanvideoRecordingComplete).toList();
+    for (var state in videoCompleteStates) {
+      if (state is PanvideoRecordingComplete) {
+        File(state.videoPath).delete();
+      }
+    }
     return super.close();
   }
 }

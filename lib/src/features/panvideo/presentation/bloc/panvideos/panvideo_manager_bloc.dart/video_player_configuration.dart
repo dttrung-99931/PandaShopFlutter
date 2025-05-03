@@ -2,11 +2,11 @@ import 'package:awesome_video_player/awesome_video_player.dart';
 
 class VideoPlayerConfiguration {
   final BetterPlayerConfiguration baseConfiguration;
-  final double voulume;
+  final double volumne;
 
   VideoPlayerConfiguration({
     required this.baseConfiguration,
-    this.voulume = 0.4,
+    this.volumne = 0.4,
   });
 
   VideoPlayerConfiguration copyWith({
@@ -15,7 +15,7 @@ class VideoPlayerConfiguration {
   }) {
     return VideoPlayerConfiguration(
       baseConfiguration: baseConfiguration ?? this.baseConfiguration,
-      voulume: voulume ?? this.voulume,
+      volumne: voulume ?? this.volumne,
     );
   }
 }

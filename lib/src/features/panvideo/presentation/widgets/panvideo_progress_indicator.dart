@@ -41,10 +41,8 @@ class _PanvideoProgressIndicatorState extends State<PanvideoProgressIndicator> {
   }
 
   _onPlayerEvent(BetterPlayerEvent event) {
-    bool hasUpdate = false;
-    if (!widget.alwaysShowProgressBar) {
-      hasUpdate = _handleProgressBarVisibility(event);
-    }
+    bool hasUpdate = widget.alwaysShowProgressBar ? false : _handleProgressBarVisibility(event);
+
     if (widget.controller.videoPlayerController != _videoController) {
       _videoController = widget.controller.videoPlayerController;
       hasUpdate = true;
@@ -102,6 +100,10 @@ class _PanvideoProgressIndicatorState extends State<PanvideoProgressIndicator> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (_) {
+        if (widget.alwaysShowProgressBar) {
+          return;
+        }
+
         _isSeeking = true;
         if (!_isProgressShowing) {
           _showProgress();
