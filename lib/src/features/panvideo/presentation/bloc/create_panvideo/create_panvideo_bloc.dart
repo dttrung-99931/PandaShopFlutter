@@ -10,8 +10,12 @@ import 'package:evievm_app/core/utils/log.dart';
 import 'package:evievm_app/src/config/di/injection.dart';
 import 'package:evievm_app/src/features/panvideo/data/models/create_panvideo_request.dart';
 import 'package:evievm_app/src/features/panvideo/domain/dtos/create_video_response_dto.dart';
+import 'package:evievm_app/src/features/panvideo/domain/dtos/panmusic_dto.dart';
 import 'package:evievm_app/src/features/panvideo/domain/use_cases/create/create_panvideo_usecase.dart';
 import 'package:evievm_app/src/features/panvideo/domain/use_cases/create/gen_thumbnail_image_usecase.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/bloc/create_panvideo/panvideo_duration.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/bloc/panmusic/player/panmusic_player.dart';
+import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 
 part 'create_panvideo_event.dart';
@@ -21,11 +25,68 @@ CreatePanVideoBloc get createPanVideoBloc => getIt<CreatePanVideoBloc>();
 
 @lazySingleton
 class CreatePanVideoBloc extends BaseBloc {
+  CreatePanVideoBloc(
+    this._createPanvideo,
+    this._genThumbImage,
+    this._panMusicPlayer,
+  ) : super(InitialState()) {
+    onLoad<OnCreatePanvideo>(_onCreatePanvideo);
+    on<OnPanMusicSelected>(_onPanMusicSelected);
+    on<OnStartRecording>(_onStartRecording);
+    on<OnRecordingComplete>(_onCompleteRecording);
+    on<OnCompletingRecording>(_onCompletingRecording);
+    on<OnPauseRecording>(_onPauseRecording);
+    on<OnResumeRecording>(_onResumeRecording);
+  }
   final CreatePanvideoUsecase _createPanvideo;
   final GenThumbnailImageUsecase _genThumbImage;
 
-  CreatePanVideoBloc(this._createPanvideo, this._genThumbImage) : super(InitialState()) {
-    onLoad<OnCreatePanvideo>(_onCreatePanvideo);
+  final PanMusicPlayer _panMusicPlayer;
+
+  PanMusicDto? _selectedMusic;
+  PanMusicDto? get selectedMusic => _selectedMusic;
+
+  final List<File> _recordedVideos = [];
+
+  Future<void> _onStartRecording(OnStartRecording event, Emitter<BaseState> emit) async {
+    if (_selectedMusic != null) {
+      _panMusicPlayer.play(_selectedMusic!, resetPlayingMusic: true);
+    }
+    emit(PanvideoRecordingStarted(event.duration));
+  }
+
+  Future<void> _onCompleteRecording(OnRecordingComplete event, Emitter<BaseState> emit) async {
+    if (_selectedMusic != null) {
+      await _panMusicPlayer.pause();
+    }
+    _recordedVideos.add(File(event.videoPath));
+    emit(PanvideoRecordingComplete(event.videoPath));
+  }
+
+  Future<void> _onCompletingRecording(OnCompletingRecording event, Emitter<BaseState> emit) async {
+    emit(PanvideoCompletingRecording());
+  }
+
+  Future<void> _onPauseRecording(OnPauseRecording event, Emitter<BaseState> emit) async {
+    emit(PanvideoRecordingPaused());
+    if (_selectedMusic != null) {
+      _panMusicPlayer.pause();
+    }
+  }
+
+  Future<void> _onResumeRecording(OnResumeRecording event, Emitter<BaseState> emit) async {
+    emit(PanvideoRecordingResumed());
+    if (_selectedMusic != null) {
+      _panMusicPlayer.play(_selectedMusic!);
+    }
+  }
+
+  Future<void> _onPanMusicSelected(OnPanMusicSelected event, Emitter<BaseState> emit) async {
+    if (_selectedMusic == event.music) {
+      return;
+    }
+    _selectedMusic = event.music;
+    emit(PanMusicSelected(event.music));
   }
 
   Future<void> _onCreatePanvideo(OnCreatePanvideo event, Emitter<BaseState> emit) async {
@@ -54,11 +115,22 @@ class CreatePanVideoBloc extends BaseBloc {
       ),
       emit: emit.call,
       onSuccess: (CreatePanvideoResponseDto result) {
-        // Remove thumbimage, video from local
+        // Remove thumbimage, even.video will be removed in EditPanvideoBloc
         thumbImage.delete();
-        event.video.delete();
         return CreatePanvideoSuccess(result);
       },
     );
+  }
+
+  @override
+  @mustCallSuper
+  @disposeMethod
+  Future<void> close() async {
+    // Remove recorded video files
+    for (File video in _recordedVideos) {
+      video.delete();
+    }
+    _recordedVideos.clear();
+    return super.close();
   }
 }

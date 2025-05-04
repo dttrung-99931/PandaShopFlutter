@@ -1,6 +1,7 @@
 import 'package:awesome_video_player/awesome_video_player.dart';
 import 'package:evievm_app/core/utils/extensions/list_extension.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_bloc.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_manager_bloc.dart/panvideo_manager.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/bloc/panvideos/panvideo_manager_bloc.dart/panvideo_manager_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -33,7 +34,7 @@ class PanvideoManagerCommunication extends BlocCommunication<PanvideoManagerBloc
             videoFormat: _getVideoType(panvideo.videoUrl),
           ),
         );
-        bloc.add(OnAddPanvideoDatasources(datasources: datasources));
+        bloc.add(OnSetPanvideoDatasources(datasources: datasources));
       }
     });
   }

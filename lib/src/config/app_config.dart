@@ -3,78 +3,59 @@ import 'dart:async';
 import 'package:evievm_app/main.dart';
 import 'package:evievm_app/main_dev.dart';
 import 'package:evievm_app/main_staging.dart';
-import 'package:evievm_app/main_staging_dev.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class AppConfig {
-  static AppConfig? _config;
+  AppConfig._({
+    required this.appName,
+    required this.flavor,
+    required this.apiUrl,
+    required this.logResponse,
+    required this.logRequest,
+    required this.logBloc,
+    required this.sinalRUrl,
+    required this.hereMapAPIKey,
+    required this.hereMapAPIKeyId,
+  });
+  final String appName;
+  final AppFlavor flavor;
+  final String apiUrl;
+  final bool logResponse;
+  final bool logRequest;
+  final bool logBloc;
+  final String sinalRUrl;
+  final String hereMapAPIKey;
+  final String hereMapAPIKeyId;
+  bool get isDevelopment => [AppFlavor.dev, AppFlavor.devHome, AppFlavor.devHomeWifi].contains(flavor);
+  bool get isDevelopmentDebug => isDevelopment && kDebugMode;
 
+  static AppConfig? _config;
   static AppConfig get config {
     if (_config == null) throw Exception('AppConfig not set');
     return _config!;
   }
 
-  AppConfig._();
-
-  static AppConfig set({
-    required String appName,
-    required AppFlavor flavorName,
-    required String apiUrl,
-    required String resourceIcon,
-    required bool logResponse,
-    required bool logRequest,
-    required bool logBloc,
-    required String sinalRUrl,
-    required String hereMapAPIKey,
-    required String hereMapAPIKeyId,
-    bool logCurl = false,
-  }) {
-    _config ??= AppConfig._();
-    _config!.appName = appName;
-    _config!.flavorName = flavorName;
-    _config!.apiUrl = apiUrl;
-    _config!.resourceIcon = resourceIcon;
-    _config!.logResponse = logResponse;
-    _config!.logRequest = logRequest;
-    _config!.logBloc = logBloc;
-    _config!.logCurl = logCurl;
-    _config!.sinalRUrl = sinalRUrl;
-    _config!.hereMapAPIKey = hereMapAPIKey;
-    _config!.hereMapAPIKeyId = hereMapAPIKeyId;
-
-    FlutterError.onError = (FlutterErrorDetails details) {
-      if (_config!.isDevelopment) {
-        FlutterError.dumpErrorToConsole(details);
-      } else {
-        Zone.current.handleUncaughtError(details.exception, details.stack ?? StackTrace.fromString("stackTraceString"));
-      }
-    };
-
-    return _config!;
+  static Future<void> loadConfig(AppFlavor flavor) async {
+    await dotenv.load(fileName: flavor.envPath);
+    _config = AppConfig._(
+      flavor: flavor,
+      appName: dotenv.env['appName']!,
+      apiUrl: dotenv.env['apiUrl']!,
+      logResponse: dotenv.env['logResponse']!.toLowerCase() == 'true',
+      logRequest: dotenv.env['logRequest']!.toLowerCase() == 'true',
+      logBloc: dotenv.env['logBloc']!.toLowerCase() == 'true',
+      sinalRUrl: dotenv.env['sinalRUrl']!,
+      hereMapAPIKey: dotenv.env['hereMapAPIKey']!,
+      hereMapAPIKeyId: dotenv.env['hereMapAPIKeyId']!,
+    );
   }
 
-  late final String appName;
-  late final AppFlavor flavorName;
-  late final String apiUrl;
-  late final String resourceIcon;
-  late final bool logResponse;
-  late final bool logRequest;
-  late final bool logCurl;
-  late final bool logBloc;
-  late final String sinalRUrl;
-  late final String hereMapAPIKey;
-  late final String hereMapAPIKeyId;
-
-  bool get isDevelopment => flavorName == AppFlavor.DEV || flavorName == AppFlavor.STAGING_DEV;
-
-  bool get isDevelopmentDebug => isDevelopment && kDebugMode;
-
   static Map<AppFlavor, Function()> configurerMap = {
-    AppFlavor.DEV: configDev,
-    AppFlavor.STAGING: configStaging,
-    AppFlavor.PRODUCTION: configProduction,
-    AppFlavor.STAGING_DEV: configStagingDev,
+    AppFlavor.dev: configDev,
+    AppFlavor.staging: configStaging,
+    AppFlavor.production: configProduction,
   };
   static Future<void> autoConfigByBundleId() async {
     AppFlavor env = await getFlavorByCurrentAppBundleId();
@@ -85,22 +66,29 @@ class AppConfig {
     PackageInfo info = await PackageInfo.fromPlatform();
     String bundleId = info.packageName;
     if (bundleId.toLowerCase().contains('dev')) {
-      return AppFlavor.DEV;
+      return AppFlavor.dev;
     }
     if (bundleId.toLowerCase().contains('staging')) {
-      return AppFlavor.STAGING;
+      return AppFlavor.staging;
     }
-    if (bundleId.toLowerCase().contains('staging_dev')) {
-      return AppFlavor.STAGING_DEV;
-    }
-    return AppFlavor.PRODUCTION;
+    return AppFlavor.production;
   }
 
-  // Flavor need match with bundle id like below role
-  // to make background notificaiton working correctly
+  // Validate that the flavor matches the bundle id
+  // This is used to ensure that the app is running in the correct environment
   Future<void> validateFlavorMatchingBundleId() async {
+    final flavorByBundleId = await getFlavorByCurrentAppBundleId();
+    bool isMathching = flavor == flavorByBundleId;
+    if (!isMathching) {
+      final flavorsWithSameBnundleId = [
+        AppFlavor.dev,
+        AppFlavor.devHome,
+        AppFlavor.devHomeWifi,
+      ];
+      isMathching = flavorsWithSameBnundleId.contains(flavor) && flavorsWithSameBnundleId.contains(flavorByBundleId);
+    }
     assert(
-      flavorName == await getFlavorByCurrentAppBundleId(),
+      isMathching,
       'Native bundle id must contains corresponding env name. '
       'Ex: dev bundle id must contains "dev" => dev bundle id may be "app.test.dev"',
     );
@@ -108,4 +96,25 @@ class AppConfig {
 }
 
 // ignore: constant_identifier_names
-enum AppFlavor { DEV, STAGING_DEV, STAGING, PRODUCTION }
+enum AppFlavor {
+  dev,
+  devHome,
+  devHomeWifi,
+  staging,
+  production;
+
+  String get envPath {
+    switch (this) {
+      case AppFlavor.dev:
+        return 'assets/env/.env.dev';
+      case AppFlavor.devHome:
+        return 'assets/env/.env.dev-home';
+      case AppFlavor.devHomeWifi:
+        return 'assets/env/.env.dev-home-wifi';
+      case AppFlavor.staging:
+        return 'assets/env/.env.staging';
+      case AppFlavor.production:
+        return 'assets/env/.env';
+    }
+  }
+}

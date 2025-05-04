@@ -61,4 +61,10 @@
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false/>
 	</dict>
+	<!-- Enable http for just audio caching working -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 </plist>

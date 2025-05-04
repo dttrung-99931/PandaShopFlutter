@@ -17,14 +17,16 @@ class OnLoadPanvideo extends BaseEvent {
     required this.videoIndex,
     required this.direction,
     required this.playAfterLoaded,
+    this.volumne = Constants.defaultVolumne,
   });
 
   final int videoIndex;
   final ScrollDirection direction;
   final bool playAfterLoaded;
+  final double volumne;
 
   @override
-  List<Object?> get props => [playAfterLoaded, videoIndex, direction];
+  List<Object?> get props => [playAfterLoaded, videoIndex, direction, volumne];
 }
 
 class OnPreloadPanvideo extends BaseEvent {
@@ -40,23 +42,8 @@ class OnPreloadPanvideo extends BaseEvent {
   List<Object?> get props => [videoIndex, direction];
 }
 
-class VideoDatasource extends BetterPlayerDataSource {
-  final String thumbImageUrl;
-
-  VideoDatasource(
-    super.type,
-    super.source, {
-    required this.thumbImageUrl,
-    super.cacheConfiguration,
-    super.bufferingConfiguration,
-    super.videoFormat,
-  });
-
-  List<Object?> get props => [type, super.url, thumbImageUrl];
-}
-
-class OnAddPanvideoDatasources extends BaseEvent {
-  OnAddPanvideoDatasources({
+class OnSetPanvideoDatasources extends BaseEvent {
+  OnSetPanvideoDatasources({
     required this.datasources,
   });
   final List<VideoDatasource> datasources;

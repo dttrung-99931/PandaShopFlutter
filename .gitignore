@@ -83,3 +83,7 @@ lib/firebase_options.dart
 
 # Plugins
 plugins/heresdk-explore-flutter/
+
+# ENV
+assets/env/*
+!assets/env/.env.example

@@ -1,4 +1,6 @@
 import 'package:camerawesome/camerawesome_plugin.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/bloc/create_panvideo/create_panvideo_bloc.dart';
+import 'package:evievm_app/src/features/panvideo/presentation/screens/edit_panvideo_screen.dart';
 import 'package:evievm_app/src/features/panvideo/presentation/widgets/create/custom_media_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -45,7 +47,17 @@ class VideoOverlay extends StatelessWidget {
                     builder: (_, snapshot) {
                       return CustomMediaPreview(
                         mediaCapture: snapshot.data,
-                        onMediaTap: (MediaCapture mediaCapture) {},
+                        onMediaTap: (MediaCapture mediaCapture) {
+                          if (mediaCapture.isVideo) {
+                            Navigator.of(context).pushNamed(
+                              EditPanvideoScreen.router,
+                              arguments: EditPanvideoScreenArgs(
+                                mediaCapture.captureRequest.path!,
+                                music: createPanVideoBloc.selectedMusic,
+                              ),
+                            );
+                          }
+                        },
                       );
                     },
                   ),

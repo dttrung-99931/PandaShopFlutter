@@ -60,7 +60,7 @@ class _CreatePanvideoButtonState extends State<CreatePanvideoButton> with Single
             children: [
               FloatingActionButton(
                 backgroundColor: Colors.black,
-                onPressed: _createPanvideo,
+                onPressed: _animationController.isAnimating ? null : _createPanvideo,
                 shape: const CircleBorder(),
                 child: AnimatedBuilder(
                   animation: _animationController,

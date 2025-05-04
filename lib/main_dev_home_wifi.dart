@@ -9,16 +9,5 @@ void main() async {
 
 Future<void> configDevHome() async {
   WidgetsFlutterBinding.ensureInitialized();
-  AppConfig.set(
-    appName: 'Panda Shop Dev',
-    flavorName: AppFlavor.DEV,
-    apiUrl: 'https://192.168.1.31:5001',
-    resourceIcon: 'https://evi-gonosen.s3.ap-northeast-1.amazonaws.com',
-    logResponse: true,
-    logRequest: true,
-    logBloc: true,
-    sinalRUrl: 'https://192.168.1.31:5001/SignalR',
-    hereMapAPIKey: 'yourMapAPIKey',
-    hereMapAPIKeyId: 'yourMapAPIKeyId',
-  );
+  await AppConfig.loadConfig(AppFlavor.devHomeWifi);
 }

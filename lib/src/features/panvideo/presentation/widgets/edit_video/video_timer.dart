@@ -17,7 +17,12 @@ class VideoTimer extends StatelessWidget {
   final BetterPlayerController controller;
 
   String _getFormattedDuration() {
-    return '${FormatUtils.formatDuration(100)} / ${FormatUtils.formatDuration(1000)}';
+    if (controller.videoPlayerController == null) {
+      return '';
+    }
+    final controllerValue = controller.videoPlayerController!.value;
+
+    return '${FormatUtils.formatDuration(controllerValue.position.inSeconds ?? 0)} / ${FormatUtils.formatDuration(controllerValue.duration?.inSeconds ?? 0)}';
   }
 
   @override

@@ -10,11 +10,11 @@ class PanvideoAction extends StatelessWidget {
   const PanvideoAction({
     super.key,
     required this.icon,
-    required this.count,
+    this.count,
   });
 
   final IconData icon;
-  final int count;
+  final int? count;
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +24,13 @@ class PanvideoAction extends StatelessWidget {
         Icon(
           icon,
           color: AppColors.white,
-          size: 40.r,
+          size: 38.r,
         ),
-        Text(
-          '$count',
-          style: textTheme.bodyLarge.withColor(AppColors.white),
-        ),
+        if (count != null)
+          Text(
+            '$count',
+            style: textTheme.bodyMedium.withColor(AppColors.white),
+          ),
       ],
     );
   }

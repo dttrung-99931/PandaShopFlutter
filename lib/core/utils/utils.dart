@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:evievm_app/global.dart';
-import 'package:evievm_app/src/config/app_config.dart';
 import 'package:evievm_app/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:evievm_app/src/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter/material.dart';
@@ -65,17 +64,5 @@ bool isSubtype<S, T>() => <S>[] is List<T>;
 class Utils {
   static int getTotalPages(int total, int pageSize) {
     return total ~/ pageSize + (total % pageSize == 0 ? 0 : 1);
-  }
-
-  static String? getIconUrl(String? icon) {
-    if (icon == null) return null;
-    String domain = AppConfig.config.resourceIcon;
-    if (domain.endsWith('/')) {
-      domain = domain.substring(0, domain.length - 1);
-    }
-    if (icon.startsWith('/')) {
-      icon = icon.substring(1);
-    }
-    return '$domain/$icon';
   }
 }

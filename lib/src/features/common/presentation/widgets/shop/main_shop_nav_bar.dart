@@ -64,7 +64,6 @@ class MainShopBottomNavBar extends StatelessWidget {
                             icon: CardIcon.zeroPadding(
                               Icons.shop_outlined,
                               backgroundColor: iconBackgroundColor,
-                              color: iconColor,
                             ),
                             label: "Cửa hàng",
                           ),

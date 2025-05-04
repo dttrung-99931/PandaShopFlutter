@@ -12,6 +12,7 @@ class Constants {
   static const int idLoading = -2;
   static const String codeEmpty = 'empty';
   static final Duration defaultAPICacheTime = 5.minutes;
+  static const double defaultVolumne = 0.5;
 }
 
 const emptyWidget = SizedBox.shrink();

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:preload_page_view/preload_page_view.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
+import '../../bloc/panvideos/panvideo_manager_bloc.dart/panvideo_manager.dart';
 import '../../bloc/panvideos/panvideo_manager_bloc.dart/panvideo_manager_bloc.dart';
 
 class PanvideoList extends StatefulWidget {

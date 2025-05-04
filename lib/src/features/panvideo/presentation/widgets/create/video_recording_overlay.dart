@@ -31,10 +31,10 @@ class VideoRecordingOverlay extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox.square(
-                  dimension: 80.r,
-                  child: AwesomeCaptureButton(state: state),
-                ),
+                // SizedBox.square(
+                //   dimension: 80.r,
+                //   child: AwesomeCaptureButton(state: state),
+                // ),
                 SizedBox.square(
                   dimension: 64.r,
                   child: AwesomeCameraSwitchButton(

@@ -91,14 +91,17 @@ class PanvideoPage extends StatelessWidget {
                 count: 4,
                 icon: Icons.shopping_cart_checkout_outlined,
               ),
-              SizedBox(height: 0.17.sh),
+              const PanvideoAction(
+                icon: Icons.more_vert_outlined,
+              ),
+              SizedBox(height: 0.08.sh),
             ],
           ),
         ),
 
         // Second column: Title and description
         Positioned(
-          bottom: 32.r,
+          bottom: 20.r,
           left: 16.r,
           right: 16.r,
           child: Column(
@@ -107,13 +110,13 @@ class PanvideoPage extends StatelessWidget {
             children: [
               Text(
                 panvideo.title,
-                style: textTheme.titleMediumSm.withColor(AppColors.white).withHeight(1.4).bold(),
+                style: textTheme.titleSmall.withColor(AppColors.white).withHeight(1.4).bold(),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
                 panvideo.description,
-                style: textTheme.bodyLarge.withColor(AppColors.whiteLight),
+                style: textTheme.bodyMedium.withColor(AppColors.whiteLight),
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
               ),
