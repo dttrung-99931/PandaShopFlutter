@@ -3,23 +3,11 @@ import 'package:evievm_app/app.dart';
 import 'package:flutter/widgets.dart';
 
 void main() async {
-  configProduction();
+  await configProduction();
   await appMain();
 }
 
-void configProduction() {
+Future<void> configProduction() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // TODO: config PandaMap
-  AppConfig.set(
-    appName: 'Panda Shop',
-    flavorName: AppFlavor.PRODUCTION,
-    apiUrl: '',
-    resourceIcon: '',
-    logResponse: false,
-    logRequest: false,
-    logBloc: false,
-    sinalRUrl: '',
-    hereMapAPIKey: '',
-    hereMapAPIKeyId: '',
-  );
+  await AppConfig.loadConfig(AppFlavor.production);
 }

@@ -1,22 +1,13 @@
 import 'package:evievm_app/src/config/app_config.dart';
 import 'package:evievm_app/app.dart';
+import 'package:flutter/widgets.dart';
 
 void main() async {
-  configStaging();
+  await configStaging();
   await appMain();
 }
 
-void configStaging() {
-  AppConfig.set(
-    appName: 'Panda Shop Staging',
-    flavorName: AppFlavor.STAGING,
-    apiUrl: '',
-    resourceIcon: '',
-    logResponse: false,
-    logRequest: false,
-    logBloc: false,
-    sinalRUrl: '',
-    hereMapAPIKey: '',
-    hereMapAPIKeyId: '',
-  );
+Future<void> configStaging() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await AppConfig.loadConfig(AppFlavor.staging);
 }
