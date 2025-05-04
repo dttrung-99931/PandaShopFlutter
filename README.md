@@ -76,6 +76,13 @@ The app uses BLoC (Business Logic Component) pattern for state management with t
 
 ## Getting Started
 
+
+## APIs
+You need to run the APIs on [PandaShop API repo](https://github.com/dttrung-99931/PandaShopBackEnd) using ASP.NET core
+
+
+## Clone & setup source
+
 1. Clone the repository:
 ```bash
 git clone https://github.com/dttrung-99931/PandaShopFlutter.git
