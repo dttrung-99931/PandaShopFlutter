@@ -52,6 +52,7 @@ android {
 
     defaultConfig {
         applicationId "pantech.panshop_app"
+        testApplicationId "pantech.panshop_app.test"
         minSdkVersion 24 // HERE MAP SDK REQUIRED
         targetSdkVersion 35
         compileSdkVersion 35
