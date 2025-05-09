@@ -411,8 +411,8 @@ packages:
     dependency: "direct main"
     description:
       path: "flutter/flutter"
-      ref: "upgrade/flutter-3.29.0"
-      resolved-ref: a50d0f9e4b171ae77eb799d8ccb90b3d89c35c9c
+      ref: "flutter_fix_retired_v6.0.3"
+      resolved-ref: ff41066ee575d6eb9749ff943a03d845e51ca39a
       url: "https://github.com/dttrung-99931/ffmpeg-kit"
     source: git
     version: "6.0.3"

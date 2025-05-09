@@ -16,7 +16,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Future<void> appMain() async {
+Future<void> setupAndRunApp() async {
+  await setupApp();
+  runApp(const PandaShopApp());
+}
+
+Future<void> setupApp() async {
   final bining = WidgetsFlutterBinding.ensureInitialized();
   // Keep splash showing, splash will be removed in SplashScreen
   FlutterNativeSplash.preserve(widgetsBinding: bining);
@@ -29,42 +34,37 @@ Future<void> appMain() async {
   if (AppConfig.config.logBloc) {
     Bloc.observer = AppBlocObserver();
   }
-  runApp(EasyLocalization(
-    supportedLocales: AppTranslation.supportedLocales,
-    path: AppTranslation.path,
-    fallbackLocale: AppTranslation.ja,
-    startLocale: AppTranslation.ja,
-    child: const PandaShopApp(),
-  ));
 }
 
 class PandaShopApp extends StatelessWidget {
   const PandaShopApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext _) {
     return GestureDetector(
       onTap: removeCurrentFocus,
-      child: ScreenUtilInit(
-        designSize: const Size(540, 960),
-        minTextAdapt: true,
-        splitScreenMode: true,
-        builder: (_, child) {
-          return AppThemeWidget(
-            builder: (themeContext) => MaterialApp(
-              localizationsDelegates: context.localizationDelegates,
-              supportedLocales: context.supportedLocales,
-              locale: context.locale,
-              navigatorKey: Global.globalKey,
-              debugShowCheckedModeBanner: false,
-              title: AppConfig.config.appName,
-              onGenerateRoute: AppRouter.onGenerateRoute,
-              theme: AppTheme.themeOf(themeContext),
-              initialRoute: AppRouter.initialRouter,
-              navigatorObservers: [AppNavObserver()],
-            ),
-          );
-        },
+      child: _EasyLocalizationApp(
+        child: ScreenUtilInit(
+          designSize: const Size(540, 960),
+          minTextAdapt: true,
+          splitScreenMode: true,
+          builder: (context, child) {
+            return AppThemeWidget(
+              builder: (themeContext) => MaterialApp(
+                localizationsDelegates: context.localizationDelegates,
+                supportedLocales: context.supportedLocales,
+                locale: context.locale,
+                navigatorKey: Global.globalKey,
+                debugShowCheckedModeBanner: false,
+                title: AppConfig.config.appName,
+                onGenerateRoute: AppRouter.onGenerateRoute,
+                theme: AppTheme.themeOf(themeContext),
+                initialRoute: AppRouter.initialRouter,
+                navigatorObservers: [AppNavObserver()],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -76,5 +76,20 @@ class PandaHttpOverrides extends HttpOverrides {
   HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
       ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+  }
+}
+
+class _EasyLocalizationApp extends StatelessWidget {
+  const _EasyLocalizationApp({required this.child});
+  final Widget child;
+  @override
+  Widget build(BuildContext context) {
+    return EasyLocalization(
+      supportedLocales: AppTranslation.supportedLocales,
+      path: AppTranslation.path,
+      fallbackLocale: AppTranslation.ja,
+      startLocale: AppTranslation.ja,
+      child: child,
+    );
   }
 }

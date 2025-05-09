@@ -81,7 +81,7 @@ dependencies:
     git:
       url: https://github.com/dttrung-99931/ffmpeg-kit
       path: flutter/flutter
-      ref: upgrade/flutter-3.29.0 
+      ref: flutter_fix_retired_v6.0.3  # For version 6.0.3  
   
   # Used to download panmusic & caching downloaded panmusic
   flutter_cache_manager: ^3.4.1
@@ -90,7 +90,7 @@ dependencies:
 
 dependency_overrides:
   here_sdk:
-    path: plugins/heresdk-explore-flutter # 4.22.2
+    path: plugins/heresdk-explore-flutter # 4.21.2
 
 dev_dependencies:
   flutter_test:

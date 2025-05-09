@@ -1,0 +1,2 @@
+/Users/msv/projects/flutter/PandaShopFlutter/android/app/.cxx/Debug/393v3f18/x86_64/CMakeFiles/edit_cache.dir
+/Users/msv/projects/flutter/PandaShopFlutter/android/app/.cxx/Debug/393v3f18/x86_64/CMakeFiles/rebuild_cache.dir
