@@ -1,14 +1,11 @@
 # PandaShop - E-Commerce App
 
 A Flutter e-commerce application with short video features.
-
-## Features
-
-### Screenshots
 | ![Home Screen](screenshots/user-home.jpg) | ![Product detail](screenshots/product-detail.jpg) | ![Shopping Cart](screenshots/shopping-cart.jpg) | ![Place orders](screenshots/place-orders.jpg) |
 |-------------------------------------------|--------------------------------------------------|-----------------------------------------------|----------------------------------------------------|
 | ![Create Panvideo](screenshots/create-panvideo.jpg) | ![Panvideo (short video)](screenshots/panvideo.jpg) | ![Shop home](screenshots/shop-home.jpg) | ![Create product](screenshots/create-product.jpg) |
 
+## Features
 
 ### User features
 - User authentication
