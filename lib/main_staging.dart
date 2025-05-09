@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 
 void main() async {
   await configStaging();
-  await appMain();
+  await setupAndRunApp();
 }
 
 Future<void> configStaging() async {
