@@ -12,3 +12,6 @@ key.properties
 
 # Firebase service file
 app/google-services.json
+
+# Ignore generated folder by flutter since 3.29.0
+/app/.cxx
